@@ -53,7 +53,9 @@ Pour un autre dossier : `npm run photos -- "D:\chemin\vers\les\photos"`.
 Le script remplace tout le contenu de `public/images/`. Les photos sont redressées,
 limitées à 2000 px et converties en WebP. L'ordre de passage est alphabétique
 (`Transition`, `Transition 2`, …) sauf pour Panoplie, dont l'ordre est fixé
-dans `ORDER` en tête du script, avec les légendes dans `CAPTIONS`.
+dans `ORDER` en tête du script, avec les légendes (et crédits) dans `CAPTIONS`.
+Les captures d'écran de recherche d'images sont recadrées automatiquement pour retirer
+l'icône Lens et les dimensions affichées dans les coins (`DEFAULT_CROP` / `CROP`).
 
 Tant qu'un panneau n'a pas de photo, il garde un fond sobre à sa couleur ;
 FinValStudio affiche un graphique de valorisation dessiné en code.

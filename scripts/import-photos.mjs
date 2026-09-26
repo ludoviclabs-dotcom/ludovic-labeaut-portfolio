@@ -47,12 +47,22 @@ const ORDER = {
   panoplie: ["rafale-1", "euro-hawk-rq-4", "patriot", "rafale-2"],
 };
 
-// Légende affichée en bas du panneau pendant que la photo est à l'écran.
+// Légende affichée en bas du panneau pendant que la photo est à l'écran (crédit compris).
 const CAPTIONS = {
   "euro-hawk-rq-4": "Euro Hawk RQ-4",
   patriot: "Système Patriot",
-  "rafale-1": "Rafale",
+  "rafale-1": "Rafale · © Dassault Aviation – A. Paringaux",
   "rafale-2": "Rafale",
+};
+
+// Recadrage en fraction de l'image. Les captures d'écran de recherche d'images portent
+// des éléments d'interface (icône Lens en bas à gauche, dimensions en bas à droite, coins
+// arrondis) : on retire une bande sur chaque bord. Les fichiers d'origine n'en ont pas besoin.
+const DEFAULT_CROP = { top: 0.02, right: 0.03, bottom: 0.12, left: 0.03 };
+const CROP = {
+  "euro-hawk-rq-4": null,
+  "rafale-2": null,
+  "rafale-1": { top: 0, right: 0, bottom: 0.07, left: 0 },
 };
 
 const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif", ".tif", ".tiff", ".heic"]);
@@ -115,8 +125,20 @@ async function main() {
 
     for (const { file, slug } of entries) {
       const out = path.join(OUT_IMAGES, id, `${slug}.webp`);
-      const info = await sharp(path.join(SOURCE, file))
-        .rotate()
+      const input = sharp(path.join(SOURCE, file)).rotate();
+      const crop = slug in CROP ? CROP[slug] : DEFAULT_CROP;
+      if (crop) {
+        const { width, height } = await sharp(path.join(SOURCE, file)).rotate().toBuffer({ resolveWithObject: true }).then((r) => r.info);
+        const left = Math.round(width * crop.left);
+        const top = Math.round(height * crop.top);
+        input.extract({
+          left,
+          top,
+          width: width - left - Math.round(width * crop.right),
+          height: height - top - Math.round(height * crop.bottom),
+        });
+      }
+      const info = await input
         .resize({ width: MAX_SIZE, height: MAX_SIZE, fit: "inside", withoutEnlargement: true })
         .webp({ quality: QUALITY, effort: 5 })
         .toFile(out);
