@@ -113,6 +113,24 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.topbar__link {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.topbar__link:hover,
+.topbar__link:focus-visible { color: var(--ink); }
+
+.topbar__link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
 .motion-toggle {
   display: inline-flex;
   align-items: center;
