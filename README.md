@@ -12,7 +12,7 @@ et un bouton **Voir le projet** qui ouvre la version en ligne dans un nouvel ong
 | PROBANT — Audit & conformité comptable | Analyse du FEC / Détection d'anomalies / Dossier de preuve | https://probant.vercel.app |
 | PANOPLIE — Intelligence défense | Coûts & financement / Supply chain / Géopolitique & export | https://drones-mu.vercel.app |
 | FINVALSTUDIO — Modélisation & valorisation | DCF & LBO / Comparables / Monte Carlo | https://fin-val-studio.vercel.app |
-| PUBLICATIONS — Recherche & articles | Analyses / Articles / Veille sectorielle | *à renseigner* |
+| PUBLICATIONS — Recherche & articles | Géopolitique / Géoéconomie / Defense-Tech | `/publications` (sur ce site) |
 
 ## Structure
 
@@ -23,7 +23,12 @@ public/                    site statique servi par Vercel
   assets/js/main.js        diaporamas, alignement du texte sur la diagonale, pause
   assets/js/photos.js      liste des photos par panneau (générée par le script)
   images/<thème>/*.webp    photos optimisées (générées par le script)
-scripts/import-photos.mjs  import des photos depuis Dropbox
+  credits.html             crédits photo (généré par le script)
+  publications/            page /publications et notes « Lignes de force » (générées)
+  assets/css/publications.css  style de la page /publications
+scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
+scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
+scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
 ```
 
 ## Photos libres de droits
@@ -59,21 +64,33 @@ Pour un autre dossier : `npm run photos -- "D:\chemin\vers\les\photos"`.
 
 Le script remplace tout le contenu de `public/images/`. Les photos sont redressées,
 limitées à 2400×1600 px et converties en WebP ; toute photo de moins de 1000 px de haut
-est écartée, car elle paraîtrait floue en plein écran. L'ordre de passage est alphabétique
-(`Transition`, `Transition 2`, …) sauf pour Panoplie, dont l'ordre est fixé
-dans `ORDER` en tête du script, avec les légendes (et crédits) dans `CAPTIONS`.
-Les captures d'écran de recherche d'images sont recadrées automatiquement pour retirer
-l'icône Lens et les dimensions affichées dans les coins (`DEFAULT_CROP` / `CROP`).
+est écartée, car elle paraîtrait floue en plein écran. Les photos libres passent d'abord,
+dans l'ordre de `photos-libres.json`, puis les photos Dropbox par ordre alphabétique.
+En tête du script : `DROPBOX_CAPTIONS` (légendes), `DROPBOX_CREDITS` (crédits),
+`DROPBOX_EXCLUDE` (photos à ne pas publier, par ex. droits non vérifiés) et
+`SCREENSHOT_CROP` / `DROPBOX_CROP` (recadrage des captures d'écran de recherche d'images).
 
 Tant qu'un panneau n'a pas de photo, il garde un fond sobre à sa couleur ;
 FinValStudio affiche un graphique de valorisation dessiné en code.
 
+## Publications
+
+Les notes « Lignes de force » viennent du dossier Dropbox `Articles rédigés` :
+
+- `NN_Titre.html` : note HTML autonome, publiée telle quelle ;
+- `Bloc_N_Article_NN_Titre.md` : note Markdown, convertie avec la même mise en page.
+
+```bash
+npm run articles     # lit ~/Dropbox/Articles rédigés, régénère public/publications/
+```
+
+Chaque note est publiée sur `/publications/<numéro-titre>`, avec une barre « ← Publications »
+et un bouton « Enregistrer en PDF » (impression A4). Le bloc (Géopolitique, Géoéconomie,
+Defense-Tech) est lu dans la note ; l'ordre suit le numéro.
+
 ## Modifier un texte ou un lien
 
 Tout se trouve dans `public/index.html`, un bloc `<li class="panel">` par projet.
-Pour activer le lien des publications, remplacer
-`<span class="panel__cta panel__cta--soon">Bientôt en ligne</span>` par un
-`<a class="panel__cta" href="…">` sur le modèle des autres panneaux.
 
 ## Aperçu local et déploiement
 

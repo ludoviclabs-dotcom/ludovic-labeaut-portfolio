@@ -62,6 +62,8 @@ const DROPBOX_CAPTIONS = {
 };
 // Crédit affiché sur la page de crédits pour chaque photo Dropbox publiée.
 const DROPBOX_CREDITS = {};
+// Photos Dropbox à ne pas publier : droits d'auteur inconnus (probable photo de presse Dassault Aviation).
+const DROPBOX_EXCLUDE = new Set(["rafale-2"]);
 const SCREENSHOT_CROP = { top: 0.02, right: 0.03, bottom: 0.12, left: 0.03 };
 const DROPBOX_CROP = {
   "euro-hawk-rq-4": null,
@@ -119,6 +121,10 @@ async function collectDropbox() {
     const theme = THEMES.find((t) => t.match.test(slug));
     if (!theme) {
       skipped.push(`${file} : nom sans préfixe reconnu`);
+      continue;
+    }
+    if (DROPBOX_EXCLUDE.has(slug)) {
+      skipped.push(`${file} : exclue (DROPBOX_EXCLUDE, droits non vérifiés)`);
       continue;
     }
     byTheme[theme.id].push({

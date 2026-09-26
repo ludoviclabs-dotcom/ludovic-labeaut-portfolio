@@ -85,12 +85,6 @@ window.PORTFOLIO_PHOTOS = {
       "width": 2400,
       "height": 1505,
       "caption": "CAESAR"
-    },
-    {
-      "src": "images/panoplie/rafale-2.webp",
-      "width": 1600,
-      "height": 1066,
-      "caption": "Rafale"
     }
   ],
   "finvalstudio": [
