@@ -21,7 +21,8 @@
       "page": "https://unsplash.com/photos/solar-panels-on-green-field-UVGE-o757-g",
       "source": "Unsplash",
       "licence": "Licence Unsplash",
-      "licenceUrl": "https://unsplash.com/license"
+      "licenceUrl": "https://unsplash.com/license",
+      "quality": 60
     },
     {
       "slug": "eoliennes-coucher-soleil",
@@ -93,7 +94,64 @@
       "licenceUrl": "https://unsplash.com/license"
     }
   ],
-  "panoplie": [],
+  "panoplie": [
+    {
+      "slug": "rafale-face",
+      "title": "Rafale de l'Armée de l'air et de l'espace en ravitaillement au-dessus de l'Irak",
+      "caption": "Rafale",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/photos/1601/2350949.jpg",
+      "credit": "U.S. Air Force photo by Tech. Sgt. Nathan Lipscomb",
+      "page": "https://www.dvidshub.net/image/2350949/f-2-rafales-refuel-over-iraq",
+      "source": "DVIDS",
+      "licence": "Domaine public (DVIDS)",
+      "licenceUrl": "https://www.dvidshub.net/about/copyright"
+    },
+    {
+      "slug": "rq-4-global-hawk",
+      "title": "RQ-4B Global Hawk à RAF Fairford au crépuscule",
+      "caption": "RQ-4 Global Hawk",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/photos/2409/8651369.jpg",
+      "credit": "U.S. Air Force photo by Tech. Sgt. Jessica Avallone",
+      "page": "https://www.dvidshub.net/image/8651369/501st-csw-supports-first-rq-4b-deployment-england",
+      "source": "DVIDS",
+      "licence": "Domaine public (DVIDS)",
+      "licenceUrl": "https://www.dvidshub.net/about/copyright"
+    },
+    {
+      "slug": "patriot-tir",
+      "title": "Tir de missile Patriot",
+      "caption": "Système Patriot",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/photos/2211/7497893.jpg",
+      "credit": "U.S. Army Photo by Staff Sgt. Ian Vega-Cerezo",
+      "page": "https://www.dvidshub.net/image/7497893/32d-aamdc-soldiers-conduct-patriot-live-fire",
+      "source": "DVIDS",
+      "licence": "Domaine public (DVIDS)",
+      "licenceUrl": "https://www.dvidshub.net/about/copyright",
+      "focus": "55% 50%"
+    },
+    {
+      "slug": "rafale-pacifique",
+      "title": "Rafale au-dessus du Pacifique avec un F-22",
+      "caption": "Rafale",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/photos/2107/6723755.jpg",
+      "credit": "U.S. Air National Guard photo by Staff Sgt. Orlando Corpuz",
+      "page": "https://www.dvidshub.net/image/6723755/hawaiian-raptors-train-with-french-air-force",
+      "source": "DVIDS",
+      "licence": "Domaine public (DVIDS)",
+      "licenceUrl": "https://www.dvidshub.net/about/copyright"
+    },
+    {
+      "slug": "caesar-tir-nuit",
+      "title": "Tir de nuit d'un canon CAESAR français, exercice Dynamic Front 23",
+      "caption": "CAESAR",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/photos/2304/7717692.jpg",
+      "credit": "U.S. Army National Guard photo by Sgt. 1st Class Theresa Gualdarama",
+      "page": "https://www.dvidshub.net/image/7717692/french-soldiers-conduct-howitzer-live-fire-during-dynamic-front-23",
+      "source": "DVIDS",
+      "licence": "Domaine public (DVIDS)",
+      "licenceUrl": "https://www.dvidshub.net/about/copyright"
+    }
+  ],
   "finvalstudio": [
     {
       "slug": "la-defense-grande-arche",
@@ -172,43 +230,6 @@
       "url": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?fm=jpg&q=85&w=3840&fit=max",
       "credit": "Janko Ferlič / Unsplash",
       "page": "https://unsplash.com/photos/photo-of-library-with-turned-on-lights-sfL_QOnmy00",
-      "source": "Unsplash",
-      "licence": "Licence Unsplash",
-      "licenceUrl": "https://unsplash.com/license"
-    }
-  ],
-  "_reserve_panoplie_unsplash": [
-    {
-      "slug": "rafale-roulage",
-      "title": "Rafale au roulage",
-      "caption": "Rafale",
-      "url": "https://images.unsplash.com/photo-1617361229436-9f156c1a3df7?fm=jpg&q=85&w=3840&fit=max",
-      "credit": "Vincent Genevay / Unsplash",
-      "page": "https://unsplash.com/photos/black-jet-plane-on-brown-field-under-white-clouds-during-daytime-txWO4iK5UD0",
-      "source": "Unsplash",
-      "licence": "Licence Unsplash",
-      "licenceUrl": "https://unsplash.com/license",
-      "focus": "32% 50%"
-    },
-    {
-      "slug": "rafale-decollage",
-      "title": "Rafale au décollage",
-      "caption": "Rafale",
-      "url": "https://images.unsplash.com/photo-1763992525659-8589f8853e8f?fm=jpg&q=85&w=3840&fit=max",
-      "credit": "Valentin Karisch / Unsplash",
-      "page": "https://unsplash.com/photos/fighter-jet-taking-off-from-airport-runway-BbGitgkYTKA",
-      "source": "Unsplash",
-      "licence": "Licence Unsplash",
-      "licenceUrl": "https://unsplash.com/license",
-      "focus": "22% 50%"
-    },
-    {
-      "slug": "patriot-lanceur",
-      "title": "Lanceur Patriot",
-      "caption": "Système Patriot",
-      "url": "https://images.unsplash.com/photo-1756929702844-6bd4cd45f9cf?fm=jpg&q=85&w=3840&fit=max",
-      "credit": "Gabriel Vasiliu / Unsplash",
-      "page": "https://unsplash.com/photos/a-military-missile-launcher-against-a-blue-sky-MI42V40zoLo",
       "source": "Unsplash",
       "licence": "Licence Unsplash",
       "licenceUrl": "https://unsplash.com/license"

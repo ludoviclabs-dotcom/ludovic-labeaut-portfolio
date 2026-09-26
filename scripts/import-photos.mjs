@@ -143,7 +143,7 @@ async function render(entry, themeId) {
   const out = path.join(OUT_IMAGES, themeId, `${entry.slug}.webp`);
   const info = await image
     .resize({ width: MAX_WIDTH, height: MAX_HEIGHT, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: QUALITY, effort: 5 })
+    .webp({ quality: entry.quality ?? QUALITY, effort: 5 })
     .toFile(out);
   return { info };
 }
