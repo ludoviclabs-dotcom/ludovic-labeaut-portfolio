@@ -16,7 +16,8 @@
  * Le script régénère ensuite public/assets/js/photos.js (lu par le diaporama) et
  * public/credits.html (auteurs et licences).
  */
-import { readdir, readFile, mkdir, writeFile, rm, stat } from "node:fs/promises";
+import { readdir, readFile, mkdir, writeFile, rm, rename, stat } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -29,6 +30,8 @@ const OUT_MANIFEST = path.join(ROOT, "public", "assets", "js", "photos.js");
 const OUT_CREDITS = path.join(ROOT, "public", "credits.html");
 const FREE_LIST = path.join(ROOT, "scripts", "photos-libres.json");
 const CACHE = path.join(ROOT, ".cache", "photos");
+// Les images sont d'abord générées ici, puis remplacent public/images/ seulement si tout a réussi.
+const STAGING = path.join(ROOT, ".cache", "images-en-cours");
 
 const DEFAULT_SOURCE = path.join(
   os.homedir(),
@@ -57,6 +60,8 @@ const DROPBOX_CAPTIONS = {
   "rafale-1": "Rafale · © Dassault Aviation – A. Paringaux",
   "rafale-2": "Rafale",
 };
+// Crédit affiché sur la page de crédits pour chaque photo Dropbox publiée.
+const DROPBOX_CREDITS = {};
 const SCREENSHOT_CROP = { top: 0.02, right: 0.03, bottom: 0.12, left: 0.03 };
 const DROPBOX_CROP = {
   "euro-hawk-rq-4": null,
@@ -88,9 +93,11 @@ async function readFreeList() {
   return JSON.parse(await readFile(FREE_LIST, "utf8"));
 }
 
-async function download(entry) {
+async function download(entry, themeId) {
   const ext = path.extname(new URL(entry.url).pathname) || ".jpg";
-  const file = path.join(CACHE, `${entry.slug}${ext.length <= 5 ? ext : ".jpg"}`);
+  // Le nom du cache dépend de l'adresse : remplacer l'URL d'une photo force un nouveau téléchargement.
+  const digest = createHash("sha1").update(entry.url).digest("hex").slice(0, 10);
+  const file = path.join(CACHE, `${themeId}-${entry.slug}-${digest}${ext.length <= 5 ? ext : ".jpg"}`);
   if (existsSync(file)) return file;
   await mkdir(CACHE, { recursive: true });
   const res = await fetch(entry.url, { headers: { "User-Agent": "ludovic-labeaut-portfolio/1.0 (npm run photos)" } });
@@ -119,6 +126,8 @@ async function collectDropbox() {
       input: path.join(SOURCE, file),
       label: file,
       caption: DROPBOX_CAPTIONS[slug] ?? null,
+      credit: DROPBOX_CREDITS[slug] ?? "Crédit à préciser",
+      licence: "Photo fournie (Dropbox)",
       crop: slug in DROPBOX_CROP ? DROPBOX_CROP[slug] : SCREENSHOT_CROP,
     });
   }
@@ -140,7 +149,7 @@ async function render(entry, themeId) {
   }
   if (h < MIN_HEIGHT) return { rejected: `${entry.label} : ${w}×${h} px, trop petite (hauteur minimale ${MIN_HEIGHT} px)` };
 
-  const out = path.join(OUT_IMAGES, themeId, `${entry.slug}.webp`);
+  const out = path.join(STAGING, themeId, `${entry.slug}.webp`);
   const info = await image
     .resize({ width: MAX_WIDTH, height: MAX_HEIGHT, fit: "inside", withoutEnlargement: true })
     .webp({ quality: entry.quality ?? QUALITY, effort: 5 })
@@ -199,7 +208,7 @@ async function main() {
   const dropbox = await collectDropbox();
   const rejected = [...dropbox.skipped];
 
-  await rm(OUT_IMAGES, { recursive: true, force: true });
+  await rm(STAGING, { recursive: true, force: true });
 
   const manifest = {};
   const credits = [];
@@ -207,15 +216,17 @@ async function main() {
 
   for (const theme of THEMES) {
     manifest[theme.id] = [];
-    await mkdir(path.join(OUT_IMAGES, theme.id), { recursive: true });
+    await mkdir(path.join(STAGING, theme.id), { recursive: true });
     const seen = new Set();
 
     const entries = [];
     for (const f of free[theme.id] ?? []) {
       try {
-        entries.push({ ...f, input: await download(f), label: `${f.slug} (${f.source})`, crop: f.crop ?? null });
+        entries.push({ ...f, input: await download(f, theme.id), label: `${f.slug} (${f.source})`, crop: f.crop ?? null });
       } catch (err) {
-        rejected.push(`${f.slug} : téléchargement impossible (${err.message})`);
+        // Sans cette photo le site serait incomplet : on s'arrête sans rien modifier.
+        await rm(STAGING, { recursive: true, force: true });
+        throw new Error(`Téléchargement impossible pour « ${f.slug} » (${err.message}). Aucun fichier du site n'a été modifié.`);
       }
     }
     entries.push(...dropbox.byTheme[theme.id].map((e) => ({ ...e, source: "Dropbox" })));
@@ -253,6 +264,9 @@ async function main() {
       console.log(`  ${theme.id.padEnd(13)} ${entry.label}  →  ${entry.slug}.webp  (${info.width}×${info.height}, ${Math.round(info.size / 1024)} Ko)`);
     }
   }
+
+  await rm(OUT_IMAGES, { recursive: true, force: true });
+  await rename(STAGING, OUT_IMAGES);
 
   const js =
     "// Fichier généré par scripts/import-photos.mjs (npm run photos) : ne pas modifier à la main.\n" +
