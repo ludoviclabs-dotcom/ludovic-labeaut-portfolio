@@ -2,13 +2,15 @@
   "name": "ludovic-labeaut-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Page d'accueil du portfolio de Ludovic Labeaut : cinq projets en panneaux diagonaux avec diaporamas photo.",
+  "description": "Portfolio de Ludovic Labeaut : cinq projets en panneaux diagonaux avec diaporamas photo, et les notes d'analyse « Lignes de force ».",
   "type": "module",
   "scripts": {
     "photos": "node scripts/import-photos.mjs",
+    "articles": "node scripts/import-articles.mjs",
     "dev": "npx --yes serve@14 public -l 3000"
   },
   "devDependencies": {
+    "marked": "^18.0.14",
     "sharp": "^0.35.4"
   }
 }
