@@ -26,6 +26,13 @@ public/                    site statique servi par Vercel
 scripts/import-photos.mjs  import des photos depuis Dropbox
 ```
 
+## Photos libres de droits
+
+`scripts/photos-libres.json` liste les photos haute définition utilisées (Unsplash, licence
+Unsplash ; DVIDS, domaine public), avec auteur, licence, page source et cadrage (`focus`).
+`npm run photos` les télécharge (cache dans `.cache/photos/`) puis les convertit.
+Les crédits sont publiés sur la page `credits` du site, générée par le script.
+
 ## Ajouter ou remplacer des photos
 
 Les photos viennent du dossier Dropbox `recherche emplois/photos illustration portfolio`.
@@ -51,7 +58,8 @@ Par défaut le script lit `C:\Users\<vous>\Dropbox\recherche emplois\photos illu
 Pour un autre dossier : `npm run photos -- "D:\chemin\vers\les\photos"`.
 
 Le script remplace tout le contenu de `public/images/`. Les photos sont redressées,
-limitées à 2000 px et converties en WebP. L'ordre de passage est alphabétique
+limitées à 2400×1600 px et converties en WebP ; toute photo de moins de 1000 px de haut
+est écartée, car elle paraîtrait floue en plein écran. L'ordre de passage est alphabétique
 (`Transition`, `Transition 2`, …) sauf pour Panoplie, dont l'ordre est fixé
 dans `ORDER` en tête du script, avec les légendes (et crédits) dans `CAPTIONS`.
 Les captures d'écran de recherche d'images sont recadrées automatiquement pour retirer

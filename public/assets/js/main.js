@@ -64,6 +64,7 @@
         img.width = slide.photo.width;
         img.height = slide.photo.height;
       }
+      if (slide.photo.focus) img.style.objectPosition = slide.photo.focus;
       img.src = slide.photo.src;
       slide.img = img;
       slide.promise = img
