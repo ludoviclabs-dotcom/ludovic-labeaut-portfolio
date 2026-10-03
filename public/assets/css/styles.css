@@ -414,8 +414,11 @@ body {
   margin: 0;
   font-family: var(--serif);
   font-weight: 600;
-  /* Le nom le plus long (« FinValStudio ») mesure ~7,5 em : la taille suit la largeur du panneau. */
-  font-size: min(3.1rem, calc(13.2cqi + 3px));
+  /*
+   * Le nom le plus long (« FinValStudio ») mesure ~7,45 em : à 12,8 % de la largeur
+   * du contenu, il tient (≈ 95 %) même quand un panneau voisin s'élargit au survol.
+   */
+  font-size: min(3.1rem, 12.8cqi);
   line-height: 1;
   letter-spacing: 0.03em;
   text-transform: uppercase;
