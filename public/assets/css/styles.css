@@ -243,7 +243,8 @@ body {
 }
 
 .panel[data-project="publications"] {
-  --accent: #e8dfcf;
+  /* Rouge éditorial du titre « Lignes de force », comme la vidéo et la page détail. */
+  --accent: #d97a5e;
   --panel-bg: radial-gradient(120% 70% at 55% 25%, #3a3833 0%, #1d1c19 55%, #0d0c0b 100%);
 }
 
@@ -548,6 +549,34 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   border-color: rgba(244, 241, 234, 0.4);
 }
 
+/* Lien secondaire, discret, sous le bouton (démonstration de Publications). */
+.panel__more {
+  margin-top: 1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.35);
+  color: var(--ink-dim);
+  font-size: clamp(0.58rem, 4.2cqi, 0.66rem);
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease);
+  animation: rise 0.9s var(--ease) calc(2.15s + var(--i) * 0.12s) both;
+}
+
+.panel__more:hover,
+.panel__more:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.panel__more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 /* ---------- Pied de panneau : légende + progression -------------------- */
 
 .panel__foot {
@@ -730,6 +759,7 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   .panel__subtitle,
   .panel__axes li,
   .panel__cta,
+  .panel__more,
   .panel__foot,
   .panel__media { animation-delay: 0.1s; }
 

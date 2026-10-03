@@ -42,6 +42,12 @@ body[data-project="finvalstudio"] {
   --hero-position: center 45%;
 }
 
+body[data-project="publications"] {
+  --accent: #d97a5e; /* rouge éditorial du titre « Lignes de force » */
+  --hero-image: url("/images/publications/rayonnages.webp");
+  --hero-position: center 40%;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
