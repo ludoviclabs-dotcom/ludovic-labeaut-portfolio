@@ -65,7 +65,10 @@
 
       <li class="panel" data-project="probant" style="--i: 1">
         <div class="panel__frame">
-          <div class="panel__media" aria-hidden="true"></div>
+          <div class="panel__media" aria-hidden="true">
+            <!-- Aperçu en boucle : chargé et lu par main.js au survol ou quand le panneau est actif, jamais en « mouvement réduit ». -->
+            <video class="panel__loop" muted loop playsinline preload="none" data-src="/videos/probant-loop.mp4" tabindex="-1"></video>
+          </div>
           <div class="panel__shade" aria-hidden="true"></div>
           <article class="panel__content">
             <span class="panel__index" aria-hidden="true">02</span>
@@ -77,9 +80,9 @@
               <li>Dossier de preuve</li>
             </ul>
             <p class="panel__desc">Orchestrateur de conformité analytique des états financiers français, du fichier des écritures comptables au dossier de preuve opposable.</p>
-            <a class="panel__cta" href="https://probant.vercel.app" target="_blank" rel="noopener">
-              Voir le projet<span class="visually-hidden"> PROBANT (nouvel onglet)</span>
-              <svg class="panel__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>
+            <a class="panel__cta" href="/projets/probant">
+              Voir le projet<span class="visually-hidden"> Probant</span>
+              <svg class="panel__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </a>
           </article>
           <div class="panel__foot" aria-hidden="true">

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Probant — Ludovic Labeaut</title>
+  <meta name="description" content="Probant, orchestrateur de conformité analytique des états financiers français : import du FEC, contrôle des écritures, détection d'anomalies, dossier de preuve et export pour l'audit.">
+  <meta name="theme-color" content="#0b0c0e">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Probant — Ludovic Labeaut">
+  <meta property="og:description" content="Du fichier des écritures comptables au dossier de preuve opposable, en cinq étapes.">
+  <meta property="og:image" content="/videos/probant-poster.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/project.css">
+</head>
+<body class="project" data-project="probant">
+  <header class="pj-top">
+    <a class="pj-back" href="/">← Projets</a>
+    <span class="pj-brand">Ludovic Labeaut</span>
+  </header>
+
+  <main>
+    <section class="pj-hero">
+      <div class="pj-hero__inner">
+        <div class="pj-hero__heading">
+          <p class="pj-hero__eyebrow">02 / 05 · Audit &amp; conformité comptable</p>
+          <h1 class="pj-hero__title">Probant</h1>
+        </div>
+        <div class="pj-hero__summary">
+          <p class="pj-hero__lede">Orchestrateur de conformité analytique des états financiers français, du fichier des écritures comptables au dossier de preuve opposable.</p>
+          <ul class="pj-hero__axes" aria-label="Axes du projet">
+            <li>Analyse du FEC</li>
+            <li>Détection d'anomalies</li>
+            <li>Dossier de preuve</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="pj-demo" aria-labelledby="pj-demo-title">
+      <h2 id="pj-demo-title" class="visually-hidden">Démonstration</h2>
+
+      <div class="pj-player">
+        <!-- La source est posée par project.js : en « mouvement réduit », seul le poster s'affiche
+             tant que la lecture n'est pas demandée. -->
+        <video class="pj-video" muted loop playsinline preload="metadata"
+          poster="/videos/probant-poster.png" data-src="/videos/probant.mp4"
+          aria-label="Démonstration de Probant en cinq chapitres, 20 secondes, sans son"></video>
+        <button class="pj-play" type="button" hidden>
+          <span class="pj-play__icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Lire la démonstration</span>
+        </button>
+        <noscript><a class="pj-play pj-play--link" href="/videos/probant.mp4">Voir la démonstration (MP4)</a></noscript>
+      </div>
+
+      <nav class="pj-chapters" aria-labelledby="pj-chapters-title">
+        <p id="pj-chapters-title" class="pj-chapters__title">Chapitres</p>
+        <ol class="pj-chapters__list">
+          <li>
+            <button class="pj-chapter" type="button" data-start="0">
+              <span class="pj-chapter__num">01</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Importer</span>
+                <span class="pj-chapter__desc">Le FEC en un glisser-déposer</span>
+              </span>
+              <span class="pj-chapter__time">0:00</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="4">
+              <span class="pj-chapter__num">02</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Analyser</span>
+                <span class="pj-chapter__desc">Chaque écriture est contrôlée</span>
+              </span>
+              <span class="pj-chapter__time">0:04</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="8">
+              <span class="pj-chapter__num">03</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Détecter</span>
+                <span class="pj-chapter__desc">Doublons, hors période, séquence rompue</span>
+              </span>
+              <span class="pj-chapter__time">0:08</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="12">
+              <span class="pj-chapter__num">04</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Prouver</span>
+                <span class="pj-chapter__desc">Un dossier opposable, scellé et horodaté</span>
+              </span>
+              <span class="pj-chapter__time">0:12</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="16">
+              <span class="pj-chapter__num">05</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Exporter</span>
+                <span class="pj-chapter__desc">Le rapport prêt pour l'audit</span>
+              </span>
+              <span class="pj-chapter__time">0:16</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="pj-cta-row">
+      <p class="pj-note">Données de démonstration fictives.</p>
+      <a class="pj-cta" href="https://probant.vercel.app" target="_blank" rel="noopener">
+        Ouvrir l'application<span class="visually-hidden"> Probant (nouvel onglet)</span>
+        <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <script src="/assets/js/project.js" defer></script>
+</body>
+</html>
