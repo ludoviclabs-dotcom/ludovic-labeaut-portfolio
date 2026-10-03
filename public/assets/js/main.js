@@ -316,11 +316,77 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => alignFor(100));
   alignFor(INTRO + 400); // couvre l'animation d'entrée (lettrage du titre)
 
+  /* ---------- Aperçus vidéo des panneaux ------------------------------- */
+  // Une boucle courte recouvre la photo quand le panneau est actif : survolé ou
+  // focalisé quand les panneaux sont côte à côte et qu'il y a une souris ;
+  // majoritairement à l'écran sinon (panneaux empilés, écran tactile).
+  // Elle n'est chargée qu'à la première activation, jamais en « mouvement réduit ».
+
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const ACTIVE_RATIO = 0.6; // part visible du panneau pour le dire actif
+
+  const previews = panels
+    .map((panel) => ({ panel, video: panel.querySelector(".panel__loop"), pointed: false, inView: false }))
+    .filter((preview) => preview.video);
+
+  function isPreviewActive(preview) {
+    if (reduceMotion.matches || paused) return false;
+    return canHover.matches && wideLayout.matches ? preview.pointed : preview.inView;
+  }
+
+  function syncPreview(preview) {
+    const active = isPreviewActive(preview);
+    preview.panel.classList.toggle("is-previewing", active);
+    if (!active) {
+      preview.video.pause();
+      return;
+    }
+    if (!preview.video.hasAttribute("src")) preview.video.src = preview.video.dataset.src;
+    preview.video.play().catch(() => {}); // lecture refusée : la photo reste affichée
+  }
+
+  function syncPreviews() {
+    previews.forEach(syncPreview);
+  }
+
+  previews.forEach((preview) => {
+    const { panel, video } = preview;
+    // La vidéo n'apparaît qu'une fois la lecture réellement lancée : pas d'image noire.
+    video.addEventListener("playing", () => video.classList.add("is-ready"));
+    const setPointed = (value) => {
+      preview.pointed = value;
+      syncPreview(preview);
+    };
+    panel.addEventListener("pointerenter", () => setPointed(true));
+    panel.addEventListener("pointerleave", () => setPointed(panel.contains(document.activeElement)));
+    panel.addEventListener("focusin", () => setPointed(true));
+    panel.addEventListener("focusout", (event) => {
+      if (!panel.contains(event.relatedTarget)) setPointed(panel.matches(":hover"));
+    });
+  });
+
+  if ("IntersectionObserver" in window && previews.length > 0) {
+    const previewObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const preview = previews.find((item) => item.panel === entry.target);
+          preview.inView = entry.intersectionRatio >= ACTIVE_RATIO;
+          syncPreview(preview);
+        }
+      },
+      { threshold: [0, ACTIVE_RATIO] },
+    );
+    previews.forEach((preview) => previewObserver.observe(preview.panel));
+  }
+  canHover.addEventListener?.("change", syncPreviews);
+  wideLayout.addEventListener?.("change", syncPreviews);
+
   /* ---------- Pause / lecture ------------------------------------------ */
 
   function setPaused(value) {
     paused = value;
     root.classList.toggle("is-paused", paused);
+    syncPreviews();
     if (!toggle) return;
     toggle.setAttribute("aria-pressed", String(paused));
     toggle.querySelector(".motion-toggle__label").textContent = paused ? "Lecture" : "Pause";
