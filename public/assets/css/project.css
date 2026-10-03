@@ -36,6 +36,12 @@ body[data-project="panoplie"] {
   --hero-position: center 45%;
 }
 
+body[data-project="finvalstudio"] {
+  --accent: #e2c27d; /* or champagne des lumières de La Défense */
+  --hero-image: url("/images/finvalstudio/la-defense-grande-arche.webp");
+  --hero-position: center 45%;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }

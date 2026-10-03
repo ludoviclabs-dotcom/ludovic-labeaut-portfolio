@@ -237,6 +237,7 @@ body {
 }
 
 .panel[data-project="finvalstudio"] {
+  /* Or champagne des lumières de La Défense, comme la vidéo et la page détail. */
   --accent: #e2c27d;
   --panel-bg: radial-gradient(120% 70% at 50% 25%, #23252b 0%, #131417 55%, #09090b 100%);
 }
