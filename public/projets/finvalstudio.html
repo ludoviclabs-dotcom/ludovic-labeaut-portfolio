@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FinValStudio — Ludovic Labeaut</title>
+  <meta name="description" content="FinValStudio, atelier de modélisation financière : hypothèses guidées, DCF, comparables, simulation Monte Carlo et LBO.">
+  <meta name="theme-color" content="#0b0c0e">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="FinValStudio — Ludovic Labeaut">
+  <meta property="og:description" content="Des hypothèses au rendement du LBO, en cinq étapes.">
+  <meta property="og:image" content="/videos/finvalstudio-poster.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/project.css">
+</head>
+<body class="project" data-project="finvalstudio">
+  <header class="pj-top">
+    <a class="pj-back" href="/">← Projets</a>
+    <span class="pj-brand">Ludovic Labeaut</span>
+  </header>
+
+  <main>
+    <section class="pj-hero">
+      <div class="pj-hero__inner">
+        <div class="pj-hero__heading">
+          <p class="pj-hero__eyebrow">04 / 05 · Modélisation &amp; valorisation</p>
+          <h1 class="pj-hero__title">FinValStudio</h1>
+        </div>
+        <div class="pj-hero__summary">
+          <p class="pj-hero__lede">Atelier de modélisation financière : modèles intégrés, valorisation, scénarios et reporting bancaire reproductible.</p>
+          <ul class="pj-hero__axes" aria-label="Axes du projet">
+            <li>DCF &amp; LBO</li>
+            <li>Comparables</li>
+            <li>Monte Carlo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="pj-demo" aria-labelledby="pj-demo-title">
+      <h2 id="pj-demo-title" class="visually-hidden">Démonstration</h2>
+
+      <div class="pj-player">
+        <!-- La source est posée par project.js : en « mouvement réduit », seul le poster s'affiche
+             tant que la lecture n'est pas demandée. -->
+        <video class="pj-video" muted loop playsinline preload="metadata"
+          poster="/videos/finvalstudio-poster.png" data-src="/videos/finvalstudio.mp4"
+          aria-label="Démonstration de FinValStudio en cinq chapitres, 20 secondes, sans son"></video>
+        <button class="pj-play" type="button" hidden>
+          <span class="pj-play__icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Lire la démonstration</span>
+        </button>
+        <noscript><a class="pj-play pj-play--link" href="/videos/finvalstudio.mp4">Voir la démonstration (MP4)</a></noscript>
+      </div>
+
+      <nav class="pj-chapters" aria-labelledby="pj-chapters-title">
+        <p id="pj-chapters-title" class="pj-chapters__title">Chapitres</p>
+        <ol class="pj-chapters__list">
+          <li>
+            <button class="pj-chapter" type="button" data-start="0">
+              <span class="pj-chapter__num">01</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Paramétrer</span>
+                <span class="pj-chapter__desc">Mode guidé du DCF : coût du capital et WACC calculé</span>
+              </span>
+              <span class="pj-chapter__time">0:00</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="4">
+              <span class="pj-chapter__num">02</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Valoriser</span>
+                <span class="pj-chapter__desc">DCF : flux actualisés, valeur terminale, pont vers les fonds propres</span>
+              </span>
+              <span class="pj-chapter__time">0:04</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="8">
+              <span class="pj-chapter__num">03</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Comparer</span>
+                <span class="pj-chapter__desc">Multiples des pairs, médiane et valeur implicite par action</span>
+              </span>
+              <span class="pj-chapter__time">0:08</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="12">
+              <span class="pj-chapter__num">04</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Simuler</span>
+                <span class="pj-chapter__desc">Monte Carlo : 5 000 tirages, P10, médiane et P90</span>
+              </span>
+              <span class="pj-chapter__time">0:12</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="16">
+              <span class="pj-chapter__num">05</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Conclure</span>
+                <span class="pj-chapter__desc">LBO : désendettement, TRI et multiple du sponsor</span>
+              </span>
+              <span class="pj-chapter__time">0:16</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="pj-cta-row">
+      <p class="pj-note">Données de démonstration fictives.</p>
+      <a class="pj-cta" href="https://fin-val-studio.vercel.app" target="_blank" rel="noopener">
+        Ouvrir l'application<span class="visually-hidden"> FinValStudio (nouvel onglet)</span>
+        <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <script src="/assets/js/project.js" defer></script>
+</body>
+</html>
