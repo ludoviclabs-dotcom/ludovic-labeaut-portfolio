@@ -219,7 +219,8 @@ body {
 }
 
 .panel[data-project="carbon-co"] {
-  --accent: #a6dcb5;
+  /* Vert de la forêt de la photo aérienne, comme la vidéo et la page détail. */
+  --accent: #84c89a;
   --panel-bg: radial-gradient(120% 70% at 35% 25%, #2d4a37 0%, #15231b 55%, #0a110d 100%);
 }
 
@@ -333,6 +334,21 @@ body {
 }
 
 .panel.is-previewing .panel__loop.is-ready { opacity: 1; }
+
+/* Panneaux côte à côte : le premier et le dernier perdent une demi-diagonale
+   hors écran, l'aperçu démarre donc au bord visible, comme leur texte. */
+@media (min-width: 821px) and (min-aspect-ratio: 4/5) {
+  .panel:first-child .panel__loop {
+    left: calc(var(--slant) * 1.1);
+    width: calc(100% - var(--slant) * 1.1);
+    object-position: left center;
+  }
+
+  .panel:last-child .panel__loop {
+    width: calc(100% - var(--slant) * 1.1);
+    object-position: right center;
+  }
+}
 
 /* Voile renforcé au centre pendant l'aperçu, là où se trouve le texte. */
 .panel.is-previewing .panel__shade {
@@ -714,6 +730,9 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   .panel__cta,
   .panel__foot,
   .panel__media { animation-delay: 0.1s; }
+
+  /* Les tableaux des aperçus sont alignés à gauche : on garde leurs libellés. */
+  .panel__loop { object-position: left center; }
 
   .panel:first-child .panel__index,
   .panel:first-child .panel__title,
