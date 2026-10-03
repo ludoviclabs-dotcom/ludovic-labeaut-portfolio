@@ -231,7 +231,8 @@ body {
 }
 
 .panel[data-project="panoplie"] {
-  --accent: #c7d5e3;
+  /* Bleu du ciel des photos Rafale, comme la vidéo et la page détail. */
+  --accent: #7fb0dc;
   --panel-bg: radial-gradient(120% 70% at 45% 20%, #2e3b48 0%, #141c24 55%, #090d11 100%);
 }
 

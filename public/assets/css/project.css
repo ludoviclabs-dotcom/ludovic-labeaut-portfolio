@@ -30,6 +30,12 @@ body[data-project="carbon-co"] {
   --hero-position: center 55%;
 }
 
+body[data-project="panoplie"] {
+  --accent: #7fb0dc; /* bleu du ciel des photos Rafale */
+  --hero-image: url("/images/panoplie/rafale-pacifique.webp");
+  --hero-position: center 45%;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
