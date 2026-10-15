@@ -108,6 +108,33 @@ window.PORTFOLIO_PHOTOS = {
       "focus": "68% 50%"
     }
   ],
+  "kyb-graph": [
+    {
+      "src": "images/kyb-graph/ville-brume-bleue.webp",
+      "width": 2400,
+      "height": 1595,
+      "caption": null
+    },
+    {
+      "src": "images/kyb-graph/ville-vue-aerienne-nuit.webp",
+      "width": 2397,
+      "height": 1600,
+      "caption": null
+    },
+    {
+      "src": "images/kyb-graph/pont-haubans-nuit.webp",
+      "width": 2400,
+      "height": 1350,
+      "caption": null,
+      "focus": "72% 50%"
+    },
+    {
+      "src": "images/kyb-graph/fibre-optique.webp",
+      "width": 2397,
+      "height": 1600,
+      "caption": null
+    }
+  ],
   "publications": [
     {
       "src": "images/publications/bibliotheque.webp",

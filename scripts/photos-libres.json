@@ -188,6 +188,53 @@
       "focus": "68% 50%"
     }
   ],
+  "kyb-graph": [
+    {
+      "slug": "ville-brume-bleue",
+      "title": "Ville illuminée dans la brume bleue",
+      "caption": null,
+      "url": "https://images.unsplash.com/photo-1760421131154-f884a2e26b7e?fm=jpg&q=85&w=3840&fit=max",
+      "credit": "Tahsin Labib / Unsplash",
+      "page": "https://unsplash.com/photos/-gyhqzDfDug",
+      "source": "Unsplash",
+      "licence": "Licence Unsplash",
+      "licenceUrl": "https://unsplash.com/license"
+    },
+    {
+      "slug": "ville-vue-aerienne-nuit",
+      "title": "Ville vue du ciel, la nuit",
+      "caption": null,
+      "url": "https://images.unsplash.com/photo-1562092118-ab7415726eb2?fm=jpg&q=85&w=3840&fit=max",
+      "credit": "Max / Unsplash",
+      "page": "https://unsplash.com/photos/e_s7huB2wZM",
+      "source": "Unsplash",
+      "licence": "Licence Unsplash",
+      "licenceUrl": "https://unsplash.com/license"
+    },
+    {
+      "slug": "pont-haubans-nuit",
+      "title": "Pont à haubans éclairé la nuit",
+      "caption": null,
+      "url": "https://images.unsplash.com/photo-1771905602953-1f23ed3363cb?fm=jpg&q=85&w=3840&fit=max",
+      "credit": "Ken Suarez / Unsplash",
+      "page": "https://unsplash.com/photos/ahcu5KtB0Po",
+      "source": "Unsplash",
+      "licence": "Licence Unsplash",
+      "licenceUrl": "https://unsplash.com/license",
+      "focus": "72% 50%"
+    },
+    {
+      "slug": "fibre-optique",
+      "title": "Fibres optiques",
+      "caption": null,
+      "url": "https://images.unsplash.com/photo-1543946602-8496af5aaa53?fm=jpg&q=85&w=3840&fit=max",
+      "credit": "Sander Weeteling / Unsplash",
+      "page": "https://unsplash.com/photos/4I41IQtmSs0",
+      "source": "Unsplash",
+      "licence": "Licence Unsplash",
+      "licenceUrl": "https://unsplash.com/license"
+    }
+  ],
   "publications": [
     {
       "slug": "bibliotheque",

@@ -48,6 +48,7 @@ const THEMES = [
   { id: "probant", label: "PROBANT", match: /^probant/ },
   { id: "panoplie", label: "PANOPLIE", match: /^(euro-?hawk|patriot|rafale|panoplie)/ },
   { id: "finvalstudio", label: "FINVALSTUDIO", match: /^fin-?val/ },
+  { id: "kyb-graph", label: "KYB GRAPH", match: /^kyb/ },
   { id: "publications", label: "PUBLICATIONS", match: /^(redaction|publication)/ },
 ];
 

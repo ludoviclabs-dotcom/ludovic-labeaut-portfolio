@@ -2,7 +2,7 @@
   "name": "ludovic-labeaut-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Portfolio de Ludovic Labeaut : cinq projets en panneaux diagonaux avec diaporamas photo, et les notes d'analyse « Lignes de force ».",
+  "description": "Portfolio de Ludovic Labeaut : six projets en panneaux diagonaux avec diaporamas photo, et les notes d'analyse « Lignes de force ».",
   "type": "module",
   "scripts": {
     "photos": "node scripts/import-photos.mjs",

@@ -216,7 +216,7 @@ ${cards(s.notes)}
   </header>
   <main>
     <section class="pub-hero">
-      <p class="pub-hero__eyebrow">05 / 05 · Publications</p>
+      <p class="pub-hero__eyebrow">06 / 06 · Publications</p>
       <h1 class="pub-hero__title">Lignes de force</h1>
       <p class="pub-hero__lede">Notes d'analyse géopolitique, géoéconomique et defense-tech. Chaque note est sourcée, datée et téléchargeable en PDF.</p>
       <ul class="pub-hero__axes" aria-label="Thèmes">${sections.map((s) => `<li>${escapeHtml(s.id)}</li>`).join("")}</ul>
