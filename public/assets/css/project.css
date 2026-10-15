@@ -42,6 +42,12 @@ body[data-project="finvalstudio"] {
   --hero-position: center 45%;
 }
 
+body[data-project="kyb-graph"] {
+  --accent: #6ccad0; /* turquoise de la ville dans la brume bleue */
+  --hero-image: url("/images/kyb-graph/ville-brume-bleue.webp");
+  --hero-position: center 55%;
+}
+
 body[data-project="publications"] {
   --accent: #d97a5e; /* rouge éditorial du titre « Lignes de force » */
   --hero-image: url("/images/publications/rayonnages.webp");

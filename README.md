@@ -2,7 +2,7 @@
 
 Portfolio professionnel de Ludovic Labeaut — projets finance, audit, ESG, data et publications.
 
-La page d'accueil présente cinq projets dans des panneaux séparés par des diagonales « / ».
+La page d'accueil présente six projets dans des panneaux séparés par des diagonales « / ».
 Chaque panneau fait défiler en continu les photos de son thème, affiche les axes du projet
 et un bouton **Voir le projet** qui ouvre la version en ligne dans un nouvel onglet.
 
@@ -12,6 +12,7 @@ et un bouton **Voir le projet** qui ouvre la version en ligne dans un nouvel ong
 | PROBANT — Audit & conformité comptable | Analyse du FEC / Détection d'anomalies / Dossier de preuve | https://probant.vercel.app |
 | PANOPLIE — Intelligence défense | Coûts & financement / Supply chain / Géopolitique & export | https://drones-mu.vercel.app |
 | FINVALSTUDIO — Modélisation & valorisation | DCF & LBO / Comparables / Monte Carlo | https://fin-val-studio.vercel.app |
+| KYB GRAPH — Cartographie de conformité | LCB-FT & AMLR / Niveaux de preuve / Sources publiques | https://kyb-graph.vercel.app |
 | PUBLICATIONS — Recherche & articles | Géopolitique / Géoéconomie / Defense-Tech | `/publications` (sur ce site) |
 
 ## Structure
@@ -49,6 +50,7 @@ Le thème est déduit du début du nom de fichier :
 | `PROBANT…` | PROBANT |
 | `Euro-Hawk…`, `Patriot…`, `Rafale…`, `Panoplie…` | PANOPLIE |
 | `FinVal…` | FINVALSTUDIO |
+| `KYB…` | KYB GRAPH |
 | `Rédaction…`, `Publication…` | PUBLICATIONS |
 
 Puis, depuis le dossier du dépôt :

@@ -242,6 +242,12 @@ body {
   --panel-bg: radial-gradient(120% 70% at 50% 25%, #23252b 0%, #131417 55%, #09090b 100%);
 }
 
+.panel[data-project="kyb-graph"] {
+  /* Turquoise de la ville dans la brume bleue, comme la vidéo et la page détail. */
+  --accent: #6ccad0;
+  --panel-bg: radial-gradient(120% 70% at 50% 25%, #1e3a3f 0%, #101c1f 55%, #080d0e 100%);
+}
+
 .panel[data-project="publications"] {
   /* Rouge éditorial du titre « Lignes de force », comme la vidéo et la page détail. */
   --accent: #d97a5e;
@@ -406,7 +412,7 @@ body {
 }
 
 .panel__index::after {
-  content: " / 05";
+  content: " / 06";
   color: var(--ink-faint);
 }
 
@@ -633,7 +639,7 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
 
 @media (min-width: 821px) and (min-aspect-ratio: 4/5) {
   /* Premier et dernier panneau débordent d'une demi-diagonale hors écran :
-     on leur rend cette largeur pour que les cinq parties visibles soient égales. */
+     on leur rend cette largeur pour que les six parties visibles soient égales. */
   .panel:first-child,
   .panel:last-child { flex-basis: calc(var(--slant) * 0.5); }
 }
