@@ -131,6 +131,35 @@ body {
   outline-offset: 4px;
 }
 
+/* Sélecteur de langue : même typographie que les liens de la barre, langue active en clair. */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+}
+
+.lang-switch a {
+  padding: 0.25rem 0;
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.lang-switch a[aria-current],
+.lang-switch a:hover,
+.lang-switch a:focus-visible { color: var(--ink); }
+
+.lang-switch a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.lang-switch__sep { opacity: 0.6; }
+
 .motion-toggle {
   display: inline-flex;
   align-items: center;
@@ -688,6 +717,10 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   }
 
   .topbar__count { display: none; }
+
+  /* Barre étroite : seule la langue proposée reste affichée (« EN » sur une page française). */
+  .lang-switch a[aria-current],
+  .lang-switch__sep { display: none; }
 
   .stage {
     height: auto;

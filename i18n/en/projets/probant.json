@@ -1,0 +1,15 @@
+{
+  "Probant — Ludovic Labeaut": "Probant — Ludovic Labeaut",
+  "Probant, orchestrateur de conformité analytique des états financiers français : import du FEC, contrôle des écritures, détection d'anomalies, dossier de preuve et export pour l'audit.": "Probant, an analytical compliance engine for French financial statements: FEC import, journal entry checks, anomaly detection, evidence file and audit export.",
+  "Du fichier des écritures comptables au dossier de preuve opposable, en cinq étapes.": "From the general-ledger file to an audit-ready evidence file, in five steps.",
+  "02 / 06 · Audit &amp; conformité comptable": "02 / 06 · Audit &amp; accounting compliance",
+  "Démonstration de Probant en cinq chapitres, 20 secondes, sans son": "Probant demo in five chapters, 20 seconds, no sound",
+  "Importer": "Import",
+  "Le FEC en un glisser-déposer": "The FEC in a single drag and drop",
+  "Chaque écriture est contrôlée": "Every journal entry is checked",
+  "Détecter": "Detect",
+  "Doublons, hors période, séquence rompue": "Duplicates, out-of-period entries, broken sequences",
+  "Un dossier opposable, scellé et horodaté": "An audit-ready file, sealed and time-stamped",
+  "Le rapport prêt pour l'audit": "The report, ready for the audit",
+  "Ouvrir l'application<span class=\"visually-hidden\"> Probant (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> Probant (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+}

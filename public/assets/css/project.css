@@ -107,6 +107,39 @@ body {
 
 .pj-back:hover { color: var(--ink); }
 
+.pj-top__right {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+/* Sélecteur de langue : même typographie que « ← Projets », langue active en clair. */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+}
+
+.lang-switch a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.lang-switch a[aria-current],
+.lang-switch a:hover { color: var(--ink); }
+
+.lang-switch a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.lang-switch__sep { opacity: 0.6; }
+
 .pj-brand {
   font-family: var(--serif);
   font-size: 1.1rem;
@@ -450,6 +483,11 @@ body {
 .pj-cta:hover .pj-cta__arrow { transform: translate(2px, -2px); }
 
 /* ---------- Écrans étroits : vidéo puis chapitres ---------- */
+
+/* Petit écran : comme sur la page des publications, le nom s'efface devant le sélecteur de langue. */
+@media (max-width: 560px) {
+  .pj-brand { display: none; }
+}
 
 @media (max-width: 900px) {
   .pj-demo { grid-template-columns: minmax(0, 1fr); }

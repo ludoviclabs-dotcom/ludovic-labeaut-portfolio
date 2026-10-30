@@ -18,6 +18,11 @@
   const KEN_BURNS = ["kb-1", "kb-2", "kb-3", "kb-4"];
 
   const root = document.documentElement;
+  // Textes produits par ce script, dans la langue de la page (public/en/ pour l'anglais).
+  const EN = root.lang.toLowerCase().startsWith("en");
+  const TEXT = EN
+    ? { play: "Play", pause: "Pause", playLabel: "Resume the photo slideshow", pauseLabel: "Pause the photo slideshow", terminal: "TV", periods: "FCF  Y1 → Y7" }
+    : { play: "Lecture", pause: "Pause", playLabel: "Relancer le défilement des photos", pauseLabel: "Mettre en pause le défilement des photos", terminal: "VT", periods: "FCF  T1 → T7" };
   const stage = document.querySelector(".stage");
   const panels = Array.from(document.querySelectorAll(".panel"));
   const toggle = document.querySelector(".motion-toggle");
@@ -127,7 +132,7 @@
       this.current = i;
       this.elapsed = Math.min(this.elapsed, 0);
       this.panel.classList.add("has-photo");
-      this.setCaption(next.photo.caption || "");
+      this.setCaption((EN && next.photo.captionEn) || next.photo.caption || "");
       this.renderProgress();
     }
 
@@ -241,8 +246,8 @@
 
     const label = (x, y, text, anchor = "start") =>
       el("text", { x, y, fill: "rgba(244,241,234,0.42)", "font-family": "Inter, sans-serif", "font-size": 11, "letter-spacing": 2, "text-anchor": anchor }, svg).append(text);
-    label(90, baseY + 26, "FCF  T1 → T7");
-    label(last[0] + 78, last[1] - 64, "VT", "end");
+    label(90, baseY + 26, TEXT.periods);
+    label(last[0] + 78, last[1] - 64, TEXT.terminal, "end");
     label(90, mcBase + 26, "P5");
     label(305, mcBase + 26, "P50", "middle");
     label(520, mcBase + 26, "P95", "end");
@@ -389,8 +394,8 @@
     syncPreviews();
     if (!toggle) return;
     toggle.setAttribute("aria-pressed", String(paused));
-    toggle.querySelector(".motion-toggle__label").textContent = paused ? "Lecture" : "Pause";
-    toggle.setAttribute("aria-label", paused ? "Relancer le défilement des photos" : "Mettre en pause le défilement des photos");
+    toggle.querySelector(".motion-toggle__label").textContent = paused ? TEXT.play : TEXT.pause;
+    toggle.setAttribute("aria-label", paused ? TEXT.playLabel : TEXT.pauseLabel);
   }
 
   // Le bouton n'apparaît que si au moins un panneau a vraiment de quoi défiler.

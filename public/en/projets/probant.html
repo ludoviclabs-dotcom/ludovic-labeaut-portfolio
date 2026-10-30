@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Probant — Ludovic Labeaut</title>
+  <meta name="description" content="Probant, an analytical compliance engine for French financial statements: FEC import, journal entry checks, anomaly detection, evidence file and audit export.">
+  <meta name="theme-color" content="#0b0c0e">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Probant — Ludovic Labeaut">
+  <meta property="og:description" content="From the general-ledger file to an audit-ready evidence file, in five steps.">
+  <meta property="og:image" content="/videos/probant-poster-en.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="fr" href="/projets/probant">
+  <link rel="alternate" hreflang="en" href="/en/projets/probant">
+  <link rel="alternate" hreflang="x-default" href="/projets/probant">
+  <script src="/assets/js/lang.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/project.css">
+</head>
+<body class="project" data-project="probant">
+  <header class="pj-top">
+    <a class="pj-back" href="/en/">← Projects</a>
+    <div class="pj-top__right">
+      <nav class="lang-switch" aria-label="Language">
+        <a href="/projets/probant" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+        <span class="lang-switch__sep" aria-hidden="true">/</span>
+        <a href="/en/projets/probant" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+      </nav>
+      <span class="pj-brand">Ludovic Labeaut</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="pj-hero">
+      <div class="pj-hero__inner">
+        <div class="pj-hero__heading">
+          <p class="pj-hero__eyebrow">02 / 06 · Audit &amp; accounting compliance</p>
+          <h1 class="pj-hero__title">Probant</h1>
+        </div>
+        <div class="pj-hero__summary">
+          <p class="pj-hero__lede">Analytical compliance engine for French financial statements, from the FEC general-ledger file to an audit-ready evidence file.</p>
+          <ul class="pj-hero__axes" aria-label="Project focus">
+            <li>FEC analysis</li>
+            <li>Anomaly detection</li>
+            <li>Evidence file</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="pj-demo" aria-labelledby="pj-demo-title">
+      <h2 id="pj-demo-title" class="visually-hidden">Demo</h2>
+
+      <div class="pj-player">
+        <!-- La source est posée par project.js : en « mouvement réduit », seul le poster s'affiche
+             tant que la lecture n'est pas demandée. -->
+        <video class="pj-video" muted loop playsinline preload="metadata"
+          poster="/videos/probant-poster-en.png" data-src="/videos/probant-en.mp4"
+          aria-label="Probant demo in five chapters, 20 seconds, no sound"></video>
+        <button class="pj-play" type="button" hidden>
+          <span class="pj-play__icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Play the demo</span>
+        </button>
+        <noscript><a class="pj-play pj-play--link" href="/videos/probant-en.mp4">Watch the demo (MP4)</a></noscript>
+      </div>
+
+      <nav class="pj-chapters" aria-labelledby="pj-chapters-title">
+        <p id="pj-chapters-title" class="pj-chapters__title">Chapters</p>
+        <ol class="pj-chapters__list">
+          <li>
+            <button class="pj-chapter" type="button" data-start="0">
+              <span class="pj-chapter__num">01</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Import</span>
+                <span class="pj-chapter__desc">The FEC in a single drag and drop</span>
+              </span>
+              <span class="pj-chapter__time">0:00</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="4">
+              <span class="pj-chapter__num">02</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Analyse</span>
+                <span class="pj-chapter__desc">Every journal entry is checked</span>
+              </span>
+              <span class="pj-chapter__time">0:04</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="8">
+              <span class="pj-chapter__num">03</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Detect</span>
+                <span class="pj-chapter__desc">Duplicates, out-of-period entries, broken sequences</span>
+              </span>
+              <span class="pj-chapter__time">0:08</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="12">
+              <span class="pj-chapter__num">04</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Prove</span>
+                <span class="pj-chapter__desc">An audit-ready file, sealed and time-stamped</span>
+              </span>
+              <span class="pj-chapter__time">0:12</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="pj-chapter" type="button" data-start="16">
+              <span class="pj-chapter__num">05</span>
+              <span class="pj-chapter__text">
+                <span class="pj-chapter__label">Export</span>
+                <span class="pj-chapter__desc">The report, ready for the audit</span>
+              </span>
+              <span class="pj-chapter__time">0:16</span>
+              <span class="pj-chapter__bar" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="pj-cta-row">
+      <p class="pj-note">Fictitious demo data.</p>
+      <a class="pj-cta" href="https://probant.vercel.app" target="_blank" rel="noopener">
+        Open the app<span class="visually-hidden"> Probant (new tab)</span> <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <script src="/assets/js/project.js" defer></script>
+</body>
+</html>

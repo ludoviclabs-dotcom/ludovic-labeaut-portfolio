@@ -7,6 +7,10 @@
   <meta name="description" content="Lignes de force : 9 notes d'analyse géopolitique, géoéconomique et defense-tech de Ludovic Labeaut, sourcées et datées.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="fr" href="/publications">
+  <link rel="alternate" hreflang="en" href="/en/publications">
+  <link rel="alternate" hreflang="x-default" href="/publications">
+  <script src="/assets/js/lang.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
@@ -15,7 +19,14 @@
 <body>
   <header class="pub-top">
     <a class="pub-back" href="/">← Projets</a>
-    <span class="pub-brand">Ludovic Labeaut</span>
+    <div class="pub-top__right">
+      <nav class="lang-switch" aria-label="Langue">
+        <a href="/publications" hreflang="fr" lang="fr" translate="no" aria-label="Français" aria-current="page">FR</a>
+        <span class="lang-switch__sep" aria-hidden="true">/</span>
+        <a href="/en/publications" hreflang="en" lang="en" translate="no" aria-label="English">EN</a>
+      </nav>
+      <span class="pub-brand">Ludovic Labeaut</span>
+    </div>
   </header>
   <main>
     <section class="pub-hero">

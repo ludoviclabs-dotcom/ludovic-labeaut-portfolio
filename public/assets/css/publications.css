@@ -63,6 +63,39 @@ a { color: inherit; }
   outline-offset: 4px;
 }
 
+.pub-top__right {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+/* Sélecteur de langue : même typographie que « ← Projets », langue active en clair. */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--ink-dim);
+}
+
+.lang-switch a {
+  color: var(--ink-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.lang-switch a[aria-current],
+.lang-switch a:hover { color: var(--ink); }
+
+.lang-switch a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.lang-switch__sep { opacity: 0.6; }
+
 .pub-brand {
   font-family: var(--serif);
   font-size: 1.1rem;

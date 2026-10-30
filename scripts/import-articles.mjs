@@ -69,19 +69,45 @@ const BAR_STYLE = `<style id="lf-bar">
   .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
   .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
   .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
   .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
   @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
 }
 @media print { .lf-bar { display: none !important; } }
 </style>`;
-const BAR_HTML = `<nav class="lf-bar" aria-label="Navigation">
+// Versions française et anglaise d'une page (l'anglaise est générée par npm run en).
+const alternates = (fr) =>
+  `<link rel="alternate" hreflang="fr" href="${fr}">
+<link rel="alternate" hreflang="en" href="/en${fr}">
+<link rel="alternate" hreflang="x-default" href="${fr}">
+<script src="/assets/js/lang.js"></script>`;
+
+const langSwitch = (fr, indent = "") =>
+  [
+    `<nav class="lang-switch" aria-label="Langue">`,
+    `  <a href="${fr}" hreflang="fr" lang="fr" translate="no" aria-label="Français" aria-current="page">FR</a>`,
+    `  <span class="lang-switch__sep" aria-hidden="true">/</span>`,
+    `  <a href="/en${fr}" hreflang="en" lang="en" translate="no" aria-label="English">EN</a>`,
+    `</nav>`,
+  ].join(`\n${indent}`);
+
+const barHtml = (fr) => `<nav class="lf-bar" aria-label="Navigation">
 <a href="/publications">← Publications</a>
 <span class="lf-name">${AUTHOR} · Lignes de force</span>
+<span class="lf-tools">
+${langSwitch(fr)}
 <button type="button" onclick="window.print()">Enregistrer en PDF</button>
+</span>
 </nav>`;
 
-function withBar(html) {
-  return html.replace(/<\/head>/i, `${BAR_STYLE}</head>`).replace(/<body([^>]*)>/i, `<body$1>${BAR_HTML}`);
+function withBar(html, slug) {
+  const fr = `/publications/${slug}`;
+  return html
+    .replace(/<\/head>/i, `${alternates(fr)}\n${BAR_STYLE}</head>`)
+    .replace(/<body([^>]*)>/i, `<body$1>${barHtml(fr)}`);
 }
 
 function readHtmlNote(file, html) {
@@ -89,16 +115,17 @@ function readHtmlNote(file, html) {
   const pick = (re) => (html.match(re)?.[1] ?? "").trim();
   const issue = textOf(pick(/<div class="issue">([\s\S]*?)<\/div>/));
   const issueTitle = textOf(pick(/<div class="issue"><b>([\s\S]*?)<\/b>/));
+  const slug = slugify(path.parse(file).name);
   return {
     num,
-    slug: slugify(path.parse(file).name),
+    slug,
     title: textOf(pick(/<title>([\s\S]*?)<\/title>/)),
     block: issueTitle.split("·")[0].trim(),
     kicker: textOf(pick(/<div class="kicker">([\s\S]*?)<\/div>/)),
     standfirst: textOf(pick(/<p class="standfirst">([\s\S]*?)<\/p>/)),
     date: issue.replace(issueTitle, "").trim(),
     reading: (textOf(pick(/<div class="byline">([\s\S]*?)<\/div>/)).match(/Lecture\s*:\s*([^A-ZÀ-Ý]+min)/) ?? [])[1]?.trim() ?? "",
-    page: withBar(html),
+    page: withBar(html, slug),
   };
 }
 
@@ -152,7 +179,8 @@ ${list || notes ? `<div class="sources"><h3>Sources et repères</h3>${list}${not
 <div class="disclaimer">${DISCLAIMER}</div>
 </body></html>`;
 
-  return { num, slug: `${num}-${slugify(file.replace(/^.*Article_\d{2}_/i, "").replace(/\.md$/i, ""))}`, title, block, kicker: block, standfirst: textOf(marked.parseInline(standfirst)), date, reading, page: withBar(page) };
+  const slug = `${num}-${slugify(file.replace(/^.*Article_\d{2}_/i, "").replace(/\.md$/i, ""))}`;
+  return { num, slug, title, block, kicker: block, standfirst: textOf(marked.parseInline(standfirst)), date, reading, page: withBar(page, slug) };
 }
 
 function indexPage(notes) {
@@ -204,6 +232,7 @@ ${cards(s.notes)}
   <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse géopolitique, géoéconomique et defense-tech de Ludovic Labeaut, sourcées et datées.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${alternates("/publications").split("\n").join("\n  ")}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
@@ -212,7 +241,10 @@ ${cards(s.notes)}
 <body>
   <header class="pub-top">
     <a class="pub-back" href="/">← Projets</a>
-    <span class="pub-brand">Ludovic Labeaut</span>
+    <div class="pub-top__right">
+      ${langSwitch("/publications", "      ")}
+      <span class="pub-brand">Ludovic Labeaut</span>
+    </div>
   </header>
   <main>
     <section class="pub-hero">
