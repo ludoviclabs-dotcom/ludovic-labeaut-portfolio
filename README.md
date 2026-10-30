@@ -20,6 +20,8 @@ et un bouton **Voir le projet** qui ouvre la version en ligne dans un nouvel ong
 ```
 public/                    site statique servi par Vercel
   index.html               contenu des panneaux (noms, axes, descriptions, liens)
+  en/                      version anglaise, générée par scripts/build-en.mjs (npm run en)
+  assets/js/lang.js        sélecteur de langue FR / EN (choix retenu d'une page à l'autre)
   assets/css/styles.css    mise en page, diagonales, animations
   assets/js/main.js        diaporamas, alignement du texte sur la diagonale, pause
   assets/js/photos.js      liste des photos par panneau (générée par le script)
@@ -30,6 +32,8 @@ public/                    site statique servi par Vercel
 scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
 scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
+scripts/build-en.mjs         génération des pages anglaises à partir de i18n/en/*.json
+i18n/en/                     traductions anglaises, page par page
 ```
 
 ## Photos libres de droits
@@ -93,6 +97,33 @@ Defense-Tech) est lu dans la note ; l'ordre suit le numéro.
 ## Modifier un texte ou un lien
 
 Tout se trouve dans `public/index.html`, un bloc `<li class="panel">` par projet.
+Après toute modification d'un texte français, mettez à jour la version anglaise (ci-dessous).
+
+## Version anglaise (FR / EN)
+
+Chaque page existe en anglais sous `/en/` (`/en/`, `/en/projets/…`, `/en/publications/…`,
+`/en/credits`). Le sélecteur « FR / EN » de la barre du haut mène à la même page dans l'autre
+langue et retient le choix (`assets/js/lang.js`) ; les liens `hreflang` l'indiquent aux moteurs.
+
+Les pages anglaises sont **générées** à partir des pages françaises : ne modifiez pas `public/en/`.
+
+```bash
+npm run en -- --extract   # ajoute à i18n/en/ les textes français à traduire, retire les obsolètes
+npm run en                # régénère public/en/ (s'arrête et liste ce qui n'est pas traduit)
+```
+
+- `i18n/en/<page>.json` associe chaque texte français (un paragraphe, un titre, un bouton…) à sa
+  traduction ; `i18n/en/_common.json` regroupe les textes présents sur plusieurs pages.
+- Modifier ou ajouter un texte français crée une entrée vide : complétez-la, puis `npm run en`.
+  Tant qu'une traduction manque, `public/en/` n'est pas modifié.
+- Les nombres seuls (axes, barres, cellules) passent d'eux-mêmes au format anglais
+  (« 23,2 » → « 23.2 », « 28 000 » → « 28,000 », « 93 % » → « 93% »).
+- Une vidéo ou un poster qui existe en version anglaise (`/videos/probant-en.mp4`) remplace
+  l'original sur la page anglaise ; les vidéos anglaises ne changent que la narration, les écrans
+  des applications restent en français.
+
+Après `npm run articles` (nouvelle note ou note modifiée), lancez `npm run en -- --extract`,
+traduisez les entrées vides de `i18n/en/publications/<note>.json`, puis `npm run en`.
 
 ## Aperçu local et déploiement
 

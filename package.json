@@ -7,10 +7,12 @@
   "scripts": {
     "photos": "node scripts/import-photos.mjs",
     "articles": "node scripts/import-articles.mjs",
+    "en": "node scripts/build-en.mjs",
     "dev": "npx --yes serve@14 public -l 3000"
   },
   "devDependencies": {
     "marked": "^18.0.14",
+    "parse5": "^7.3.0",
     "sharp": "^0.35.4"
   }
 }

@@ -2,26 +2,26 @@
 window.PORTFOLIO_PHOTOS = {
   "carbon-co": [
     {
-      "src": "images/carbon-co/eolienne-brume.webp",
+      "src": "/images/carbon-co/eolienne-brume.webp",
       "width": 2133,
       "height": 1600,
       "caption": null,
       "focus": "46% 50%"
     },
     {
-      "src": "images/carbon-co/centrale-solaire.webp",
+      "src": "/images/carbon-co/centrale-solaire.webp",
       "width": 2133,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/carbon-co/eoliennes-coucher-soleil.webp",
+      "src": "/images/carbon-co/eoliennes-coucher-soleil.webp",
       "width": 2400,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/carbon-co/foret-vue-aerienne.webp",
+      "src": "/images/carbon-co/foret-vue-aerienne.webp",
       "width": 2133,
       "height": 1600,
       "caption": null
@@ -29,26 +29,26 @@ window.PORTFOLIO_PHOTOS = {
   ],
   "probant": [
     {
-      "src": "images/probant/loupe.webp",
+      "src": "/images/probant/loupe.webp",
       "width": 2400,
       "height": 986,
       "caption": null,
       "focus": "45% 50%"
     },
     {
-      "src": "images/probant/archives.webp",
+      "src": "/images/probant/archives.webp",
       "width": 2400,
       "height": 1350,
       "caption": null
     },
     {
-      "src": "images/probant/calculatrice-liasse.webp",
+      "src": "/images/probant/calculatrice-liasse.webp",
       "width": 2400,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/probant/grand-livre.webp",
+      "src": "/images/probant/grand-livre.webp",
       "width": 2400,
       "height": 1600,
       "caption": null
@@ -56,32 +56,33 @@ window.PORTFOLIO_PHOTOS = {
   ],
   "panoplie": [
     {
-      "src": "images/panoplie/rafale-face.webp",
+      "src": "/images/panoplie/rafale-face.webp",
       "width": 2400,
       "height": 1491,
       "caption": "Rafale"
     },
     {
-      "src": "images/panoplie/rq-4-global-hawk.webp",
+      "src": "/images/panoplie/rq-4-global-hawk.webp",
       "width": 2400,
       "height": 1600,
       "caption": "RQ-4 Global Hawk"
     },
     {
-      "src": "images/panoplie/patriot-tir.webp",
+      "src": "/images/panoplie/patriot-tir.webp",
       "width": 2400,
       "height": 1600,
       "caption": "Système Patriot",
+      "captionEn": "Patriot system",
       "focus": "55% 50%"
     },
     {
-      "src": "images/panoplie/rafale-pacifique.webp",
+      "src": "/images/panoplie/rafale-pacifique.webp",
       "width": 2400,
       "height": 1599,
       "caption": "Rafale"
     },
     {
-      "src": "images/panoplie/caesar-tir-nuit.webp",
+      "src": "/images/panoplie/caesar-tir-nuit.webp",
       "width": 2400,
       "height": 1505,
       "caption": "CAESAR"
@@ -89,19 +90,19 @@ window.PORTFOLIO_PHOTOS = {
   ],
   "finvalstudio": [
     {
-      "src": "images/finvalstudio/la-defense-grande-arche.webp",
+      "src": "/images/finvalstudio/la-defense-grande-arche.webp",
       "width": 2400,
       "height": 1479,
       "caption": "La Défense, Paris"
     },
     {
-      "src": "images/finvalstudio/graphique-boursier.webp",
+      "src": "/images/finvalstudio/graphique-boursier.webp",
       "width": 2400,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/finvalstudio/la-defense-nuit.webp",
+      "src": "/images/finvalstudio/la-defense-nuit.webp",
       "width": 2328,
       "height": 1600,
       "caption": "La Défense, Paris",
@@ -110,26 +111,26 @@ window.PORTFOLIO_PHOTOS = {
   ],
   "kyb-graph": [
     {
-      "src": "images/kyb-graph/ville-brume-bleue.webp",
+      "src": "/images/kyb-graph/ville-brume-bleue.webp",
       "width": 2400,
       "height": 1595,
       "caption": null
     },
     {
-      "src": "images/kyb-graph/ville-vue-aerienne-nuit.webp",
+      "src": "/images/kyb-graph/ville-vue-aerienne-nuit.webp",
       "width": 2397,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/kyb-graph/pont-haubans-nuit.webp",
+      "src": "/images/kyb-graph/pont-haubans-nuit.webp",
       "width": 2400,
       "height": 1350,
       "caption": null,
       "focus": "72% 50%"
     },
     {
-      "src": "images/kyb-graph/fibre-optique.webp",
+      "src": "/images/kyb-graph/fibre-optique.webp",
       "width": 2397,
       "height": 1600,
       "caption": null
@@ -137,26 +138,26 @@ window.PORTFOLIO_PHOTOS = {
   ],
   "publications": [
     {
-      "src": "images/publications/bibliotheque.webp",
+      "src": "/images/publications/bibliotheque.webp",
       "width": 2226,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/publications/stylo-plume.webp",
+      "src": "/images/publications/stylo-plume.webp",
       "width": 2131,
       "height": 1600,
       "caption": null,
       "focus": "60% 50%"
     },
     {
-      "src": "images/publications/machine-a-ecrire.webp",
+      "src": "/images/publications/machine-a-ecrire.webp",
       "width": 2386,
       "height": 1600,
       "caption": null
     },
     {
-      "src": "images/publications/rayonnages.webp",
+      "src": "/images/publications/rayonnages.webp",
       "width": 1731,
       "height": 1600,
       "caption": null

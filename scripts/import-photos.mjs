@@ -183,6 +183,10 @@ function creditsPage(rows) {
   <title>Crédits photo — Ludovic Labeaut</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="fr" href="/credits">
+  <link rel="alternate" hreflang="en" href="/en/credits">
+  <link rel="alternate" hreflang="x-default" href="/credits">
+  <script src="/assets/js/lang.js"></script>
   <style>
     :root { color-scheme: dark; --ink: #f4f1ea; --dim: rgba(244, 241, 234, 0.62); --line: rgba(244, 241, 234, 0.14); }
     body { margin: 0; background: #0b0c0e; color: var(--ink); font: 15px/1.6 Inter, system-ui, sans-serif; }
@@ -195,10 +199,18 @@ function creditsPage(rows) {
     .panel { grid-row: span 3; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--dim); padding-top: 0.2rem; }
     .who, .lic { color: var(--dim); font-size: 0.88rem; }
     @media (max-width: 560px) { li { grid-template-columns: 1fr; } .panel { grid-row: auto; } }
+    .lang-switch { float: right; display: flex; gap: 0.4rem; margin-top: 0.35rem; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); }
+    .lang-switch a { color: var(--dim); text-decoration: none; }
+    .lang-switch a[aria-current], .lang-switch a:hover { color: var(--ink); }
   </style>
 </head>
 <body>
   <main>
+    <nav class="lang-switch" aria-label="Langue">
+      <a href="/credits" hreflang="fr" lang="fr" translate="no" aria-label="Français" aria-current="page">FR</a>
+      <span aria-hidden="true">/</span>
+      <a href="/en/credits" hreflang="en" lang="en" translate="no" aria-label="English">EN</a>
+    </nav>
     <h1>Crédits photo</h1>
     <p><a href="./">← Retour au portfolio</a></p>
     <ul>
@@ -251,10 +263,11 @@ async function main() {
       }
       const { info } = result;
       manifest[theme.id].push({
-        src: `images/${theme.id}/${entry.slug}.webp`,
+        src: `/images/${theme.id}/${entry.slug}.webp`,
         width: info.width,
         height: info.height,
         caption: entry.caption ?? null,
+        ...(entry.captionEn ? { captionEn: entry.captionEn } : {}),
         ...(entry.focus ? { focus: entry.focus } : {}),
       });
       if (entry.credit) {

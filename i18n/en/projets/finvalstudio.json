@@ -1,0 +1,18 @@
+{
+  "FinValStudio — Ludovic Labeaut": "FinValStudio — Ludovic Labeaut",
+  "FinValStudio, atelier de modélisation financière : hypothèses guidées, DCF, comparables, simulation Monte Carlo et LBO.": "FinValStudio, a financial modelling workshop: guided assumptions, DCF, comparables, Monte Carlo simulation and LBO.",
+  "Des hypothèses au rendement du LBO, en cinq étapes.": "From assumptions to LBO returns, in five steps.",
+  "04 / 06 · Modélisation &amp; valorisation": "04 / 06 · Modelling &amp; valuation",
+  "Démonstration de FinValStudio en cinq chapitres, 20 secondes, sans son": "FinValStudio demo in five chapters, 20 seconds, no sound",
+  "Paramétrer": "Set up",
+  "Mode guidé du DCF : coût du capital et WACC calculé": "Guided DCF mode: cost of capital and computed WACC",
+  "Valoriser": "Value",
+  "DCF : flux actualisés, valeur terminale, pont vers les fonds propres": "DCF: discounted cash flows, terminal value, bridge to equity value",
+  "Comparer": "Compare",
+  "Multiples des pairs, médiane et valeur implicite par action": "Peer multiples, median and implied value per share",
+  "Simuler": "Simulate",
+  "Monte Carlo : 5 000 tirages, P10, médiane et P90": "Monte Carlo: 5,000 draws, P10, median and P90",
+  "Conclure": "Conclude",
+  "LBO : désendettement, TRI et multiple du sponsor": "LBO: deleveraging, IRR and sponsor money multiple",
+  "Ouvrir l'application<span class=\"visually-hidden\"> FinValStudio (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> FinValStudio (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+}

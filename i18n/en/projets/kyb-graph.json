@@ -1,0 +1,15 @@
+{
+  "KYB Graph — Ludovic Labeaut": "KYB Graph — Ludovic Labeaut",
+  "KYB Graph, cartographie de conformité : sources publiques, graphe des liens, niveaux de preuve, signaux de vigilance et journal de preuve chaîné.": "KYB Graph, compliance mapping: public sources, link graph, evidence levels, risk signals and a hash-chained evidence log.",
+  "Des sources publiques au journal de preuve, en cinq étapes.": "From public sources to the evidence log, in five steps.",
+  "05 / 06 · Cartographie de conformité": "05 / 06 · Compliance mapping",
+  "Démonstration de KYB Graph en cinq chapitres, 20 secondes, sans son": "KYB Graph demo in five chapters, 20 seconds, no sound",
+  "26 sources publiques, par API ou jeux ouverts, jamais de scraping": "26 public sources, via API or open data, never scraping",
+  "Graphe du dossier : le trait dit la preuve, le simulé reste « à vérifier »": "Case graph: the line shows the evidence, simulated links stay “to be verified”",
+  "Qualifier": "Qualify",
+  "Confirmé, déclaré, inféré, simulé : la qualité de preuve du dossier": "Confirmed, declared, inferred, simulated: the case's evidence quality",
+  "Signaler": "Flag",
+  "Signaux de vigilance expliqués, jamais une qualification de fraude": "Explained risk signals, never a finding of fraud",
+  "Journal chaîné par empreinte SHA-256, export PDF, JSON et pack ZIP": "SHA-256 hash-chained log, PDF, JSON and ZIP pack export",
+  "Ouvrir l'application<span class=\"visually-hidden\"> KYB Graph (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> KYB Graph (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+}
