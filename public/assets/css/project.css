@@ -19,7 +19,7 @@
 
 /* Couleur d'accent et photo d'en-tête de chaque projet, accordées à sa vidéo et à son panneau d'accueil. */
 body[data-project="probant"] {
-  --accent: #d6a15c; /* ambre de la boiserie de la photo « archives » */
+  --accent: #829bed; /* bleu de la charte Probant (#2447b8), éclairci pour le fond sombre */
   --hero-image: url("/images/probant/archives.webp");
   --hero-position: center 35%;
 }
