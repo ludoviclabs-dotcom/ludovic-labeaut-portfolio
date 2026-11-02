@@ -45,7 +45,9 @@
   @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
 }
 @media print { .lf-bar { display: none !important; } }
-</style></head><body><nav class="lf-bar" aria-label="Navigation">
+</style>
+<link rel="stylesheet" href="/assets/css/note.css">
+<script src="/assets/js/note.js" defer></script></head><body><nav class="lf-bar" aria-label="Navigation">
 <a href="/publications">← Publications</a>
 <span class="lf-name">Ludovic Labeaut · Lignes de force</span>
 <span class="lf-tools">
@@ -57,11 +59,12 @@
 <button type="button" onclick="window.print()">Enregistrer en PDF</button>
 </span>
 </nav>
-<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Série « L'IA à la conquête du savoir »</small></div><div class="issue"><b>IA &amp; science · Note n°15</b><br>8 octobre 2026</div></div>
+<div class="lf-page"><main class="lf-note">
+<header class="lf-hero"><div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Série « L'IA à la conquête du savoir »</small></div><div class="issue"><b>IA &amp; science · Note n°15</b><br>8 octobre 2026</div></div>
 <div class="kicker">IA &amp; science · Article 6 sur 8</div>
 <h1>Déployer l'IA scientifique : API, cloud, VPC, on-premise, HPC, GPU, gouvernance et sécurité</h1>
 <p class="standfirst">Un laboratoire qui veut utiliser l&#39;IA pour la recherche ne choisit pas seulement un modèle. Il choisit où ses données voyagent, qui peut les lire, ce qui se passe si le fournisseur coupe l&#39;accès, et combien coûtera chaque expérience numérique. En 2026, l&#39;éventail va de la simple clé d&#39;API à un modèle ouvert exécuté sur un supercalculateur public, en passant par les clouds « de confiance » qualifiés par l&#39;ANSSI. Les fournisseurs américains inventent aussi des formules hybrides, comme les données stockées chez le client. Cet article décrit ces architectures, leurs compromis et les règles européennes qui les encadrent.</p>
-<div class="byline"><span>Par <b>Ludovic Labeaut</b></span><span>Lecture : 8 min</span><span>État des connaissances au 8 octobre 2026</span></div>
+<div class="byline"><span>Par <b>Ludovic Labeaut</b></span><span>Lecture : 8 min</span><span>État des connaissances au 8 octobre 2026</span></div></header>
 <h2><span class="n">01</span>Problématique</h2>
 <p>La performance d&#39;un modèle ne vaut rien si les données d&#39;un projet ne peuvent pas légalement lui être envoyées. Inversement, un hébergement parfaitement souverain ne sert à rien s&#39;il n&#39;y tourne qu&#39;un modèle dépassé. Comment un organisme de recherche, un hôpital universitaire ou un industriel arbitre-t-il entre capacité, confidentialité, coût, réversibilité et sécurité ?</p>
 
@@ -432,4 +435,5 @@
 <ol class="serie-nav__list"><li><a href="/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier et open weights : qui détient réellement la puissance scientifique ?</a></li><li><a href="/publications/11-du-chatbot-au-co-scientifique">Du chatbot au co-scientifique : comment fonctionnent les systèmes IA de découverte</a></li><li><a href="/publications/12-chimie-materiaux-et-energie">Chimie, matériaux et énergie : prédire, synthétiser et valider avec les laboratoires autonomes</a></li><li><a href="/publications/13-medecine-biologie-et-medicaments">Médecine, biologie et médicaments : accélérer la découverte sans confondre hypothèse, préclinique et clinique</a></li><li><a href="/publications/14-mathematiques-physique-et-informatique">Mathématiques, physique et informatique : peut-on parler de percée lorsque l'IA trouve un algorithme ou pilote une expérience ?</a></li><li><a href="/publications/15-deployer-l-ia-scientifique" aria-current="page">Déployer l'IA scientifique : API, cloud, VPC, on-premise, HPC, GPU, gouvernance et sécurité</a></li><li><a href="/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">États, Big Tech, universités et industrie : la nouvelle géopolitique de l'IA pour la science</a></li><li><a href="/publications/17-le-chercheur-augmente">Le chercheur augmenté : nouveaux métiers, risques, reproductibilité, éthique et scénarios à 5–10 ans</a></li></ol>
 </nav>
 <div class="disclaimer">Analyse personnelle fondée sur des sources publiques. Elle n'engage que son auteur et ne constitue ni un conseil en investissement ni une recommandation.</div>
+</main></div>
 </body></html>

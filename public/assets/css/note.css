@@ -1,0 +1,261 @@
+/*
+ * Édition écran des notes « Lignes de force ».
+ *
+ * Les notes sont composées pour l'impression A4 (unités en pt, colonne de 172 mm). À l'écran :
+ * - en-tête sombre aux couleurs du site, puis texte sur fond papier ;
+ * - colonne de lecture agrandie (zoom) et ramenée à ~75 caractères, alignée à gauche, sans césure ;
+ * - sommaire latéral qui suit la lecture, barre de progression, pastilles des niveaux de preuve.
+ * L'impression (« Enregistrer en PDF ») n'est pas modifiée : tout ce qui suit est neutralisé
+ * dans @media print. Les éléments du sommaire, de la progression et du parcours sont créés par
+ * /assets/js/note.js.
+ */
+
+@media screen {
+  html { background: #f6f3ec; scroll-padding-top: 72px; }
+
+  body {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 48px 0 0 !important;
+    background: #f6f3ec;
+  }
+
+  .lf-page {
+    --lf-zoom: 1.3;
+    --lf-col: calc(148mm * var(--lf-zoom));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--lf-col)) minmax(0, 1fr);
+    column-gap: clamp(16px, 3vw, 48px);
+    padding: 0 clamp(16px, 3vw, 48px) 72px;
+  }
+
+  .lf-note {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    zoom: var(--lf-zoom);
+  }
+
+  /* Texte de lecture : aligné à gauche, sans césure automatique. */
+  .lf-note p,
+  .lf-note li {
+    text-align: left;
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
+
+  .lf-note h1,
+  .lf-note h2,
+  .lf-note h3,
+  .lf-note h4 {
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
+
+  .lf-note h2 { margin-top: 22pt; scroll-margin-top: 64px; }
+  .lf-note .standfirst { font-size: 13.4pt; }
+
+  /* ---------- En-tête sombre, en continuité avec le site ---------- */
+
+  .lf-hero {
+    position: relative;
+    margin-bottom: 18pt;
+    padding: 22pt 0 4pt;
+    background: #0b0c0e;
+    box-shadow: 0 0 0 100vmax #0b0c0e;
+    clip-path: inset(0 -100vmax);
+    color: #f4f1ea;
+  }
+
+  .lf-hero .mast { border-bottom-color: rgba(244, 241, 234, 0.22); }
+  .lf-hero .brand { color: #f4f1ea; }
+  .lf-hero .brand span { color: #e2c27d; }
+  .lf-hero .brand small { color: rgba(244, 241, 234, 0.55); }
+  .lf-hero .issue { color: rgba(244, 241, 234, 0.6); }
+  .lf-hero .issue b { color: #f4f1ea; }
+  .lf-hero .kicker { color: #e2c27d; }
+  .lf-hero h1 { color: #f4f1ea; font-size: 28pt; }
+  .lf-hero .standfirst { color: rgba(244, 241, 234, 0.78); }
+  .lf-hero .standfirst strong { color: #f4f1ea; }
+  .lf-hero .byline { color: rgba(244, 241, 234, 0.55); border-color: rgba(244, 241, 234, 0.16); margin-bottom: 14pt; }
+  .lf-hero .byline b { color: #f4f1ea; }
+  .lf-hero a { color: inherit; }
+
+  /* Parcours de la série, repris dans l'en-tête. */
+  .lf-track {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3pt;
+    margin: -2pt 0 10pt;
+    padding: 0;
+    list-style: none;
+    font-family: var(--sans);
+  }
+
+  .lf-track a {
+    display: grid;
+    place-items: center;
+    width: 17pt;
+    height: 17pt;
+    border: 0.6pt solid rgba(244, 241, 234, 0.25);
+    font-size: 7.4pt;
+    font-weight: 600;
+    color: rgba(244, 241, 234, 0.7);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .lf-track a:hover { border-color: #e2c27d; color: #e2c27d; }
+  .lf-track a[aria-current] { background: #e2c27d; border-color: #e2c27d; color: #0b0c0e; }
+  .lf-track a:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+
+  /* ---------- Éléments riches ---------- */
+
+  .lf-scroll { overflow-x: auto; margin: 4pt 0 10pt; }
+  .lf-scroll > table.data { margin: 0; min-width: 100%; }
+  .lf-note table.data { background: #fff; }
+  .lf-note .encadre { background: #fff; box-shadow: 0 1pt 0 rgba(22, 32, 44, 0.04), 0 6pt 18pt -12pt rgba(22, 32, 44, 0.35); }
+  .lf-note .schema__art { background: #fff; }
+  .lf-note .disclaimer { margin-top: 14pt; }
+
+  /* Niveaux de preuve en pastilles (A–D : fiabilité de la source ; P, PP, BI : nature de la preuve). */
+  .lf-badge {
+    display: inline-block;
+    min-width: 1.7em;
+    margin-right: 3pt;
+    padding: 0.5pt 3.5pt;
+    border-radius: 3pt;
+    font-family: var(--mono);
+    font-size: 0.92em;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: center;
+    color: #fff;
+    background: #76808c;
+    vertical-align: 0.5pt;
+  }
+
+  .lf-badge--a, .lf-badge--p { background: #2f7a55; }
+  .lf-badge--b, .lf-badge--pp { background: #2a64a8; }
+  .lf-badge--c, .lf-badge--bi { background: #b07a1c; }
+  .lf-badge--d { background: #c24a30; }
+
+  /* ---------- Barre de progression ---------- */
+
+  .lf-progress {
+    position: fixed;
+    inset: 48px 0 auto;
+    z-index: 49;
+    height: 2px;
+    background: #e2c27d;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  /* ---------- Sommaire ---------- */
+
+  .lf-toc {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    position: sticky;
+    top: 76px;
+    width: min(240px, 100%);
+    margin-top: var(--lf-hero-h, 0px);
+    padding-top: 6px;
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  .lf-toc__title {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #c24a30;
+  }
+
+  .lf-toc ol {
+    margin: 0;
+    padding: 0 0 0 1px;
+    list-style: none;
+    border-left: 1px solid #d8dce1;
+  }
+
+  .lf-toc a {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    margin-left: -1px;
+    padding: 5px 0 5px 12px;
+    border-left: 2px solid transparent;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #465262;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .lf-toc a .n { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: #9aa2ad; padding-top: 1px; }
+  .lf-toc a:hover { color: #16263d; }
+  .lf-toc a[aria-current] { color: #16263d; font-weight: 600; border-left-color: #c24a30; }
+  .lf-toc a[aria-current] .n { color: #c24a30; }
+  .lf-toc a:focus-visible { outline: 2px solid #c24a30; outline-offset: 2px; }
+
+  .lf-toc__meta {
+    margin: 16px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid #d8dce1;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #76808c;
+  }
+
+  .lf-toc__meta button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border: 1px solid #16263d;
+    border-radius: 999px;
+    background: none;
+    font: 600 11px/1 Inter, system-ui, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #16263d;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .lf-toc__meta button:hover { background: #16263d; color: #f6f3ec; }
+
+  /* Sommaire repliable, pour les écrans sans place sur le côté. */
+  .lf-toc-m { display: none; margin: 0 0 14pt; font-family: var(--sans); border: 0.6pt solid var(--rule); background: #fff; }
+  .lf-toc-m summary { padding: 7pt 10pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); cursor: pointer; }
+  .lf-toc-m ol { margin: 0; padding: 0 10pt 8pt 26pt; font-size: 9pt; line-height: 1.6; }
+  .lf-toc-m a { color: var(--ink-2); }
+
+  @media (max-width: 1180px) {
+    .lf-page { grid-template-columns: minmax(0, 1fr); padding: 0 24px 56px; }
+    .lf-note { grid-column: 1; max-width: var(--lf-col); margin: 0 auto; width: 100%; }
+    .lf-toc { display: none; }
+    .lf-toc-m { display: block; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding-top: 48px !important; }
+    .lf-page { --lf-zoom: 1.1; padding: 0 16px 40px; }
+    .lf-hero { padding-top: 14pt; }
+    .lf-hero h1 { font-size: 21pt; }
+    .lf-note .standfirst { font-size: 12pt; }
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .lf-progress { transition: transform 0.12s linear; }
+}
+
+/* L'impression garde la mise en page A4 d'origine. */
+@media print {
+  .lf-page, .lf-note, .lf-hero, .lf-scroll { display: contents; }
+  .lf-progress, .lf-toc, .lf-toc-m, .lf-track { display: none !important; }
+  .lf-badge { all: unset; }
+}

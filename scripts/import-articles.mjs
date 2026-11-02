@@ -154,11 +154,18 @@ ${langSwitch(fr)}
 </span>
 </nav>`;
 
+// Édition écran (en-tête sombre, sommaire, progression…) : /assets/css/note.css et /assets/js/note.js.
+// L'en-tête de la note (du bandeau .mast à la ligne .byline) est regroupé pour pouvoir le styler.
+const SCREEN_EDITION = `<link rel="stylesheet" href="/assets/css/note.css">
+<script src="/assets/js/note.js" defer></script>`;
+
 function withBar(html, slug) {
   const fr = `/publications/${slug}`;
   return html
-    .replace(/<\/head>/i, `${alternates(fr)}\n${BAR_STYLE}</head>`)
-    .replace(/<body([^>]*)>/i, `<body$1>${barHtml(fr)}`);
+    .replace(/<\/head>/i, `${alternates(fr)}\n${BAR_STYLE}\n${SCREEN_EDITION}</head>`)
+    .replace(/<body([^>]*)>/i, `<body$1>${barHtml(fr)}\n<div class="lf-page"><main class="lf-note">`)
+    .replace(/<\/body>/i, `</main></div>\n</body>`)
+    .replace(/(<div class="mast">[\s\S]*?<div class="byline">[\s\S]*?<\/div>)/, `<header class="lf-hero">$1</header>`);
 }
 
 function readHtmlNote(file, html) {
