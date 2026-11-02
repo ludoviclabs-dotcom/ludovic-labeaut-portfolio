@@ -268,6 +268,41 @@ main { padding-bottom: 2rem; }
   opacity: 1;
 }
 
+.note__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+/* Format de la publication : note, article de série, dossier interactif. */
+.note__format {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.note__format--live {
+  align-self: flex-start;
+  border-color: rgba(226, 194, 125, 0.45);
+  color: var(--gold);
+}
+
+.note__format--live::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: var(--gold);
+  vertical-align: 0.05em;
+}
+
 .note__num {
   font-family: var(--serif);
   font-size: 1.5rem;
@@ -334,6 +369,270 @@ main { padding-bottom: 2rem; }
 
 .note__link:hover .note__cta { color: var(--gold); }
 .note__link:hover .note__cta svg { transform: translateX(3px); }
+
+/* ---------- Série : parcours de lecture ---------- */
+
+.serie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 1.3rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.serie__label {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.serie__name {
+  margin: 0.3rem 0 0;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.serie__track {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.serie__track a {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-dim);
+  text-decoration: none;
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+}
+
+.serie__track a:hover {
+  color: var(--bg);
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.serie__start,
+.dossier__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.serie__start:hover,
+.dossier__cta:hover { color: var(--gold); }
+
+.serie__start svg,
+.dossier__cta svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  transition: transform 0.35s var(--ease);
+}
+
+.serie__start:hover svg,
+.dossier__cta:hover svg { transform: translateX(3px); }
+
+.serie__track a:focus-visible,
+.serie__start:focus-visible,
+.dossier__title a:focus-visible,
+.dossier__cta:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ---------- Dossier interactif : carte vedette ---------- */
+
+.dossier {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.dossier__media {
+  position: relative;
+  display: block;
+  min-height: 320px;
+  overflow: hidden;
+  background: #121418;
+}
+
+.dossier__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 70% at 85% 15%, rgba(226, 194, 125, 0.14), rgba(226, 194, 125, 0) 70%),
+    repeating-linear-gradient(90deg, rgba(244, 241, 234, 0.035) 0 1px, transparent 1px 48px);
+}
+
+.dossier__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 12, 14, 0) 70%, rgba(11, 12, 14, 0.75) 100%);
+  pointer-events: none;
+}
+
+/* Couverture dessinée en code : trajectoire du marché, en or sur fond sombre. */
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  font-family: var(--sans);
+  transition: transform 1.2s var(--ease);
+}
+
+.dossier:hover .cover { transform: scale(1.02); }
+
+.cover text { fill: var(--ink-faint); font-size: 11px; letter-spacing: 0.04em; }
+.cover .cover__cap { fill: var(--ink-dim); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.cover__grid line { stroke: rgba(244, 241, 234, 0.1); stroke-width: 1; }
+.cover__band { fill: url(#cover-band); }
+.cover__line { fill: none; stroke: var(--gold); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.cover__dot { fill: var(--bg); stroke: var(--gold); stroke-width: 2; }
+.cover__pulse { fill: var(--gold); }
+.cover .cover__big { fill: var(--gold); font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: 0.01em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cover__line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: cover-draw 2.4s var(--ease) 0.3s forwards; }
+  .cover__band, .cover__dot, .cover .cover__big { opacity: 0; animation: cover-in 0.9s var(--ease) 1.6s forwards; }
+  .cover__pulse { transform-box: fill-box; transform-origin: center; animation: cover-pulse 2.6s ease-out 2.4s infinite; opacity: 0; }
+}
+
+@keyframes cover-draw { to { stroke-dashoffset: 0; } }
+@keyframes cover-in { to { opacity: 1; } }
+@keyframes cover-pulse {
+  0% { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0; transform: scale(4.5); }
+}
+
+.dossier__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.5rem, 3vw, 2.4rem) clamp(1.25rem, 3vw, 2.2rem);
+}
+
+.dossier__title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.dossier__title a { text-decoration: none; }
+.dossier__title a:hover { color: var(--gold); }
+
+.dossier__standfirst {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+}
+
+.dossier__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.dossier__kpis li {
+  padding: 0.8rem 0.9rem 0.75rem 0;
+}
+
+.dossier__kpis li + li {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--line);
+}
+
+.dossier__kpis b {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.dossier__kpis span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--ink-faint);
+}
+
+.dossier__chapters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: chapitre;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.dossier__chapters li { counter-increment: chapitre; }
+
+.dossier__chapters li::before {
+  content: counter(chapitre, decimal-leading-zero);
+  margin-right: 0.6em;
+  color: var(--gold);
+}
+
+.dossier__meta {
+  margin: auto 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 860px) {
+  .serie { grid-template-columns: 1fr; }
+  .dossier { grid-template-columns: 1fr; }
+  .dossier__media { min-height: 220px; aspect-ratio: 600 / 380; }
+  .dossier__media::after { background: linear-gradient(180deg, rgba(11, 12, 14, 0) 75%, rgba(11, 12, 14, 0.6) 100%); }
+}
+
+@media (max-width: 560px) {
+  .dossier__kpis { grid-template-columns: 1fr; }
+  .dossier__kpis li + li { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+}
 
 /* ---------- Pied de page ---------- */
 

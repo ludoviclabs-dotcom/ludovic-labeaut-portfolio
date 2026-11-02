@@ -1,0 +1,182 @@
+/*
+ * Dossier interactif « Robotique humanoïde » : page d'accueil du tableau de bord sur le site.
+ * - Les variables --color-* / --cds-* / --font-* sont celles qu'attend la page du tableau de bord ;
+ *   elles reprennent ici la charte du portfolio (fond #0b0c0e, encre #f4f1ea, or #e2c27d).
+ * - Les règles « #dash-root .rb-… » accordent la couverture et les encadrés sombres à cette charte.
+ */
+
+html,
+body {
+  margin: 0;
+  background: #0b0c0e;
+  color: #f4f1ea;
+  color-scheme: dark;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Barre du haut ---------- */
+
+.dz-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem clamp(16px, 4vw, 48px);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.72);
+}
+
+.dz-bar a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.dz-bar a:hover { color: #f4f1ea; }
+
+.dz-bar a:focus-visible {
+  outline: 2px solid #e2c27d;
+  outline-offset: 4px;
+}
+
+.dz-bar__name {
+  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #f4f1ea;
+}
+
+@media (max-width: 640px) {
+  .dz-bar__name { display: none; }
+}
+
+/* ---------- Variables attendues par le tableau de bord ---------- */
+
+#dash-root {
+  --color-fg: #f4f1ea;
+  --color-fg-muted: rgba(244, 241, 234, 0.66);
+  --color-bg: #0b0c0e;
+  --color-panel: #121418;
+  --color-border-line: rgba(244, 241, 234, 0.13);
+  --color-ok: #7cc4a0;
+  --color-warn: #e2c27d;
+  --color-bad: #e58a72;
+  --font-anthropic-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-anthropic-serif: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --cds-font-size-caption: 0.78rem;
+  --cds-font-size-body: 0.95rem;
+  --cds-font-size-heading: 1.08rem;
+  --cds-font-size-title: 1.6rem;
+  --cds-font-weight-medium: 600;
+  --cds-gap-xs: 4px;
+  --cds-gap-sm: 8px;
+  --cds-gap-md: 16px;
+  --cds-gap-lg: 24px;
+  --cds-gap-xl: 40px;
+  --cds-pad-xs: 4px;
+  --cds-pad-sm: 8px;
+  --cds-pad-md: 14px;
+  --cds-pad-lg: 22px;
+  --cds-pad-xl: 40px;
+  --cds-radius: 4px;
+  --cds-chart-grid: rgba(244, 241, 234, 0.08);
+  --cds-chart-axis: rgba(244, 241, 234, 0.3);
+  --cds-chart-reference: rgba(244, 241, 234, 0.55);
+  --cds-chart-muted: rgba(244, 241, 234, 0.26);
+  --cds-chart-status-critical: #e58a72;
+  --cds-surface-popover: #1a1d22;
+  --cds-border: rgba(244, 241, 234, 0.16);
+  --cds-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --cds-text-secondary: rgba(244, 241, 234, 0.6);
+  --cds-dur-slow: 0.28s;
+  --cds-ease-out: cubic-bezier(0.22, 0.7, 0.12, 1);
+
+  display: block;
+  padding: 0 clamp(16px, 4vw, 48px) 56px;
+  font-family: var(--font-anthropic-sans);
+  font-size: var(--cds-font-size-body);
+  color: var(--color-fg);
+}
+
+/* Chiffres en attente de données : barre discrète à la place du texte. */
+#dash-root .dash-skeleton {
+  color: transparent !important;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(244, 241, 234, 0.05), rgba(244, 241, 234, 0.12), rgba(244, 241, 234, 0.05));
+  background-size: 200% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #dash-root .dash-skeleton { animation: dz-shimmer 1.3s linear infinite; }
+}
+
+@keyframes dz-shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* ---------- Accord avec la charte du portfolio ---------- */
+
+#dash-root .rb { max-width: 1240px; }
+
+#dash-root .rb-hero {
+  margin-top: 0;
+  border-radius: 6px;
+  background: #0b0c0e;
+  border-color: rgba(226, 194, 125, 0.22);
+}
+
+#dash-root .rb-hero-bg {
+  background:
+    radial-gradient(36% 44% at 14% 18%, rgba(226, 194, 125, 0.2), transparent 70%),
+    radial-gradient(34% 42% at 86% 24%, rgba(127, 167, 212, 0.2), transparent 70%),
+    radial-gradient(42% 48% at 58% 104%, rgba(111, 191, 168, 0.16), transparent 70%);
+}
+
+#dash-root .rb-kicker { color: rgba(244, 241, 234, 0.72); }
+
+#dash-root .rb-kicker::before {
+  background: #e2c27d;
+  box-shadow: 0 0 0 4px rgba(226, 194, 125, 0.18), 0 0 18px #e2c27d;
+}
+
+#dash-root .rb .rb-title {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#dash-root .rb-title span {
+  text-transform: none;
+  background: linear-gradient(90deg, #e2c27d, #f4f1ea 60%, #e2c27d);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Chiffres alignés (Cormorant compose par défaut en chiffres elzéviriens). */
+#dash-root * { font-variant-numeric: lining-nums tabular-nums; }
+
+#dash-root .rb .rb-kpi-v { font-size: clamp(1.35rem, 2.2cqi, 1.75rem); }
+#dash-root .rb-kpi { border-radius: 4px; }
+#dash-root .rb-kpi::after { background: linear-gradient(90deg, transparent, rgba(226, 194, 125, 0.85), transparent); }
+#dash-root .rb .rb-kpi-v,
+#dash-root .rb-big-v,
+#dash-root .rb-ratio .cu-w,
+#dash-root .rb-proj-v,
+#dash-root .rb .rb-vk-v { font-weight: 600; }
+#dash-root .rb .rb-kpi-s { color: rgba(226, 194, 125, 0.85); }
+
+#dash-root .rb .rb-h2 { font-weight: 600; }
+#dash-root .rb-chn { font-weight: 600; }
+
+#dash-root .rb-closing { background: #121418; border: 1px solid rgba(226, 194, 125, 0.22); }
+#dash-root .rb-closing .rb-eye { color: #e2c27d; }
+
+#dash-root .rb-orb { opacity: 0.6; }

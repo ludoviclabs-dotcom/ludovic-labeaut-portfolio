@@ -13,5 +13,6 @@
   "Publier": "Publish",
   "Une commande, un push : la note est en ligne": "One command, one push: the note is live",
   "Données de démonstration fictives : la note n°10, ses sources et ses chiffres sont inventés.": "Fictitious demo data: note No. 10, its sources and figures are invented.",
-  "Lire les publications <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "Read the notes <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>"
+  "Lire les publications <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "Read the notes <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
+  "Lignes de force : dix-sept notes d'analyse sourcées et datées, des détroits d'Ormuz à l'IA scientifique, et un dossier interactif sur la robotique humanoïde.": "Lignes de force: seventeen sourced and dated analysis notes, from the Strait of Hormuz to scientific AI, and an interactive dossier on humanoid robotics."
 }

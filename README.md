@@ -28,6 +28,7 @@ public/                    site statique servi par Vercel
   images/<thème>/*.webp    photos optimisées (générées par le script)
   credits.html             crédits photo (généré par le script)
   publications/            page /publications et notes « Lignes de force » (générées)
+  dossiers/<nom>/          dossiers interactifs (page, moteur dash.js, styles, données JSON)
   assets/css/publications.css  style de la page /publications
 scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
@@ -92,7 +93,28 @@ npm run articles     # lit ~/Dropbox/Articles rédigés, régénère public/publ
 
 Chaque note est publiée sur `/publications/<numéro-titre>`, avec une barre « ← Publications »
 et un bouton « Enregistrer en PDF » (impression A4). Le bloc (Géopolitique, Géoéconomie,
-Defense-Tech) est lu dans la note ; l'ordre suit le numéro.
+Defense-Tech) est lu dans la note ; l'ordre suit le numéro. Deux notes ne peuvent pas porter le
+même numéro : garder une seule version (HTML ou Markdown) de chaque note dans le dossier.
+
+La page `/publications` présente trois formats, signalés par un badge sur chaque carte :
+
+| Format | Source | Configuration (`scripts/import-articles.mjs`) |
+|---|---|---|
+| Note | Dropbox `Articles rédigés` | blocs dans `BLOCKS` |
+| Série | Dropbox `Articles IA` : `Article 1 — Titre.md` … `Article 8 — Titre.md` | `SERIES` (nom, bloc, dossier, premier numéro) |
+| Dossier interactif | `public/dossiers/<nom>/` (page autonome) | `DOSSIERS` (titre, chiffres clés, chapitres, couverture) |
+
+- **Séries** : chaque article devient une note numérotée à la suite (`firstNum` : 10 pour la série
+  « L'IA à la conquête du savoir », notes 10 à 17), avec la mise en page des notes, une navigation
+  « article précédent / suivant » et le sommaire de la série. Un article attend : `# Titre`, une
+  ligne « Article N sur 8. État des connaissances au … », une section `## Chapô`, puis ses sections ;
+  `## Encadré — …` devient un encadré, `## Bibliographie commentée` la liste des sources, et un bloc
+  de code un schéma en texte. Autre dossier : `SERIE_IA_DIR="D:\…" npm run articles`.
+- **Dossiers interactifs** : `public/dossiers/robotique-humanoide/` reprend le tableau de bord
+  conçu avec Claude. `dash.js` remplace le moteur de Claude (chargement des jeux de données de
+  `donnees/`, calculs, redessin) ; `dossier.css` l'accorde à la charte du site. Pour mettre à jour
+  les chiffres, remplacer les fichiers JSON de `donnees/` (mêmes colonnes). Le dossier existe en
+  français seulement : depuis la version anglaise, le lien y mène avec la mention « in French ».
 
 ## Modifier un texte ou un lien
 

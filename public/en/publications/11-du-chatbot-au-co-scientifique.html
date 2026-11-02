@@ -1,0 +1,391 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>From chatbot to co-scientist: how AI discovery systems work</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="In May 2026, Nature published two systems presented as “co-scientists”: Co-Scientist, from Google, and Robin, from the non-profit organisation FutureHouse. Both proposed therapeutic leads that were then tested on cells. These results are real, but they do not show that a machine does science on its own. They describe an organisation: several software agents that propose, critique, rank and revise hypotheses, connected to databases and overseen by researchers. Understanding these mechanics makes it possible to see where the added value, the blind spots and the risks lie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/11-du-chatbot-au-co-scientifique">
+<link rel="alternate" hreflang="en" href="/en/publications/11-du-chatbot-au-co-scientifique">
+<link rel="alternate" hreflang="x-default" href="/publications/11-du-chatbot-au-co-scientifique">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/en/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Language">
+  <a href="/publications/11-du-chatbot-au-co-scientifique" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/11-du-chatbot-au-co-scientifique" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Save as PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Series “AI and the Conquest of Knowledge”</small></div><div class="issue"><b>AI &amp; science · Note No. 11</b><br>8 October 2026</div></div>
+<div class="kicker">AI &amp; science · Article 2 of 8</div>
+<h1>From chatbot to co-scientist: how AI discovery systems work</h1>
+<p class="standfirst">In May 2026, Nature published two systems presented as “co-scientists”: Co-Scientist, from Google, and Robin, from the non-profit organisation FutureHouse. Both proposed therapeutic leads that were then tested on cells. These results are real, but they do not show that a machine does science on its own. They describe an organisation: several software agents that propose, critique, rank and revise hypotheses, connected to databases and overseen by researchers. Understanding these mechanics makes it possible to see where the added value, the blind spots and the risks lie.</p>
+<div class="byline"><span>By <b>Ludovic Labeaut</b></span><span>8 min read</span><span>State of knowledge as of 8 October 2026</span></div>
+<h2><span class="n">01</span>The question</h2>
+<p>On its own, a large language model predicts plausible text. A scientific hypothesis must be new, consistent with the data, testable, and ultimately confirmed by experiment. How do we get from one to the other? And above all: at what point in the cycle does an independent check come in?</p>
+
+<h2><span class="n">02</span>The technology, explained</h2>
+<h3 class="sub">Five building blocks</h3><table class="data">
+<thead>
+<tr>
+<th>Building block</th>
+<th>Simple definition</th>
+<th>Role in discovery</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reasoning model</td>
+<td>Language model trained to break a problem down into steps before answering</td>
+<td>Formulating hypotheses and arguing for them</td>
+</tr>
+<tr>
+<td>Tools</td>
+<td>Functions the model can call: literature search, databases (ChEMBL, UniProt), code, simulators, AlphaFold</td>
+<td>Grounding reasoning in verifiable data</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>Program that chains actions (searching, calculating, writing) towards a goal, with memory</td>
+<td>Carrying out a long task without intervention at every step</td>
+</tr>
+<tr>
+<td>Multi-agent system</td>
+<td>Several agents with different roles that communicate with one another</td>
+<td>Separating production from critique, as in a team</td>
+</tr>
+<tr>
+<td>Verifier</td>
+<td>Mechanism that judges a result: proof assistant, test, physical measurement, human expert</td>
+<td>Telling the plausible from the true</td>
+</tr>
+</tbody></table>
+<h3 class="sub">The example of Co-Scientist</h3><p>According to the <a href="https://www.nature.com/articles/s41586-026-10644-y">Nature</a> paper and the <a href="https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/">Google DeepMind blog</a> (19 May 2026), the system is built on Gemini and comprises:</p>
+<ul>
+<li>a supervisor agent, which plans and distributes the work;</li>
+<li>Generation, which proposes hypotheses;</li>
+<li>Reflection, which critiques them, with access to external search;</li>
+<li>Ranking, which runs a tournament of pairwise comparisons and simulated debates, scored with an Elo system (the chess rating system);</li>
+<li>Evolution, which combines and refines the best ideas;</li>
+<li>Proximity, which groups similar hypotheses together;</li>
+<li>Meta-review, which synthesises and produces a research proposal.</li>
+</ul>
+<p>The authors tracked how Elo scores evolved across 203 research goals, mostly biomedical. Their ablation study (removing a component to measure its effect) indicates that giving the Reflection agent access to external search prevents the invention of hypotheses that are “seemingly novel but implausible”. This is a central lesson: quality comes less from the model than from the critique loop grounded in sources.</p>
+<p>One methodological limitation should be noted: the Elo score measures a preference between hypotheses, judged by the system itself or by experts. It is not a measure of truth.</p>
+<h3 class="sub">Robin: from choosing hypotheses to analysing data</h3><p><a href="https://www.futurehouse.org/research/demonstrating-end-to-end-scientific-discovery-with-robin-a-multi-agent-system">FutureHouse</a> describes Robin as a chain of three agents: Crow (reading and synthesising literature), Falcon (evaluating molecular candidates) and Finch (analysing experimental data). The physical experiments were carried out by humans; Robin chose the hypotheses and the experiments, and analysed the results. The work, announced in May 2025, was published in Nature in 2026 (<a href="https://econpapers.repec.org/article/natnature/v_3a655_3ay_3a2026_3ai_3a8122_3ad_3a10.1038_5fs41586-026-10652-y.htm">EconPapers/Nature</a>).</p>
+<h3 class="sub">The verification ladder</h3><p>A literature review published on arXiv in June 2026 proposes a useful hierarchy of verifiers, from the most reliable to the weakest (<a href="https://arxiv.org/html/2608.05179v1">Ding et al., arXiv</a>):</p>
+<table class="data">
+<thead>
+<tr>
+<th>Rank</th>
+<th>Type of verification</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I</td>
+<td>Formal proof checker</td>
+<td>Lean</td>
+</tr>
+<tr>
+<td>II</td>
+<td>Executable tests</td>
+<td>Software test suite</td>
+</tr>
+<tr>
+<td>III</td>
+<td>Physical oracle or simulator</td>
+<td>Instrument measurement, validated simulation</td>
+</tr>
+<tr>
+<td>IV</td>
+<td>Citation grounding</td>
+<td>Bibliographic verification</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Proxy indicators, learned verifiers</td>
+<td>Score from another trained model</td>
+</tr>
+<tr>
+<td>VI</td>
+<td>Human judgement</td>
+<td>Expert</td>
+</tr>
+<tr>
+<td>VII</td>
+<td>Weak signals between agents</td>
+<td>Agent consensus</td>
+</tr>
+<tr>
+<td>VIII</td>
+<td>Model self-assessment</td>
+<td>“I think this is correct”</td>
+</tr>
+</tbody></table>
+<p>The authors’ findings, across the 24 executable systems studied: 83% publish their code, but only 38% publish the random seeds or execution traces needed to reproduce a run, and 38% describe a method for verifying novelty. Above all, no system from the large-language-model era in their corpus demonstrates a validated external oracle inside the loop. The only example of a loop driven by physical measurements, CAMEO (2020), predates LLM-based agents. An acknowledged limitation: a single coder carried out the full analysis (65% agreement with a second coder on a sample).</p>
+
+<h2><span class="n">03</span>Documented use cases</h2>
+<table class="data">
+<thead>
+<tr>
+<th>System</th>
+<th>What was done</th>
+<th>Level of evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Co-Scientist (Google)</td>
+<td>Drug repurposing for acute myeloid leukaemia: binimetinib, approved for melanoma, inhibits the viability of cell lines with an IC50 as low as 2 nM (except NOMO-1)</td>
+<td>P + IV</td>
+<td><a href="https://www.nature.com/articles/s41586-026-10644-y">Nature</a></td>
+</tr>
+<tr>
+<td>Co-Scientist</td>
+<td>KIRA6: IC50 of 10 nM on KG-1a, but 1,750 nM on MOLM-13; sensitivity varies between cell lines</td>
+<td>P + IV</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>Co-Scientist</td>
+<td>Liver fibrosis: two of the three proposed epigenetic targets show anti-fibrotic activity in human liver organoids; vorinostat is already approved for a cancer</td>
+<td>P + PC (organoids)</td>
+<td>idem; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12667525/">Advanced Science</a></td>
+</tr>
+<tr>
+<td>Co-Scientist</td>
+<td>Antibiotic resistance: rediscovered in two days a mechanism (cf-PICI) that a team had discovered but not yet published</td>
+<td>P (retrospective cross-check)</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>Robin (FutureHouse)</td>
+<td>Proposes ripasudil, already used to treat glaucoma, as a candidate against dry AMD; effect on phagocytosis in cultured retinal epithelial cells</td>
+<td>P + IV</td>
+<td><a href="https://www.futurehouse.org/research/demonstrating-end-to-end-scientific-discovery-with-robin-a-multi-agent-system">FutureHouse</a></td>
+</tr>
+<tr>
+<td>Kosmos (Edison Scientific)</td>
+<td>Reads 1,500 papers and executes 42,000 lines of code per run; 79.4% of conclusions claimed to be accurate; $200 per run at launch</td>
+<td>BI</td>
+<td><a href="https://edisonscientific.com/news/announcing-kosmos">Edison Scientific</a></td>
+</tr>
+<tr>
+<td>The AI Scientist (Sakana AI)</td>
+<td>Automates ideation, coding, experiments and writing in machine learning; one of the three papers submitted passed a workshop’s review</td>
+<td>P</td>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13017497/">Nature, 25 March 2026</a></td>
+</tr>
+<tr>
+<td>Claude Science (Anthropic)</td>
+<td>Working environment integrating research tools, more than 60 skills and a reviewer agent, which can run on local infrastructure or on an HPC system</td>
+<td>BI</td>
+<td><a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews</a></td>
+</tr>
+</tbody></table>
+
+<h2><span class="n">04</span>What has actually been demonstrated</h2>
+<ul>
+<li>Multi-agent systems produce hypotheses that experts judge worth testing, and some hold up in an initial cell-based test (P + IV).</li>
+<li>Critique grounded in external sources reduces invented hypotheses (ablation study, P).</li>
+<li>A system can independently rediscover an unpublished result (P, but a single case).</li>
+<li>These systems shorten certain tasks: according to FutureHouse, it took 2.5 months from Robin’s conception to the paper’s submission (BI).</li>
+</ul>
+<p>The Co-Scientist authors themselves write that the validation of their hypotheses, “although successful, remains preliminary” (<a href="https://www.nature.com/articles/s41586-026-10644-y">Nature</a>).</p>
+
+<h2><span class="n">05</span>What remains uncertain</h2>
+<ul>
+<li>The overall success rate. We know the successes chosen for publication; we do not know how many tested hypotheses failed. Ding et al. note that only 67% of systems disclose their policy for selecting results.</li>
+<li>Real novelty. A hypothesis judged to be new may already exist in literature the system cannot access: Co-Scientist acknowledges that it relies only on open-access literature.</li>
+<li>Clinical translation: the authors list bioavailability, pharmacokinetics, off-target effects and the tumour microenvironment as obstacles.</li>
+<li>The behaviour of agents during extended autonomy (see the security box below).</li>
+</ul>
+<h3 class="sub">When agents get around their controls</h3><p>In July 2026, during a cybersecurity evaluation at OpenAI, around 1,200 agents communicated on an unauthorised forum despite isolation measures; around 700 then attacked Hugging Face’s infrastructure using credentials found online. The agents found ways to modify or delete their own transcripts. The identified trigger: around 200 impossible evaluation tasks. An independent report by METR and Redwood Research was published on 26 August 2026 (<a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive</a>). OpenAI calls it a “warning shot” and has announced more isolated sandboxes and closer monitoring of reasoning. For science, the lesson is direct: an agent rewarded on an impossible objective may try to cheat rather than fail cleanly.</p>
+<p>In the same vein, The Next Web reports a DeepMind test in which 14% of 100 agents cheated on conjectures formalised in Lean, after being instructed not to (<a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">TNW</a>).</p>
+
+<h2><span class="n">06</span>Operational architecture: a co-scientist loop</h2>
+<figure class="schema"><div class="schema__art">  RESEARCHER: goal, constraints, criteria
+        │
+        ▼
+  SUPERVISOR ──► plans, allocates compute
+        │
+  ┌─────┼──────────────┬───────────────┬───────────────┐
+  ▼     ▼              ▼               ▼               ▼
+ GENERATION    REFLECTION (critique  RANKING           EVOLUTION
+ of hypotheses  + external search)   (Elo tournament)  (combines, refines)
+        │          │                     │               │
+        └──────────┴─────── TOOLS ───────┴───────────────┘
+              open-access literature · ChEMBL · UniProt · code · AlphaFold
+                               │
+                               ▼
+                    META-REVIEW: written proposal
+                               │
+          ════════════ HUMAN BOUNDARY ═════════════
+                               ▼
+        Experts: selection of 3 to 10 candidates (decisive filter)
+                               ▼
+        Laboratory: in vitro / organoid tests (humans or robots)
+                               ▼
+        Data analysis (agent or human) ──► new iteration
+                               ▼
+        Publication, independent replication, then possibly the clinic</div></figure><p>The key point: in the published cases, a human filter comes in before any experiment, and physical tests remain few.</p>
+
+<h2><span class="n">07</span>Economic, industrial, public and geopolitical stakes</h2>
+<p>The business model is taking shape: Google is opening its Hypothesis Generation tool to researchers through Gemini for Science and has previewed an enterprise version with Daiichi Sankyo, Bayer Crop Science and US national laboratories as part of the Genesis Mission (<a href="https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/">Google DeepMind</a>). Kosmos is sold per run. The cost is shifting: less human reading time, more computation and validation experiments.</p>
+<p>For French public research, the stakes are twofold. On the one hand, these systems depend on open-access literature: open science policy (HAL, open archives) becomes a competitiveness factor, since what is not accessible is not read by the agents. On the other hand, these systems lack negative data, which are almost never published: the organisations that structured such data (CNRS, Inserm, CEA) would create a real advantage. The CNRS thematic document on AI from April 2026 reflects this institutional thinking (<a href="https://www.ins2i.cnrs.fr/sites/institut_ins2i/files/news/2026-04/IA_livret_thematique_A5_202604_interactif.pdf">CNRS INS2I</a>).</p>
+<p>The Co-Scientist authors themselves flag a risk of homogenisation: if every laboratory queries the same systems, research directions risk converging (<a href="https://www.nature.com/articles/s41586-026-10644-y">Nature</a>).</p>
+
+<div class="encadre"><div class="tag">Box</div><h4>What not to confuse</h4><table class="data">
+<thead>
+<tr>
+<th>What you read</th>
+<th>What it really means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“AI has discovered a treatment”</td>
+<td>AI proposed a hypothesis; humans filtered it and tested it on cells</td>
+</tr>
+<tr>
+<td>“High Elo score”</td>
+<td>A hypothesis preferred to others in a tournament, not a true hypothesis</td>
+</tr>
+<tr>
+<td>“Validated in the lab”</td>
+<td>Most often in vitro; neither animals nor patients</td>
+</tr>
+<tr>
+<td>“Autonomous agent”</td>
+<td>Autonomous on digital tasks; experiments remain largely human</td>
+</tr>
+<tr>
+<td>“Rediscovers an unpublished result”</td>
+<td>One case of concordance, useful, but not a statistical measure of performance</td>
+</tr>
+<tr>
+<td>“79.4% accurate conclusions”</td>
+<td>The company’s own figure, with no published independent evaluation</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">08</span>Conclusion</h2>
+<p>The 2026 co-scientist is not an artificial researcher; it is a hypothesis production line with an in-house critique department. Its value depends on three elements outside the model: the quality of the sources it consults, the strictness of the verifiers imposed on it, and the ability of laboratories to test quickly. The weak link is no longer the idea but verification. The following articles examine, discipline by discipline, how strong that link is.</p>
+
+<div class="sources"><h3>Annotated bibliography</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Contribution</th>
+<th>Reliability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.nature.com/articles/s41586-026-10644-y">Nature — Accelerating scientific discovery with Co-Scientist</a></td>
+<td>Architecture, in vitro validations, explicit limitations</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/">Google DeepMind — Co-Scientist blog, 19 May 2026</a></td>
+<td>Collaborations, product access</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12667525/">Advanced Science — liver fibrosis</a></td>
+<td>Validation in organoids</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.futurehouse.org/research/demonstrating-end-to-end-scientific-discovery-with-robin-a-multi-agent-system">FutureHouse — Robin</a></td>
+<td>Method, ripasudil, role of humans</td>
+<td>B (refers to Nature, A)</td>
+</tr>
+<tr>
+<td><a href="https://econpapers.repec.org/article/natnature/v_3a655_3ay_3a2026_3ai_3a8122_3ad_3a10.1038_5fs41586-026-10652-y.htm">EconPapers — Nature record for Robin</a></td>
+<td>Bibliographic reference</td>
+<td>A (record)</td>
+</tr>
+<tr>
+<td><a href="https://edisonscientific.com/news/announcing-kosmos">Edison Scientific — Kosmos</a></td>
+<td>Claimed figures, pricing</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13017497/">Nature — The AI Scientist (Sakana)</a></td>
+<td>Automation of AI research, limitations</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/html/2608.05179v1">Ding et al. — Survey of AI Scientists and the Verification Gap</a></td>
+<td>Verifier hierarchy, reproducibility statistics</td>
+<td>PP — stated methodology, coding by a single person</td>
+</tr>
+<tr>
+<td><a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive — Hugging Face incident</a></td>
+<td>Behaviour of agents out of control</td>
+<td>C (refers to the OpenAI and METR/Redwood reports)</td>
+</tr>
+<tr>
+<td><a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">The Next Web — verification and agent cheating</a></td>
+<td>DeepMind test on Lean</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews — Claude Science</a></td>
+<td>Anthropic’s research environment</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.ins2i.cnrs.fr/sites/institut_ins2i/files/news/2026-04/IA_livret_thematique_A5_202604_interactif.pdf">CNRS INS2I — thematic booklet on AI</a></td>
+<td>French institutional perspective</td>
+<td>B</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Series “AI and the Conquest of Knowledge”">
+<p class="serie-nav__label">Series “AI and the Conquest of Knowledge” · Article 2 of 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/en/publications/10-frontier-non-frontier-et-open-weights"><span>← Previous article</span><b>Frontier, non-frontier and open weights: who really holds scientific power?</b></a><a class="serie-nav__next" href="/en/publications/12-chimie-materiaux-et-energie"><span>Next article →</span><b>Chemistry, materials and energy: predicting, synthesising and validating with autonomous laboratories</b></a></div>
+<ol class="serie-nav__list"><li><a href="/en/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier and open weights: who really holds scientific power?</a></li><li><a href="/en/publications/11-du-chatbot-au-co-scientifique" aria-current="page">From chatbot to co-scientist: how AI discovery systems work</a></li><li><a href="/en/publications/12-chimie-materiaux-et-energie">Chemistry, materials and energy: predicting, synthesising and validating with autonomous laboratories</a></li><li><a href="/en/publications/13-medecine-biologie-et-medicaments">Medicine, biology and drugs: accelerating discovery without confusing hypothesis, preclinical and clinical evidence</a></li><li><a href="/en/publications/14-mathematiques-physique-et-informatique">Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</a></li><li><a href="/en/publications/15-deployer-l-ia-scientifique">Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</a></li><li><a href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">States, Big Tech, universities and industry: the new geopolitics of AI for science</a></li><li><a href="/en/publications/17-le-chercheur-augmente">The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</a></li></ol>
+</nav>
+<div class="disclaimer">Personal analysis based on public sources. It reflects the author's views only and constitutes neither investment advice nor a recommendation.</div>
+</body></html>

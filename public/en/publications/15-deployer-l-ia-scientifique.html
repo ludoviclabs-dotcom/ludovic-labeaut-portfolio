@@ -1,0 +1,435 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="A laboratory that wants to use AI for research does not just choose a model. It chooses where its data travels, who can read it, what happens if the provider cuts off access, and how much each digital experiment will cost. In 2026, the range runs from a simple API key to an open model run on a public supercomputer, by way of the “trusted” clouds qualified by ANSSI. US providers are also devising hybrid arrangements, such as data stored with the customer. This article describes these architectures, their trade-offs and the European rules that govern them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/15-deployer-l-ia-scientifique">
+<link rel="alternate" hreflang="en" href="/en/publications/15-deployer-l-ia-scientifique">
+<link rel="alternate" hreflang="x-default" href="/publications/15-deployer-l-ia-scientifique">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/en/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Language">
+  <a href="/publications/15-deployer-l-ia-scientifique" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/15-deployer-l-ia-scientifique" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Save as PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Series “AI and the Conquest of Knowledge”</small></div><div class="issue"><b>AI &amp; science · Note No. 15</b><br>8 October 2026</div></div>
+<div class="kicker">AI &amp; science · Article 6 of 8</div>
+<h1>Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</h1>
+<p class="standfirst">A laboratory that wants to use AI for research does not just choose a model. It chooses where its data travels, who can read it, what happens if the provider cuts off access, and how much each digital experiment will cost. In 2026, the range runs from a simple API key to an open model run on a public supercomputer, by way of the “trusted” clouds qualified by ANSSI. US providers are also devising hybrid arrangements, such as data stored with the customer. This article describes these architectures, their trade-offs and the European rules that govern them.</p>
+<div class="byline"><span>By <b>Ludovic Labeaut</b></span><span>8 min read</span><span>State of knowledge as of 8 October 2026</span></div>
+<h2><span class="n">01</span>The question</h2>
+<p>A model’s performance is worth nothing if a project’s data cannot legally be sent to it. Conversely, perfectly sovereign hosting is of no use if all it runs is an outdated model. How does a research organisation, a university hospital or an industrial company strike a balance between capability, confidentiality, cost, reversibility and security?</p>
+
+<h2><span class="n">02</span>The technology, explained</h2>
+<h3 class="sub">Minimal glossary</h3><table class="data">
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API</td>
+<td>Interface for sending a request to a model hosted by the provider and receiving the response</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Billed unit of text; roughly three-quarters of a word in English</td>
+</tr>
+<tr>
+<td>Public cloud</td>
+<td>Shared infrastructure of a hyperscaler (AWS, Azure, Google Cloud)</td>
+</tr>
+<tr>
+<td>VPC (virtual private cloud)</td>
+<td>Isolated network, reserved for one customer, within a public cloud</td>
+</tr>
+<tr>
+<td>Sovereign / trusted cloud</td>
+<td>Cloud operated by an entity subject to European law, protected from extraterritorial laws; in France, ANSSI’s SecNumCloud qualification</td>
+</tr>
+<tr>
+<td>On-premise</td>
+<td>Hardware installed on the organisation’s premises</td>
+</tr>
+<tr>
+<td>HPC</td>
+<td>High-performance computing: shared supercomputers (Jean Zay, Alice Recoque)</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>Graphics processing unit, the main component for training and inference</td>
+</tr>
+<tr>
+<td>Zero data retention (ZDR)</td>
+<td>Provider’s commitment not to retain requests</td>
+</tr>
+<tr>
+<td>Agent orchestration</td>
+<td>Software that launches, coordinates and monitors several agents</td>
+</tr>
+</tbody></table>
+<h3 class="sub">Seven standard architectures</h3><table class="data">
+<thead>
+<tr>
+<th>Architecture</th>
+<th>2026 example</th>
+<th>Advantages</th>
+<th>Risks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Closed-model API</td>
+<td>Fable 5.1, GPT-6 Astra, at $10 per million input tokens and $50 per million output tokens (<a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>, <a href="https://openai.com/index/gpt-6-astra-next-generation-work/">OpenAI</a>)</td>
+<td>Best capabilities, no infrastructure</td>
+<td>Data transmitted; dependency; possible cut-off; US law</td>
+</tr>
+<tr>
+<td>2. Closed model via public cloud</td>
+<td>GPT-6 Astra on Amazon Bedrock (<a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html">AWS</a>)</td>
+<td>Integration with existing cloud contracts, choice of region</td>
+<td>Cloud Act, FISA</td>
+</tr>
+<tr>
+<td>3. Customer-held data</td>
+<td>Anthropic’s Enterprise Frontier Safeguards: data stored in the customer’s cloud infrastructure, abuse monitoring retained, gradual roll-out from autumn 2026 on AWS, Google Cloud and Azure (<a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>)</td>
+<td>Confidentiality close to zero retention</td>
+<td>Still on US clouds; model run by the provider</td>
+</tr>
+<tr>
+<td>4. Trusted cloud</td>
+<td>S3NS’s PREMI3NS offering (Thales, Google technology), SecNumCloud 3.2 qualified (<a href="https://www.itforbusiness.fr/s3ns-obtient-la-certification-secnumcloud-voila-qui-va-relancer-les-debats-98899">IT for Business</a>); Bleu (Capgemini–Orange, Microsoft technology) undergoing qualification</td>
+<td>Legal protection, advanced services</td>
+<td>Narrower model catalogue; technological dependency</td>
+</tr>
+<tr>
+<td>5. European sovereign cloud</td>
+<td>Scaleway for the Health Data Hub (<a href="https://www.lemonde.fr/economie/article/2026/04/24/donnees-de-sante-le-health-data-hub-migre-de-l-americain-microsoft-vers-un-hebergeur-francais-apres-des-annees-de-polemiques_6683082_3234.html">Le Monde</a>); Mistral Compute and its European deployment “independent of other providers” (<a href="https://mistral.ai/news/mistral-large-4/">Mistral AI</a>)</td>
+<td>European law, reversibility</td>
+<td>Lower GPU capacity than the hyperscalers</td>
+</tr>
+<tr>
+<td>6. On-premise / private cloud</td>
+<td>Open models (Mistral Large 4 once the weights are published, OpenFold3, Evo 2); Lilly’s AI factory with 1,016 Blackwell Ultra GPUs (<a href="https://blogs.nvidia.com/blog/lilly-ai-factory-nvidia-blackwell-dgx-superpod/">NVIDIA</a>)</td>
+<td>Full control, sensitive data</td>
+<td>Investment, skills, less powerful models</td>
+</tr>
+<tr>
+<td>7. Public HPC</td>
+<td>Jean Zay (CNRS/IDRIS, 125.9 petaflops), Alice Recoque (TGCC/CEA, more than one exaflop)</td>
+<td>Free for open research, sovereign</td>
+<td>Queues, not designed for large-scale interactive inference</td>
+</tr>
+</tbody></table>
+
+<h2><span class="n">03</span>Documented use cases</h2>
+<h3 class="sub">Public supercomputers turn to AI</h3><p>Jean Zay, hosted by IDRIS (CNRS) and acquired by GENCI, saw its power quadruple with its fourth extension, inaugurated on 13 May 2025: 125.9 petaflops, around 100 petabytes of storage, NVIDIA GPUs and warm-water cooling whose heat warms the equivalent of 1,500 homes on the Saclay plateau. The number of AI projects selected rose from 72 in 2019 to more than 1,400 in 2024 (<a href="https://www.cnrs.fr/en/press/jean-zay-supercomputer-france-has-increased-its-ai-dedicated-resources-fourfold">CNRS</a>).</p>
+<p>Alice Recoque, the second exascale machine acquired by EuroHPC, will be installed at TGCC (CEA, Bruyères-le-Châtel) in 2026 and opened to users in 2027, with the Jules Verne consortium (France, the Netherlands, Greece) and Eviden as manufacturer (<a href="https://www-hpc.cea.fr/en/AliceRecoque.html">CEA</a>). In Germany, JUPITER, the first European exascale supercomputer, has been in service at Jülich since 5 September 2025 (<a href="https://www.ecmwf.int/en/about/media-centre/news/2025/reaching-jupiter-ecmwf-celebrates-first-european-exascale">ECMWF</a>).</p>
+<p>To make access easier, the AI Factory France (AI2F) project, selected by EuroHPC in March 2025, coordinated by GENCI and co-led by Inria, has €30.7 million over three years and 20 partners; it federates access to Jean Zay, Adastra (CINES), Joliot-Curie (TGCC) and then Alice Recoque (<a href="https://scai.sorbonne-universite.fr/news/ai-factory-press-release-2646">Sorbonne Université SCAI</a>).</p>
+<h3 class="sub">Research environments that go to the data</h3><p>Anthropic presents Claude Science as a working environment that can run on local infrastructure or on HPC systems (<a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews</a>). Microsoft Discovery unifies models, simulation and experimental workflows in a governed environment and plugs into PNNL’s automation (<a href="https://blogs.microsoft.com/blog/2026/07/22/powering-americas-genesis-mission-microsofts-commitment-to-scientific-discovery/">Microsoft</a>). The trend is clear: the model stays with the provider, but the tools and the data stay with the researcher.</p>
+<h3 class="sub">Connecting agents to instruments</h3><p>Anthropic’s Model Hardware Standard, presented on 27 August 2026 with HHMI Janelia, offers a common layer between agents and instruments. A PhD student in the Baker lab (University of Washington) connected six instruments in less than a week; at Carnegie Mellon, six deliberately induced hazardous situations (missing plate, unreachable device, emergency stop…) were blocked before any movement (<a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic</a>). These are proofs of concept, not peer-reviewed, and a standard backed by a provider.</p>
+
+<h2><span class="n">04</span>What has actually been demonstrated</h2>
+<ul>
+<li>European public HPC systems are capable of training and running large open models (documented fact).</li>
+<li>Architectures in which data stays with the customer exist or are being rolled out (B).</li>
+<li>SecNumCloud-qualified clouds offer advanced AI services (documented fact; scope to be checked service by service).</li>
+<li>Safe connection of agents to instruments has been demonstrated in a few cases (B).</li>
+</ul>
+
+<h2><span class="n">05</span>What remains uncertain</h2>
+<ul>
+<li>The actual availability of frontier models on SecNumCloud-qualified clouds: information unconfirmed for Fable 5.1 and GPT-6 Astra.</li>
+<li>Continuity of access: the suspension of Fable 5 and Mythos 5 from 12 June to 1 July 2026 for export-control reasons (<a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews</a>) shows that a project can be interrupted without notice.</li>
+<li>Data retention: Anthropic requires 30-day retention for all traffic to Mythos-class models (<a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Anthropic</a>), which is incompatible with some sensitive projects.</li>
+<li>The real cost of agentic projects: OpenAI speaks of “millions of dollars” for Navier–Stokes; Kosmos charges $200 per run (<a href="https://edisonscientific.com/news/announcing-kosmos">Edison Scientific</a>).</li>
+</ul>
+
+<h2><span class="n">06</span>Operational architecture: reference diagram for a research organisation</h2>
+<figure class="schema"><div class="schema__art">                                ┌──────────────────────────────────────────────┐
+                │  GOVERNANCE (DPO, CISO, ethics committee)    │
+                │  data classification: public /               │
+                │  sensitive / health / defence / dual use     │
+                └──────────────────────┬───────────────────────┘
+                                       │ routing rules
+                                       ▼
+ RESEARCHER ──► AI GATEWAY (logging, filtering, quotas, anonymisation)
+                     │
+     ┌───────────────┼──────────────────┬──────────────────────┐
+     ▼               ▼                  ▼                      ▼
+ Public          Sensitive           Health data            Massive compute
+ data            data                (SNDS, warehouses)     (training,
+     │               │                  │                    simulation)
+     ▼               ▼                  ▼                      ▼
+ Frontier API    SecNumCloud cloud   Certified health       Public HPC
+ (Fable, Astra,  or VPC + customer-  data host + local      (Jean Zay,
+ Gemini)         held data           open model              Alice Recoque)
+                                                             + open models
+     └───────────────┴──────────┬───────┴──────────────────────┘
+                                ▼
+            AGENT ORCHESTRATOR (isolated sandbox, no unnecessary
+            Internet access, monitoring, emergency stop)
+                                ▼
+            INSTRUMENT LAYER (drivers, hardware interlocks, human
+            validation of irreversible actions)
+                                ▼
+            TRACEABILITY: model versions, prompts, seeds,
+            execution traces, raw data ─► reproducibility</div></figure><p>Guiding principle: route each task to the least exposed architecture that is still sufficient. Most uses (reading public literature, code) can tolerate an API; health data and dual-use projects cannot.</p>
+
+<h2><span class="n">07</span>Economic, industrial, public and geopolitical stakes</h2>
+<h3 class="sub">The European legal framework</h3><table class="data">
+<thead>
+<tr>
+<th>Text</th>
+<th>What it requires</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AI Act, GPAI obligations</td>
+<td>Technical documentation, copyright policy, summary of training data; risk assessment and cybersecurity above 10^25 FLOP (threshold under review)</td>
+<td>Since 2 August 2025 (<a href="https://digital-strategy.ec.europa.eu/en/factpages/general-purpose-ai-obligations-under-ai-act">European Commission</a>)</td>
+</tr>
+<tr>
+<td>Digital Omnibus on AI (Regulation 2026/1744)</td>
+<td>Postponement of the high-risk rules: 2 December 2027 (stand-alone systems), 2 August 2028 (systems embedded in products)</td>
+<td>Published on 24 July 2026 (<a href="https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai">European Parliament</a>)</td>
+</tr>
+<tr>
+<td>EHDS (Regulation 2025/327)</td>
+<td>Secondary use of health data for research, in secure environments</td>
+<td>In force since 26 March 2025 (<a href="https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en">European Commission</a>)</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>Legal basis, minimisation, transfers outside the EU</td>
+<td>In force</td>
+</tr>
+</tbody></table>
+<p>Note: Anthropic states that it signed the European code of practice on transparency in July 2026 (<a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>).</p>
+<h3 class="sub">Compute as strategic infrastructure</h3><p>On 30 July 2026 the European Union launched the call for applications for its AI “gigafactories”, closing on 3 December 2026; each site will have to integrate at least three to four times as many cutting-edge AI processors as the most powerful current European “AI factories” (<a href="https://www.eurohpc-ju.europa.eu/call-tenders-selection-artificial-intelligence-gigafactory-consortia-and-establishment-ai_en">EuroHPC</a>). Horizon Europe is contributing €600 million (<a href="https://commission.europa.eu/news-and-media/news/keeping-european-industry-and-science-forefront-ai-2025-10-08_en">European Commission</a>). On the private side, Mistral’s centre at Bruyères-le-Châtel (more than 13,800 GB300 GPUs, 44 MW) illustrates real French capacity, albeit dependent on NVIDIA (<a href="https://www.numerama.com/tech/2221393-830-millions-de-dollars-limmense-data-center-de-mistral-aux-portes-de-paris-prend-forme.html">Numerama</a>).</p>
+<h3 class="sub">Energy</h3><p>According to the <a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions">International Energy Agency</a>, electricity consumption by data centres rose by 17% in 2025 and is expected to double by 2030, while that of AI-dedicated centres is set to triple; investment by five large technology companies exceeded $400 billion in 2025. The IEA also notes that energy use per AI task is falling rapidly. A campaign of 10,000 agents running for 88 hours does not have the same energy balance as a single query: the footprint of agentic projects should be declared in publications, which is not the case today.</p>
+<h3 class="sub">Agent security</h3><p>The July 2026 incident at OpenAI, in which around 700 agents under evaluation attacked Hugging Face’s infrastructure after circumventing their isolation (<a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive</a>), yields three deployment rules: genuinely isolate agents (network, credentials), keep logs out of their reach, provide for a rapid shutdown. For a laboratory connected to robots and reagents, these rules are physical safety requirements.</p>
+
+<div class="encadre"><div class="tag">Box</div><h4>What not to confuse</h4><table class="data">
+<thead>
+<tr>
+<th>What you read</th>
+<th>What it really means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“Hosted in Europe”</td>
+<td>Server location; does not protect against the Cloud Act if the operator is American</td>
+</tr>
+<tr>
+<td>“Sovereign cloud”</td>
+<td>Marketing term; in France, the benchmark is the SecNumCloud qualification</td>
+</tr>
+<tr>
+<td>“Zero retention”</td>
+<td>Contractual commitment by the provider, often subject to approval</td>
+</tr>
+<tr>
+<td>“Customer-held data”</td>
+<td>Storage on the customer’s side, but model run by the provider</td>
+</tr>
+<tr>
+<td>“Open weights = sovereign”</td>
+<td>Only if the model runs on infrastructure you control</td>
+</tr>
+<tr>
+<td>“Exascale supercomputer”</td>
+<td>Double-precision performance for simulation; AI performance is measured differently</td>
+</tr>
+<tr>
+<td>“Available in the cloud”</td>
+<td>May exclude certain countries, user profiles or uses (biology)</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">08</span>Conclusion</h2>
+<p>Deploying scientific AI means designing a routing system: every piece of data, every task, every agent must go to the safest infrastructure that is still sufficient. Europe now has all the building blocks: world-class public HPC, qualified clouds, open models, a legal framework. What is missing is assembling them into a simple offering for researchers, along with negotiated access to the most capable closed models. AI2F and RAISE are moving in this direction; their success will be measured by ease of use, not by the number of petaflops.</p>
+
+<div class="sources"><h3>Annotated bibliography</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Contribution</th>
+<th>Reliability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic — Fable and Mythos 5.1</a></td>
+<td>Pricing, customer-held data, AI Act</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Anthropic — Fable 5 and Mythos 5</a></td>
+<td>30-day retention</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://openai.com/index/gpt-6-astra-next-generation-work/">OpenAI — GPT-6 Astra</a></td>
+<td>Zero retention subject to approval</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html">AWS — GPT-6 Astra on Bedrock</a></td>
+<td>Distribution via public cloud</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://mistral.ai/news/mistral-large-4/">Mistral AI — Large 4</a></td>
+<td>European deployment, private cloud, on-premise</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.itforbusiness.fr/s3ns-obtient-la-certification-secnumcloud-voila-qui-va-relancer-les-debats-98899">IT for Business — S3NS qualified under SecNumCloud</a></td>
+<td>Trusted cloud, Bleu’s status</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.lemonde.fr/economie/article/2026/04/24/donnees-de-sante-le-health-data-hub-migre-de-l-americain-microsoft-vers-un-hebergeur-francais-apres-des-annees-de-polemiques_6683082_3234.html">Le Monde — Health Data Hub</a></td>
+<td>Sovereignty trade-off, CNIL</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.cnrs.fr/en/press/jean-zay-supercomputer-france-has-increased-its-ai-dedicated-resources-fourfold">CNRS — Jean Zay</a></td>
+<td>Capabilities, uses</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www-hpc.cea.fr/en/AliceRecoque.html">CEA — Alice Recoque</a></td>
+<td>Timetable, consortium</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.ecmwf.int/en/about/media-centre/news/2025/reaching-jupiter-ecmwf-celebrates-first-european-exascale">ECMWF — JUPITER</a></td>
+<td>First European exascale system</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://scai.sorbonne-universite.fr/news/ai-factory-press-release-2646">Sorbonne Université — AI Factory France</a></td>
+<td>Budget, governance, access</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.eurohpc-ju.europa.eu/call-tenders-selection-artificial-intelligence-gigafactory-consortia-and-establishment-ai_en">EuroHPC — gigafactories call</a></td>
+<td>Timetable and criteria</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://commission.europa.eu/news-and-media/news/keeping-european-industry-and-science-forefront-ai-2025-10-08_en">European Commission — October 2025 AI strategies</a></td>
+<td>€600 million, RAISE</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://digital-strategy.ec.europa.eu/en/factpages/general-purpose-ai-obligations-under-ai-act">European Commission — GPAI obligations</a></td>
+<td>Obligations, threshold</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai">European Parliament — digital omnibus</a></td>
+<td>Postponement of obligations</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en">European Commission — EHDS</a></td>
+<td>Health data</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions">IEA — data-centre electricity</a></td>
+<td>Energy and investment</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.numerama.com/tech/2221393-830-millions-de-dollars-limmense-data-center-de-mistral-aux-portes-de-paris-prend-forme.html">Numerama — Mistral’s data centre</a></td>
+<td>French private capacity</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://blogs.nvidia.com/blog/lilly-ai-factory-nvidia-blackwell-dgx-superpod/">NVIDIA — Lilly’s AI factory</a></td>
+<td>Private pharmaceutical infrastructure</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://blogs.microsoft.com/blog/2026/07/22/powering-americas-genesis-mission-microsofts-commitment-to-scientific-discovery/">Microsoft — Genesis Mission</a></td>
+<td>Microsoft Discovery, PNNL</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic — Model Hardware Standard</a></td>
+<td>Connection to instruments</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews — Claude Science and access suspension</a></td>
+<td>Continuity of access</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive — Hugging Face incident</a></td>
+<td>Agent security</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://edisonscientific.com/news/announcing-kosmos">Edison Scientific — Kosmos</a></td>
+<td>Cost per run</td>
+<td>B</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Series “AI and the Conquest of Knowledge”">
+<p class="serie-nav__label">Series “AI and the Conquest of Knowledge” · Article 6 of 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/en/publications/14-mathematiques-physique-et-informatique"><span>← Previous article</span><b>Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</b></a><a class="serie-nav__next" href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science"><span>Next article →</span><b>States, Big Tech, universities and industry: the new geopolitics of AI for science</b></a></div>
+<ol class="serie-nav__list"><li><a href="/en/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier and open weights: who really holds scientific power?</a></li><li><a href="/en/publications/11-du-chatbot-au-co-scientifique">From chatbot to co-scientist: how AI discovery systems work</a></li><li><a href="/en/publications/12-chimie-materiaux-et-energie">Chemistry, materials and energy: predicting, synthesising and validating with autonomous laboratories</a></li><li><a href="/en/publications/13-medecine-biologie-et-medicaments">Medicine, biology and drugs: accelerating discovery without confusing hypothesis, preclinical and clinical evidence</a></li><li><a href="/en/publications/14-mathematiques-physique-et-informatique">Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</a></li><li><a href="/en/publications/15-deployer-l-ia-scientifique" aria-current="page">Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</a></li><li><a href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">States, Big Tech, universities and industry: the new geopolitics of AI for science</a></li><li><a href="/en/publications/17-le-chercheur-augmente">The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</a></li></ol>
+</nav>
+<div class="disclaimer">Personal analysis based on public sources. It reflects the author's views only and constitutes neither investment advice nor a recommendation.</div>
+</body></html>

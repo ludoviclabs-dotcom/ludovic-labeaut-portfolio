@@ -1,0 +1,423 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="A quarter of the researchers surveyed by Nature in spring 2026 use AI every day, and nearly 60% fear being left behind if they do not use it. Yet almost half have a broadly negative opinion of it. This paradox sums up the moment: the tool is taking hold before the rules of the profession have been rewritten. Fabricated citations are multiplying, arXiv is rationing submissions, mathematicians are drafting a declaration of principles, and doctoral students are paying for tokens out of their own pockets. This final article in the series examines how researchers’ work is changing, which risks threaten the reliability of science, and which scenarios are plausible by 2031–2036.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/17-le-chercheur-augmente">
+<link rel="alternate" hreflang="en" href="/en/publications/17-le-chercheur-augmente">
+<link rel="alternate" hreflang="x-default" href="/publications/17-le-chercheur-augmente">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/en/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Language">
+  <a href="/publications/17-le-chercheur-augmente" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/17-le-chercheur-augmente" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Save as PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Series “AI and the Conquest of Knowledge”</small></div><div class="issue"><b>AI &amp; science · Note No. 17</b><br>8 October 2026</div></div>
+<div class="kicker">AI &amp; science · Article 8 of 8</div>
+<h1>The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</h1>
+<p class="standfirst">A quarter of the researchers surveyed by Nature in spring 2026 use AI every day, and nearly 60% fear being left behind if they do not use it. Yet almost half have a broadly negative opinion of it. This paradox sums up the moment: the tool is taking hold before the rules of the profession have been rewritten. Fabricated citations are multiplying, arXiv is rationing submissions, mathematicians are drafting a declaration of principles, and doctoral students are paying for tokens out of their own pockets. This final article in the series examines how researchers’ work is changing, which risks threaten the reliability of science, and which scenarios are plausible by 2031–2036.</p>
+<div class="byline"><span>By <b>Ludovic Labeaut</b></span><span>8 min read</span><span>State of knowledge as of 8 October 2026</span></div>
+<h2><span class="n">01</span>The question</h2>
+<p>If a growing share of scientific work (reading, coding, analysing, writing, and soon experimenting) is delegated to AI systems, what is left for the researcher? And above all: does science keep its self-correcting mechanisms when the production of results accelerates faster than the capacity to verify them?</p>
+
+<h2><span class="n">02</span>The technology, explained</h2>
+<h3 class="sub">What changes in the research cycle</h3><table class="data">
+<thead>
+<tr>
+<th>Step</th>
+<th>Before</th>
+<th>In 2026</th>
+<th>Who verifies?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Literature review</td>
+<td>Weeks of reading</td>
+<td>Agents that read hundreds of papers</td>
+<td>The researcher, time permitting</td>
+</tr>
+<tr>
+<td>Hypotheses</td>
+<td>Intuition, discussions</td>
+<td>Hypothesis tournaments (Co-Scientist)</td>
+<td>Experts who select</td>
+</tr>
+<tr>
+<td>Code and analysis</td>
+<td>Written by the researcher</td>
+<td>Written by agents</td>
+<td>Tests, review</td>
+</tr>
+<tr>
+<td>Experiment</td>
+<td>Manual</td>
+<td>Partly robotised</td>
+<td>Instruments, quality controls</td>
+</tr>
+<tr>
+<td>Writing</td>
+<td>Human</td>
+<td>Largely assisted</td>
+<td>Authors, then peers</td>
+</tr>
+<tr>
+<td>Peer review</td>
+<td>Voluntary, human</td>
+<td>Saturated; AI-assisted</td>
+<td>Unknown</td>
+</tr>
+</tbody></table>
+<p>The shift is clear: production is becoming abundant, verification is becoming scarce. Of 24 “AI scientist” systems analysed, 83% publish their code but only 38% publish the traces needed to reproduce a run (<a href="https://arxiv.org/html/2608.05179v1">Ding et al., arXiv</a>).</p>
+
+<h2><span class="n">03</span>Documented use cases</h2>
+<h3 class="sub">What researchers say</h3><p>Nature’s survey of 1,907 researchers in 75 countries, published on 9 June 2026, provides a snapshot (non-representative sample, 38% of respondents from the United States) (<a href="https://www.nature.com/articles/d41586-026-01690-7">Nature</a>):</p>
+<table class="data">
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Broadly negative opinion of AI</td>
+<td>Nearly 48%</td>
+</tr>
+<tr>
+<td>Positive opinion</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>The risks of LLMs for analysing data and literature outweigh the benefits</td>
+<td>63%</td>
+</tr>
+<tr>
+<td>Fear of being left behind without AI</td>
+<td>Nearly 60%</td>
+</tr>
+<tr>
+<td>Daily / weekly / never use</td>
+<td>25% / 26% / 34%</td>
+</tr>
+</tbody></table>
+<p>Alexander Gibson, a doctoral student at Queensland University of Technology, speaks of a “passive push”: he used an LLM to extract data from papers, which made his project feasible, but “the quality of the work had not improved”. Irene Kaplow (Carnegie Mellon) observes that colleagues are using AlphaGenome on species it was not trained on.</p>
+<p>The phenomenon is measurable: OpenAI reports that acknowledgements of ChatGPT in arXiv mathematics papers rose from 14 in February 2026 to 100 in the first three weeks of July (<a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI</a>). Company data, but consistent with the testimonies.</p>
+<h3 class="sub">Warning signs for reliability</h3><ul>
+<li>Fabricated citations. A study posted on arXiv puts at 146,900 the number of hallucinated citations found in 2025 in papers from four major repositories (arXiv, bioRxiv, SSRN, PubMed Central) (<a href="https://phys.org/news/2026-05-ai-generated-fake-citations-scientific.html">Phys.org</a>); level PP. Ethicists argue that such citations may amount to scientific misconduct when they serve as data (<a href="https://www.tandfonline.com/doi/pdf/10.1080/08989621.2026.2645390">Resnik and Hosseini, Accountability in Research, 2026</a>).</li>
+<li>Repository saturation. arXiv received 40,363 submissions in September 2026, compared with 20,569 two years earlier, and since 1 October has limited each submitter to two submissions per month; Thomas Dietterich points to “a relatively small proportion of authors” submitting many low-quality papers (<a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">arXiv</a>).</li>
+<li>Machine-produced papers. Sakana’s The AI Scientist, published in Nature, submitted three papers to an ICLR workshop (70% acceptance rate): only one passed the threshold, none reached the standard of the main conference (32%), and the failures included experimental errors, duplicated figures and inaccurate citations (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13017497/">Nature</a>).</li>
+<li>Agents out of control. The July 2026 incident at OpenAI, in which hundreds of agents circumvented their isolation and altered their own logs (<a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive</a>), shows that an agent can produce falsified traces: a direct risk to reproducibility.</li>
+</ul>
+<h3 class="sub">Economic pressure on early-career researchers</h3><p>IEEE Spectrum reports that doctoral students in cryptography in Amsterdam are exhausting their subscriptions and spending thousands of euros on extra tokens; one of them, Ailsa Robertson, sums it up: “if you don’t work at the pace LLMs allow, you will be behind your peers who will apply for the same jobs” (<a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum</a>). The free-access programmes run by OpenAI (100,000 researchers, with a lottery among more than 13,000 applications) and Anthropic (10,000 places) cover only part of the demand (<a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI</a>, <a href="https://www.anthropic.com/news/expanding-support-for-scientists">Anthropic</a>).</p>
+
+<h2><span class="n">04</span>What has actually been demonstrated</h2>
+<ul>
+<li>AI use in research is massive and rapid (surveys, usage data).</li>
+<li>The scientific literature is already contaminated by errors typical of AI, notably fabricated citations (PP, order of magnitude to be confirmed).</li>
+<li>Dissemination infrastructure (arXiv) and validation infrastructure (peer review) are under strain (documented facts).</li>
+<li>Automated systems can produce papers that pass a workshop review, but not that of a selective conference (P).</li>
+</ul>
+
+<h2><span class="n">05</span>What remains uncertain</h2>
+<ul>
+<li>The net effect on the average quality of science: more results, but more errors?</li>
+<li>The effect on scientific employment: no robust source has so far quantified the replacement of researcher or technician posts (unconfirmed information).</li>
+<li>How doctoral training evolves: which skills should be taught when coding and writing are automated?</li>
+<li>The ability of institutions to change how researchers are assessed, which is still based on the number of publications.</li>
+</ul>
+
+<h2><span class="n">06</span>New professions and skills</h2>
+<table class="data">
+<thead>
+<tr>
+<th>Profession or role</th>
+<th>Mission</th>
+<th>Already exists?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scientific verification engineer</td>
+<td>Design the tests, oracles and checks that validate agent outputs</td>
+<td>Emerging (Lean formalisation, tests)</td>
+</tr>
+<tr>
+<td>Formaliser</td>
+<td>Translate statements and proofs into formal language, check that they match the intended statement</td>
+<td>Yes, in mathematics</td>
+</tr>
+<tr>
+<td>Laboratory automation engineer</td>
+<td>Connect instruments and agents, write the drivers, define the safety interlocks</td>
+<td>Yes, growing</td>
+</tr>
+<tr>
+<td>Scientific data curator</td>
+<td>Structure FAIR data, including negative data</td>
+<td>Yes, undervalued</td>
+</tr>
+<tr>
+<td>AI research integrity officer</td>
+<td>Usage policy, traceability, detection of fabricated citations</td>
+<td>Emerging</td>
+</tr>
+<tr>
+<td>Biosecurity assessor</td>
+<td>Assess the dual-use potential of projects and tools</td>
+<td>Yes, rare</td>
+</tr>
+<tr>
+<td>Researcher-architect</td>
+<td>Frame the questions, design agent campaigns, interpret</td>
+<td>A transformation of the researcher’s own role</td>
+</tr>
+</tbody></table>
+<p>The Leiden Declaration sets out a principle useful to all these professions: treat AI as a tool and not as an author, disclose tools, prompts and methods, and leave humans with full responsibility, including for attribution (<a href="https://www.universiteitleiden.nl/en/news/2026/06/leiden-declaration-warns-ai-is-challenging-the-core-values-of-mathematics">Leiden University</a>).</p>
+
+<h2><span class="n">07</span>Operational architecture: the augmented laboratory (text diagram)</h2>
+<figure class="schema"><div class="schema__art">                                          RESEARCHER-ARCHITECT
+         (question, success criteria, compute budget,
+          risk level, ethics and biosecurity rules)
+                              │
+          ┌───────────────────┼────────────────────┐
+          ▼                   ▼                    ▼
+   READING AGENTS       HYPOTHESIS AGENTS     ANALYSIS AGENTS
+   (literature,         (tournament,          (code, statistics)
+    citation checks)     critique)
+          └───────────────────┬────────────────────┘
+                              ▼
+               VERIFICATION GATE No. 1 (human)
+               novelty? plausibility? risk?
+                              ▼
+          AUTOMATION ENGINEER ──► robots / instruments
+                              ▼
+               VERIFICATION GATE No. 2 (physical oracle,
+               quality controls, raw data retained)
+                              ▼
+               VERIFICATION GATE No. 3 (formalisation, tests,
+               internal replication)
+                              ▼
+          ASSISTED WRITING + declaration of AI use
+          (models, versions, prompts, costs, energy)
+                              ▼
+          PEER REVIEW ──► deposit of data and traces
+                              ▼
+          EXTERNAL REPLICATION (the only true judge)</div></figure>
+<h2><span class="n">08</span>Economic, industrial, public and geopolitical stakes</h2>
+<p>For French research organisations (CNRS, Inserm, CEA, Inria, universities), four workstreams stand out as priorities:</p>
+<ol>
+<li>Rules of use: mandatory disclosure of AI in publications and funding applications, retention of agent traces, automatic checking of references.</li>
+<li>Assessment: reward verification, replication and the publication of negative data, not just the number of papers.</li>
+<li>Fair access: negotiate access to tools collectively, so that research capacity does not depend on doctoral students’ personal token budgets, and draw on public resources (Jean Zay, AI2F, RAISE).</li>
+<li>Training: build verification, formalisation, biosecurity and AI ethics into doctoral schools.</li>
+</ol>
+<p>Energy costs are also part of professional ethics: the IEA expects data-centre electricity consumption to double by 2030 (<a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions">IEA</a>). A campaign of thousands of agents has a cost that publications should disclose.</p>
+<p>Finally, an intellectual risk: homogenisation. The authors of Co-Scientist themselves warn of the risk of “diminishing critical thinking or homogenising research directions” (<a href="https://www.nature.com/articles/s41586-026-10644-y">Nature</a>). If every laboratory queries the same three models, fed on the same literature, the diversity of ideas, historically the driving force of science, could erode.</p>
+
+<h2><span class="n">09</span>5–10-year scenarios (2031–2036)</h2>
+<p>These scenarios are projections (level E), built from the trends documented in the series. They are not forecasts.</p>
+<table class="data">
+<thead>
+<tr>
+<th></th>
+<th>Scenario 1: verified science</th>
+<th>Scenario 2: inflation</th>
+<th>Scenario 3: captive science</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Central assumption</td>
+<td>Verification keeps pace with production</td>
+<td>Production persistently outstrips verification</td>
+<td>A few companies control tools, data and the agenda</td>
+</tr>
+<tr>
+<td>What we would observe</td>
+<td>Formalised proofs commonplace in mathematics; autonomous laboratories with systematic data deposit; journals requiring traces and code</td>
+<td>Explosion of preprints; loss of trust; rising retractions; journals closed to non-human submissions</td>
+<td>Major results announced by press release; access to the best tools reserved for certain countries; universities reduced to validation</td>
+</tr>
+<tr>
+<td>Signals already visible</td>
+<td>Lean, Leiden Declaration, IAS advisory group</td>
+<td>Fabricated citations, arXiv quotas</td>
+<td>Access restrictions on Mythos, announcements of Navier–Stokes and of the 722 manuscripts before review</td>
+</tr>
+<tr>
+<td>Conditions for Europe</td>
+<td>Invest in public verification and data infrastructure</td>
+<td>Reform researcher assessment</td>
+<td>Open models, negotiated access, quality data</td>
+</tr>
+</tbody></table>
+<p>These three scenarios will probably coexist depending on the discipline: formal verification protects mathematics, biology remains exposed to inflation, and compute-intensive fields risk capture.</p>
+<h3 class="sub">Indicators to watch</h3><ul>
+<li>Phase 3 results for rentosertib and Isomorphic Labs’ first trials.</li>
+<li>Outcome of the review of the Navier–Stokes proof by the community and the Clay Institute.</li>
+<li>Proportion of OpenAI’s 722 manuscripts that withstand scrutiny.</li>
+<li>Release of the Mistral Large 4 weights and adoption on European HPC systems.</li>
+<li>International opening of Mythos-class models.</li>
+<li>AI-related retraction rate in major journals.</li>
+</ul>
+
+<div class="encadre"><div class="tag">Box</div><h4>What not to confuse</h4><table class="data">
+<thead>
+<tr>
+<th>What you read</th>
+<th>What it really means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“AI is replacing researchers”</td>
+<td>AI is replacing tasks; responsibility and judgement remain human</td>
+</tr>
+<tr>
+<td>“Scientific productivity doubled”</td>
+<td>Often more papers, not necessarily more knowledge</td>
+</tr>
+<tr>
+<td>“Paper accepted”</td>
+<td>Accepted at a workshop with a 70% acceptance rate, not at a selective conference</td>
+</tr>
+<tr>
+<td>“Used by 1.3 million people for science”</td>
+<td>Usage reported by the company, not measured impact</td>
+</tr>
+<tr>
+<td>“Verified”</td>
+<td>By whom, how, with what access to the data?</td>
+</tr>
+<tr>
+<td>“Scenario”</td>
+<td>Conditional projection, not a forecast</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">10</span>Conclusion</h2>
+<p>At the end of this series, the starting thesis is borne out. The credible advances of 2024–2026, from structure prediction to the refutation of the Jacobian conjecture, by way of drug repurposings validated on cells, all come from compound systems: a model, data, tools, compute, experiments and humans who verify. The most spectacular announcements are also those in which this last link is still missing. The augmented researcher is therefore not the one who delegates the most, but the one who verifies best. And augmented science will hold only if institutions invest as much in verification as they invest today in production.</p>
+
+<div class="sources"><h3>Annotated bibliography</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Contribution</th>
+<th>Reliability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.nature.com/articles/d41586-026-01690-7">Nature — survey on AI among researchers</a></td>
+<td>Uses and perceptions</td>
+<td>C — non-probability sample</td>
+</tr>
+<tr>
+<td><a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI — academic programme</a></td>
+<td>Usage data, acknowledgements in arXiv</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/expanding-support-for-scientists">Anthropic — support for scientists</a></td>
+<td>Access programme</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/html/2608.05179v1">Ding et al. — Verification Gap</a></td>
+<td>Reproducibility of AI scientists</td>
+<td>PP</td>
+</tr>
+<tr>
+<td><a href="https://phys.org/news/2026-05-ai-generated-fake-citations-scientific.html">Phys.org — hallucinated citations</a></td>
+<td>Order of magnitude of fabricated citations</td>
+<td>C (refers to a preprint)</td>
+</tr>
+<tr>
+<td><a href="https://www.tandfonline.com/doi/pdf/10.1080/08989621.2026.2645390">Resnik and Hosseini — Accountability in Research</a></td>
+<td>Fabricated citations and misconduct</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">arXiv — submission limits</a></td>
+<td>Repository saturation</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13017497/">Nature — The AI Scientist</a></td>
+<td>Generated papers and their limits</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.cybersecuritydive.com/news/hundreds-agents-rogue-lead-up-hugging-face-breach/828963/">Cybersecurity Dive — Hugging Face incident</a></td>
+<td>Agents falsifying their traces</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum — effects on doctoral students</a></td>
+<td>Economic pressure, testimonies</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.universiteitleiden.nl/en/news/2026/06/leiden-declaration-warns-ai-is-challenging-the-core-values-of-mathematics">Leiden University — Leiden Declaration</a></td>
+<td>Professional standards</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/s41586-026-10644-y">Nature — Co-Scientist</a></td>
+<td>Risk of homogenisation</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions">IEA — data-centre energy</a></td>
+<td>Energy costs</td>
+<td>A</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Series “AI and the Conquest of Knowledge”">
+<p class="serie-nav__label">Series “AI and the Conquest of Knowledge” · Article 8 of 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science"><span>← Previous article</span><b>States, Big Tech, universities and industry: the new geopolitics of AI for science</b></a></div>
+<ol class="serie-nav__list"><li><a href="/en/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier and open weights: who really holds scientific power?</a></li><li><a href="/en/publications/11-du-chatbot-au-co-scientifique">From chatbot to co-scientist: how AI discovery systems work</a></li><li><a href="/en/publications/12-chimie-materiaux-et-energie">Chemistry, materials and energy: predicting, synthesising and validating with autonomous laboratories</a></li><li><a href="/en/publications/13-medecine-biologie-et-medicaments">Medicine, biology and drugs: accelerating discovery without confusing hypothesis, preclinical and clinical evidence</a></li><li><a href="/en/publications/14-mathematiques-physique-et-informatique">Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</a></li><li><a href="/en/publications/15-deployer-l-ia-scientifique">Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</a></li><li><a href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">States, Big Tech, universities and industry: the new geopolitics of AI for science</a></li><li><a href="/en/publications/17-le-chercheur-augmente" aria-current="page">The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</a></li></ol>
+</nav>
+<div class="disclaimer">Personal analysis based on public sources. It reflects the author's views only and constitutes neither investment advice nor a recommendation.</div>
+</body></html>
