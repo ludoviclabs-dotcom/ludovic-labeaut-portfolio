@@ -9,6 +9,11 @@
  *   (retour aux publications, enregistrement en PDF) visible à l'écran seulement.
  * - Les notes Markdown (« Bloc_2_Article_04_Titre.md ») sont converties avec la même mise en page
  *   que les notes HTML (feuille de style reprise d'une note HTML du dossier).
+ * - Les séries (SERIES) viennent d'un autre dossier Dropbox : « Article 1 — Titre.md », etc.
+ *   Chaque article devient une note numérotée à la suite (firstNum), avec la même mise en page
+ *   et une navigation entre les articles de la série.
+ * - Les dossiers interactifs (DOSSIERS) sont des pages autonomes de public/dossiers/ :
+ *   la page /publications les présente en carte vedette dans leur bloc.
  * - La page /publications (public/publications/index.html) est régénérée à partir des notes.
  *
  * Les fichiers sont d'abord générés dans .cache/publications-en-cours, puis remplacent
@@ -35,7 +40,53 @@ const BLOCKS = [
   { id: "Géopolitique", intro: "Détroits, conflits, alliances : ce qui se joue sur la carte." },
   { id: "Géoéconomie", intro: "Sanctions, capital public, dépendances : la puissance par l'économie." },
   { id: "Defense-Tech", intro: "Munitions, achats d'armement, drones : l'industrie de défense en mutation." },
+  { id: "IA & science", intro: "Modèles, laboratoires autonomes, souveraineté : comment l'IA transforme la production du savoir." },
+  { id: "Robotique & marchés", intro: "Chaîne de valeur, volumes, valorisations : les données d'un marché en formation." },
 ];
+
+// Séries d'articles : un dossier Dropbox par série, fichiers « Article N — Titre.md ».
+// firstNum fixe le numéro de note du premier article, pour que les adresses ne changent pas.
+const SERIES = [
+  {
+    name: "L'IA à la conquête du savoir",
+    block: "IA & science",
+    dir: path.resolve(process.env.SERIE_IA_DIR ?? path.join(os.homedir(), "Dropbox", "Articles IA")),
+    firstNum: 10,
+  },
+];
+
+// Dossiers interactifs : pages autonomes de public/dossiers/, présentées en carte vedette.
+const DOSSIERS = [
+  {
+    block: "Robotique & marchés",
+    href: "/dossiers/robotique-humanoide",
+    title: "Robotique humanoïde : où se capte la valeur, de 2026 à 2050",
+    standfirst:
+      "Marché, volumes réels, anatomie du coût, chaîne de valeur en douze couches, rivalités géopolitiques et valorisations boursières : un dossier interactif où chaque chiffre renvoie à sa source.",
+    meta: "Données au 14 octobre 2026 · 8 chapitres · conçu avec Claude",
+    kpis: [
+      { value: "5 000 Md$", label: "de marché potentiel en 2050 selon Morgan Stanley" },
+      { value: "~90 %", label: "des humanoïdes produits en Chine en 2025-2026" },
+      { value: "~60 %", label: "du coût matériel logé dans les articulations et les mains" },
+    ],
+    chapters: ["Marché", "Réalité 2026", "Anatomie du coût", "Chaîne de valeur", "Géopolitique", "Acteurs & thèses", "Valorisations", "Risques & opportunités"],
+    // Couverture dessinée en code : fourchette du marché mondial (Md$), reprise du dossier.
+    cover: {
+      caption: "Marché mondial des humanoïdes, en Md$ · échelle logarithmique",
+      label: "Fourchette du marché mondial des robots humanoïdes : 0,5 à 1 Md$ en 2024, 4 700 à 5 000 Md$ en 2050",
+      highlight: "5 000 Md$",
+      points: [
+        { year: 2024, min: 0.5, max: 1 },
+        { year: 2026, min: 2.5, max: 4.2 },
+        { year: 2030, min: 15, max: 30 },
+        { year: 2035, min: 38, max: 150 },
+        { year: 2050, min: 4700, max: 5000 },
+      ],
+    },
+  },
+];
+
+const WORDS_PER_MINUTE = 230;
 
 const slugify = (name) =>
   name
@@ -183,43 +234,232 @@ ${list || notes ? `<div class="sources"><h3>Sources et repères</h3>${list}${not
   return { num, slug, title, block, kicker: block, standfirst: textOf(marked.parseInline(standfirst)), date, reading, page: withBar(page, slug) };
 }
 
+// Mise en page propre aux séries : schémas en texte, encadrés, navigation entre articles (écran seulement).
+const SERIES_STYLE = `<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style>`;
+
+/** Lit un article de série (« Article 3 — Titre.md ») : en-tête, chapô, sections, bibliographie. */
+function readSeriesArticle(serie, file, md) {
+  const text = md.replace(/\r\n/g, "\n").trim();
+  const title = (text.match(/^# (.+)$/m)?.[1] ?? "").trim();
+  const head = text.match(/Article\s+(\d+)\s+sur\s+(\d+)[^\n]*/i);
+  const date = (head?.[0].match(/\bau\s+(\d{1,2}(?:er)?\s+[^\s.]+\s+\d{4})/)?.[1] ?? "").trim();
+  const sections = text
+    .split(/\n(?=## )/)
+    .slice(1)
+    .map((part) => {
+      const [heading, ...body] = part.split("\n");
+      return { title: heading.replace(/^##\s+/, "").trim(), md: body.join("\n").trim() };
+    });
+  const chapo = sections.find((s) => /^chap[ôo]/i.test(s.title));
+  const biblio = sections.find((s) => /^bibliographie/i.test(s.title));
+  const index = Number(head?.[1]);
+  if (!title || !index || !date || !chapo) throw new Error(`Article de série incomplet (titre, numéro, date ou chapô) : ${file}`);
+
+  const num = String(serie.firstNum + index - 1).padStart(2, "0");
+  const words = text.split(/\s+/).filter((w) => /\p{L}/u.test(w)).length;
+  const name = file.replace(/^Article\s+\d+\s*[—–-]\s*/i, "").replace(/\.md$/i, "");
+  return {
+    num,
+    slug: `${num}-${slugify(name)}`,
+    title,
+    block: serie.block,
+    kicker: `Article ${index} sur ${head[2]}`,
+    serie,
+    index,
+    total: Number(head[2]),
+    date,
+    reading: `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min`,
+    chapoMd: chapo.md,
+    standfirst: textOf(marked.parseInline(chapo.md)),
+    sections: sections.filter((s) => s !== chapo && s !== biblio),
+    biblioMd: biblio?.md ?? "",
+  };
+}
+
+/** Page d'un article de série, avec la mise en page des notes et la navigation dans la série. */
+function seriesPage(a, siblings, css) {
+  const renderer = new marked.Renderer();
+  renderer.heading = function ({ tokens, depth }) {
+    const inner = this.parser.parseInline(tokens);
+    return depth === 3 ? `<h3 class="sub">${inner}</h3>` : `<h${depth}>${inner}</h${depth}>`;
+  };
+  renderer.table = function (token) {
+    return marked.Renderer.prototype.table.call(this, token).replace("<table>", '<table class="data">');
+  };
+  // Les schémas en texte restent alignés, mais dans un bloc traduisible (un <pre> ne l'est pas).
+  renderer.code = ({ text }) => `<figure class="schema"><div class="schema__art">${escapeHtml(text)}</div></figure>`;
+
+  let h2 = 0;
+  const body = a.sections
+    .map((s) => {
+      const html = marked.parse(s.md, { renderer });
+      if (/^encadr[ée]/i.test(s.title)) {
+        const t = s.title.replace(/^encadr[ée]\s*(?:[—–:-]\s*)?/i, "");
+        return `<div class="encadre"><div class="tag">Encadré</div>${t ? `<h4>${marked.parseInline(t)}</h4>` : ""}${html}</div>`;
+      }
+      h2 += 1;
+      return `<h2><span class="n">${String(h2).padStart(2, "0")}</span>${marked.parseInline(s.title)}</h2>\n${html}`;
+    })
+    .join("\n");
+  const biblio = a.biblioMd ? `<div class="sources"><h3>Bibliographie commentée</h3>${marked.parse(a.biblioMd, { renderer })}</div>` : "";
+
+  const i = siblings.indexOf(a);
+  const step = (n, cls, label) => `<a class="${cls}" href="/publications/${n.slug}"><span>${label}</span><b>${escapeHtml(n.title)}</b></a>`;
+  const nav = `<nav class="serie-nav" aria-label="Série « ${escapeHtml(a.serie.name)} »">
+<p class="serie-nav__label">Série « ${escapeHtml(a.serie.name)} » · Article ${a.index} sur ${a.total}</p>
+<div class="serie-nav__pn">${siblings[i - 1] ? step(siblings[i - 1], "serie-nav__prev", "← Article précédent") : ""}${siblings[i + 1] ? step(siblings[i + 1], "serie-nav__next", "Article suivant →") : ""}</div>
+<ol class="serie-nav__list">${siblings.map((n) => `<li><a href="/publications/${n.slug}"${n === a ? ' aria-current="page"' : ""}>${escapeHtml(n.title)}</a></li>`).join("")}</ol>
+</nav>`;
+
+  const page = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>${escapeHtml(a.title)}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="${AUTHOR}">
+<meta name="description" content="${escapeHtml(a.standfirst)}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>${css}</style>
+${SERIES_STYLE}</head><body>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Série « ${escapeHtml(a.serie.name)} »</small></div><div class="issue"><b>${escapeHtml(a.block)} · Note n°${Number(a.num)}</b><br>${escapeHtml(a.date)}</div></div>
+<div class="kicker">${escapeHtml(a.block)} · Article ${a.index} sur ${a.total}</div>
+<h1>${escapeHtml(a.title)}</h1>
+<p class="standfirst">${marked.parseInline(a.chapoMd)}</p>
+<div class="byline"><span>Par <b>${AUTHOR}</b></span><span>Lecture : ${a.reading}</span><span>État des connaissances au ${escapeHtml(a.date)}</span></div>
+${body}
+${biblio}
+${nav}
+<div class="disclaimer">${DISCLAIMER}</div>
+</body></html>`;
+  return withBar(page, a.slug);
+}
+
+const ARROW = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`;
+
+/** En-tête d'une série dans son bloc : nom, parcours de lecture article par article. */
+function serieHead(serie, list) {
+  if (!list.length) return "";
+  return `        <div class="serie">
+          <div class="serie__text">
+            <p class="serie__label">Série en ${list[0].total} articles · État des connaissances au ${escapeHtml(list[0].date)}</p>
+            <p class="serie__name">« ${escapeHtml(serie.name)} »</p>
+          </div>
+          <ol class="serie__track" aria-label="Articles de la série">${list
+            .map((n) => `<li><a href="/publications/${n.slug}" aria-label="Article ${n.index} : ${escapeHtml(n.title)}">${n.index}</a></li>`)
+            .join("")}</ol>
+          <a class="serie__start" href="/publications/${list[0].slug}">Commencer la série ${ARROW}</a>
+        </div>`;
+}
+
+/** Couverture d'un dossier : fourchette min–max sur une échelle logarithmique, dessinée en SVG. */
+function coverSvg({ caption, label, highlight, points }) {
+  const [x0, x1, top, bottom] = [64, 556, 92, 318];
+  const values = points.flatMap((p) => [p.min, p.max]);
+  const lo = Math.floor(Math.log10(Math.min(...values)));
+  const hi = Math.ceil(Math.log10(Math.max(...values)));
+  const first = points[0].year;
+  const last = points[points.length - 1].year;
+  const X = (year) => x0 + ((year - first) / (last - first)) * (x1 - x0);
+  const Y = (v) => bottom - ((Math.log10(v) - lo) / (hi - lo)) * (bottom - top);
+  const f = (n) => n.toFixed(1);
+  const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const ticks = Array.from({ length: hi - lo + 1 }, (_, i) => 10 ** (lo + i)).filter((v) => v >= 1);
+  const band = [...points.map((p) => `${f(X(p.year))},${f(Y(p.max))}`), ...[...points].reverse().map((p) => `${f(X(p.year))},${f(Y(p.min))}`)].join(" ");
+  const line = points.map((p, i) => `${i ? "L" : "M"}${f(X(p.year))} ${f(Y(p.max))}`).join(" ");
+  const end = points[points.length - 1];
+  return `<svg class="cover" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${escapeHtml(label)}">
+              <defs><linearGradient id="cover-band" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e2c27d" stop-opacity=".34"/><stop offset="1" stop-color="#e2c27d" stop-opacity=".03"/></linearGradient></defs>
+              <text class="cover__cap" x="${x0}" y="52">${escapeHtml(caption)}</text>
+              <g class="cover__grid">${ticks.map((v) => `<line x1="${x0}" x2="${x1}" y1="${f(Y(v))}" y2="${f(Y(v))}"/><text x="${x0 - 12}" y="${f(Y(v) + 4)}" text-anchor="end">${fmt(v)}</text>`).join("")}</g>
+              <polygon class="cover__band" points="${band}"/>
+              <path class="cover__line" d="${line}" pathLength="1"/>
+              ${points.map((p) => `<circle class="cover__dot" cx="${f(X(p.year))}" cy="${f(Y(p.max))}" r="4.5"/>`).join("")}
+              <circle class="cover__pulse" cx="${f(X(end.year))}" cy="${f(Y(end.max))}" r="4.5"/>
+              <g class="cover__years">${points.map((p) => `<text x="${f(X(p.year))}" y="350" text-anchor="middle">${p.year}</text>`).join("")}</g>
+              <text class="cover__big" x="${f(X(end.year))}" y="${f(Y(end.max) - 18)}" text-anchor="end">${escapeHtml(highlight)}</text>
+            </svg>`;
+}
+
+/** Carte vedette d'un dossier interactif (page autonome en français, d'où hreflang="fr"). */
+function dossierCard(d) {
+  return `        <article class="dossier">
+          <a class="dossier__media" href="${d.href}" hreflang="fr" tabindex="-1" aria-hidden="true">
+            ${coverSvg(d.cover)}
+          </a>
+          <div class="dossier__body">
+            <span class="note__format note__format--live">Dossier interactif</span>
+            <h3 class="dossier__title"><a href="${d.href}" hreflang="fr">${escapeHtml(d.title)}</a></h3>
+            <p class="dossier__standfirst">${escapeHtml(d.standfirst)}</p>
+            <ul class="dossier__kpis" role="list">${d.kpis.map((k) => `<li><b>${escapeHtml(k.value)}</b><span>${escapeHtml(k.label)}</span></li>`).join("")}</ul>
+            <ol class="dossier__chapters" aria-label="Chapitres du dossier">${d.chapters.map((c) => `<li>${escapeHtml(c)}</li>`).join("")}</ol>
+            <p class="dossier__meta">${escapeHtml(d.meta)}</p>
+            <a class="dossier__cta" href="${d.href}" hreflang="fr">Explorer le dossier ${ARROW}</a>
+          </div>
+        </article>`;
+}
+
 function indexPage(notes) {
-  const sections = BLOCKS.map((b) => ({ ...b, notes: notes.filter((n) => n.block === b.id) }))
-    .concat(
-      [...new Set(notes.map((n) => n.block))]
-        .filter((id) => !BLOCKS.some((b) => b.id === id))
-        .map((id) => ({ id, intro: "", notes: notes.filter((n) => n.block === id) })),
-    )
-    .filter((s) => s.notes.length);
+  const ids = [...BLOCKS.map((b) => b.id), ...notes.map((n) => n.block)].filter((id, i, all) => all.indexOf(id) === i);
+  const sections = ids
+    .map((id) => ({
+      id,
+      intro: BLOCKS.find((b) => b.id === id)?.intro ?? "",
+      notes: notes.filter((n) => n.block === id),
+      dossiers: DOSSIERS.filter((d) => d.block === id),
+      series: SERIES.filter((s) => s.block === id),
+    }))
+    .filter((s) => s.notes.length || s.dossiers.length);
+  const dossierCount = DOSSIERS.length === 1 ? "un dossier interactif" : `${DOSSIERS.length} dossiers interactifs`;
 
   const cards = (list) =>
     list
       .map(
         (n) => `          <li class="note">
             <a class="note__link" href="/publications/${n.slug}">
-              <span class="note__num">${n.num}</span>
+              <span class="note__head"><span class="note__num">${n.num}</span><span class="note__format">${n.serie ? "Série" : "Note"}</span></span>
               ${n.kicker && n.kicker !== n.block ? `<span class="note__kicker">${escapeHtml(n.kicker)}</span>` : ""}
               <span class="note__title">${escapeHtml(n.title)}</span>
               <span class="note__standfirst">${escapeHtml(n.standfirst)}</span>
               <span class="note__meta">${escapeHtml(n.date)}${n.reading ? ` · ${escapeHtml(n.reading)} de lecture` : ""}</span>
-              <span class="note__cta">Lire la note <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <span class="note__cta">${n.serie ? "Lire l'article" : "Lire la note"} ${ARROW}</span>
             </a>
           </li>`,
       )
       .join("\n");
 
   const body = sections
-    .map(
-      (s, i) => `      <section class="bloc" aria-labelledby="bloc-${i + 1}">
+    .map((s, i) =>
+      [
+        `      <section class="bloc" aria-labelledby="bloc-${i + 1}">
         <header class="bloc__head">
           <span class="bloc__num">Bloc ${i + 1}</span>
           <h2 id="bloc-${i + 1}" class="bloc__title">${escapeHtml(s.id)}</h2>
           ${s.intro ? `<p class="bloc__intro">${escapeHtml(s.intro)}</p>` : ""}
-        </header>
-        <ul class="notes" role="list">
-${cards(s.notes)}
-        </ul>
-      </section>`,
+        </header>`,
+        ...s.series.map((serie) => serieHead(serie, s.notes.filter((n) => n.serie === serie))),
+        ...s.dossiers.map(dossierCard),
+        s.notes.length ? `        <ul class="notes" role="list">\n${cards(s.notes)}\n        </ul>` : "",
+        `      </section>`,
+      ]
+        .filter(Boolean)
+        .join("\n"),
     )
     .join("\n");
 
@@ -229,7 +469,7 @@ ${cards(s.notes)}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publications — Ludovic Labeaut</title>
-  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse géopolitique, géoéconomique et defense-tech de Ludovic Labeaut, sourcées et datées.">
+  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, defense-tech, IA et robotique, sourcés et datés.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   ${alternates("/publications").split("\n").join("\n  ")}
@@ -250,7 +490,7 @@ ${cards(s.notes)}
     <section class="pub-hero">
       <p class="pub-hero__eyebrow">06 / 06 · Publications</p>
       <h1 class="pub-hero__title">Lignes de force</h1>
-      <p class="pub-hero__lede">Notes d'analyse géopolitique, géoéconomique et defense-tech. Chaque note est sourcée, datée et téléchargeable en PDF.</p>
+      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, defense-tech, IA et robotique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
       <ul class="pub-hero__axes" aria-label="Thèmes">${sections.map((s) => `<li>${escapeHtml(s.id)}</li>`).join("")}</ul>
     </section>
 ${body}
@@ -280,6 +520,23 @@ async function main() {
   const css = sample.match(/<style>([\s\S]*?)<\/style>/)?.[1];
   if (mdFiles.length && !css) throw new Error("Aucune note HTML dont reprendre la mise en page pour convertir les notes Markdown.");
   for (const f of mdFiles) notes.push(readMarkdownNote(f, await readFile(path.join(SOURCE, f), "utf8"), css));
+
+  for (const serie of SERIES) {
+    if (!existsSync(serie.dir)) throw new Error(`Dossier de la série « ${serie.name} » introuvable : ${serie.dir} (variable SERIE_IA_DIR).`);
+    if (!css) throw new Error("Aucune note HTML dont reprendre la mise en page pour les articles de série.");
+    const files = (await readdir(serie.dir)).map((f) => f.normalize("NFC")).filter((f) => /^Article\s+\d+\s*[—–-].+\.md$/i.test(f));
+    const articles = [];
+    for (const f of files) articles.push(readSeriesArticle(serie, f, await readFile(path.join(serie.dir, f), "utf8")));
+    articles.sort((a, b) => a.index - b.index);
+    articles.forEach((a, i) => {
+      if (a.index !== i + 1 || a.total !== articles.length) throw new Error(`Série « ${serie.name} » incomplète ou mal numérotée (${a.slug}).`);
+    });
+    for (const a of articles) notes.push({ ...a, page: seriesPage(a, articles, css) });
+  }
+
+  for (const d of DOSSIERS) {
+    if (!existsSync(path.join(ROOT, "public", d.href, "index.html"))) throw new Error(`Dossier interactif introuvable : public${d.href}/index.html`);
+  }
 
   notes.sort((a, b) => a.num.localeCompare(b.num));
   const dup = notes.find((n, i) => notes.findIndex((m) => m.num === n.num) !== i);

@@ -18,5 +18,6 @@
   "Voir le projet<span class=\"visually-hidden\"> KYB Graph</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "View project<span class=\"visually-hidden\"> KYB Graph</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
   "Recherche &amp; articles": "Research &amp; articles",
   "Lire les publications <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "Read the notes <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
-  "Voir la démo<span class=\"visually-hidden\"> de Publications</span>": "Watch the demo<span class=\"visually-hidden\"> for Publications</span>"
+  "Voir la démo<span class=\"visually-hidden\"> de Publications</span>": "Watch the demo<span class=\"visually-hidden\"> for Publications</span>",
+  "Lignes de force : dix-sept notes d'analyse sourcées et datées, des détroits d'Ormuz à l'IA scientifique, et un dossier interactif sur la robotique humanoïde.": "Lignes de force: seventeen sourced and dated analysis notes, from the Strait of Hormuz to scientific AI, and an interactive dossier on humanoid robotics."
 }

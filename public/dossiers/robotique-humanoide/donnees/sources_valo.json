@@ -1,0 +1,538 @@
+[
+ {
+  "id": "skf-1",
+  "acteur": "SKF",
+  "champ": "cours, capitalisation, PER, VE/EBITDA",
+  "libelle": "stockanalysis.com · SKF B Statistics",
+  "url": "https://stockanalysis.com/quote/sto/SKF.B/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "skf-2",
+  "acteur": "SKF",
+  "champ": "perf. depuis janvier, recoupement capitalisation",
+  "libelle": "MarketScreener · SKF B",
+  "url": "https://www.marketscreener.com/quote/stock/SKF-AB-6493347/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "skf-3",
+  "acteur": "SKF",
+  "champ": "base de la perf. sur un an (clôture du 14/10/2025)",
+  "libelle": "Yahoo Finance · SKF-B.ST historique",
+  "url": "https://finance.yahoo.com/quote/SKF-B.ST/history/?period1=1760313600&period2=1760659200",
+  "date_donnee": "2025-10-14"
+ },
+ {
+  "id": "skf-4",
+  "acteur": "SKF",
+  "champ": "taux de change",
+  "libelle": "BCE · taux de référence de l'euro",
+  "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "skf-5",
+  "acteur": "SKF",
+  "champ": "CA et marge opérationnelle 2025",
+  "libelle": "SKF · rapport du T4 2025 (Cision)",
+  "url": "https://news.cision.com/skf/r/skf-q4-2025--laying-the-foundation-for-long-term-value-creation,c4300090",
+  "date_donnee": "2026-01-30"
+ },
+ {
+  "id": "skf-6",
+  "acteur": "SKF",
+  "champ": "ventes par segment",
+  "libelle": "MarketScreener · SKF, ventes par activité",
+  "url": "https://www.marketscreener.com/quote/stock/SKF-AB-6493347/company/",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "skf-7",
+  "acteur": "SKF",
+  "champ": "coentreprise avec Leaderdrive",
+  "libelle": "Communiqué SKF / Leaderdrive (Inderes)",
+  "url": "https://www.inderes.se/en/releases/skf-and-leaderdrive-form-a-venture-for-precision-components-in-humanoids",
+  "date_donnee": "2026-07-02"
+ },
+ {
+  "id": "schaeffler-1",
+  "acteur": "Schaeffler",
+  "champ": "cours, capitalisation, PER prévisionnel, VE/EBITDA",
+  "libelle": "stockanalysis.com · SHA0 Statistics",
+  "url": "https://stockanalysis.com/quote/etr/SHA0/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "schaeffler-2",
+  "acteur": "Schaeffler",
+  "champ": "perf. depuis janvier, recoupement capitalisation",
+  "libelle": "MarketScreener · Schaeffler",
+  "url": "https://www.marketscreener.com/quote/stock/SCHAEFFLER-AG-176430175/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "schaeffler-3",
+  "acteur": "Schaeffler",
+  "champ": "base de la perf. sur un an (clôture du 14/10/2025)",
+  "libelle": "Yahoo Finance · SHA0.DE historique",
+  "url": "https://finance.yahoo.com/quote/SHA0.DE/history/?period1=1760313600&period2=1760659200",
+  "date_donnee": "2025-10-14"
+ },
+ {
+  "id": "schaeffler-4",
+  "acteur": "Schaeffler",
+  "champ": "taux de change",
+  "libelle": "BCE · taux de référence de l'euro",
+  "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "schaeffler-5",
+  "acteur": "Schaeffler",
+  "champ": "CA, marge et divisions 2025",
+  "libelle": "Schaeffler · résultats annuels 2025",
+  "url": "https://www.mynewsdesk.com/fi/schaeffler/pressreleases/schaeffler-reports-solid-results-for-2025-3435255",
+  "date_donnee": "2026-03-03"
+ },
+ {
+  "id": "schaeffler-6",
+  "acteur": "Schaeffler",
+  "champ": "ambitions humanoïdes",
+  "libelle": "Reuters via MarketScreener",
+  "url": "https://www.marketscreener.com/news/schaeffler-sees-humanoid-robotics-orders-in-three-digit-million-euros-by-2030-ce7f58dcd98eff27",
+  "date_donnee": "2026-05-05"
+ },
+ {
+  "id": "schaeffler-7",
+  "acteur": "Schaeffler",
+  "champ": "actionneur pour humanoïdes",
+  "libelle": "Robotics 24/7 · CES 2026",
+  "url": "https://www.robotics247.com/article/ces-2026-schaeffler-presents-planetary-gear-actuator-for-humanoid-robots",
+  "date_donnee": "2025-12-23"
+ },
+ {
+  "id": "schaeffler-8",
+  "acteur": "Schaeffler",
+  "champ": "accord avec Agility Robotics",
+  "libelle": "Agility Robotics · communiqué",
+  "url": "https://www.agilityrobotics.com/content/agility-robotics-announces-strategic-investment-and-agreement-with-motion-technology-company-schaeffler-group",
+  "date_donnee": "2024-11-13"
+ },
+ {
+  "id": "schaeffler-9",
+  "acteur": "Schaeffler",
+  "champ": "déploiement de Digit",
+  "libelle": "The Batch (DeepLearning.AI), citant le WSJ",
+  "url": "https://www.deeplearning.ai/the-batch/agiliy-digits-humanoid-robots-fetch-and-carry-bins-at-a-schaeffler-auto-parts-factory-displacing-humans-into-higher-level-jobs",
+  "date_donnee": "2026-04-24"
+ },
+ {
+  "id": "te-connectivity-1",
+  "acteur": "TE Connectivity",
+  "champ": "cours, capitalisation, PER, VE/EBITDA, perf. 1 an",
+  "libelle": "stockanalysis.com · TEL Statistics",
+  "url": "https://stockanalysis.com/stocks/tel/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "te-connectivity-2",
+  "acteur": "TE Connectivity",
+  "champ": "perf. depuis janvier",
+  "libelle": "companiesmarketcap.com · TE Connectivity",
+  "url": "https://companiesmarketcap.com/te-connectivity/stock-price-history/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "te-connectivity-3",
+  "acteur": "TE Connectivity",
+  "champ": "recoupement cours, capitalisation, perf.",
+  "libelle": "MarketScreener · TE Connectivity plc",
+  "url": "https://www.marketscreener.com/quote/stock/TE-CONNECTIVITY-PLC-176512020/",
+  "date_donnee": "2026-10-13"
+ },
+ {
+  "id": "te-connectivity-4",
+  "acteur": "TE Connectivity",
+  "champ": "CA et marge opérationnelle de l'exercice 2025",
+  "libelle": "TE · résultats annuels 2025 (8-K)",
+  "url": "https://www.sec.gov/Archives/edgar/data/1385157/000110465925103388/tel-20251029xex99d1.htm",
+  "date_donnee": "2025-09-26"
+ },
+ {
+  "id": "te-connectivity-5",
+  "acteur": "TE Connectivity",
+  "champ": "segments et marchés finaux",
+  "libelle": "TE · Form 10-K 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1385157/000110465925109150/tel-20250926x10k.htm",
+  "date_donnee": "2025-09-26"
+ },
+ {
+  "id": "te-connectivity-6",
+  "acteur": "TE Connectivity",
+  "champ": "croissance automatisation T3 2026",
+  "libelle": "Investing.com · transcription de la conférence T3 2026",
+  "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-te-connectivity-tops-q3-2026-estimates-shares-fall-93CH-4806122",
+  "date_donnee": "2026-07-22"
+ },
+ {
+  "id": "te-connectivity-7",
+  "acteur": "TE Connectivity",
+  "champ": "actualité humanoïdes",
+  "libelle": "Tech Briefs · tribune de Davy Brown (TE)",
+  "url": "https://www.techbriefs.com/component/content/article/55442-from-prop-to-participant-how-connectivity-and-sensing-power-humanoid-robots",
+  "date_donnee": "2026-06-28"
+ },
+ {
+  "id": "te-connectivity-8",
+  "acteur": "TE Connectivity",
+  "champ": "offre humanoïdes",
+  "libelle": "te.com · Humanoids / Physical AI",
+  "url": "https://www.te.com/en/industries/iot-connectivity/applications/humanoids.html",
+  "date_donnee": ""
+ },
+ {
+  "id": "amphenol-1",
+  "acteur": "Amphenol",
+  "champ": "cours, capitalisation, PER, VE/EBITDA, perf. 1 an",
+  "libelle": "stockanalysis.com · APH Statistics",
+  "url": "https://stockanalysis.com/stocks/aph/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "amphenol-2",
+  "acteur": "Amphenol",
+  "champ": "perf. depuis janvier (ajustée de la division du nominal)",
+  "libelle": "MarketScreener · Amphenol",
+  "url": "https://www.marketscreener.com/quote/stock/AMPHENOL-CORPORATION-11668/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "amphenol-3",
+  "acteur": "Amphenol",
+  "champ": "division du nominal",
+  "libelle": "Business Wire · Two-for-One Stock Split",
+  "url": "https://secure.businesswire.com/news/home/20260806315820/en/Amphenol-Announces-Two-for-One-Stock-Split-and-Third-Quarter-2026-Dividend",
+  "date_donnee": "2026-08-06"
+ },
+ {
+  "id": "amphenol-4",
+  "acteur": "Amphenol",
+  "champ": "CA, marge, segments 2025",
+  "libelle": "Amphenol · résultats annuels 2025",
+  "url": "https://investor.amphenol.com/news-and-events/news-details/2026/Amphenol-Reports-Record-Fourth-Quarter-and-Full-Year-2025-Results/default.aspx",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "amphenol-5",
+  "acteur": "Amphenol",
+  "champ": "marchés finaux",
+  "libelle": "Amphenol · Form 10-K 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/820313/000110465926013549/aph-20251231x10k.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "amphenol-6",
+  "acteur": "Amphenol",
+  "champ": "actualité, part industrielle T2 2026",
+  "libelle": "Motley Fool · transcription de la conférence T2 2026",
+  "url": "https://www.fool.com/earnings/call-transcripts/2026/08/07/amphenol-aph-q2-2026-earnings-call-transcript/",
+  "date_donnee": "2026-07-29"
+ },
+ {
+  "id": "novanta-1",
+  "acteur": "Novanta",
+  "champ": "cours, capitalisation, PER, VE/EBITDA, perf. 1 an",
+  "libelle": "stockanalysis.com · NOVT Statistics",
+  "url": "https://stockanalysis.com/stocks/novt/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "novanta-2",
+  "acteur": "Novanta",
+  "champ": "perf. depuis janvier, recoupements",
+  "libelle": "MarketScreener · Novanta",
+  "url": "https://www.marketscreener.com/quote/stock/NOVANTA-INC-27535807/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "novanta-3",
+  "acteur": "Novanta",
+  "champ": "CA, marge, segments 2025",
+  "libelle": "Novanta · Form 10-K 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1076930/000119312526064230/novt-20251231.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "novanta-4",
+  "acteur": "Novanta",
+  "champ": "segment AET au T2 2026",
+  "libelle": "Novanta · résultats T2 2026 (8-K)",
+  "url": "https://www.sec.gov/Archives/edgar/data/0001076930/000119312526335356/novt-ex99_1.htm",
+  "date_donnee": "2026-08-05"
+ },
+ {
+  "id": "novanta-5",
+  "acteur": "Novanta",
+  "champ": "commandes humanoïdes",
+  "libelle": "StockStory · Novanta Q2 deep dive",
+  "url": "https://stockstory.org/us/stocks/nasdaq/novt/news/earnings-call/novt-q2-deep-dive-acquisition-and-manufacturing-moves-drive-outlook-higher",
+  "date_donnee": "2026-08-06"
+ },
+ {
+  "id": "novanta-6",
+  "acteur": "Novanta",
+  "champ": "offre humanoïdes",
+  "libelle": "novanta.com · Humanoid",
+  "url": "https://novanta.com/robotics-automation/application/humanoid/",
+  "date_donnee": ""
+ },
+ {
+  "id": "novanta-7",
+  "acteur": "Novanta",
+  "champ": "contrôle du dossier",
+  "libelle": "KraneShares · Humanoid Robotics In 2026",
+  "url": "https://kraneshares.com/humanoid-robotics-in-2026-the-race-from-pilot-to-platform/",
+  "date_donnee": "2026-05-12"
+ },
+ {
+  "id": "vpg-1",
+  "acteur": "VPG",
+  "champ": "cours, capitalisation, PER, VE/EBITDA, perf. 1 an",
+  "libelle": "stockanalysis.com · VPG Statistics",
+  "url": "https://stockanalysis.com/stocks/vpg/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "vpg-2",
+  "acteur": "VPG",
+  "champ": "perf. depuis janvier, recoupement capitalisation",
+  "libelle": "companiesmarketcap.com · VPG",
+  "url": "https://companiesmarketcap.com/vishay-precision-group/stock-price-history/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "vpg-3",
+  "acteur": "VPG",
+  "champ": "CA et résultat opérationnel 2025",
+  "libelle": "VPG · résultats annuels 2025 (8-K)",
+  "url": "https://www.sec.gov/Archives/edgar/data/1487952/000143774926003697/ex_880014.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "vpg-4",
+  "acteur": "VPG",
+  "champ": "segments, contrôle du dossier",
+  "libelle": "VPG · Form 10-K 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1487952/000143774926005982/vpg20251231_10k.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "vpg-5",
+  "acteur": "VPG",
+  "champ": "actualité humanoïdes",
+  "libelle": "VPG · résultats T2 2026 (GlobeNewswire via Finviz)",
+  "url": "https://finviz.com/news/377318/vpg-reports-fiscal-2026-second-quarter-results-orders-of-96-million-reflect-continued-strength-in-key-markets",
+  "date_donnee": "2026-08-05"
+ },
+ {
+  "id": "vpg-6",
+  "acteur": "VPG",
+  "champ": "recoupement",
+  "libelle": "Yahoo Finance · VPG Key Statistics",
+  "url": "https://finance.yahoo.com/quote/VPG/key-statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "mp-materials-1",
+  "acteur": "MP Materials",
+  "champ": "cours, capitalisation, PER prévisionnel, perf. 1 an",
+  "libelle": "stockanalysis.com · MP Statistics",
+  "url": "https://stockanalysis.com/stocks/mp/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "mp-materials-2",
+  "acteur": "MP Materials",
+  "champ": "perf. depuis janvier, recoupement capitalisation",
+  "libelle": "companiesmarketcap.com · MP Materials",
+  "url": "https://companiesmarketcap.com/mp-materials/stock-price-history/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "mp-materials-3",
+  "acteur": "MP Materials",
+  "champ": "CA, résultat opérationnel, segments 2025",
+  "libelle": "MP Materials · résultats annuels 2025 (8-K)",
+  "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000007/mpmcq42025er.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "mp-materials-4",
+  "acteur": "MP Materials",
+  "champ": "contrôle du dossier, demande humanoïdes",
+  "libelle": "MP Materials · Form 10-K 2025",
+  "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mp-20251231.htm",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "mp-materials-5",
+  "acteur": "MP Materials",
+  "champ": "partenariat avec le Pentagone",
+  "libelle": "MP Materials · relations investisseurs",
+  "url": "https://investors.mpmaterials.com/investor-news/news-details/2025/MP-Materials-Announces-Transformational-Public-Private-Partnership-with-the-Department-of-Defense-to-Accelerate-U-S--Rare-Earth-Magnet-Independence/default.aspx",
+  "date_donnee": "2025-07-10"
+ },
+ {
+  "id": "mp-materials-6",
+  "acteur": "MP Materials",
+  "champ": "Project Swarm",
+  "libelle": "Manufacturing Dive",
+  "url": "https://manufacturingdive.com/news/mp-materials-critical-minerals-initiative-project-swarm-james-litinsky/827021",
+  "date_donnee": "2026-08-05"
+ },
+ {
+  "id": "mp-materials-7",
+  "acteur": "MP Materials",
+  "champ": "recoupement",
+  "libelle": "Yahoo Finance · MP Key Statistics",
+  "url": "https://finance.yahoo.com/quote/MP/key-statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "lynas-rare-earths-1",
+  "acteur": "Lynas Rare Earths",
+  "champ": "PER, VE/EBITDA",
+  "libelle": "stockanalysis.com · LYC Statistics",
+  "url": "https://stockanalysis.com/quote/asx/LYC/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "lynas-rare-earths-2",
+  "acteur": "Lynas Rare Earths",
+  "champ": "cours de clôture",
+  "libelle": "stockanalysis.com · LYC historique",
+  "url": "https://stockanalysis.com/quote/asx/LYC/history/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "lynas-rare-earths-3",
+  "acteur": "Lynas Rare Earths",
+  "champ": "capitalisation en AUD et en USD",
+  "libelle": "MarketScreener · Lynas",
+  "url": "https://www.marketscreener.com/quote/stock/LYNAS-RARE-EARTHS-LIMITED-6492543/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "lynas-rare-earths-4",
+  "acteur": "Lynas Rare Earths",
+  "champ": "base de la perf. depuis janvier (clôture du 31/12/2025)",
+  "libelle": "Yahoo Finance · LYC.AX historique",
+  "url": "https://finance.yahoo.com/quote/LYC.AX/history/?period1=1766966400&period2=1767398400",
+  "date_donnee": "2025-12-31"
+ },
+ {
+  "id": "lynas-rare-earths-5",
+  "acteur": "Lynas Rare Earths",
+  "champ": "taux de change",
+  "libelle": "BCE · taux de référence de l'euro",
+  "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "lynas-rare-earths-6",
+  "acteur": "Lynas Rare Earths",
+  "champ": "CA et marge de l'exercice 2026",
+  "libelle": "stockanalysis.com · LYC Financials",
+  "url": "https://stockanalysis.com/quote/asx/LYC/financials/",
+  "date_donnee": "2026-06-30"
+ },
+ {
+  "id": "lynas-rare-earths-7",
+  "acteur": "Lynas Rare Earths",
+  "champ": "projets d'aimants, prix plancher",
+  "libelle": "Reuters via Kitco",
+  "url": "https://www.kitco.com/news/off-the-wire/2026-08-26/lynas-expands-global-footprint-eyes-new-rare-earths-supply-deals",
+  "date_donnee": "2026-08-26"
+ },
+ {
+  "id": "lynas-rare-earths-8",
+  "acteur": "Lynas Rare Earths",
+  "champ": "incertitude sur le projet texan",
+  "libelle": "Reuters via Kitco",
+  "url": "https://www.kitco.com/news/off-the-wire/2025-08-28/lynas-flags-uncertainty-over-texas-rare-earths-plant-posts-profit",
+  "date_donnee": "2025-08-28"
+ },
+ {
+  "id": "nvidia-1",
+  "acteur": "Nvidia",
+  "champ": "cours, capitalisation, PER, VE/EBITDA, perf. 1 an",
+  "libelle": "stockanalysis.com · NVDA Statistics",
+  "url": "https://stockanalysis.com/stocks/nvda/statistics/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "nvidia-2",
+  "acteur": "Nvidia",
+  "champ": "recoupement capitalisation",
+  "libelle": "companiesmarketcap.com · Nvidia",
+  "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "nvidia-3",
+  "acteur": "Nvidia",
+  "champ": "perf. depuis janvier",
+  "libelle": "companiesmarketcap.com · historique du cours",
+  "url": "https://companiesmarketcap.com/nvidia/stock-price-history/",
+  "date_donnee": "2026-10-14"
+ },
+ {
+  "id": "nvidia-4",
+  "acteur": "Nvidia",
+  "champ": "CA et résultat opérationnel FY2026",
+  "libelle": "Nvidia · résultats annuels FY2026 (8-K)",
+  "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000019/q4fy26pr.htm",
+  "date_donnee": "2026-01-25"
+ },
+ {
+  "id": "nvidia-5",
+  "acteur": "Nvidia",
+  "champ": "marché Automotive",
+  "libelle": "Nvidia · CFO Commentary T4 FY2026",
+  "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000019/q4fy26cfocommentary.htm",
+  "date_donnee": "2026-01-25"
+ },
+ {
+  "id": "nvidia-6",
+  "acteur": "Nvidia",
+  "champ": "Edge Computing (reprise du communiqué)",
+  "libelle": "Hartware.de · résultats T1 FY2027",
+  "url": "https://www.hartware.de/2026/05/21/nvidia-announces-financial-results-for-first-quarter-fiscal-2027/",
+  "date_donnee": "2026-04-26"
+ },
+ {
+  "id": "nvidia-7",
+  "acteur": "Nvidia",
+  "champ": "actualité humanoïdes",
+  "libelle": "Nvidia Newsroom · Isaac GR00T Reference Humanoid",
+  "url": "https://nvidianews.nvidia.com/news/nvidia-open-humanoid-robot-reference-design",
+  "date_donnee": "2026-05-31"
+ },
+ {
+  "id": "nvidia-8",
+  "acteur": "Nvidia",
+  "champ": "Jetson Thor",
+  "libelle": "Nvidia Newsroom · Jetson Thor Now Available",
+  "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-powered-jetson-thor-now-available-accelerating-the-age-of-general-robotics",
+  "date_donnee": "2025-08-25"
+ },
+ {
+  "id": "nvidia-9",
+  "acteur": "Nvidia",
+  "champ": "recoupement",
+  "libelle": "Yahoo Finance · NVDA Key Statistics",
+  "url": "https://finance.yahoo.com/quote/NVDA/key-statistics/",
+  "date_donnee": "2026-10-14"
+ }
+]

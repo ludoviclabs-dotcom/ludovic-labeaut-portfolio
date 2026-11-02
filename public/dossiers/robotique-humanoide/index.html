@@ -1,0 +1,1878 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robotique humanoïde — dossier interactif · Ludovic Labeaut</title>
+  <meta name="description" content="Dossier interactif : marché, volumes réels, anatomie du coût, chaîne de valeur, géopolitique et valorisations boursières de la robotique humanoïde, de 2026 à 2050. Chaque chiffre est sourcé et daté.">
+  <meta name="author" content="Ludovic Labeaut">
+  <meta name="theme-color" content="#0b0c0e">
+  <meta property="og:title" content="Robotique humanoïde : où se capte la valeur, de 2026 à 2050">
+  <meta property="og:description" content="Un dossier interactif de Ludovic Labeaut, conçu avec Claude : marché, volumes, coût, chaîne de valeur, géopolitique et valorisations.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/dossiers/robotique-humanoide/dossier.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="/dossiers/robotique-humanoide/dash.js"></script>
+</head>
+<body>
+  <nav class="dz-bar" aria-label="Navigation">
+    <a href="/publications">← Publications</a>
+    <span class="dz-bar__name">Ludovic Labeaut · Lignes de force</span>
+    <span>Dossier interactif</span>
+  </nav>
+  <main id="dash-root">
+<style>
+.rb{container:rb/inline-size;max-width:1240px;margin-inline:auto;font-family:var(--font-anthropic-sans);color:var(--color-fg);font-size:var(--cds-font-size-body);line-height:1.55;padding-bottom:var(--cds-pad-xl);--rb-a:var(--rb-c0,#4f7cff);--rb-b:var(--rb-c2,#14b8a6)}
+.rb *,.rb *::before,.rb *::after{box-sizing:border-box}
+.rb p,.rb ul,.rb dl,.rb dd,.rb h1,.rb h2,.rb h3,.rb h4{margin:0}
+.rb h1,.rb h2,.rb h3,.rb h4{font-weight:var(--cds-font-weight-medium)}
+.rb .rb-mt{margin-top:var(--cds-gap-md)}
+.rb .rb-mb{margin-bottom:var(--cds-gap-md)}
+.rb .rb-small{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.45}
+.rb .rb-p{color:var(--color-fg-muted);line-height:1.55}
+.rb .rb-p b,.rb .rb-lede b,.rb .rb-cn b,.rb .rb-list b{color:var(--color-fg);font-weight:600}
+.rb [hidden]{display:none!important}
+.rb .rb-h4{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);line-height:1.3}
+
+/* Couverture */
+.rb-hero{position:relative;overflow:hidden;isolation:isolate;border-radius:calc(var(--cds-radius) * 3);padding:clamp(22px,4.6cqi,58px);background:#060a17;color:#eef2ff;border:1px solid rgba(148,163,255,.2);margin-top:var(--cds-gap-sm)}
+.rb-hero-bg{position:absolute;inset:-25%;z-index:-3;background:radial-gradient(36% 44% at 14% 18%,rgba(56,189,248,.40),transparent 70%),radial-gradient(34% 42% at 86% 24%,rgba(139,92,246,.44),transparent 70%),radial-gradient(42% 48% at 58% 104%,rgba(20,184,166,.32),transparent 70%)}
+.rb-hero-grid{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(90% 75% at 50% 15%,#000 25%,transparent 100%);mask-image:radial-gradient(90% 75% at 50% 15%,#000 25%,transparent 100%)}
+.rb-scan{position:absolute;left:0;right:0;top:-30%;height:30%;z-index:-1;background:linear-gradient(180deg,transparent,rgba(94,234,212,.09),transparent);pointer-events:none;opacity:0}
+.rb-orb{position:absolute;right:-80px;top:-70px;width:min(470px,50%);z-index:-1;opacity:.9;pointer-events:none}
+.rb-orb g{transform-box:view-box;transform-origin:200px 200px}
+.rb-kicker{display:inline-flex;align-items:center;gap:10px;font-size:var(--cds-font-size-caption);letter-spacing:.08em;text-transform:uppercase;color:rgba(226,232,255,.8)}
+.rb-kicker::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#5eead4;box-shadow:0 0 0 4px rgba(94,234,212,.18),0 0 18px #5eead4}
+.rb .rb-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(2.2rem,6.6cqi,4.2rem);line-height:1.03;letter-spacing:-.02em;margin-top:var(--cds-gap-md);color:#fff;max-width:14ch}
+.rb-title span{display:block;max-width:44ch;font-family:var(--font-anthropic-sans);font-size:clamp(1rem,2cqi,1.28rem);letter-spacing:0;line-height:1.4;margin-top:.6em;font-weight:400;background:linear-gradient(90deg,#7dd3fc,#c4b5fd 55%,#5eead4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rb .rb-take{max-width:62ch;margin-top:var(--cds-gap-md);color:rgba(226,232,255,.86);font-size:clamp(1rem,1.6cqi,1.12rem)}
+.rb .rb-take b{color:#fff;font-weight:600}
+.rb-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,168px),1fr));gap:12px;margin-top:clamp(24px,3.6cqi,42px)}
+.rb-kpi{position:relative;padding:14px 16px 16px;border-radius:calc(var(--cds-radius) * 1.5);background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.13);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:hidden}
+.rb-kpi::after{content:"";position:absolute;left:16px;right:16px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(125,211,252,.85),transparent)}
+.rb-kpi-l{font-size:var(--cds-font-size-caption);color:rgba(226,232,255,.74);line-height:1.3}
+.rb .rb-kpi-v{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(1.5rem,2.6cqi,2.05rem);line-height:1.15;color:#fff;margin-top:8px;font-variant-numeric:tabular-nums}
+.rb .rb-kpi-s{font-size:var(--cds-font-size-caption);color:rgba(165,180,252,.9);margin-top:6px;line-height:1.3}
+@container rb (max-width:700px){.rb-orb{display:none}}
+
+/* Sommaire */
+.rb-nav{position:sticky;top:0;z-index:20;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0;margin-top:var(--cds-gap-md);background:var(--color-bg);border-bottom:1px solid var(--color-border-line)}
+.rb-nav::-webkit-scrollbar{display:none}
+.rb-nav a{flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--color-border-line);background:var(--color-panel);color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);text-decoration:none;white-space:nowrap;transition:background .25s,color .25s,border-color .25s}
+.rb-nav a span{font-variant-numeric:tabular-nums;font-weight:600;color:var(--rb-a)}
+.rb-nav a:hover{color:var(--color-fg);border-color:var(--rb-a)}
+.rb-nav a.on{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+.rb-nav a.on span{color:inherit}
+
+/* Chapitres */
+.rb-ch{padding-top:clamp(44px,7cqi,88px);scroll-margin-top:60px}
+.rb-chh{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(14px,3cqi,34px);align-items:start;margin-bottom:var(--cds-gap-lg)}
+.rb-chn{font-family:var(--font-anthropic-serif);font-size:clamp(3rem,9cqi,6.4rem);line-height:.85;font-weight:400;background:linear-gradient(160deg,var(--rb-a),var(--rb-b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rb-eye{font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.09em;color:var(--rb-a);font-weight:600}
+.rb .rb-h2{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(1.65rem,3.7cqi,2.6rem);line-height:1.12;letter-spacing:-.01em;margin-top:6px}
+.rb .rb-lede{margin-top:12px;max-width:74ch;color:var(--color-fg-muted);font-size:clamp(1rem,1.5cqi,1.08rem)}
+.rb .rb-h3{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:var(--cds-gap-xl) 0 var(--cds-gap-md)}
+
+/* Cartes et grilles */
+.rb-card{position:relative;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);min-width:0;transition:border-color .3s,box-shadow .3s}
+.rb-card:hover{border-color:color-mix(in srgb,var(--rb-a) 40%,var(--color-border-line));box-shadow:0 14px 34px -24px rgba(15,23,42,.5)}
+.rb-card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:var(--cds-gap-md)}
+.rb .rb-ct{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);line-height:1.3}
+.rb .rb-cn{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-top:3px}
+.rb-grid{display:grid;gap:var(--cds-gap-md);grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))}
+.rb-grid4{grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr))}
+.rb-grid-oem{grid-template-columns:repeat(auto-fit,minmax(min(100%,16.5rem),1fr))}
+.rb-g21{display:grid;gap:var(--cds-gap-md);grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+@container rb (max-width:880px){.rb-g21{grid-template-columns:minmax(0,1fr)}}
+
+/* Contrôles */
+.rb-seg{display:inline-flex;flex-wrap:wrap;padding:3px;border-radius:999px;background:var(--color-bg);border:1px solid var(--color-border-line)}
+.rb-seg button{font:inherit;font-size:var(--cds-font-size-caption);border:0;background:transparent;color:var(--color-fg-muted);padding:5px 12px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.rb-seg button[aria-pressed=true]{background:var(--color-fg);color:var(--color-bg)}
+.rb-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rb-chip{display:inline-flex;align-items:center;gap:6px;font-size:var(--cds-font-size-caption);padding:3px 10px;border-radius:999px;border:1px solid var(--color-border-line);background:var(--color-bg);color:var(--color-fg-muted);white-space:nowrap}
+button.rb-chip{font:inherit;font-size:var(--cds-font-size-caption);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+button.rb-chip[aria-pressed=true]{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+.rb-dot{display:inline-block;flex:none;width:8px;height:8px;border-radius:50%;background:var(--c,var(--cds-chart-muted))}
+
+/* Graphiques */
+.rb-chart{position:relative}
+.rb-svg{display:block;overflow:visible}
+.rb-svg text{font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-caption);fill:var(--color-fg-muted)}
+.rb-svg .rb-vlab{fill:var(--color-fg);font-weight:600;font-variant-numeric:tabular-nums}
+.rb-svg .rb-name{fill:var(--color-fg);font-size:var(--cds-font-size-body)}
+.rb-svg .rb-note{font-style:italic}
+.rb-svg .rb-gl{stroke:var(--cds-chart-grid);stroke-width:1}
+.rb-svg .rb-ax{stroke:var(--cds-chart-axis);stroke-width:1}
+.rb-svg .rb-line{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rb-svg .rb-thin{stroke-width:1.5;stroke-dasharray:4 4;opacity:.75}
+.rb-svg .rb-focus{stroke:var(--cds-chart-reference);stroke-width:1;stroke-dasharray:3 3}
+.rb-svg .rb-ref{stroke:var(--cds-chart-reference);stroke-width:1;stroke-dasharray:5 4}
+.rb-svg .rb-band{fill:var(--cds-chart-reference);opacity:.14}
+.rb-svg .rb-pt{fill:var(--color-panel);stroke-width:2}
+.rb-svg .rb-ring{fill:var(--color-panel);stroke-width:2.5}
+.rb-svg .rb-gap{stroke-width:2;stroke-dasharray:3 5;opacity:.8}
+.rb-svg .rb-node{fill:var(--color-panel);stroke-width:2}
+.rb-svg .rb-link{fill:none;stroke-width:2.5;opacity:.5}
+.rb-svg .rb-link-f{fill:none;stroke-width:2.5;stroke-dasharray:2 10;stroke-linecap:round;opacity:.9}
+.rb-svg .rb-hit{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke}
+.rb-svg g{transition:opacity .2s}
+.rb-svg .dim{opacity:.22}
+.rb-tip{position:absolute;left:0;top:0;z-index:10;pointer-events:none;opacity:0;transition:opacity .15s;width:max-content;max-width:270px;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);line-height:1.4;color:var(--color-fg)}
+.rb-tip-h{color:var(--cds-text-secondary);margin-bottom:4px}
+.rb-tip-r{display:flex;align-items:baseline;gap:6px}
+.rb-tip-r i{flex:none;width:8px;height:8px;border-radius:2px;align-self:center}
+.rb-tip-r span{flex:none}
+.rb-tip-r b{margin-left:auto;padding-left:12px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.rb-tip-n{margin-top:6px;color:var(--color-fg-muted)}
+.rb-fail{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.rb-fail i{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.rb-lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-lg span{display:inline-flex;align-items:center;gap:6px}
+.rb-lg b{color:var(--color-fg)}
+.rb-sw{display:inline-block;flex:none;width:12px;height:12px;border-radius:3px;background:var(--c,var(--color-fg-muted))}
+.rb-sw.muted{background:var(--cds-chart-muted)}
+.rb-sw.dotc{border-radius:50%}
+.rb-sw.ring{background:transparent;border:2px solid var(--color-fg-muted);border-radius:50%}
+.rb-sw.band{background:var(--cds-chart-reference);opacity:.4}
+.rb-phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,112px),1fr));gap:8px;margin-top:14px}
+.rb-ph{position:relative;padding:8px 10px 8px 14px;border-radius:8px;background:var(--color-bg);border:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);line-height:1.3}
+.rb-ph::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:linear-gradient(var(--rb-a),var(--rb-b))}
+.rb-ph b{display:block;font-variant-numeric:tabular-nums}
+.rb-ph span{color:var(--color-fg-muted)}
+.rb-chart.swap .rb-svg{animation:rb-fade .45s var(--cds-ease-out)}
+
+/* Comptage animé */
+.cu-w{position:relative;display:inline-block}
+.cu-o{position:absolute;left:0;top:0;white-space:nowrap}
+.cu-hide{opacity:0}
+.rb [data-dash-source-state=empty]{color:transparent}
+.rb [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+
+/* Ciseau marché / coût */
+.rb-ratios{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--cds-gap-lg);align-items:center;margin-top:var(--cds-gap-md);padding:var(--cds-pad-lg);border-radius:var(--cds-radius);border:1px solid var(--color-border-line);background:linear-gradient(115deg,color-mix(in srgb,var(--rb-a) 11%,var(--color-panel)),var(--color-panel) 48%,color-mix(in srgb,var(--rb-c1,#f59e0b) 11%,var(--color-panel)))}
+.rb-ratio{text-align:center}
+.rb-ratio .cu-w{font-family:var(--font-anthropic-serif);font-size:clamp(2.4rem,6.4cqi,3.8rem);line-height:1;font-variant-numeric:tabular-nums}
+.rb-ratio:first-child .cu-w{color:var(--rb-a)}
+.rb-ratio:nth-child(3) .cu-w{color:var(--rb-c1,#f59e0b)}
+.rb-ratio p{margin-top:8px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-ratio-sep{width:1px;align-self:stretch;background:var(--color-border-line)}
+.rb .rb-ratio-note{grid-column:1/-1;text-align:center;color:var(--color-fg-muted);max-width:72ch;margin-inline:auto}
+@container rb (max-width:540px){.rb-ratios{grid-template-columns:1fr}.rb-ratio-sep{width:auto;height:1px}}
+
+/* Projections et parc */
+.rb-proj{display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.rb-proj::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--rb-a),var(--rb-b))}
+.rb-proj-h{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);display:flex;gap:6px;flex-wrap:wrap}
+.rb-proj-v{font-family:var(--font-anthropic-serif);font-size:clamp(1.75rem,3.4cqi,2.35rem);line-height:1.1;font-variant-numeric:tabular-nums}
+.rb-proj-p{font-weight:500}
+.rb-hbar{display:grid;grid-template-columns:minmax(84px,auto) minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:12px}
+.rb-hbar-l{display:inline-flex;align-items:center;gap:8px}
+.rb-hbar-t{height:14px;border-radius:999px;background:var(--cds-chart-grid);overflow:hidden}
+.rb-hbar-t i{display:block;height:100%;border-radius:999px;background:var(--c)}
+.rb .rb-hbar-v{font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.3rem;min-width:4.5ch;text-align:right;font-variant-numeric:tabular-nums}
+.rb-split-bar{display:flex;gap:3px;height:14px;margin-top:20px}
+.rb-split-bar i{display:block;height:100%;border-radius:999px;background:var(--c)}
+
+/* Constructeurs */
+.rb-oem{display:flex;flex-direction:column;gap:10px}
+.rb-oem-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.rb-dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--color-border-line);border-bottom:1px solid var(--color-border-line)}
+.rb-dl dt{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-dl dd{font-weight:500;line-height:1.35;margin-top:2px}
+.rb .rb-oem-c{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-top:auto}
+.rb-oem-c span{color:var(--color-fg)}
+
+/* Anatomie du coût */
+.rb-anat{display:grid;grid-template-columns:minmax(150px,240px) minmax(0,1fr);gap:clamp(16px,4cqi,52px);align-items:center}
+@container rb (max-width:640px){.rb-anat{grid-template-columns:minmax(0,1fr)}.rb-robot{width:min(190px,60%);margin-inline:auto}}
+.rb-robot svg{display:block;width:100%;height:auto;overflow:visible;color:var(--rb-a)}
+.rb-robot .z{cursor:pointer;transition:filter .35s}
+.rb-robot .z > *{fill:var(--zc,var(--cds-chart-muted));fill-opacity:.2;stroke:var(--zc,var(--cds-chart-muted));stroke-opacity:.8;stroke-width:1.3;transform-box:fill-box;transform-origin:center;transition:fill-opacity .35s,stroke-opacity .35s}
+.rb-robot .z:not([data-zone=structure]) > *{fill-opacity:.5}
+.rb-robot .z > .wire{fill:none;stroke-dasharray:2 3}
+.rb-robot.has-on .z > *{fill-opacity:.06;stroke-opacity:.22}
+.rb-robot.has-on .z.on > *{fill-opacity:.9;stroke-opacity:1}
+.rb-robot.has-on .z.on > .wire{fill:none;stroke-width:2}
+.rb-robot .z.on{filter:drop-shadow(0 0 6px var(--zc))}
+.rb-rscan{opacity:0;pointer-events:none}
+.rb-bomrows{display:grid;gap:8px}
+.rb-bomrow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:12px minmax(0,1fr) auto;grid-template-areas:"sw t v" "sw bar bar";column-gap:12px;row-gap:8px;padding:12px 14px;border-radius:var(--cds-radius);border:1px solid var(--color-border-line);background:var(--color-bg);cursor:pointer;transition:border-color .25s,background .25s,opacity .25s}
+.rb-bomrow:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.rb-bomrow-sw{grid-area:sw;border-radius:4px;background:var(--c)}
+.rb-bomrow-t{grid-area:t;min-width:0}
+.rb-bomrow-t b{display:block;font-weight:600;line-height:1.3}
+.rb-bomrow-t small{display:block;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);line-height:1.35;margin-top:2px}
+.rb-bomrow-v{grid-area:v;align-self:center;font-family:var(--font-anthropic-serif);font-size:1.4rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rb-bomrow-bar{grid-area:bar;position:relative;height:8px;border-radius:999px;background:var(--cds-chart-grid);overflow:hidden}
+.rb-bomrow-bar i{position:absolute;top:0;bottom:0;left:0;border-radius:999px;background:var(--c)}
+.rb-bomrow-bar i.rb-ext{opacity:.38;border-radius:0 999px 999px 0}
+.rb-bomrows.has-on .rb-bomrow:not(.on){opacity:.45}
+.rb-bomrow.on{border-color:var(--c);background:var(--color-panel);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 16%,transparent)}
+.rb-bomact{margin-top:var(--cds-gap-md);padding:12px 14px;border-radius:var(--cds-radius);border:1px dashed var(--color-border-line);min-height:76px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-bomact .rb-chips{margin-top:8px}
+.rb-bomact-h{color:var(--color-fg);font-weight:600}
+
+/* Goulots */
+.rb-goulot{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.rb-goulot-n{position:absolute;right:14px;top:4px;font-family:var(--font-anthropic-serif);font-size:4.4rem;line-height:1;color:var(--rb-a);opacity:.12;pointer-events:none}
+.rb-signal{padding:10px 12px;border-radius:var(--cds-radius);background:color-mix(in srgb,var(--rb-a) 9%,var(--color-bg));border:1px solid color-mix(in srgb,var(--rb-a) 25%,var(--color-border-line))}
+.rb-signal span{display:block;font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.08em;color:var(--rb-a);font-weight:600;margin-bottom:4px}
+.rb .rb-actors{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-top:auto}
+
+/* Matrice des couches */
+.rb-mx{position:relative;--cw:44px}
+@container rb (max-width:600px){.rb-mx{--cw:30px}.rb-mx-name small{display:none}}
+.rb-mx-head,.rb-mx-row{display:grid;grid-template-columns:minmax(0,1fr) repeat(7,var(--cw));align-items:center}
+.rb-mx-head{padding-bottom:8px;border-bottom:1px solid var(--color-border-line)}
+.rb-mx-corner{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-mx-col{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:8px;font-size:var(--cds-font-size-caption);transition:background .2s}
+.rb-mx-col:focus-visible{outline:2px solid var(--c)}
+.rb-mx-col b{font-weight:600;letter-spacing:.04em}
+.rb-mx-col .n{font-family:var(--font-anthropic-serif);font-size:1.1rem;line-height:1;color:var(--c);font-variant-numeric:tabular-nums}
+.rb-mx-col:hover,.rb-mx-col.on{background:color-mix(in srgb,var(--c) 15%,transparent)}
+.rb-mx-seg{margin-top:16px;padding:4px 0 6px;font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.07em;color:var(--rb-a);font-weight:600}
+.rb-mx-row{padding:8px 0;border-bottom:1px solid var(--color-border-line);transition:opacity .25s}
+.rb-mx-row:hover{background:color-mix(in srgb,var(--rb-a) 5%,transparent)}
+.rb-mx-row.dim{opacity:.25}
+.rb-mx-name{display:flex;gap:10px;align-items:flex-start;min-width:0;padding-right:8px}
+.rb-mx-badge{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:var(--cds-font-size-caption);font-weight:600;background:var(--color-bg);border:1px solid var(--color-border-line);font-variant-numeric:tabular-nums}
+.rb-mx-name b{display:block;font-weight:500;line-height:1.3}
+.rb-mx-name small{display:block;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);line-height:1.35;margin-top:2px}
+.rb-mx-cell{display:grid;place-items:center;align-self:stretch;border-radius:6px}
+.rb-mx-cell.hl{background:color-mix(in srgb,var(--c) 10%,transparent)}
+.rb-mx-cell i{display:block;border-radius:50%;transition:transform .5s var(--cds-ease-out);transition-delay:var(--d,0s)}
+.rb-mx-cell i.dom{width:14px;height:14px;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 20%,transparent)}
+.rb-mx-cell i.chal{width:13px;height:13px;border:2px solid var(--c)}
+.rb-mx-cell i.none{width:4px;height:4px;background:var(--color-border-line)}
+.rb-mxk{display:inline-block;width:11px;height:11px;border-radius:50%}
+.rb-mxk.dom{background:var(--color-fg-muted)}
+.rb-mxk.chal{border:2px solid var(--color-fg-muted)}
+
+/* Chiffres éditoriaux */
+.rb-big{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+.rb-big-v{font-family:var(--font-anthropic-serif);font-size:clamp(2.2rem,5cqi,3rem);line-height:1;color:var(--rb-a);font-variant-numeric:tabular-nums}
+.rb-big-l{flex:1 1 14rem;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);line-height:1.4}
+.rb-meter{margin-top:14px}
+.rb-meter-h{display:flex;justify-content:space-between;gap:12px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-bottom:6px}
+.rb-meter-h b{color:var(--color-fg)}
+.rb-meter-t{display:block;height:10px;border-radius:999px;background:var(--cds-chart-grid);overflow:hidden}
+.rb-meter-t i{display:block;height:100%;border-radius:999px;background:var(--c)}
+.rb .rb-list{list-style:none;padding:0;margin-top:14px;display:grid;gap:10px;color:var(--color-fg-muted)}
+.rb-list li{position:relative;padding-left:20px}
+.rb-list li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:2px;border-radius:2px;background:var(--rb-a)}
+.rb-card > .rb-p{margin-top:14px}
+
+/* Blocs */
+.rb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--cds-gap-lg)}
+.rb-tab{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);transition:background .2s,color .2s,border-color .2s}
+.rb-tab:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.rb-tab[aria-selected=true]{color:var(--color-fg);border-color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+.rb-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--cds-gap-lg)}
+.rb-panel[hidden]{display:none}
+.rb-col h4{font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.08em;color:var(--color-fg-muted);margin-bottom:10px;font-weight:600}
+.rb-col ul{list-style:none;padding:0;display:grid;gap:10px}
+.rb-col li{position:relative;padding-left:22px;line-height:1.45}
+.rb-col li::before{content:"";position:absolute;left:0;top:.6em;width:12px;height:3px;border-radius:2px;background:var(--k)}
+.rb-col.f{--k:var(--color-ok)}
+.rb-col.w{--k:var(--color-bad)}
+.rb-col.c{--k:var(--rb-a)}
+
+/* Thèses et annuaire */
+.rb-these{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.rb-these::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--c),transparent)}
+.rb-these .rb-eye{color:var(--c)}
+.rb-these-t{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--c);letter-spacing:.02em}
+.rb-these-a{font-weight:500}
+.rb-these-go{all:unset;cursor:pointer;margin-top:auto;padding-top:6px;font-size:var(--cds-font-size-caption);color:var(--c);font-weight:600}
+.rb-these-go:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.rb-these.on{border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 18%,transparent)}
+.rb-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.rb-search{font:inherit;font-size:var(--cds-font-size-body);padding:8px 14px;border-radius:999px;border:1px solid var(--color-border-line);background:var(--color-bg);color:var(--color-fg);flex:1 1 220px;max-width:360px;min-width:0}
+.rb-search:focus{outline:2px solid var(--rb-a);outline-offset:1px}
+.rb-tw{max-height:560px;overflow:auto;border-radius:var(--cds-radius);border:1px solid var(--color-border-line)}
+.rb-t{width:100%;border-collapse:collapse}
+.rb-t th{position:sticky;top:0;z-index:1;background:var(--color-panel);text-align:left;font-weight:500;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);border-bottom:1px solid var(--color-border-line);padding:0}
+.rb-th{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;width:100%;padding:10px 12px}
+.rb-th::after{content:"↕";opacity:.35;font-size:.85em}
+.rb-t th[aria-sort=ascending] .rb-th::after{content:"↑";opacity:1}
+.rb-t th[aria-sort=descending] .rb-th::after{content:"↓";opacity:1}
+.rb-t td{padding:10px 12px;border-bottom:1px solid var(--color-border-line);vertical-align:top}
+.rb-t tbody tr{transition:background .15s}
+.rb-t tbody tr:hover{background:color-mix(in srgb,var(--rb-a) 6%,transparent)}
+.rb-t td:first-child{font-weight:500;white-space:nowrap}
+.rb-t td:first-child .rb-dot{margin-right:8px;vertical-align:1px}
+.rb-t tr.is-these td:first-child::after{content:" ★";color:var(--rb-a)}
+.rb-t td.rb-tk{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:var(--cds-font-size-caption);color:var(--rb-a);white-space:nowrap}
+.rb-t td.rb-rl{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);min-width:16ch}
+.rb-t td.rb-nb{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-t td:empty::after{content:"—";color:var(--color-fg-muted)}
+@container rb (max-width:720px){.rb-t .c-pays{display:none}}
+@container rb (max-width:480px){.rb-t .c-role{display:none}}
+.rb-empty{padding:16px;text-align:center;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+
+/* Opportunités et menaces */
+.rb-om{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-lg)}
+.rb-om-col{display:grid;gap:var(--cds-gap-md);align-content:start}
+.rb-om-col.ok{--k:var(--color-ok)}
+.rb-om-col.bad{--k:var(--color-bad)}
+.rb .rb-om-h{display:flex;align-items:center;gap:10px;font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium)}
+.rb-om-h::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--k)}
+.rb-enjeu{display:grid;gap:8px;border-left:3px solid var(--k)}
+.rb-enjeu-k{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rb-enjeu-v{font-family:var(--font-anthropic-serif);font-size:clamp(1.8rem,3.4cqi,2.2rem);line-height:1.1;color:var(--k);font-variant-numeric:tabular-nums}
+.rb-enjeu-l{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);flex:1 1 12rem}
+.rb-closing{position:relative;margin-top:var(--cds-gap-xl);padding:clamp(22px,4cqi,44px);border-radius:calc(var(--cds-radius) * 2);background:#060a17;color:#eef2ff;overflow:hidden;isolation:isolate}
+.rb-closing::before{content:"";position:absolute;inset:-30%;z-index:-1;background:radial-gradient(40% 50% at 10% 0%,rgba(56,189,248,.32),transparent 70%),radial-gradient(40% 50% at 95% 100%,rgba(139,92,246,.36),transparent 70%)}
+.rb-closing .rb-eye{color:#7dd3fc}
+.rb .rb-closing-t{font-family:var(--font-anthropic-serif);font-size:clamp(1.3rem,2.8cqi,1.9rem);line-height:1.3;margin-top:10px;max-width:56ch}
+.rb .rb-foot{margin-top:var(--cds-gap-lg);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);max-width:90ch}
+
+/* Valorisations */
+.rb-vk{display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.rb-vk::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--rb-a),var(--rb-b))}
+.rb .rb-vk-v{font-family:var(--font-anthropic-serif);font-size:clamp(1.8rem,3.4cqi,2.4rem);line-height:1.1;font-variant-numeric:tabular-nums}
+.rb-fam{display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.rb-fam::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--c),transparent)}
+.rb-fam-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.rb-fam-stats div{padding:8px 10px;border-radius:var(--cds-radius);background:var(--color-bg);border:1px solid var(--color-border-line);min-width:0}
+.rb-fam-stats span{display:block;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.3}
+.rb .rb-fam-stats b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.3rem;line-height:1.2;margin-top:2px;color:var(--c);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-svg .rb-ghead{fill:var(--color-fg);font-weight:600}
+.rb-svg .rb-hitrow{cursor:pointer}
+.rb-tv tbody tr{cursor:pointer}
+.rb-tv tbody tr:focus-visible{outline:2px solid var(--rb-a);outline-offset:-2px}
+.rb-t tbody tr.sel td{background:color-mix(in srgb,var(--rb-a) 12%,transparent)}
+.rb-t td.up{color:var(--color-ok)}
+.rb-t td.down{color:var(--color-bad)}
+.rb-th-s{display:block;padding:10px 12px}
+@container rb (max-width:980px){.rb-tv .c-ev,.rb-tv .c-ytd{display:none}}
+@container rb (max-width:560px){.rb-tv .c-cours{display:none}}
+.rb-picker{margin-bottom:var(--cds-gap-md)}
+.rb-fiche-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.rb-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr));gap:8px;margin:14px 0}
+.rb-stat{padding:9px 11px;border-radius:var(--cds-radius);background:var(--color-bg);border:1px solid var(--color-border-line);min-width:0}
+.rb-stat span{display:block;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb .rb-stat b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.2rem;line-height:1.25;font-variant-numeric:tabular-nums}
+.rb-stat small{display:block;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.3}
+.rb-fiche-s{margin-top:12px}
+.rb-fiche-s h5{margin:0 0 4px;font-size:var(--cds-font-size-caption);text-transform:uppercase;letter-spacing:.08em;color:var(--color-fg-muted);font-weight:600}
+.rb-fiche-s p{color:var(--color-fg);line-height:1.5}
+.rb-verif{display:inline-flex;align-items:center;gap:6px;margin-bottom:6px;padding:2px 10px;border-radius:999px;border:1px solid currentColor;font-size:var(--cds-font-size-caption);font-weight:600;color:var(--k)}
+.rb-verif::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.rb-verif.ok{--k:var(--color-ok)}
+.rb-verif.bad{--k:var(--color-bad)}
+.rb-verif.warn{--k:var(--color-warn)}
+.rb-srcs{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.rb-srcs li{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.rb-srcs b{color:var(--color-fg);font-weight:500}
+.rb-srcs a{color:var(--rb-a);text-decoration:none;word-break:break-all}
+.rb-srcs a:hover{text-decoration:underline}
+
+/* Mouvement */
+@media (prefers-reduced-motion:no-preference){
+  .rb-hero-bg{animation:rb-drift 22s ease-in-out infinite alternate}
+  .rb-orb .r1{animation:rb-spin 70s linear infinite}
+  .rb-orb .r2{animation:rb-spin 42s linear infinite reverse}
+  .rb-orb .r3{animation:rb-spin 26s linear infinite}
+  .rb-orb .rb-core{animation:rb-breathe 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  .rb-scan{animation:rb-scan 9s ease-in-out infinite}
+  .rb-kicker::before{animation:rb-beat 2.4s ease-in-out infinite}
+  .rb-rise{animation:rb-rise calc(var(--cds-dur-slow) * 3) var(--cds-ease-out) both;animation-delay:var(--d,0s)}
+  .rb.rv-on .rv{opacity:0;transform:translateY(22px);transition:opacity calc(var(--cds-dur-slow) * 3) var(--cds-ease-out),transform calc(var(--cds-dur-slow) * 3) var(--cds-ease-out),border-color .3s,box-shadow .3s}
+  .rb.rv-on .rv.in{opacity:1;transform:none}
+  .rb.rv-on .rb-grid > .rv:nth-child(2){transition-delay:.08s}
+  .rb.rv-on .rb-grid > .rv:nth-child(3){transition-delay:.16s}
+  .rb.rv-on .rb-grid > .rv:nth-child(4){transition-delay:.24s}
+  .rb .rb-grow{transition:width 1.2s var(--cds-ease-out) .25s}
+  .rb.rv-on .rv:not(.in) .rb-grow{width:0!important}
+  .rb.rv-on .rv:not(.in) .rb-mx-cell i{transform:scale(0)}
+  .rb-svg .rb-link-f{animation:rb-flow 1.6s linear infinite}
+  .rb-rscan{animation:rb-rscan 4.8s ease-in-out infinite}
+  .rb-robot .z.on[data-zone=articulations] > *{animation:rb-joint 1.3s ease-in-out infinite}
+  .rb-panel:not([hidden]){animation:rb-rise .5s var(--cds-ease-out)}
+}
+@keyframes rb-spin{to{transform:rotate(360deg)}}
+@keyframes rb-drift{from{transform:translate3d(-4%,-3%,0) scale(1)}to{transform:translate3d(4%,3%,0) scale(1.08)}}
+@keyframes rb-scan{0%{top:-30%;opacity:0}15%{opacity:1}65%{opacity:1}100%{top:110%;opacity:0}}
+@keyframes rb-beat{50%{box-shadow:0 0 0 9px rgba(94,234,212,0),0 0 18px #5eead4}}
+@keyframes rb-breathe{50%{transform:scale(1.12);opacity:.85}}
+@keyframes rb-rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes rb-fade{from{opacity:.15}}
+@keyframes rb-flow{to{stroke-dashoffset:-24}}
+@keyframes rb-rscan{0%{transform:translateY(0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateY(322px);opacity:0}}
+@keyframes rb-joint{50%{transform:scale(1.25)}}
+</style>
+
+<div class="rb" id="rb">
+
+<header class="rb-hero" id="apercu">
+  <div class="rb-hero-bg" aria-hidden="true"></div>
+  <div class="rb-hero-grid" aria-hidden="true"></div>
+  <div class="rb-scan" aria-hidden="true"></div>
+  <svg class="rb-orb" viewBox="0 0 400 400" aria-hidden="true">
+    <defs><radialGradient id="rb-core-g"><stop offset="0" stop-color="#e0f2fe"/><stop offset=".45" stop-color="#38bdf8" stop-opacity=".8"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient></defs>
+    <g class="r1"><circle cx="200" cy="200" r="168" fill="none" stroke="rgba(148,163,255,.4)" stroke-dasharray="1 7"/><circle cx="368" cy="200" r="4" fill="#5eead4"/><circle cx="32" cy="200" r="2.5" fill="#a78bfa"/></g>
+    <g class="r2"><circle cx="200" cy="200" r="122" fill="none" stroke="rgba(125,211,252,.35)"/><circle cx="200" cy="78" r="5" fill="#7dd3fc"/><circle cx="286" cy="286" r="3" fill="#c4b5fd"/></g>
+    <g class="r3"><circle cx="200" cy="200" r="78" fill="none" stroke="rgba(196,181,253,.5)" stroke-dasharray="46 14"/></g>
+    <circle class="rb-core" cx="200" cy="200" r="46" fill="url(#rb-core-g)"/>
+  </svg>
+  <p class="rb-kicker rb-rise" style="--d:.05s">Dossier de recherche · robotique humanoïde &amp; avancée · automne 2026</p>
+  <h1 class="rb-title rb-rise" id="titre" style="--d:.12s">Robotique humanoïde<span>Perspectives du marché, du point de bascule industriel de 2026 à l'horizon 2050</span></h1>
+  <p class="rb-take rb-rise" id="takeaway" style="--d:.22s">La valeur se capte d'abord dans les goulots matériels : articulations et mains pèsent <b data-source="faits" data-field="valeur" data-where="id=mecatronique_bom">—</b> du coût d'un robot, pendant que le marché passe de <b data-source="faits" data-field="valeur" data-where="id=marche_2026">—</b> aujourd'hui à <b data-source="faits" data-field="valeur" data-where="id=tam_2050">—</b> à l'horizon 2050.</p>
+  <div class="rb-kpis" id="kpis"><div class="rb-kpi rb-rise" style="--d:0.32s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=marche_2026">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=marche_2026">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=marche_2026">—</p></div><div class="rb-kpi rb-rise" style="--d:0.40s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=marche_2035">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=marche_2035">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=marche_2035">—</p></div><div class="rb-kpi rb-rise" style="--d:0.48s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=tam_2050">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=tam_2050">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=tam_2050">—</p></div><div class="rb-kpi rb-rise" style="--d:0.56s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=parc_2050">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=parc_2050">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=parc_2050">—</p></div><div class="rb-kpi rb-rise" style="--d:0.64s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=part_chine_volumes">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=part_chine_volumes">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=part_chine_volumes">—</p></div><div class="rb-kpi rb-rise" style="--d:0.72s"><p class="rb-kpi-l" data-source="faits" data-field="label" data-where="id=bom_2050">—</p><p class="rb-kpi-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=bom_2050">—</span></span></p><p class="rb-kpi-s" data-source="faits" data-field="source" data-where="id=bom_2050">—</p></div></div>
+</header>
+
+<nav class="rb-nav" id="sommaire" aria-label="Chapitres">
+  <a href="#marche" data-target="marche"><span>01</span>Marché</a>
+  <a href="#realite" data-target="realite"><span>02</span>Réalité 2026</a>
+  <a href="#cout" data-target="cout"><span>03</span>Anatomie du coût</a>
+  <a href="#chaine" data-target="chaine"><span>04</span>Chaîne de valeur</a>
+  <a href="#geopolitique" data-target="geopolitique"><span>05</span>Géopolitique</a>
+  <a href="#acteurs" data-target="acteurs"><span>06</span>Acteurs &amp; thèses</a>
+  <a href="#valorisations" data-target="valorisations"><span>07</span>Valorisations</a>
+  <a href="#risques" data-target="risques"><span>08</span>Risques &amp; opportunités</a>
+</nav>
+
+<section class="rb-ch" id="marche" aria-labelledby="marche-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">01</span>
+    <div>
+      <p class="rb-eye">Valeur du marché</p>
+      <h2 class="rb-h2" id="marche-h">D'un marché de niche à une économie de masse</h2>
+      <p class="rb-lede">Entre 2024 et 2026, les grandes banques ont réévalué le marché adressable sous l'effet conjoint de la pénurie de main-d'œuvre industrielle (OCDE, Chine) et de l'essor de l'IA incarnée. Goldman Sachs a multiplié sa prévision initiale par <b data-source="faits" data-field="valeur" data-where="id=gs_revision">—</b> ; Morgan Stanley chiffre le potentiel à <b data-source="faits" data-field="valeur" data-where="id=tam_2050">—</b>.</p>
+    </div>
+  </header>
+  <div class="rb-g21">
+    <article class="rb-card rv" id="carte-trajectoire">
+      <div class="rb-card-h">
+        <div><h3 class="rb-ct" id="trajectoire-h">Trajectoire du marché mondial</h3><p class="rb-cn">Fourchette basse–haute des estimations, en milliards de dollars</p></div>
+        <div class="rb-seg" role="group" aria-label="Échelle de l'axe"><button type="button" data-scale="log" aria-pressed="true">Logarithmique</button><button type="button" data-scale="lin" aria-pressed="false">Linéaire</button></div>
+      </div>
+      <div class="rb-chart" id="ch-marche" data-source="marche" style="min-height:300px"></div>
+      <div class="rb-phases" id="ph-marche" data-source="marche"></div>
+    </article>
+    <article class="rb-card rv" id="carte-cout-annee">
+      <div class="rb-card-h"><div><h3 class="rb-ct" id="cout-annee-h">Coût de revient par robot</h3><p class="rb-cn">BOM moyen par horizon, face au salaire annuel d'un ouvrier posté</p></div></div>
+      <div class="rb-chart" id="ch-bom-annee" data-source="marche faits" style="min-height:270px"></div>
+      <div class="rb-lg"><span><i class="rb-sw" data-c="1"></i>Sous le salaire d'un ouvrier</span><span><i class="rb-sw muted"></i>Au-dessus</span><span><i class="rb-sw band"></i>Salaire annuel d'un ouvrier posté (US/UE) : <b data-source="faits" data-field="valeur" data-where="id=salaire_ouvrier">—</b></span></div>
+    </article>
+  </div>
+  <div class="rb-ratios rv" id="ratios">
+    <div class="rb-ratio"><span class="cu-w"><span class="cu" data-source="ratios" data-field="libelle" data-where="indicateur=croissance_marche">—</span></span><p>Taille du marché, du plafond 2024 au plafond 2050</p></div>
+    <div class="rb-ratio-sep" aria-hidden="true"></div>
+    <div class="rb-ratio"><span class="cu-w"><span class="cu" data-source="ratios" data-field="libelle" data-where="indicateur=baisse_cout">—</span></span><p>Coût de revient par robot, du plafond 2024 au plafond 2050</p></div>
+    <p class="rb-ratio-note">L'effet de ciseau : le marché change d'échelle pendant que le coût unitaire s'effondre et passe sous le salaire d'un ouvrier posté. C'est ce croisement qui fait basculer l'humanoïde du prototype à l'outil industriel.</p>
+  </div>
+  <h3 class="rb-h3 rv" id="banques-h">Ce que disent les banques d'investissement</h3>
+  <div class="rb-grid rb-grid4" id="banques"><article class="rb-card rb-proj rv" id="projection-1"><p class="rb-proj-h"><span data-source="projections" data-field="institution" data-where="institution=Consensus des estimations">—</span><span aria-hidden="true">·</span><span data-source="projections" data-field="horizon" data-where="institution=Consensus des estimations">—</span></p><p class="rb-proj-v"><span class="cu-w"><span class="cu" data-source="projections" data-field="fourchette" data-where="institution=Consensus des estimations">—</span></span></p><p class="rb-proj-p" data-source="projections" data-field="perimetre" data-where="institution=Consensus des estimations">—</p><p class="rb-small" data-source="projections" data-field="detail" data-where="institution=Consensus des estimations">—</p></article><article class="rb-card rb-proj rv" id="projection-2"><p class="rb-proj-h"><span data-source="projections" data-field="institution" data-where="institution=Goldman Sachs">—</span><span aria-hidden="true">·</span><span data-source="projections" data-field="horizon" data-where="institution=Goldman Sachs">—</span></p><p class="rb-proj-v"><span class="cu-w"><span class="cu" data-source="projections" data-field="fourchette" data-where="institution=Goldman Sachs">—</span></span></p><p class="rb-proj-p" data-source="projections" data-field="perimetre" data-where="institution=Goldman Sachs">—</p><p class="rb-small" data-source="projections" data-field="detail" data-where="institution=Goldman Sachs">—</p></article><article class="rb-card rb-proj rv" id="projection-3"><p class="rb-proj-h"><span data-source="projections" data-field="institution" data-where="institution=Bank of America / Citi">—</span><span aria-hidden="true">·</span><span data-source="projections" data-field="horizon" data-where="institution=Bank of America / Citi">—</span></p><p class="rb-proj-v"><span class="cu-w"><span class="cu" data-source="projections" data-field="fourchette" data-where="institution=Bank of America / Citi">—</span></span></p><p class="rb-proj-p" data-source="projections" data-field="perimetre" data-where="institution=Bank of America / Citi">—</p><p class="rb-small" data-source="projections" data-field="detail" data-where="institution=Bank of America / Citi">—</p></article><article class="rb-card rb-proj rv" id="projection-4"><p class="rb-proj-h"><span data-source="projections" data-field="institution" data-where="institution=Morgan Stanley">—</span><span aria-hidden="true">·</span><span data-source="projections" data-field="horizon" data-where="institution=Morgan Stanley">—</span></p><p class="rb-proj-v"><span class="cu-w"><span class="cu" data-source="projections" data-field="fourchette" data-where="institution=Morgan Stanley">—</span></span></p><p class="rb-proj-p" data-source="projections" data-field="perimetre" data-where="institution=Morgan Stanley">—</p><p class="rb-small" data-source="projections" data-field="detail" data-where="institution=Morgan Stanley">—</p></article></div>
+  <article class="rb-card rv rb-mt" id="carte-parc">
+    <div class="rb-card-h"><div><h3 class="rb-ct" id="parc-h">Le parc mondial à l'horizon 2050</h3><p class="rb-cn">Projection Morgan Stanley — parc installé total : <b data-source="faits" data-field="valeur" data-where="id=parc_2050">—</b></p></div></div>
+    <div id="ch-parc" data-source="faits">
+      <div class="rb-hbar"><span class="rb-hbar-l"><i class="rb-dot" data-bloc-dot="Chine"></i>Chine</span><span class="rb-hbar-t"><i class="rb-grow" data-k="parc_chine_2050" data-of="parc_chine_2050,parc_usa_2050" data-bloc-dot="Chine"></i></span><b class="rb-hbar-v" data-source="faits" data-field="valeur" data-where="id=parc_chine_2050">—</b></div>
+      <div class="rb-hbar"><span class="rb-hbar-l"><i class="rb-dot" data-bloc-dot="États-Unis"></i>États-Unis</span><span class="rb-hbar-t"><i class="rb-grow" data-k="parc_usa_2050" data-of="parc_chine_2050,parc_usa_2050" data-bloc-dot="États-Unis"></i></span><b class="rb-hbar-v" data-source="faits" data-field="valeur" data-where="id=parc_usa_2050">—</b></div>
+      <div class="rb-split-bar"><i class="rb-grow" data-k="usage_pro_2050" data-c="0"></i><i class="rb-grow" data-k="usage_foyers_2050" data-c="2"></i></div>
+      <div class="rb-lg"><span><i class="rb-sw" data-c="0"></i><span data-source="faits" data-field="label" data-where="id=usage_pro_2050">—</span> · <b data-source="faits" data-field="valeur" data-where="id=usage_pro_2050">—</b></span><span><i class="rb-sw" data-c="2"></i><span data-source="faits" data-field="label" data-where="id=usage_foyers_2050">—</span> · <b data-source="faits" data-field="valeur" data-where="id=usage_foyers_2050">—</b></span></div>
+    </div>
+  </article>
+</section>
+
+<section class="rb-ch" id="realite" aria-labelledby="realite-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">02</span>
+    <div>
+      <p class="rb-eye">Reality check 2026</p>
+      <h2 class="rb-h2" id="realite-h">La Chine produit, l'Amérique prépare la méga-production</h2>
+      <p class="rb-lede">La Chine assemble <b data-source="faits" data-field="valeur" data-where="id=part_chine_volumes">—</b> des humanoïdes physiquement produits dans le monde en 2025-2026. Les acteurs américains concentrent la valeur logicielle et bâtissent des capacités géantes : Tesla a reconverti son ancienne ligne Model S/X de Fremont en <b data-source="faits" data-field="valeur" data-where="id=tesla_jours">—</b> pour produire Optimus V3.</p>
+    </div>
+  </header>
+  <article class="rb-card rv" id="carte-oem">
+    <div class="rb-card-h">
+      <div><h3 class="rb-ct" id="oem-h">Volumes réels contre capacités visées</h3><p class="rb-cn">Unités produites ou en service (point plein) et capacité annuelle visée (anneau), sur une échelle logarithmique</p></div>
+      <div class="rb-seg" role="group" aria-label="Filtrer par bloc"><button type="button" data-oemf="Tous" aria-pressed="true">Tous</button><button type="button" data-oemf="Chine" aria-pressed="false">Chine</button><button type="button" data-oemf="États-Unis" aria-pressed="false">États-Unis</button></div>
+    </div>
+    <div class="rb-chart" id="ch-oem" data-source="oem" style="min-height:420px"></div>
+    <div class="rb-lg"><span><i class="rb-sw dotc" data-bloc-dot="Chine"></i>Chine</span><span><i class="rb-sw dotc" data-bloc-dot="États-Unis"></i>États-Unis</span><span><i class="rb-sw dotc"></i>Produits ou en service</span><span><i class="rb-sw ring"></i>Capacité annuelle visée</span></div>
+  </article>
+  <div class="rb-grid rb-grid-oem rb-mt" id="oem-cartes"><article class="rb-card rb-oem rv" id="oem-unitree" data-bloc="Chine"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=Unitree">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="Chine"></i><span data-source="oem" data-field="pays" data-where="constructeur=Unitree">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=Unitree">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=Unitree">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=Unitree">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=Unitree">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=Unitree">—</span></p></article><article class="rb-card rb-oem rv" id="oem-agibot" data-bloc="Chine"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=AgiBot">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="Chine"></i><span data-source="oem" data-field="pays" data-where="constructeur=AgiBot">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=AgiBot">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=AgiBot">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=AgiBot">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=AgiBot">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=AgiBot">—</span></p></article><article class="rb-card rb-oem rv" id="oem-ubtech" data-bloc="Chine"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=UBTECH">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="Chine"></i><span data-source="oem" data-field="pays" data-where="constructeur=UBTECH">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=UBTECH">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=UBTECH">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=UBTECH">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=UBTECH">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=UBTECH">—</span></p></article><article class="rb-card rb-oem rv" id="oem-tesla-optimus" data-bloc="États-Unis"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=Tesla (Optimus)">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="États-Unis"></i><span data-source="oem" data-field="pays" data-where="constructeur=Tesla (Optimus)">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=Tesla (Optimus)">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=Tesla (Optimus)">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=Tesla (Optimus)">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=Tesla (Optimus)">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=Tesla (Optimus)">—</span></p></article><article class="rb-card rb-oem rv" id="oem-figure-ai" data-bloc="États-Unis"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=Figure AI">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="États-Unis"></i><span data-source="oem" data-field="pays" data-where="constructeur=Figure AI">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=Figure AI">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=Figure AI">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=Figure AI">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=Figure AI">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=Figure AI">—</span></p></article><article class="rb-card rb-oem rv" id="oem-1x-technologies" data-bloc="États-Unis"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=1X Technologies">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="États-Unis"></i><span data-source="oem" data-field="pays" data-where="constructeur=1X Technologies">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=1X Technologies">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=1X Technologies">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=1X Technologies">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=1X Technologies">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=1X Technologies">—</span></p></article><article class="rb-card rb-oem rv" id="oem-agility-robotics" data-bloc="États-Unis"><div class="rb-oem-h"><h4 class="rb-h4" data-source="oem" data-field="constructeur" data-where="constructeur=Agility Robotics">—</h4><span class="rb-chip"><i class="rb-dot" data-bloc-dot="États-Unis"></i><span data-source="oem" data-field="pays" data-where="constructeur=Agility Robotics">—</span></span></div><p class="rb-small">Modèle · <span data-source="oem" data-field="modele" data-where="constructeur=Agility Robotics">—</span></p><dl class="rb-dl"><div><dt>Volumes</dt><dd data-source="oem" data-field="unites_libelle" data-where="constructeur=Agility Robotics">—</dd></div><div><dt>Capacité visée</dt><dd data-source="oem" data-field="capacite_libelle" data-where="constructeur=Agility Robotics">—</dd></div></dl><p class="rb-p" data-source="oem" data-field="faits" data-where="constructeur=Agility Robotics">—</p><p class="rb-oem-c">Clients et partenaires · <span data-source="oem" data-field="clients" data-where="constructeur=Agility Robotics">—</span></p></article></div>
+</section>
+
+<section class="rb-ch" id="cout" aria-labelledby="cout-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">03</span>
+    <div>
+      <p class="rb-eye">Bill of Materials</p>
+      <h2 class="rb-h2" id="cout-h">Où se loge la valeur matérielle d'un humanoïde</h2>
+      <p class="rb-lede">Avec <b data-source="faits" data-field="valeur" data-where="id=dof_robot">—</b> degrés de liberté, un humanoïde ne se construit pas comme une voiture électrique : articulations et mains concentrent <b data-source="faits" data-field="valeur" data-where="id=mecatronique_bom">—</b> de sa valeur matérielle. C'est là que se situent les trois goulots d'étranglement — et les barrières à l'entrée les plus hautes.</p>
+    </div>
+  </header>
+  <article class="rb-card rv" id="carte-anatomie">
+    <div class="rb-card-h"><div><h3 class="rb-ct" id="anatomie-h">Anatomie du coût d'un robot type</h3><p class="rb-cn">Part du coût matériel par poste, fourchette basse–haute. Survolez un poste ou une zone du robot.</p></div></div>
+    <div class="rb-anat" id="ch-bom" data-source="bom">
+      <div class="rb-robot" id="robot">
+        <svg viewBox="0 0 200 330" role="img" aria-label="Silhouette d'un robot humanoïde, zones colorées par poste de coût">
+          <defs><linearGradient id="rb-scan-g" x1="0" x2="1"><stop offset="0" stop-color="currentColor" stop-opacity="0"/><stop offset=".5" stop-color="currentColor" stop-opacity=".6"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+          <g class="z" data-zone="structure">
+            <rect x="78" y="6" width="44" height="48" rx="16"/><rect x="93" y="52" width="14" height="12" rx="3"/>
+            <path d="M68 70Q68 64 74 64H126Q132 64 132 70L129 150Q128 156 122 156H78Q72 156 71 150Z"/>
+            <rect x="74" y="162" width="52" height="22" rx="9"/>
+            <rect x="40" y="78" width="16" height="44" rx="8"/><rect x="144" y="78" width="16" height="44" rx="8"/>
+            <rect x="38" y="132" width="16" height="44" rx="8"/><rect x="146" y="132" width="16" height="44" rx="8"/>
+            <rect x="75" y="194" width="20" height="48" rx="9"/><rect x="105" y="194" width="20" height="48" rx="9"/>
+            <rect x="75" y="254" width="20" height="44" rx="9"/><rect x="105" y="254" width="20" height="44" rx="9"/>
+            <rect x="66" y="308" width="32" height="12" rx="6"/><rect x="102" y="308" width="32" height="12" rx="6"/>
+            <rect x="84" y="118" width="32" height="28" rx="5"/><rect x="96" y="114" width="8" height="4" rx="1.5"/>
+          </g>
+          <g class="z" data-zone="cerveau">
+            <path class="wire" d="M86 92C72 92 62 86 54 76"/><path class="wire" d="M114 92C128 92 138 86 146 76"/><path class="wire" d="M100 106V116"/>
+            <rect x="86" y="78" width="28" height="28" rx="5"/><rect x="93" y="85" width="14" height="14" rx="2"/>
+          </g>
+          <g class="z" data-zone="tete">
+            <rect x="84" y="20" width="32" height="14" rx="7"/><circle cx="93" cy="27" r="2.6"/><circle cx="107" cy="27" r="2.6"/>
+          </g>
+          <g class="z" data-zone="mains">
+            <rect x="36" y="184" width="20" height="17" rx="6"/><rect x="37" y="199" width="4" height="11" rx="2"/><rect x="43" y="199" width="4" height="12" rx="2"/><rect x="49" y="199" width="4" height="11" rx="2"/><rect x="31" y="186" width="5" height="10" rx="2.5"/>
+            <rect x="144" y="184" width="20" height="17" rx="6"/><rect x="159" y="199" width="4" height="11" rx="2"/><rect x="153" y="199" width="4" height="12" rx="2"/><rect x="147" y="199" width="4" height="11" rx="2"/><rect x="164" y="186" width="5" height="10" rx="2.5"/>
+          </g>
+          <g class="z" data-zone="articulations">
+            <circle cx="48" cy="73" r="9"/><circle cx="152" cy="73" r="9"/><circle cx="46" cy="127" r="7"/><circle cx="154" cy="127" r="7"/>
+            <circle cx="46" cy="180" r="5"/><circle cx="154" cy="180" r="5"/><circle cx="100" cy="58" r="5"/><circle cx="100" cy="159" r="6"/>
+            <circle cx="85" cy="189" r="8"/><circle cx="115" cy="189" r="8"/><circle cx="85" cy="248" r="8"/><circle cx="115" cy="248" r="8"/>
+            <circle cx="85" cy="303" r="6"/><circle cx="115" cy="303" r="6"/>
+          </g>
+          <rect class="rb-rscan" x="14" y="0" width="172" height="2" rx="1" fill="url(#rb-scan-g)"/>
+        </svg>
+      </div>
+      <div>
+        <div class="rb-bomrows" id="bomrows" data-gen="1" style="min-height:300px"></div>
+        <div class="rb-bomact" id="bom-act" aria-live="polite"></div>
+      </div>
+    </div>
+  </article>
+  <h3 class="rb-h3 rv" id="goulots-h">Les trois goulots d'étranglement</h3>
+  <div class="rb-grid" id="goulots"><article class="rb-card rb-goulot rv" id="goulot-1"><span class="rb-goulot-n" aria-hidden="true">01</span><p class="rb-eye">Goulot n°1 · couches <span data-source="goulots" data-field="couches" data-where="goulot=1">—</span></p><h4 class="rb-h4" data-source="goulots" data-field="titre" data-where="goulot=1">—</h4><p class="rb-p" data-source="goulots" data-field="enjeu" data-where="goulot=1">—</p><div class="rb-signal"><span>Signal 2026</span><p data-source="goulots" data-field="signal" data-where="goulot=1">—</p></div><p class="rb-actors"><span data-source="goulots" data-field="acteurs" data-where="goulot=1">—</span></p></article><article class="rb-card rb-goulot rv" id="goulot-2"><span class="rb-goulot-n" aria-hidden="true">02</span><p class="rb-eye">Goulot n°2 · couches <span data-source="goulots" data-field="couches" data-where="goulot=2">—</span></p><h4 class="rb-h4" data-source="goulots" data-field="titre" data-where="goulot=2">—</h4><p class="rb-p" data-source="goulots" data-field="enjeu" data-where="goulot=2">—</p><div class="rb-signal"><span>Signal 2026</span><p data-source="goulots" data-field="signal" data-where="goulot=2">—</p></div><p class="rb-actors"><span data-source="goulots" data-field="acteurs" data-where="goulot=2">—</span></p></article><article class="rb-card rb-goulot rv" id="goulot-3"><span class="rb-goulot-n" aria-hidden="true">03</span><p class="rb-eye">Goulot n°3 · couches <span data-source="goulots" data-field="couches" data-where="goulot=3">—</span></p><h4 class="rb-h4" data-source="goulots" data-field="titre" data-where="goulot=3">—</h4><p class="rb-p" data-source="goulots" data-field="enjeu" data-where="goulot=3">—</p><div class="rb-signal"><span>Signal 2026</span><p data-source="goulots" data-field="signal" data-where="goulot=3">—</p></div><p class="rb-actors"><span data-source="goulots" data-field="acteurs" data-where="goulot=3">—</span></p></article></div>
+</section>
+
+<section class="rb-ch" id="chaine" aria-labelledby="chaine-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">04</span>
+    <div>
+      <p class="rb-eye">Chaîne de valeur</p>
+      <h2 class="rb-h2" id="chaine-h">Qui contrôle chaque brique ?</h2>
+      <p class="rb-lede">De la mine de terres rares au modèle d'IA, la chaîne se lit en douze couches. Les États-Unis en dominent <b data-source="domination" data-field="dominant" data-where="bloc=États-Unis">—</b>, l'Europe <b data-source="domination" data-field="dominant" data-where="bloc=Europe">—</b>, la Chine <b data-source="domination" data-field="dominant" data-where="bloc=Chine">—</b> — et la Chine en conteste <b data-source="domination" data-field="challenger" data-where="bloc=Chine">—</b> autres, au cœur de la mécatronique.</p>
+    </div>
+  </header>
+  <article class="rb-card rv" id="carte-matrice">
+    <div class="rb-card-h">
+      <div><h3 class="rb-ct" id="matrice-h">Domination géopolitique par couche</h3><p class="rb-cn" id="mx-hint">Cliquez sur un bloc pour isoler les couches qu'il domine ou conteste.</p></div>
+      <div class="rb-lg" style="margin-top:0"><span><i class="rb-mxk dom"></i>Domine</span><span><i class="rb-mxk chal"></i>Conteste ou alternative</span></div>
+    </div>
+    <div class="rb-mx" id="mx" data-source="couches domination">
+      <div class="rb-mx-head"><span class="rb-mx-corner">Couche</span><button type="button" class="rb-mx-col" data-bloc="États-Unis" aria-pressed="false" aria-label="États-Unis" title="États-Unis"><b>US</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=États-Unis">—</span></button><button type="button" class="rb-mx-col" data-bloc="Chine" aria-pressed="false" aria-label="Chine" title="Chine"><b>CN</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Chine">—</span></button><button type="button" class="rb-mx-col" data-bloc="Europe" aria-pressed="false" aria-label="Europe" title="Europe"><b>EU</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Europe">—</span></button><button type="button" class="rb-mx-col" data-bloc="Japon" aria-pressed="false" aria-label="Japon" title="Japon"><b>JP</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Japon">—</span></button><button type="button" class="rb-mx-col" data-bloc="Corée du Sud" aria-pressed="false" aria-label="Corée du Sud" title="Corée du Sud"><b>KR</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Corée du Sud">—</span></button><button type="button" class="rb-mx-col" data-bloc="Taïwan" aria-pressed="false" aria-label="Taïwan" title="Taïwan"><b>TW</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Taïwan">—</span></button><button type="button" class="rb-mx-col" data-bloc="Australie" aria-pressed="false" aria-label="Australie" title="Australie"><b>AU</b><span class="n" data-source="domination" data-field="dominant" data-where="bloc=Australie">—</span></button></div>
+      <div id="mx-body" data-gen="1" style="min-height:560px"></div>
+    </div>
+  </article>
+  <div class="rb-grid rb-mt">
+    <article class="rb-card rv" id="terres-rares">
+      <p class="rb-eye">Matières premières · l'angle mort des investisseurs</p>
+      <h3 class="rb-ct" style="margin-top:6px">Le nerf caché : les aimants terres rares</h3>
+      <div class="rb-big"><span class="rb-big-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=aimants_kg">—</span></span></span><span class="rb-big-l">d'aimants néodyme-fer-bore par robot — presque autant qu'une voiture électrique</span></div>
+      <div id="ch-terres" data-source="faits">
+        <div class="rb-meter"><div class="rb-meter-h"><span data-source="faits" data-field="label" data-where="id=chine_extraction">—</span><b data-source="faits" data-field="valeur" data-where="id=chine_extraction">—</b></div><span class="rb-meter-t"><i class="rb-grow" data-k="chine_extraction" data-bloc-dot="Chine"></i></span></div>
+        <div class="rb-meter"><div class="rb-meter-h"><span data-source="faits" data-field="label" data-where="id=chine_aimants">—</span><b data-source="faits" data-field="valeur" data-where="id=chine_aimants">—</b></div><span class="rb-meter-t"><i class="rb-grow" data-k="chine_aimants" data-bloc-dot="Chine"></i></span></div>
+      </div>
+      <p class="rb-p">Le dysprosium et le terbium permettent aux moteurs d'articulation de tenir les hautes températures. Hors de Chine, Washington et ses alliés soutiennent <b>MP Materials</b> (mine de Mountain Pass, usine d'aimants au Texas) et <b>Lynas Rare Earths</b> en Australie.</p>
+    </article>
+    <article class="rb-card rv" id="cerveau">
+      <p class="rb-eye">Calcul &amp; modèles · Sim-to-Real</p>
+      <h3 class="rb-ct" style="margin-top:6px">Le cerveau : du code déterministe aux modèles de fondation</h3>
+      <div class="rb-big"><span class="rb-big-v"><span class="cu-w"><span class="cu" data-source="faits" data-field="valeur" data-where="id=isaac_heures">—</span></span></span><span class="rb-big-l">d'essais virtuels accumulés dans Isaac Lab en quelques heures de calcul GPU, avant le transfert dans le corps physique</span></div>
+      <ul class="rb-list">
+        <li><b>Nvidia</b> vend « les pelles et les pioches » — puces Jetson Thor, Omniverse, Isaac Lab, modèle GR00T — à presque tous les constructeurs, sauf Tesla et son silicium FSD/Dojo.</li>
+        <li><b>Google DeepMind, Physical Intelligence (π) et Skild AI</b> courent après « l'Android universel » du robot : un cerveau unique compatible avec n'importe quel corps.</li>
+        <li><b>Siemens et Dassault Systèmes</b> fournissent le jumeau numérique d'usine qui permet d'intégrer des flottes d'humanoïdes sans collision.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="rb-ch" id="geopolitique" aria-labelledby="geo-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">05</span>
+    <div>
+      <p class="rb-eye">Rivalités &amp; soft power</p>
+      <h2 class="rb-h2" id="geo-h">Le second front de la rivalité sino-américaine</h2>
+      <p class="rb-lede">Après les semi-conducteurs IA, l'humanoïde est devenu un instrument de soft power — vitrine technologique des grands salons — et de hard power industriel et logistique. Fabriquer aux États-Unis coûte <b data-source="faits" data-field="valeur" data-where="id=bom_usa_chine">—</b> plus cher qu'en Chine ; côté chinois, les fonds robotiques d'État dépassent <b data-source="faits" data-field="valeur" data-where="id=fonds_chine">—</b>.</p>
+    </div>
+  </header>
+  <article class="rb-card rv" id="carte-blocs">
+    <div class="rb-card-h"><div><h3 class="rb-ct" id="blocs-h">Comparatif des blocs</h3><p class="rb-cn">Forces, vulnérabilités et champions nationaux</p></div></div>
+    <div class="rb-tabs" role="tablist" aria-label="Blocs géopolitiques"><button type="button" class="rb-tab" role="tab" id="tab-us" aria-controls="panel-us" aria-selected="true" data-tab="us" data-color="États-Unis"><i class="rb-dot"></i>États-Unis</button><button type="button" class="rb-tab" role="tab" id="tab-cn" aria-controls="panel-cn" aria-selected="false" data-tab="cn" data-color="Chine"><i class="rb-dot"></i>Chine</button><button type="button" class="rb-tab" role="tab" id="tab-eu" aria-controls="panel-eu" aria-selected="false" data-tab="eu" data-color="Europe"><i class="rb-dot"></i>Europe</button><button type="button" class="rb-tab" role="tab" id="tab-as" aria-controls="panel-as" aria-selected="false" data-tab="as" data-color="Japon"><i class="rb-dot"></i>Japon · Corée · Taïwan</button></div>
+    <div class="rb-panel" role="tabpanel" id="panel-us" aria-labelledby="tab-us" data-tab="us"><div class="rb-col f"><h4>Forces</h4><ul><li><span data-source="blocs" data-field="force_1" data-where="cle=us">—</span></li><li><span data-source="blocs" data-field="force_2" data-where="cle=us">—</span></li><li><span data-source="blocs" data-field="force_3" data-where="cle=us">—</span></li></ul></div><div class="rb-col w"><h4>Vulnérabilités</h4><ul><li><span data-source="blocs" data-field="faiblesse_1" data-where="cle=us">—</span></li><li><span data-source="blocs" data-field="faiblesse_2" data-where="cle=us">—</span></li></ul></div><div class="rb-col c"><h4>Champions nationaux</h4><ul><li><span data-source="blocs" data-field="champion_1" data-where="cle=us">—</span></li><li><span data-source="blocs" data-field="champion_2" data-where="cle=us">—</span></li><li><span data-source="blocs" data-field="champion_3" data-where="cle=us">—</span></li></ul></div></div><div class="rb-panel" role="tabpanel" id="panel-cn" aria-labelledby="tab-cn" data-tab="cn" hidden><div class="rb-col f"><h4>Forces</h4><ul><li><span data-source="blocs" data-field="force_1" data-where="cle=cn">—</span></li><li><span data-source="blocs" data-field="force_2" data-where="cle=cn">—</span></li><li><span data-source="blocs" data-field="force_3" data-where="cle=cn">—</span></li></ul></div><div class="rb-col w"><h4>Vulnérabilités</h4><ul><li><span data-source="blocs" data-field="faiblesse_1" data-where="cle=cn">—</span></li><li><span data-source="blocs" data-field="faiblesse_2" data-where="cle=cn">—</span></li></ul></div><div class="rb-col c"><h4>Champions nationaux</h4><ul><li><span data-source="blocs" data-field="champion_1" data-where="cle=cn">—</span></li><li><span data-source="blocs" data-field="champion_2" data-where="cle=cn">—</span></li></ul></div></div><div class="rb-panel" role="tabpanel" id="panel-eu" aria-labelledby="tab-eu" data-tab="eu" hidden><div class="rb-col f"><h4>Forces</h4><ul><li><span data-source="blocs" data-field="force_1" data-where="cle=eu">—</span></li><li><span data-source="blocs" data-field="force_2" data-where="cle=eu">—</span></li></ul></div><div class="rb-col w"><h4>Vulnérabilités</h4><ul><li><span data-source="blocs" data-field="faiblesse_1" data-where="cle=eu">—</span></li><li><span data-source="blocs" data-field="faiblesse_2" data-where="cle=eu">—</span></li></ul></div><div class="rb-col c"><h4>Champions nationaux</h4><ul><li><span data-source="blocs" data-field="champion_1" data-where="cle=eu">—</span></li><li><span data-source="blocs" data-field="champion_2" data-where="cle=eu">—</span></li><li><span data-source="blocs" data-field="champion_3" data-where="cle=eu">—</span></li></ul></div></div><div class="rb-panel" role="tabpanel" id="panel-as" aria-labelledby="tab-as" data-tab="as" hidden><div class="rb-col f"><h4>Forces</h4><ul><li><span data-source="blocs" data-field="force_1" data-where="cle=as">—</span></li><li><span data-source="blocs" data-field="force_2" data-where="cle=as">—</span></li></ul></div><div class="rb-col w"><h4>Vulnérabilités</h4><ul><li><span data-source="blocs" data-field="faiblesse_1" data-where="cle=as">—</span></li><li><span data-source="blocs" data-field="faiblesse_2" data-where="cle=as">—</span></li></ul></div><div class="rb-col c"><h4>Champions nationaux</h4><ul><li><span data-source="blocs" data-field="champion_1" data-where="cle=as">—</span></li><li><span data-source="blocs" data-field="champion_2" data-where="cle=as">—</span></li><li><span data-source="blocs" data-field="champion_3" data-where="cle=as">—</span></li></ul></div></div>
+  </article>
+  <article class="rb-card rv rb-mt" id="carte-alliances">
+    <div class="rb-card-h"><div><h3 class="rb-ct" id="alliances-h">Qui déploie qui ? Les alliances industrielles</h3><p class="rb-cn">Constructeurs automobiles, logisticiens et équipementiers sont à la fois investisseurs, fournisseurs de méthodes et premiers clients des humanoïdes.</p></div></div>
+    <div class="rb-chart" id="ch-flow" data-source="alliances" style="min-height:330px"></div>
+    <div class="rb-lg"><span><i class="rb-sw" data-c="0"></i>Automobile</span><span><i class="rb-sw" data-c="3"></i>Logistique</span><span><i class="rb-sw" data-c="4"></i>Équipementier</span></div>
+  </article>
+</section>
+
+<section class="rb-ch" id="acteurs" aria-labelledby="acteurs-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">06</span>
+    <div>
+      <p class="rb-eye">Grille de lecture boursière</p>
+      <h2 class="rb-h2" id="acteurs-h">« Find the constraint first »</h2>
+      <p class="rb-lede">Trouver le goulot d'étranglement avant tout : appliquée aux valeurs cotées, cette philosophie fait émerger trois familles. Cliquez sur une famille pour filtrer l'annuaire. Leurs valorisations boursières, datées et sourcées, sont détaillées au chapitre suivant. Ce n'est pas un conseil en investissement.</p>
+    </div>
+  </header>
+  <div class="rb-grid" id="theses"><article class="rb-card rb-these rv" id="these-peages" style="--c:var(--rb-c0,#4f7cff)"><p class="rb-eye">Couches <span data-source="theses" data-field="couches" data-where="cle=peages">—</span></p><h3 class="rb-ct" data-source="theses" data-field="these" data-where="cle=peages">—</h3><p class="rb-these-t" data-source="theses" data-field="tickers" data-where="cle=peages">—</p><p class="rb-these-a" data-source="theses" data-field="acteurs" data-where="cle=peages">—</p><p class="rb-p" data-source="theses" data-field="argument" data-where="cle=peages">—</p><button type="button" class="rb-these-go" data-these aria-pressed="false">Voir dans l'annuaire →</button></article><article class="rb-card rb-these rv" id="these-consolidateurs" style="--c:var(--rb-c1,#4f7cff)"><p class="rb-eye">Couches <span data-source="theses" data-field="couches" data-where="cle=consolidateurs">—</span></p><h3 class="rb-ct" data-source="theses" data-field="these" data-where="cle=consolidateurs">—</h3><p class="rb-these-t" data-source="theses" data-field="tickers" data-where="cle=consolidateurs">—</p><p class="rb-these-a" data-source="theses" data-field="acteurs" data-where="cle=consolidateurs">—</p><p class="rb-p" data-source="theses" data-field="argument" data-where="cle=consolidateurs">—</p><button type="button" class="rb-these-go" data-these aria-pressed="false">Voir dans l'annuaire →</button></article><article class="rb-card rb-these rv" id="these-monopoles" style="--c:var(--rb-c2,#4f7cff)"><p class="rb-eye">Couches <span data-source="theses" data-field="couches" data-where="cle=monopoles">—</span></p><h3 class="rb-ct" data-source="theses" data-field="these" data-where="cle=monopoles">—</h3><p class="rb-these-t" data-source="theses" data-field="tickers" data-where="cle=monopoles">—</p><p class="rb-these-a" data-source="theses" data-field="acteurs" data-where="cle=monopoles">—</p><p class="rb-p" data-source="theses" data-field="argument" data-where="cle=monopoles">—</p><button type="button" class="rb-these-go" data-these aria-pressed="false">Voir dans l'annuaire →</button></article></div>
+  <article class="rb-card rv rb-mt" id="carte-annuaire">
+    <div class="rb-card-h"><div><h3 class="rb-ct" id="annuaire-h">Annuaire des acteurs de la chaîne</h3><p class="rb-cn">★ valeur retenue dans la grille de lecture · cliquez sur un en-tête pour trier</p></div></div>
+    <div class="rb-tools">
+      <input class="rb-search" id="t-search" type="search" placeholder="Rechercher un acteur, un pays, un rôle…" aria-label="Rechercher dans l'annuaire">
+      <button type="button" class="rb-chip" id="t-these" hidden></button>
+    </div>
+    <div class="rb-chips rb-mb" id="t-blocs"><button type="button" class="rb-chip" data-tbloc="Tous" aria-pressed="true">Tous les blocs</button><button type="button" class="rb-chip" data-tbloc="États-Unis" aria-pressed="false"><i class="rb-dot"></i>États-Unis</button><button type="button" class="rb-chip" data-tbloc="Chine" aria-pressed="false"><i class="rb-dot"></i>Chine</button><button type="button" class="rb-chip" data-tbloc="Europe" aria-pressed="false"><i class="rb-dot"></i>Europe</button><button type="button" class="rb-chip" data-tbloc="Japon" aria-pressed="false"><i class="rb-dot"></i>Japon</button><button type="button" class="rb-chip" data-tbloc="Corée du Sud" aria-pressed="false"><i class="rb-dot"></i>Corée du Sud</button><button type="button" class="rb-chip" data-tbloc="Taïwan" aria-pressed="false"><i class="rb-dot"></i>Taïwan</button><button type="button" class="rb-chip" data-tbloc="Australie" aria-pressed="false"><i class="rb-dot"></i>Australie</button></div>
+    <div class="rb-tw">
+      <table class="rb-t" id="t-acteurs" data-source="acteurs" data-row-key="acteur">
+        <thead><tr>
+          <th data-field="acteur" aria-sort="none"><button type="button" class="rb-th">Acteur</button></th>
+          <th data-field="pays" class="c-pays" aria-sort="none"><button type="button" class="rb-th">Pays</button></th>
+          <th data-field="couches" aria-sort="ascending"><button type="button" class="rb-th">Couches</button></th>
+          <th data-field="role" class="c-role" aria-sort="none"><button type="button" class="rb-th">Rôle dans la chaîne</button></th>
+          <th data-field="ticker" aria-sort="none"><button type="button" class="rb-th">Ticker</button></th>
+        </tr></thead>
+        <tbody id="t-body"></tbody>
+      </table>
+    </div>
+    <p class="rb-empty" id="t-empty" hidden>Aucun acteur ne correspond à ces filtres.</p>
+  </article>
+</section>
+
+<section class="rb-ch" id="valorisations" aria-labelledby="valo-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">07</span>
+    <div>
+      <p class="rb-eye">Valorisations boursières</p>
+      <h2 class="rb-h2" id="valo-h">Neuf valeurs cotées, trois familles, des échelles sans commune mesure</h2>
+      <p class="rb-lede">Instantané de marché <b data-source="valo_synthese" data-field="libelle" data-where="indicateur=date_marche">—</b>. Les neuf valeurs de la grille pèsent ensemble <b data-source="valo_synthese" data-field="libelle" data-where="indicateur=capi_totale">—</b> en Bourse, dont <b data-source="valo_synthese" data-field="libelle" data-where="indicateur=part_nvidia">—</b> pour Nvidia seule. Ces valorisations reflètent l'ensemble des activités de chaque groupe : la robotique n'y est souvent qu'une part minoritaire, rarement publiée à part. Ce n'est pas un conseil en investissement.</p>
+    </div>
+  </header>
+  <div class="rb-grid rb-grid4" id="valo-kpis">
+    <article class="rb-card rb-vk rv" id="kpi-capi-totale"><p class="rb-cn">Capitalisation cumulée des neuf valeurs</p><p class="rb-vk-v"><span class="cu-w"><span class="cu" data-source="valo_synthese" data-field="libelle" data-where="indicateur=capi_totale">—</span></span></p></article>
+    <article class="rb-card rb-vk rv" id="kpi-part-nvidia"><p class="rb-cn">Poids de Nvidia dans ce total</p><p class="rb-vk-v"><span class="cu-w"><span class="cu" data-source="valo_synthese" data-field="libelle" data-where="indicateur=part_nvidia">—</span></span></p></article>
+    <article class="rb-card rb-vk rv" id="kpi-hors-nvidia"><p class="rb-cn">Capitalisation cumulée des huit autres valeurs</p><p class="rb-vk-v"><span class="cu-w"><span class="cu" data-source="valo_synthese" data-field="libelle" data-where="indicateur=capi_hors_nvidia">—</span></span></p></article>
+    <article class="rb-card rb-vk rv" id="kpi-per-median"><p class="rb-cn">PER médian sur douze mois glissants</p><p class="rb-vk-v"><span class="cu-w"><span class="cu" data-source="valo_synthese" data-field="libelle" data-where="indicateur=per_median">—</span></span></p></article>
+  </div>
+  <h3 class="rb-h3 rv" id="familles-h">Les trois familles de la grille, vues par le marché</h3>
+  <div class="rb-grid" id="valo-familles"><article class="rb-card rb-fam rv" id="famille-peages" style="--c:var(--rb-c0,#4f7cff)"><h4 class="rb-h4" data-source="valo_familles" data-field="these" data-where="cle=peages">—</h4><p class="rb-small"><span data-source="valo_familles" data-field="valeurs" data-where="cle=peages">—</span> valeurs cotées</p><div class="rb-fam-stats"><div><span>Capitalisation</span><b data-source="valo_familles" data-field="capi_libelle" data-where="cle=peages">—</b></div><div><span>PER médian</span><b data-source="valo_familles" data-field="per_libelle" data-where="cle=peages">—</b></div><div><span>Sur un an (médiane)</span><b data-source="valo_familles" data-field="perf_libelle" data-where="cle=peages">—</b></div></div></article><article class="rb-card rb-fam rv" id="famille-consolidateurs" style="--c:var(--rb-c1,#4f7cff)"><h4 class="rb-h4" data-source="valo_familles" data-field="these" data-where="cle=consolidateurs">—</h4><p class="rb-small"><span data-source="valo_familles" data-field="valeurs" data-where="cle=consolidateurs">—</span> valeurs cotées</p><div class="rb-fam-stats"><div><span>Capitalisation</span><b data-source="valo_familles" data-field="capi_libelle" data-where="cle=consolidateurs">—</b></div><div><span>PER médian</span><b data-source="valo_familles" data-field="per_libelle" data-where="cle=consolidateurs">—</b></div><div><span>Sur un an (médiane)</span><b data-source="valo_familles" data-field="perf_libelle" data-where="cle=consolidateurs">—</b></div></div></article><article class="rb-card rb-fam rv" id="famille-monopoles" style="--c:var(--rb-c2,#4f7cff)"><h4 class="rb-h4" data-source="valo_familles" data-field="these" data-where="cle=monopoles">—</h4><p class="rb-small"><span data-source="valo_familles" data-field="valeurs" data-where="cle=monopoles">—</span> valeurs cotées</p><div class="rb-fam-stats"><div><span>Capitalisation</span><b data-source="valo_familles" data-field="capi_libelle" data-where="cle=monopoles">—</b></div><div><span>PER médian</span><b data-source="valo_familles" data-field="per_libelle" data-where="cle=monopoles">—</b></div><div><span>Sur un an (médiane)</span><b data-source="valo_familles" data-field="perf_libelle" data-where="cle=monopoles">—</b></div></div></article></div>
+  <div class="rb-g21 rb-mt">
+    <article class="rb-card rv" id="carte-capi">
+      <div class="rb-card-h">
+        <div><h3 class="rb-ct" id="capi-h">Capitalisation boursière</h3><p class="rb-cn">En milliards de dollars au dernier cours relevé. Cliquez sur une valeur pour ouvrir sa fiche.</p></div>
+        <div class="rb-seg" role="group" aria-label="Échelle"><button type="button" data-vscale="log" aria-pressed="true">Logarithmique</button><button type="button" data-vscale="lin" aria-pressed="false">Linéaire</button></div>
+      </div>
+      <div class="rb-chart" id="ch-capi" data-source="valorisations" style="min-height:340px"></div>
+      <div class="rb-lg"><span><i class="rb-sw" data-c="0"></i>Péages mécatroniques</span><span><i class="rb-sw" data-c="1"></i>Consolidateurs du système nerveux &amp; tactile</span><span><i class="rb-sw" data-c="2"></i>Monopoles amont &amp; cerveau</span></div>
+    </article>
+    <article class="rb-card rv" id="carte-perf">
+      <div class="rb-card-h">
+        <div><h3 class="rb-ct" id="perf-h">Performance boursière</h3><p class="rb-cn">Variation du cours en devise locale</p></div>
+        <div class="rb-seg" role="group" aria-label="Période"><button type="button" data-vperf="perf_1an_pct" aria-pressed="true">Sur un an</button><button type="button" data-vperf="perf_ytd_pct" aria-pressed="false">Depuis janvier</button></div>
+      </div>
+      <div class="rb-chart" id="ch-perf" data-source="valorisations" style="min-height:340px"></div>
+    </article>
+  </div>
+  <article class="rb-card rv rb-mt" id="carte-multiples">
+    <div class="rb-card-h">
+      <div><h3 class="rb-ct" id="multiples-h">Multiples de valorisation par famille</h3><p class="rb-cn">Chaque point est une valeur ; la médiane de chaque famille figure dans son intitulé</p></div>
+      <div class="rb-seg" role="group" aria-label="Multiple"><button type="button" data-vmult="per_ttm" aria-pressed="true">PER 12 mois</button><button type="button" data-vmult="per_forward" aria-pressed="false">PER prévisionnel</button><button type="button" data-vmult="ev_ebitda" aria-pressed="false">VE/EBITDA</button></div>
+    </div>
+    <div class="rb-chart" id="ch-mult" data-source="valorisations valo_familles" style="min-height:420px"></div>
+  </article>
+  <div class="rb-g21 rb-mt">
+    <article class="rb-card rv" id="carte-tableau-valo">
+      <div class="rb-card-h"><div><h3 class="rb-ct" id="tableau-valo-h">Tableau de valorisation</h3><p class="rb-cn">Cliquez sur une ligne pour ouvrir la fiche · cliquez sur un en-tête pour trier</p></div></div>
+      <div class="rb-tw">
+        <table class="rb-t rb-tv" id="t-valo" data-source="valorisations" data-row-key="acteur">
+          <thead><tr>
+            <th data-field="acteur" aria-sort="none"><button type="button" class="rb-th">Valeur</button></th>
+            <th data-field="cours_libelle" class="c-cours"><span class="rb-th-s">Cours</span></th>
+            <th data-field="capi_libelle" aria-sort="descending"><button type="button" class="rb-th">Capitalisation</button></th>
+            <th data-field="per_libelle" aria-sort="none"><button type="button" class="rb-th">PER 12 m</button></th>
+            <th data-field="ev_libelle" class="c-ev" aria-sort="none"><button type="button" class="rb-th">VE/EBITDA</button></th>
+            <th data-field="perf_1an_libelle" aria-sort="none"><button type="button" class="rb-th">Sur un an</button></th>
+            <th data-field="perf_ytd_libelle" class="c-ytd" aria-sort="none"><button type="button" class="rb-th">Depuis janv.</button></th>
+          </tr></thead>
+          <tbody id="tv-body"></tbody>
+        </table>
+      </div>
+    </article>
+    <article class="rb-card rv" id="carte-fiche">
+      <div class="rb-card-h"><div><h3 class="rb-ct" id="fiche-h">Fiche valeur et sources</h3><p class="rb-cn">Chiffres datés, exposition à la robotique et contrôle des affirmations du dossier</p></div></div>
+      <div id="valo-detail" data-source="valorisations sources_valo" data-gen="1" style="min-height:440px"></div>
+    </article>
+  </div>
+  <p class="rb-small rb-mt" id="valo-methode">Méthode : capitalisations converties en dollars au taux indiqué par chaque source ; PER et VE/EBITDA tels que publiés par la source citée, sur douze mois glissants sauf mention « prévisionnel » ; performances en devise locale. Chaque chiffre de la fiche renvoie à sa source et à sa date.</p>
+</section>
+
+<section class="rb-ch" id="risques" aria-labelledby="risques-h">
+  <header class="rb-chh rv">
+    <span class="rb-chn" aria-hidden="true">08</span>
+    <div>
+      <p class="rb-eye">Opportunités &amp; menaces</p>
+      <h2 class="rb-h2" id="risques-h">Ce qui peut accélérer — ou freiner — la vague</h2>
+      <p class="rb-lede">Trois leviers peuvent accélérer l'adoption et la captation de valeur ; trois freins peuvent la ralentir ou la déplacer d'un maillon à l'autre.</p>
+    </div>
+  </header>
+  <div class="rb-om">
+    <div class="rb-om-col ok"><h3 class="rb-om-h" id="opportunites-h">Opportunités</h3><article class="rb-card rb-enjeu rv" id="enjeu-raas"><div class="rb-enjeu-k"><span class="rb-enjeu-v"><span class="cu-w"><span class="cu" data-source="enjeux" data-field="chiffre" data-where="cle=raas">—</span></span></span><span class="rb-enjeu-l" data-source="enjeux" data-field="legende" data-where="cle=raas">—</span></div><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=raas">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=raas">—</p></article><article class="rb-card rb-enjeu rv" id="enjeu-aftermarket"><div class="rb-enjeu-k"><span class="rb-enjeu-v"><span class="cu-w"><span class="cu" data-source="enjeux" data-field="chiffre" data-where="cle=aftermarket">—</span></span></span><span class="rb-enjeu-l" data-source="enjeux" data-field="legende" data-where="cle=aftermarket">—</span></div><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=aftermarket">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=aftermarket">—</p></article><article class="rb-card rb-enjeu rv" id="enjeu-synergie"><div class="rb-enjeu-k"><span class="rb-enjeu-v"><span class="cu-w"><span class="cu" data-source="enjeux" data-field="chiffre" data-where="cle=synergie">—</span></span></span><span class="rb-enjeu-l" data-source="enjeux" data-field="legende" data-where="cle=synergie">—</span></div><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=synergie">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=synergie">—</p></article></div>
+    <div class="rb-om-col bad"><h3 class="rb-om-h" id="menaces-h">Menaces</h3><article class="rb-card rb-enjeu rv" id="enjeu-integration"><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=integration">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=integration">—</p></article><article class="rb-card rb-enjeu rv" id="enjeu-energie"><div class="rb-enjeu-k"><span class="rb-enjeu-v"><span class="cu-w"><span class="cu" data-source="enjeux" data-field="chiffre" data-where="cle=energie">—</span></span></span><span class="rb-enjeu-l" data-source="enjeux" data-field="legende" data-where="cle=energie">—</span></div><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=energie">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=energie">—</p></article><article class="rb-card rb-enjeu rv" id="enjeu-deflation"><h4 class="rb-h4" data-source="enjeux" data-field="titre" data-where="cle=deflation">—</h4><p class="rb-p" data-source="enjeux" data-field="detail" data-where="cle=deflation">—</p></article></div>
+  </div>
+  <div class="rb-closing rv" id="synthese">
+    <p class="rb-eye">En une phrase</p>
+    <p class="rb-closing-t">Dans l'humanoïde, la valeur ne se capte pas seulement chez l'assembleur final : elle se loge dans les goulots matériels — mécatronique de précision, capteurs d'effort, intégration — là où les barrières industrielles sont les plus hautes.</p>
+  </div>
+</section>
+
+<p class="rb-foot">Données issues du dossier de recherche « Robotique » (automne 2026), qui s'appuie notamment sur les projections de Goldman Sachs, Morgan Stanley, Bank of America et Citi. Les montants de marché sont des fourchettes d'estimations, non des données auditées ; les données boursières du chapitre 7 proviennent de sources publiques datées, citées dans chaque fiche. Ce tableau de bord ne constitue pas un conseil en investissement.</p>
+
+</div>
+
+<script>
+const R = document.getElementById('rb');
+const MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches);
+const FR = d3.formatLocale({ decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' $'] });
+const fInt = FR.format(',d');
+const fDec = FR.format(',.1f');
+const fN = (v) => (Number.isInteger(v) ? fInt(v) : fDec(v));
+const fR = (a, b) => (a === b ? fN(a) : fN(a) + '–' + fN(b));
+const fC = (v) => (v >= 1e6 ? fN(+(v / 1e6).toFixed(1)) + ' M' : v >= 1e3 ? fN(+(v / 1e3).toFixed(1)) + ' k' : fInt(v));
+const isPow10 = (t) => { const p = Math.round(Math.log10(t)); return Math.abs(t - Math.pow(10, p)) < 1e-6 * t; };
+const BLOCS = ['États-Unis', 'Chine', 'Europe', 'Japon', 'Corée du Sud', 'Taïwan', 'Australie'];
+const C = (i) => dash.colors[i % dash.colors.length];
+const BC = (b) => { const i = BLOCS.indexOf(b); return i < 0 ? 'var(--cds-chart-muted)' : C(i); };
+
+dash.colors.forEach((c, i) => R.style.setProperty('--rb-c' + i, c));
+R.querySelectorAll('[data-bloc-dot]').forEach((el) => el.style.setProperty('--c', BC(el.dataset.blocDot)));
+R.querySelectorAll('[data-c]').forEach((el) => el.style.setProperty('--c', C(Number(el.dataset.c))));
+
+dash.calc('ratios', {
+  inputs: ['marche'],
+  title: 'Croissance vs déflation',
+  description: 'Plafond du marché 2050 divisé par celui de 2024 ; coût de revient maximal 2024 divisé par celui de 2050 (arrondis).',
+  fn: (marche) => {
+    const an = (a) => marche.find((r) => Number(r.annee) === a);
+    const debut = an(2024);
+    const fin = an(2050);
+    const croissance = Math.round(Number(fin.marche_max_mds) / Number(debut.marche_max_mds));
+    const baisse = Math.round(Number(debut.bom_max_usd) / Number(fin.bom_max_usd));
+    return [
+      { indicateur: 'croissance_marche', valeur: croissance, libelle: '×' + croissance.toLocaleString('fr-FR') },
+      { indicateur: 'baisse_cout', valeur: baisse, libelle: '÷' + baisse.toLocaleString('fr-FR') },
+    ];
+  },
+});
+
+dash.calc('domination', {
+  inputs: ['couches'],
+  title: 'Couches dominées par bloc',
+  description: 'Nombre de couches où chaque bloc figure parmi les dominants, puis parmi les challengers.',
+  fn: (couches) => ['États-Unis', 'Chine', 'Europe', 'Japon', 'Corée du Sud', 'Taïwan', 'Australie'].map((bloc) => ({
+    bloc,
+    dominant: couches.filter((c) => String(c.dominants || '').split('|').includes(bloc)).length,
+    challenger: couches.filter((c) => String(c.challengers || '').split('|').includes(bloc)).length,
+  })),
+});
+
+const rowsOf = (id) => { const d = dash.data(id); return d.status === 'ok' && Array.isArray(d.data) ? d.data : null; };
+const num = (v) => (v === null || v === undefined || v === '' ? null : Number(v));
+const fait = (id) => (rowsOf('faits') || []).find((r) => r.id === id);
+
+/* Comptage animé : le nombre affiché par la marque reste exact, un calque le fait défiler */
+const seen = new WeakSet();
+const counted = new WeakSet();
+const NUM_RE = /\d{1,3}(?:[   ]\d{3})+(?:,\d+)?|\d+(?:,\d+)?/g;
+function countUp(el) {
+  if (!MOTION || counted.has(el) || !seen.has(el)) return;
+  const final = el.textContent;
+  if (!final || final === '—') return;
+  const parts = [];
+  let last = 0;
+  let m;
+  NUM_RE.lastIndex = 0;
+  while ((m = NUM_RE.exec(final))) {
+    const s = m[0];
+    parts.push(final.slice(last, m.index));
+    parts.push({ v: parseFloat(s.replace(/[   ]/g, '').replace(',', '.')), d: (s.split(',')[1] || '').length, g: /[   ]/.test(s) });
+    last = m.index + s.length;
+  }
+  parts.push(final.slice(last));
+  if (!parts.some((p) => typeof p === 'object')) return;
+  counted.add(el);
+  const layer = document.createElement('span');
+  layer.className = 'cu-o';
+  layer.setAttribute('aria-hidden', 'true');
+  el.parentElement.appendChild(layer);
+  el.classList.add('cu-hide');
+  const fmt = (p, k) => {
+    const s = (p.v * k).toFixed(p.d);
+    let [i, dd] = s.split('.');
+    if (p.g) i = i.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return dd ? i + ',' + dd : i;
+  };
+  const t0 = performance.now();
+  const step = (now) => {
+    const k = Math.min(1, (now - t0) / 1500);
+    const e = 1 - Math.pow(1 - k, 3);
+    layer.textContent = parts.map((p) => (typeof p === 'object' ? fmt(p, e) : p)).join('');
+    if (k < 1) requestAnimationFrame(step);
+    else { layer.remove(); el.classList.remove('cu-hide'); }
+  };
+  requestAnimationFrame(step);
+}
+
+function fillMarks() {
+  R.querySelectorAll('[data-source][data-field][data-where]').forEach((el) => {
+    const d = dash.data(el.dataset.source);
+    if (d.status !== 'ok') {
+      el.classList.toggle('dash-skeleton', d.status === 'loading');
+      if (d.status !== 'loading') el.textContent = '—';
+      return;
+    }
+    el.classList.remove('dash-skeleton');
+    const conds = el.dataset.where.split('&').map((p) => p.split('=').map(decodeURIComponent));
+    const row = (Array.isArray(d.data) ? d.data : []).find((r) => conds.every(([k, v]) => String(r[k]) === v));
+    const v = row ? row[el.dataset.field] : null;
+    const txt = v === null || v === undefined || v === '' ? '—' : String(v);
+    if (el.textContent !== txt) {
+      el.textContent = txt;
+      if (el.classList.contains('cu')) countUp(el);
+    }
+  });
+}
+
+function fillBars() {
+  const f = rowsOf('faits');
+  R.querySelectorAll('[data-k]').forEach((el) => {
+    const r = f && f.find((x) => x.id === el.dataset.k);
+    if (!r) { el.style.width = '0%'; return; }
+    let w = Number(r.min);
+    if (el.dataset.of) {
+      const ref = el.dataset.of.split(',').map((id) => Number((f.find((x) => x.id === id) || {}).min) || 0);
+      w = (w / Math.max(1, ...ref)) * 100;
+    }
+    el.style.width = Math.max(0, Math.min(100, w)) + '%';
+  });
+}
+
+function ready(box, ids) {
+  const st = ids.map((id) => dash.data(id).status);
+  const old = box.querySelector(':scope > .rb-fail');
+  if (old) old.remove();
+  if (st.every((s) => s === 'ok')) { box.classList.remove('dash-skeleton'); return true; }
+  if (box.dataset.gen) box.replaceChildren();
+  else { const s = box.querySelector(':scope > svg'); if (s) s.remove(); }
+  if (st.includes('loading')) { box.classList.add('dash-skeleton'); return false; }
+  box.classList.remove('dash-skeleton');
+  const f = document.createElement('div');
+  f.className = 'rb-fail';
+  f.append(document.createElement('i'), 'Chargement impossible');
+  box.appendChild(f);
+  return false;
+}
+
+function fresh(box, W, H) {
+  const old = box.querySelector(':scope > svg');
+  if (old) old.remove();
+  box.style.minHeight = H + 'px';
+  return d3.select(box).insert('svg', ':first-child').attr('class', 'rb-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img');
+}
+
+function hideOverlaps(nodes) {
+  const kept = [];
+  nodes.forEach((n) => {
+    const b = n.getBBox();
+    const hit = kept.some((k) => !(b.x > k.x + k.width + 4 || b.x + b.width + 4 < k.x || b.y > k.y + k.height || b.y + b.height < k.y));
+    if (hit) n.style.display = 'none';
+    else kept.push(b);
+  });
+}
+
+function tipEl(box) {
+  let t = box.querySelector(':scope > .rb-tip');
+  if (!t) { t = document.createElement('div'); t.className = 'rb-tip'; t.setAttribute('role', 'tooltip'); box.appendChild(t); }
+  return t;
+}
+function showTip(box, ev, title, lines, note) {
+  const t = tipEl(box);
+  t.replaceChildren();
+  const h = document.createElement('div');
+  h.className = 'rb-tip-h';
+  h.textContent = title;
+  t.appendChild(h);
+  (lines || []).forEach((l) => {
+    const r = document.createElement('div');
+    r.className = 'rb-tip-r';
+    if (l.c) { const s = document.createElement('i'); s.style.background = l.c; r.appendChild(s); }
+    const k = document.createElement('span');
+    k.textContent = l.k;
+    const v = document.createElement('b');
+    v.textContent = l.v;
+    r.append(k, v);
+    t.appendChild(r);
+  });
+  if (note) { const p = document.createElement('p'); p.className = 'rb-tip-n'; p.textContent = note; t.appendChild(p); }
+  t.style.opacity = 1;
+  const br = box.getBoundingClientRect();
+  const x = ev.clientX - br.left;
+  const y = ev.clientY - br.top;
+  const tw = t.offsetWidth;
+  const th = t.offsetHeight;
+  let left = x + 14;
+  if (left + tw > box.clientWidth) left = Math.max(0, x - tw - 14);
+  let top = y - th - 12;
+  if (top < 0) top = y + 16;
+  t.style.left = left + 'px';
+  t.style.top = Math.max(0, top) + 'px';
+}
+function hideTip(box) { const t = box.querySelector(':scope > .rb-tip'); if (t) t.style.opacity = 0; }
+
+/* 01 · Trajectoire du marché */
+let mScale = 'log';
+function drawMarket(anim) {
+  const box = document.getElementById('ch-marche');
+  const data = rowsOf('marche').map((r) => ({ an: Number(r.annee), lo: Number(r.marche_min_mds), hi: Number(r.marche_max_mds), blo: Number(r.bom_min_usd), bhi: Number(r.bom_max_usd), phase: r.phase, jalon: r.jalon })).sort((a, b) => a.an - b.an);
+  const W = box.clientWidth || 640;
+  const H = W < 480 ? 270 : 320;
+  const B = H - 30;
+  const T = 34;
+  const svg = fresh(box, W, H);
+  const log = mScale === 'log';
+  const hiMax = d3.max(data, (d) => d.hi);
+  const loMin = d3.min(data, (d) => d.lo);
+  const y = log ? d3.scaleLog([loMin / 2, hiMax * 1.6], [B, T]) : d3.scaleLinear([0, hiMax * 1.08], [B, T]);
+  const ticks = log ? y.ticks().filter(isPow10) : y.ticks(5);
+  const gT = svg.append('g');
+  const tt = gT.selectAll('text').data(ticks).join('text').attr('x', 0).attr('y', (d) => y(d)).attr('dy', '0.32em').text((d) => fN(d));
+  const ml = (d3.max(tt.nodes(), (n) => n.getComputedTextLength()) || 0) + 10;
+  gT.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', ml).attr('x2', W).attr('y1', (d) => y(d)).attr('y2', (d) => y(d));
+  svg.append('line').attr('class', 'rb-ax').attr('x1', ml).attr('x2', W).attr('y1', B).attr('y2', B);
+  const x = d3.scaleLinear([data[0].an, data[data.length - 1].an], [ml + 22, W - 22]);
+  svg.append('g').selectAll('text').data(data).join('text').attr('x', (d) => x(d.an)).attr('y', H - 8).attr('text-anchor', 'middle').text((d) => d.an);
+  const uid = 'rbm' + Math.random().toString(36).slice(2, 8);
+  const defs = svg.append('defs');
+  const lg = defs.append('linearGradient').attr('id', uid + 'g').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+  [[0, 0.34], [0.25, 0.22], [0.5, 0.12], [0.75, 0.05], [1, 0]].forEach(([o, a]) => lg.append('stop').attr('offset', o).style('stop-color', C(0)).style('stop-opacity', a));
+  const clip = defs.append('clipPath').attr('id', uid + 'c').append('rect').attr('x', 0).attr('y', 0).attr('height', H).attr('width', anim ? ml : W);
+  const g = svg.append('g').attr('clip-path', `url(#${uid}c)`);
+  g.append('path').datum(data).attr('d', d3.area().x((d) => x(d.an)).y0((d) => y(d.lo)).y1((d) => y(d.hi))).style('fill', `url(#${uid}g)`);
+  g.append('path').datum(data).attr('class', 'rb-line').attr('d', d3.line().x((d) => x(d.an)).y((d) => y(d.hi))).style('stroke', C(0));
+  g.append('path').datum(data).attr('class', 'rb-line rb-thin').attr('d', d3.line().x((d) => x(d.an)).y((d) => y(d.lo))).style('stroke', C(0));
+  const pts = svg.append('g').selectAll('g').data(data).join('g');
+  pts.append('line').attr('x1', (d) => x(d.an)).attr('x2', (d) => x(d.an)).attr('y1', (d) => y(d.lo)).attr('y2', (d) => y(d.hi)).attr('stroke-width', 3).attr('stroke-linecap', 'round').attr('opacity', 0.45).style('stroke', C(0));
+  pts.append('circle').attr('class', 'rb-pt').attr('cx', (d) => x(d.an)).attr('cy', (d) => y(d.hi)).attr('r', 5).style('stroke', C(0));
+  pts.append('circle').attr('class', 'rb-pt').attr('cx', (d) => x(d.an)).attr('cy', (d) => y(d.lo)).attr('r', 3.5).style('stroke', C(0));
+  const n = data.length;
+  const labs = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-vlab')
+    .attr('x', (d) => x(d.an)).attr('y', (d) => y(d.hi) - 12)
+    .attr('text-anchor', (d, i) => (i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'))
+    .attr('dx', (d, i) => (i === 0 ? -6 : i === n - 1 ? 6 : 0))
+    .text((d) => fR(d.lo, d.hi));
+  hideOverlaps(labs.nodes().slice().reverse());
+  const focus = svg.append('line').attr('class', 'rb-focus').attr('y1', T - 12).attr('y2', B).style('opacity', 0);
+  svg.append('rect').attr('x', ml).attr('y', 0).attr('width', Math.max(0, W - ml)).attr('height', H).style('fill', 'transparent')
+    .on('pointermove', (ev) => {
+      const [mx] = d3.pointer(ev);
+      const d = d3.least(data, (p) => Math.abs(x(p.an) - mx));
+      focus.attr('x1', x(d.an)).attr('x2', x(d.an)).style('opacity', 1);
+      pts.classed('dim', (p) => p !== d);
+      showTip(box, ev, d.an + ' · ' + d.phase, [
+        { c: C(0), k: 'Marché estimé', v: fR(d.lo, d.hi) + ' Md$' },
+        { c: C(1), k: 'Coût par robot', v: fR(d.blo / 1e3, d.bhi / 1e3) + ' k$' },
+      ], d.jalon);
+    })
+    .on('pointerleave', () => { focus.style('opacity', 0); pts.classed('dim', false); hideTip(box); });
+  if (anim) {
+    clip.transition().duration(1700).ease(d3.easeCubicInOut).attr('width', W);
+    pts.attr('opacity', 0).transition().delay((d, i) => 250 + i * 280).duration(500).attr('opacity', 1);
+    labs.attr('opacity', 0).transition().delay((d, i) => 450 + i * 280).duration(500).attr('opacity', 1);
+  }
+  const ph = document.getElementById('ph-marche');
+  ph.replaceChildren(...data.map((d) => {
+    const el = document.createElement('div');
+    el.className = 'rb-ph';
+    const b = document.createElement('b');
+    b.textContent = d.an;
+    const s = document.createElement('span');
+    s.textContent = d.phase;
+    el.append(b, s);
+    return el;
+  }));
+}
+
+/* 01 · Coût de revient face au salaire */
+function drawBomAn(anim) {
+  const box = document.getElementById('ch-bom-annee');
+  const sal = fait('salaire_ouvrier');
+  if (!sal) return;
+  const wmin = Number(sal.min);
+  const wmax = Number(sal.max);
+  const data = rowsOf('marche').map((r) => ({ an: Number(r.annee), blo: Number(r.bom_min_usd), bhi: Number(r.bom_max_usd), phase: r.phase })).sort((a, b) => a.an - b.an);
+  const W = box.clientWidth || 360;
+  const H = 270;
+  const B = H - 28;
+  const T = 28;
+  const svg = fresh(box, W, H);
+  const y = d3.scaleLinear([0, d3.max(data, (d) => d.bhi) * 1.12], [B, T]);
+  const ticks = y.ticks(4);
+  const gT = svg.append('g');
+  const tt = gT.selectAll('text').data(ticks).join('text').attr('x', 0).attr('y', (d) => y(d)).attr('dy', '0.32em').text((d) => fN(d / 1e3) + ' k$');
+  const ml = (d3.max(tt.nodes(), (nd) => nd.getComputedTextLength()) || 0) + 10;
+  gT.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', ml).attr('x2', W).attr('y1', (d) => y(d)).attr('y2', (d) => y(d));
+  const x = d3.scaleBand(data.map((d) => d.an), [ml + 4, W - 2]).padding(0.36);
+  svg.append('rect').attr('class', 'rb-band').attr('x', ml).attr('width', W - ml).attr('y', y(wmax)).attr('height', y(wmin) - y(wmax));
+  [wmin, wmax].forEach((v) => svg.append('line').attr('class', 'rb-ref').attr('x1', ml).attr('x2', W).attr('y1', y(v)).attr('y2', y(v)));
+  const under = (d) => d.bhi <= wmax;
+  const bars = svg.append('g').selectAll('rect').data(data).join('rect')
+    .attr('x', (d) => x(d.an)).attr('width', x.bandwidth()).attr('rx', Math.min(5, x.bandwidth() / 2))
+    .attr('y', (d) => y(d.bhi)).attr('height', (d) => Math.max(2, y(d.blo) - y(d.bhi)))
+    .style('fill', (d) => (under(d) ? C(1) : 'var(--cds-chart-muted)'));
+  const narrow = W < 460;
+  const labs = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-vlab')
+    .attr('x', (d) => x(d.an) + x.bandwidth() / 2).attr('y', (d) => y(d.bhi) - 8).attr('text-anchor', 'middle')
+    .text((d) => fR(d.blo / 1e3, d.bhi / 1e3) + (narrow ? '' : ' k$'));
+  hideOverlaps(labs.nodes());
+  svg.append('g').selectAll('text').data(data).join('text').attr('x', (d) => x(d.an) + x.bandwidth() / 2).attr('y', H - 8).attr('text-anchor', 'middle').text((d) => d.an);
+  svg.append('g').selectAll('rect').data(data).join('rect').attr('x', (d) => x(d.an) - (x.step() - x.bandwidth()) / 2).attr('width', x.step()).attr('y', 0).attr('height', H).style('fill', 'transparent')
+    .on('pointermove', (ev, d) => {
+      bars.classed('dim', (p) => p !== d);
+      showTip(box, ev, d.an + ' · ' + d.phase, [
+        { c: under(d) ? C(1) : 'var(--cds-chart-muted)', k: 'Coût par robot', v: fR(d.blo / 1e3, d.bhi / 1e3) + ' k$' },
+        { k: 'Salaire ouvrier posté', v: fR(wmin / 1e3, wmax / 1e3) + ' k$' },
+      ]);
+    })
+    .on('pointerleave', () => { bars.classed('dim', false); hideTip(box); });
+  if (anim) {
+    bars.attr('y', (d) => y(d.blo)).attr('height', 0).transition().delay((d, i) => 150 + i * 150).duration(800).ease(d3.easeCubicOut)
+      .attr('y', (d) => y(d.bhi)).attr('height', (d) => Math.max(2, y(d.blo) - y(d.bhi)));
+    labs.attr('opacity', 0).transition().delay((d, i) => 600 + i * 150).duration(400).attr('opacity', 1);
+  }
+}
+
+/* 02 · Volumes contre capacités */
+let oemF = 'Tous';
+function drawOem(anim) {
+  const box = document.getElementById('ch-oem');
+  let data = rowsOf('oem').map((r) => ({ r, name: r.constructeur, bloc: r.bloc, u: num(r.unites), umin: num(r.unites_min), cap: num(r.capacite_cible) }));
+  if (oemF !== 'Tous') data = data.filter((d) => d.bloc === oemF);
+  data.sort((a, b) => Math.max(b.cap || 0, b.u || 0) - Math.max(a.cap || 0, a.u || 0));
+  const W = box.clientWidth || 640;
+  const rowH = 56;
+  const T = 8;
+  const H = T + data.length * rowH + 30;
+  const svg = fresh(box, W, H);
+  if (!data.length) return;
+  const names = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-name').attr('x', 0).attr('y', (d, i) => T + i * rowH + rowH / 2).attr('dy', '0.32em').text((d) => d.name);
+  const ml = (d3.max(names.nodes(), (nd) => nd.getComputedTextLength()) || 0) + 20;
+  const vals = data.flatMap((d) => [d.u, d.umin, d.cap]).filter((v) => v > 0);
+  const x = d3.scaleLog([Math.pow(10, Math.floor(Math.log10(d3.min(vals)))), d3.max(vals) * 2.4], [ml + 12, W - 30]);
+  const ticks = x.ticks().filter(isPow10);
+  const gx = svg.append('g');
+  gx.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', (t) => x(t)).attr('x2', (t) => x(t)).attr('y1', T).attr('y2', H - 24);
+  gx.selectAll('text').data(ticks).join('text').attr('x', (t) => x(t)).attr('y', H - 8).attr('text-anchor', 'middle').text((t) => fC(t));
+  const g = svg.append('g').selectAll('g').data(data).join('g').attr('transform', (d, i) => `translate(0,${T + i * rowH + rowH / 2})`);
+  g.filter((d) => d.u && d.cap).append('line').attr('class', 'rb-gap').attr('x1', (d) => x(d.u)).attr('x2', (d) => (anim ? x(d.u) : x(d.cap))).attr('y1', 0).attr('y2', 0).style('stroke', (d) => BC(d.bloc));
+  g.filter((d) => d.umin).append('line').attr('x1', (d) => x(d.umin)).attr('x2', (d) => x(d.u)).attr('y1', 0).attr('y2', 0).attr('stroke-width', 10).attr('stroke-linecap', 'round').attr('opacity', 0.3).style('stroke', (d) => BC(d.bloc));
+  const halo = g.filter((d) => d.u).append('circle').attr('cx', (d) => x(d.u)).attr('r', 13).attr('opacity', 0.16).style('fill', (d) => BC(d.bloc));
+  const dot = g.filter((d) => d.u).append('circle').attr('cx', (d) => x(d.u)).attr('r', 6.5).style('fill', (d) => BC(d.bloc));
+  const ring = g.filter((d) => d.cap).append('circle').attr('class', 'rb-ring').attr('cx', (d) => x(d.cap)).attr('r', 7).style('stroke', (d) => BC(d.bloc));
+  g.append('text').attr('class', (d) => (d.u ? 'rb-vlab' : 'rb-note')).attr('x', (d) => (d.u ? x(d.u) : ml + 12)).attr('y', 25).attr('text-anchor', (d) => (d.u ? 'middle' : 'start')).text((d) => d.r.volume_court || '');
+  const capL = g.filter((d) => d.cap && d.r.capacite_court).append('text').attr('class', 'rb-vlab').attr('x', (d) => x(d.cap)).attr('y', -15).attr('text-anchor', 'middle').text((d) => d.r.capacite_court);
+  capL.each(function () {
+    const b = this.getBBox();
+    if (b.x + b.width > W) d3.select(this).attr('text-anchor', 'end').attr('x', Number(this.getAttribute('x')) + 9);
+  });
+  g.append('rect').attr('x', 0).attr('y', -rowH / 2).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+    .on('pointermove', (ev, d) => {
+      g.classed('dim', (p) => p !== d);
+      showTip(box, ev, d.name + ' · ' + d.r.pays, [
+        { c: BC(d.bloc), k: 'Volumes', v: d.r.unites_libelle || '—' },
+        { k: 'Capacité visée', v: d.r.capacite_libelle || '—' },
+      ], d.r.faits);
+    })
+    .on('pointerleave', () => { g.classed('dim', false); hideTip(box); });
+  if (anim) {
+    dot.attr('r', 0).transition().delay((d, i) => 200 + i * 110).duration(500).ease(d3.easeBackOut).attr('r', 6.5);
+    halo.attr('r', 0).transition().delay((d, i) => 260 + i * 110).duration(700).attr('r', 13);
+    ring.attr('r', 0).transition().delay((d, i) => 950 + i * 110).duration(500).ease(d3.easeBackOut).attr('r', 7);
+    svg.selectAll('.rb-gap').transition().delay((d, i) => 500 + i * 110).duration(800).ease(d3.easeCubicOut).attr('x2', (d) => x(d.cap));
+  }
+}
+
+/* 03 · Anatomie du coût */
+let bomActive = -1;
+let bomPinned = null;
+let bomUser = false;
+let bomTimer = null;
+let bomLoops = 0;
+function setBom(i) {
+  bomActive = i;
+  const rows = rowsOf('bom') || [];
+  const list = document.getElementById('bomrows');
+  list.classList.toggle('has-on', i >= 0);
+  list.querySelectorAll('.rb-bomrow').forEach((b, j) => b.classList.toggle('on', j === i));
+  const robot = document.getElementById('robot');
+  robot.classList.toggle('has-on', i >= 0);
+  robot.querySelectorAll('.z').forEach((z) => z.classList.toggle('on', i >= 0 && !!rows[i] && z.dataset.zone === rows[i].zone));
+  const act = document.getElementById('bom-act');
+  act.replaceChildren();
+  if (i < 0 || !rows[i]) {
+    const p = document.createElement('p');
+    p.textContent = 'Survolez un poste de coût pour le situer dans le robot et afficher ses acteurs clés.';
+    act.appendChild(p);
+    return;
+  }
+  const r = rows[i];
+  const h = document.createElement('p');
+  h.className = 'rb-bomact-h';
+  h.textContent = r.poste + ' · acteurs clés';
+  const chips = document.createElement('div');
+  chips.className = 'rb-chips';
+  String(r.acteurs).split(',').forEach((a) => { const s = document.createElement('span'); s.className = 'rb-chip'; s.textContent = a.trim(); chips.appendChild(s); });
+  act.append(h, chips);
+}
+function startCycle() {
+  if (bomTimer || !MOTION) return;
+  bomTimer = setInterval(() => {
+    const n = (rowsOf('bom') || []).length;
+    if (bomUser || !n || bomLoops >= 2 * n) {
+      clearInterval(bomTimer);
+      if (!bomUser) setBom(-1);
+      return;
+    }
+    if (revealOn && !document.getElementById('carte-anatomie').classList.contains('in')) return;
+    bomLoops += 1;
+    setBom((bomActive + 1) % n);
+  }, 2600);
+}
+function drawBom() {
+  const rows = rowsOf('bom');
+  const list = document.getElementById('bomrows');
+  list.replaceChildren();
+  const maxP = Math.ceil(d3.max(rows, (r) => Number(r.max_pct)) / 10) * 10;
+  rows.forEach((r, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rb-bomrow';
+    b.style.setProperty('--c', C(i));
+    const sw = document.createElement('span');
+    sw.className = 'rb-bomrow-sw';
+    const t = document.createElement('span');
+    t.className = 'rb-bomrow-t';
+    const tb = document.createElement('b');
+    tb.textContent = r.poste;
+    const ts = document.createElement('small');
+    ts.textContent = r.detail + ' · couche' + (String(r.couches).includes('·') ? 's ' : ' ') + r.couches;
+    t.append(tb, ts);
+    const v = document.createElement('span');
+    v.className = 'rb-bomrow-v';
+    v.textContent = fR(Number(r.min_pct), Number(r.max_pct)) + ' %';
+    const bar = document.createElement('span');
+    bar.className = 'rb-bomrow-bar';
+    const a = document.createElement('i');
+    a.className = 'rb-grow';
+    a.style.width = (Number(r.min_pct) / maxP) * 100 + '%';
+    const e = document.createElement('i');
+    e.className = 'rb-grow rb-ext';
+    e.style.left = (Number(r.min_pct) / maxP) * 100 + '%';
+    e.style.width = ((Number(r.max_pct) - Number(r.min_pct)) / maxP) * 100 + '%';
+    bar.append(a, e);
+    b.append(sw, t, v, bar);
+    b.addEventListener('mouseenter', () => { bomUser = true; setBom(i); });
+    b.addEventListener('focus', () => { bomUser = true; setBom(i); });
+    b.addEventListener('click', () => { bomUser = true; bomPinned = bomPinned === i ? null : i; setBom(bomPinned === null ? -1 : i); });
+    list.appendChild(b);
+  });
+  R.querySelectorAll('#robot .z').forEach((z) => {
+    const i = rows.findIndex((r) => r.zone === z.dataset.zone);
+    z.style.setProperty('--zc', i < 0 ? 'var(--cds-chart-muted)' : C(i));
+  });
+  setBom(bomActive);
+  startCycle();
+}
+document.getElementById('bomrows').addEventListener('mouseleave', () => setBom(bomPinned === null ? -1 : bomPinned));
+R.querySelectorAll('#robot .z').forEach((z) => {
+  z.addEventListener('mouseenter', () => {
+    const i = (rowsOf('bom') || []).findIndex((r) => r.zone === z.dataset.zone);
+    if (i >= 0) { bomUser = true; setBom(i); }
+  });
+});
+document.getElementById('robot').addEventListener('mouseleave', () => setBom(bomPinned === null ? -1 : bomPinned));
+
+/* 04 · Matrice des couches */
+let mxSel = null;
+function applyMx() {
+  R.querySelectorAll('.rb-mx-col').forEach((b) => {
+    const on = b.dataset.bloc === mxSel;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  R.querySelectorAll('.rb-mx-row').forEach((r) => {
+    const has = !mxSel || r.dataset.dom.split('|').includes(mxSel) || r.dataset.chal.split('|').includes(mxSel);
+    r.classList.toggle('dim', !has);
+  });
+  R.querySelectorAll('.rb-mx-cell').forEach((c) => c.classList.toggle('hl', c.dataset.bloc === mxSel));
+  document.getElementById('mx-hint').textContent = mxSel
+    ? 'Empreinte isolée : ' + mxSel + ' — cliquez à nouveau pour tout afficher.'
+    : "Cliquez sur un bloc pour isoler les couches qu'il domine ou conteste.";
+}
+function drawMatrix() {
+  const mx = document.getElementById('mx');
+  const body = document.getElementById('mx-body');
+  const rows = rowsOf('couches').slice().sort((a, b) => Number(a.ordre) - Number(b.ordre));
+  body.replaceChildren();
+  let seg = null;
+  rows.forEach((r, k) => {
+    if (r.segment !== seg) {
+      seg = r.segment;
+      const s = document.createElement('div');
+      s.className = 'rb-mx-seg';
+      s.textContent = seg;
+      body.appendChild(s);
+    }
+    const row = document.createElement('div');
+    row.className = 'rb-mx-row';
+    row.dataset.dom = r.dominants || '';
+    row.dataset.chal = r.challengers || '';
+    const nm = document.createElement('div');
+    nm.className = 'rb-mx-name';
+    const bd = document.createElement('span');
+    bd.className = 'rb-mx-badge';
+    bd.textContent = r.couche;
+    const tx = document.createElement('div');
+    const b = document.createElement('b');
+    b.textContent = r.nom;
+    const sm = document.createElement('small');
+    sm.textContent = r.acteurs;
+    tx.append(b, sm);
+    nm.append(bd, tx);
+    row.appendChild(nm);
+    const dom = String(r.dominants || '').split('|');
+    const chal = String(r.challengers || '').split('|');
+    BLOCS.forEach((bl, j) => {
+      const c = document.createElement('span');
+      c.className = 'rb-mx-cell';
+      c.dataset.bloc = bl;
+      c.style.setProperty('--c', BC(bl));
+      const i = document.createElement('i');
+      i.className = dom.includes(bl) ? 'dom' : chal.includes(bl) ? 'chal' : 'none';
+      i.style.setProperty('--d', (k * 0.04 + j * 0.025).toFixed(3) + 's');
+      c.appendChild(i);
+      row.appendChild(c);
+    });
+    row.addEventListener('pointermove', (ev) => showTip(mx, ev, 'Couche ' + r.couche + ' · ' + r.nom, [], r.domination));
+    row.addEventListener('pointerleave', () => hideTip(mx));
+    body.appendChild(row);
+  });
+  applyMx();
+}
+R.querySelectorAll('.rb-mx-col').forEach((b) => {
+  b.style.setProperty('--c', BC(b.dataset.bloc));
+  b.addEventListener('click', () => { mxSel = mxSel === b.dataset.bloc ? null : b.dataset.bloc; applyMx(); });
+});
+
+/* 05 · Alliances */
+function drawFlow(anim) {
+  const box = document.getElementById('ch-flow');
+  const rows = rowsOf('alliances');
+  const L = [...new Set(rows.map((r) => r.client))];
+  const Rt = [...new Set(rows.map((r) => r.robot))];
+  const SC = (s) => ({ Automobile: C(0), Logistique: C(3), 'Équipementier': C(4) }[s] || C(7));
+  const W = box.clientWidth || 600;
+  const H = Math.max(L.length, Rt.length) * 42 + 16;
+  const svg = fresh(box, W, H);
+  const yL = d3.scalePoint(L, [8, H - 8]).padding(0.5);
+  const yR = d3.scalePoint(Rt, [8, H - 8]).padding(0.5);
+  const lt = svg.append('g').selectAll('text').data(L).join('text').attr('class', 'rb-name').attr('text-anchor', 'end').attr('y', (d) => yL(d)).attr('dy', '0.32em').text((d) => d);
+  const rt = svg.append('g').selectAll('text').data(Rt).join('text').attr('class', 'rb-name').attr('text-anchor', 'start').attr('y', (d) => yR(d)).attr('dy', '0.32em').text((d) => d);
+  const lw = d3.max(lt.nodes(), (nd) => nd.getComputedTextLength()) || 0;
+  const rw = d3.max(rt.nodes(), (nd) => nd.getComputedTextLength()) || 0;
+  const x0 = lw + 18;
+  const x1 = Math.max(x0 + 40, W - rw - 18);
+  lt.attr('x', x0 - 12);
+  rt.attr('x', x1 + 12);
+  const path = (r) => { const a = yL(r.client); const b = yR(r.robot); const m = (x0 + x1) / 2; return `M${x0},${a}C${m},${a} ${m},${b} ${x1},${b}`; };
+  const links = svg.insert('g', ':first-child').selectAll('g').data(rows).join('g');
+  const base = links.append('path').attr('class', 'rb-link').attr('d', path).style('stroke', (r) => SC(r.secteur));
+  const flow = links.append('path').attr('class', 'rb-link-f').attr('d', path).style('stroke', (r) => SC(r.secteur));
+  links.append('path').attr('class', 'rb-hit').attr('d', path)
+    .on('pointermove', (ev, r) => { links.classed('dim', (p) => p !== r); showTip(box, ev, r.client + ' → ' + r.robot, [{ c: SC(r.secteur), k: 'Secteur', v: r.secteur }], r.relation); })
+    .on('pointerleave', () => { links.classed('dim', false); hideTip(box); });
+  svg.append('g').selectAll('circle').data(L).join('circle').attr('class', 'rb-node').attr('cx', x0).attr('cy', (d) => yL(d)).attr('r', 5).style('stroke', (d) => SC((rows.find((r) => r.client === d) || {}).secteur));
+  svg.append('g').selectAll('circle').data(Rt).join('circle').attr('class', 'rb-node').attr('cx', x1).attr('cy', (d) => yR(d)).attr('r', 5).style('stroke', 'var(--color-fg-muted)');
+  lt.on('pointerenter', (ev, d) => links.classed('dim', (p) => p.client !== d)).on('pointerleave', () => links.classed('dim', false));
+  rt.on('pointerenter', (ev, d) => links.classed('dim', (p) => p.robot !== d)).on('pointerleave', () => links.classed('dim', false));
+  if (anim) {
+    base.each(function (d, i) {
+      const len = this.getTotalLength();
+      d3.select(this).attr('stroke-dasharray', len + ' ' + len).attr('stroke-dashoffset', len)
+        .transition().delay(150 + i * 130).duration(1100).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0)
+        .on('end', function () { d3.select(this).attr('stroke-dasharray', null).attr('stroke-dashoffset', null); });
+    });
+    flow.style('opacity', 0).transition().delay(1500).duration(600).style('opacity', 0.9);
+  }
+}
+
+/* 05 · Onglets des blocs */
+const tabs = [...R.querySelectorAll('.rb-tab')];
+tabs.forEach((t) => {
+  t.style.setProperty('--c', BC(t.dataset.color));
+  t.addEventListener('click', () => {
+    tabs.forEach((x) => x.setAttribute('aria-selected', x === t ? 'true' : 'false'));
+    R.querySelectorAll('.rb-panel').forEach((p) => { p.hidden = p.dataset.tab !== t.dataset.tab; });
+  });
+});
+
+/* 06 · Annuaire */
+const TB = { q: '', bloc: 'Tous', these: null, key: 'couches', dir: 1 };
+function drawTable() {
+  const tb = document.getElementById('t-body');
+  const rows = rowsOf('acteurs');
+  const chip = document.getElementById('t-these');
+  chip.hidden = !TB.these;
+  chip.textContent = TB.these ? TB.these + ' ×' : '';
+  R.querySelectorAll('.rb-these').forEach((card) => {
+    const name = card.querySelector('[data-field="these"]').textContent;
+    const on = !!TB.these && name === TB.these;
+    card.classList.toggle('on', on);
+    card.querySelector('[data-these]').setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  if (!rows) { tb.replaceChildren(); document.getElementById('t-empty').hidden = true; return; }
+  const q = TB.q.trim().toLowerCase();
+  const list = rows.filter((r) => (TB.bloc === 'Tous' || r.bloc === TB.bloc)
+    && (!TB.these || r.these === TB.these)
+    && (!q || [r.acteur, r.pays, r.couches, r.role, r.ticker].join(' ').toLowerCase().includes(q)));
+  const kf = TB.key === 'couches' ? (r) => parseInt(r.couches, 10) || 0 : (r) => String(r[TB.key] || '');
+  list.sort((a, b) => {
+    const A = kf(a);
+    const Bv = kf(b);
+    let c;
+    if (typeof A === 'number') c = A - Bv;
+    else if (!A !== !Bv) return A ? -1 : 1;
+    else c = A.localeCompare(Bv, 'fr');
+    return c * TB.dir || a.acteur.localeCompare(b.acteur, 'fr');
+  });
+  tb.replaceChildren(...list.map((r) => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = r.acteur;
+    if (r.these) tr.classList.add('is-these');
+    const td = (cls, txt) => { const c = document.createElement('td'); if (cls) c.className = cls; if (txt) c.append(txt); return c; };
+    const first = td('', '');
+    const dot = document.createElement('span');
+    dot.className = 'rb-dot';
+    dot.style.setProperty('--c', BC(r.bloc));
+    first.append(dot, r.acteur);
+    tr.append(first, td('c-pays', r.pays), td('rb-nb', r.couches), td('c-role rb-rl', r.role), td('rb-tk', r.ticker));
+    return tr;
+  }));
+  document.getElementById('t-empty').hidden = list.length > 0;
+  R.querySelectorAll('#t-acteurs th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === TB.key ? (TB.dir > 0 ? 'ascending' : 'descending') : 'none'));
+}
+document.getElementById('t-search').addEventListener('input', (e) => { TB.q = e.target.value; drawTable(); });
+R.querySelectorAll('[data-tbloc]').forEach((b) => {
+  const dot = b.querySelector('.rb-dot');
+  if (dot) dot.style.setProperty('--c', BC(b.dataset.tbloc));
+  b.addEventListener('click', () => {
+    TB.bloc = b.dataset.tbloc;
+    R.querySelectorAll('[data-tbloc]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    drawTable();
+  });
+});
+R.querySelectorAll('#t-acteurs .rb-th').forEach((b) => b.addEventListener('click', () => {
+  const k = b.closest('th').dataset.field;
+  TB.dir = TB.key === k ? -TB.dir : 1;
+  TB.key = k;
+  drawTable();
+}));
+R.querySelectorAll('[data-these]').forEach((b) => b.addEventListener('click', () => {
+  const name = b.closest('.rb-these').querySelector('[data-field="these"]').textContent;
+  if (!name || name === '—') return;
+  TB.these = TB.these === name ? null : name;
+  drawTable();
+  if (TB.these) document.getElementById('carte-annuaire').scrollIntoView({ behavior: MOTION ? 'smooth' : 'auto', block: 'start' });
+}));
+document.getElementById('t-these').addEventListener('click', () => { TB.these = null; drawTable(); });
+
+/* 07 · Valorisations boursières */
+const FAMS = ['Péages mécatroniques', 'Consolidateurs du système nerveux & tactile', 'Monopoles amont & cerveau'];
+const FC = (t) => { const i = FAMS.indexOf(t); return i < 0 ? 'var(--cds-chart-muted)' : C(i); };
+const fX = (v) => fDec(v) + '×';
+const fMdTick = (t) => (t >= 1 ? fInt(t) : fN(t));
+const fDate = (s) => (s ? new Date(s + 'T00:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '');
+const MULT_LABEL = { per_ttm: 'PER 12 mois', per_forward: 'PER prévisionnel', ev_ebitda: 'VE/EBITDA' };
+
+dash.calc('valo_synthese', {
+  inputs: ['valorisations'],
+  title: 'Synthèse du panier coté',
+  description: 'Somme des capitalisations en dollars, part de Nvidia, total hors Nvidia, PER médian sur douze mois et dates des cours relevés.',
+  fn: (valorisations) => {
+    const fr = (x, d) => x.toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const total = valorisations.reduce((s, r) => s + (Number(r.capi_usd_mds) || 0), 0);
+    const nvidia = Number((valorisations.find((r) => r.acteur === 'Nvidia') || {}).capi_usd_mds) || 0;
+    const pers = valorisations.map((r) => r.per_ttm).filter((x) => x !== null && x !== '' && x !== undefined).map(Number).sort((a, b) => a - b);
+    const mid = Math.floor(pers.length / 2);
+    const per = pers.length ? (pers.length % 2 ? pers[mid] : (pers[mid - 1] + pers[mid]) / 2) : null;
+    const dates = valorisations.map((r) => r.date_cours).filter(Boolean).sort();
+    const jour = (s) => new Date(s + 'T00:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const periode = !dates.length ? '—' : dates[0] === dates[dates.length - 1] ? 'au ' + jour(dates[0]) : 'du ' + jour(dates[0]) + ' au ' + jour(dates[dates.length - 1]);
+    return [
+      { indicateur: 'capi_totale', valeur: total, libelle: fr(total, 0) + ' Md$' },
+      { indicateur: 'part_nvidia', valeur: total ? nvidia / total : null, libelle: total ? fr((nvidia / total) * 100, 0) + ' %' : '—' },
+      { indicateur: 'capi_hors_nvidia', valeur: total - nvidia, libelle: fr(total - nvidia, 0) + ' Md$' },
+      { indicateur: 'per_median', valeur: per, libelle: per === null ? '—' : fr(per, 1) + '×' },
+      { indicateur: 'date_marche', valeur: dates[dates.length - 1] || null, libelle: periode },
+    ];
+  },
+});
+
+dash.calc('valo_familles', {
+  inputs: ['valorisations'],
+  title: 'Synthèse par famille',
+  description: 'Pour chaque famille de la grille : nombre de valeurs, capitalisation cumulée en dollars, médianes du PER (12 mois et prévisionnel), du VE/EBITDA et de la performance sur un an.',
+  fn: (valorisations) => {
+    const familles = [['peages', 'Péages mécatroniques'], ['consolidateurs', 'Consolidateurs du système nerveux & tactile'], ['monopoles', 'Monopoles amont & cerveau']];
+    const fr = (x, d) => x.toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const mediane = (xs) => {
+      const v = xs.filter((x) => x !== null && x !== '' && x !== undefined).map(Number).sort((a, b) => a - b);
+      if (!v.length) return null;
+      const m = Math.floor(v.length / 2);
+      return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2;
+    };
+    return familles.map(([cle, these]) => {
+      const rows = valorisations.filter((r) => r.these === these);
+      const capi = rows.reduce((s, r) => s + (Number(r.capi_usd_mds) || 0), 0);
+      const per = mediane(rows.map((r) => r.per_ttm));
+      const perf = mediane(rows.map((r) => r.perf_1an_pct));
+      return {
+        cle,
+        these,
+        valeurs: rows.length,
+        capi_usd_mds: capi,
+        per_median: per,
+        per_forward_median: mediane(rows.map((r) => r.per_forward)),
+        ev_ebitda_median: mediane(rows.map((r) => r.ev_ebitda)),
+        perf_1an_median: perf,
+        capi_libelle: fr(capi, capi >= 100 ? 0 : 1) + ' Md$',
+        per_libelle: per === null ? '—' : fr(per, 1) + '×',
+        perf_libelle: perf === null ? '—' : (perf > 0 ? '+' : '') + fr(perf, 1) + ' %',
+      };
+    });
+  },
+});
+
+let vScale = 'log';
+let vPerf = 'perf_1an_pct';
+let vMult = 'per_ttm';
+let vSel = null;
+
+function rowLabels(svg, data, yAt, x0) {
+  const names = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-name').attr('x', x0 || 0).attr('y', yAt).attr('dy', '0.32em').text((d) => d.name);
+  return (d3.max(names.nodes(), (nd) => nd.getComputedTextLength()) || 0) + (x0 || 0);
+}
+
+function drawCapi(anim) {
+  const box = document.getElementById('ch-capi');
+  const data = rowsOf('valorisations').filter((r) => num(r.capi_usd_mds) > 0).map((r) => ({ r, name: r.acteur, v: Number(r.capi_usd_mds) })).sort((a, b) => b.v - a.v);
+  const W = box.clientWidth || 600;
+  const rowH = 34;
+  const T = 4;
+  const H = T + Math.max(1, data.length) * rowH + 28;
+  const svg = fresh(box, W, H);
+  if (!data.length) return;
+  const yc = (d, i) => T + i * rowH + rowH / 2;
+  const ml = rowLabels(svg, data, yc) + 14;
+  const vl = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-vlab').attr('y', yc).attr('dy', '0.32em').text((d) => d.r.capi_libelle || fN(d.v));
+  const vw = (d3.max(vl.nodes(), (nd) => nd.getComputedTextLength()) || 0) + 12;
+  const vmax = d3.max(data, (d) => d.v);
+  const vmin = d3.min(data, (d) => d.v);
+  const log = vScale === 'log';
+  const x = log ? d3.scaleLog([vmin / 3, vmax], [ml, W - vw]) : d3.scaleLinear([0, vmax], [ml, W - vw]);
+  const ticks = log ? x.ticks().filter(isPow10) : x.ticks(4);
+  const gx = svg.insert('g', ':first-child');
+  gx.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', (t) => x(t)).attr('x2', (t) => x(t)).attr('y1', T).attr('y2', H - 24);
+  gx.selectAll('text').data(ticks).join('text').attr('x', (t) => x(t)).attr('y', H - 8).attr('text-anchor', 'middle').text(fMdTick);
+  const x0 = x.range()[0];
+  const bars = svg.append('g').selectAll('rect').data(data).join('rect').attr('x', x0).attr('y', (d, i) => yc(d, i) - 9).attr('height', 18).attr('rx', 4)
+    .attr('width', (d) => (anim ? 0 : Math.max(2, x(d.v) - x0))).style('fill', (d) => FC(d.r.these));
+  vl.attr('x', (d) => x(d.v) + 8);
+  svg.append('g').selectAll('rect').data(data).join('rect').attr('class', 'rb-hitrow').attr('x', 0).attr('y', (d, i) => yc(d, i) - rowH / 2).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+    .on('pointermove', (ev, d) => {
+      bars.classed('dim', (p) => p !== d);
+      showTip(box, ev, d.name + (d.r.ticker ? ' · ' + d.r.ticker : ''), [
+        { c: FC(d.r.these), k: 'Capitalisation', v: d.r.capi_libelle || fN(d.v) },
+        { k: 'Cours', v: (d.r.cours_libelle || 'n.d.') + (d.r.date_cours ? ' (' + fDate(d.r.date_cours) + ')' : '') },
+      ], d.r.these);
+    })
+    .on('pointerleave', () => { bars.classed('dim', false); hideTip(box); })
+    .on('click', (ev, d) => selectValo(d.name, true));
+  if (anim) {
+    bars.transition().delay((d, i) => 150 + i * 90).duration(900).ease(d3.easeCubicOut).attr('width', (d) => Math.max(2, x(d.v) - x0));
+    vl.attr('opacity', 0).transition().delay((d, i) => 600 + i * 90).duration(400).attr('opacity', 1);
+  }
+}
+
+function drawPerf(anim) {
+  const box = document.getElementById('ch-perf');
+  const lib = vPerf === 'perf_1an_pct' ? 'perf_1an_libelle' : 'perf_ytd_libelle';
+  const data = rowsOf('valorisations').filter((r) => num(r[vPerf]) !== null).map((r) => ({ r, name: r.acteur, v: Number(r[vPerf]) })).sort((a, b) => b.v - a.v);
+  const W = box.clientWidth || 400;
+  const rowH = 34;
+  const T = 4;
+  const H = T + Math.max(1, data.length) * rowH + 28;
+  const svg = fresh(box, W, H);
+  if (!data.length) return;
+  const yc = (d, i) => T + i * rowH + rowH / 2;
+  const ml = rowLabels(svg, data, yc) + 12;
+  const vl = svg.append('g').selectAll('text').data(data).join('text').attr('class', 'rb-vlab').attr('y', yc).attr('dy', '0.32em').text((d) => d.r[lib] || fN(d.v));
+  const lw = (d3.max(vl.nodes(), (nd) => nd.getComputedTextLength()) || 0) + 10;
+  const lo = Math.min(0, d3.min(data, (d) => d.v));
+  const hi = Math.max(0, d3.max(data, (d) => d.v));
+  const x = d3.scaleLinear([lo, hi], [ml + (lo < 0 ? lw : 0), W - (hi > 0 ? lw : 4)]).nice();
+  const ticks = x.ticks(4);
+  const gx = svg.insert('g', ':first-child');
+  gx.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', (t) => x(t)).attr('x2', (t) => x(t)).attr('y1', T).attr('y2', H - 24);
+  gx.selectAll('text').data(ticks).join('text').attr('x', (t) => x(t)).attr('y', H - 8).attr('text-anchor', 'middle').text((t) => (t > 0 ? '+' : '') + fInt(t) + ' %');
+  svg.append('line').attr('class', 'rb-ax').attr('x1', x(0)).attr('x2', x(0)).attr('y1', T).attr('y2', H - 24);
+  const fill = (d) => (d.v >= 0 ? FC(d.r.these) : 'var(--cds-chart-status-critical)');
+  const bars = svg.append('g').selectAll('rect').data(data).join('rect').attr('y', (d, i) => yc(d, i) - 9).attr('height', 18).attr('rx', 4).style('fill', fill)
+    .attr('x', (d) => (anim ? x(0) : Math.min(x(0), x(d.v)))).attr('width', (d) => (anim ? 0 : Math.max(1, Math.abs(x(d.v) - x(0)))));
+  vl.attr('x', (d) => (d.v >= 0 ? x(d.v) + 6 : x(d.v) - 6)).attr('text-anchor', (d) => (d.v >= 0 ? 'start' : 'end'));
+  svg.append('g').selectAll('rect').data(data).join('rect').attr('class', 'rb-hitrow').attr('x', 0).attr('y', (d, i) => yc(d, i) - rowH / 2).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+    .on('pointermove', (ev, d) => {
+      bars.classed('dim', (p) => p !== d);
+      showTip(box, ev, d.name, [
+        { c: fill(d), k: 'Sur un an', v: d.r.perf_1an_libelle || 'n.d.' },
+        { k: 'Depuis janvier', v: d.r.perf_ytd_libelle || 'n.d.' },
+      ], d.r.date_perf ? 'Au ' + fDate(d.r.date_perf) + ', en devise locale' : 'En devise locale');
+    })
+    .on('pointerleave', () => { bars.classed('dim', false); hideTip(box); })
+    .on('click', (ev, d) => selectValo(d.name, true));
+  if (anim) {
+    bars.transition().delay((d, i) => 150 + i * 90).duration(800).ease(d3.easeCubicOut)
+      .attr('x', (d) => Math.min(x(0), x(d.v))).attr('width', (d) => Math.max(1, Math.abs(x(d.v) - x(0))));
+    vl.attr('opacity', 0).transition().delay((d, i) => 550 + i * 90).duration(400).attr('opacity', 1);
+  }
+}
+
+function drawMult(anim) {
+  const box = document.getElementById('ch-mult');
+  const all = rowsOf('valorisations');
+  const fams = rowsOf('valo_familles') || [];
+  const libKey = { per_ttm: 'per_libelle', per_forward: 'per_fwd_libelle', ev_ebitda: 'ev_libelle' }[vMult];
+  const medKey = { per_ttm: 'per_median', per_forward: 'per_forward_median', ev_ebitda: 'ev_ebitda_median' }[vMult];
+  const val = (r) => { const v = num(r[vMult]); return v !== null && v > 0 ? v : null; };
+  const groups = FAMS.map((f) => ({
+    f,
+    med: num((fams.find((x) => x.these === f) || {})[medKey]),
+    items: all.filter((r) => r.these === f).map((r) => ({ r, name: r.acteur, v: val(r) })).sort((a, b) => (b.v === null ? -1 : b.v) - (a.v === null ? -1 : a.v)),
+  })).filter((g) => g.items.length);
+  const W = box.clientWidth || 640;
+  const gh = 30;
+  const rh = 30;
+  let yy = 2;
+  groups.forEach((g) => { g.y0 = yy; yy += gh; g.items.forEach((it) => { it.y = yy + rh / 2; yy += rh; }); g.y1 = yy; yy += 10; });
+  const H = yy + 22;
+  const svg = fresh(box, W, H);
+  const items = groups.flatMap((g) => g.items);
+  if (!items.length) return;
+  const ml = rowLabels(svg, items, (d) => d.y, 14) + 18;
+  const vals = items.map((d) => d.v).filter((v) => v !== null).sort((a, b) => a - b);
+  const vmax = vals.length ? vals[vals.length - 1] : 1;
+  const q3 = vals.length ? vals[Math.floor((vals.length - 1) * 0.75)] : 1;
+  const cap = vals.length > 4 && vmax > q3 * 2.5 ? q3 * 2.5 : vmax;
+  const x = d3.scaleLinear([0, cap * 1.06], [ml, W - 70]);
+  const xv = (v) => x(Math.min(v, cap));
+  const ticks = x.ticks(5);
+  const gx = svg.insert('g', ':first-child');
+  gx.selectAll('line').data(ticks).join('line').attr('class', 'rb-gl').attr('x1', (t) => x(t)).attr('x2', (t) => x(t)).attr('y1', 2).attr('y2', H - 24);
+  gx.selectAll('text').data(ticks).join('text').attr('x', (t) => x(t)).attr('y', H - 8).attr('text-anchor', 'middle').text((t) => fInt(t) + '×');
+  const gg = svg.append('g').selectAll('g').data(groups).join('g');
+  gg.append('circle').attr('cx', 5).attr('cy', (g) => g.y0 + gh / 2).attr('r', 4.5).style('fill', (g) => FC(g.f));
+  gg.append('text').attr('class', 'rb-ghead').attr('x', 16).attr('y', (g) => g.y0 + gh / 2).attr('dy', '0.32em').text((g) => g.f + (g.med !== null ? ' · médiane ' + fX(g.med) : ''));
+  gg.filter((g) => g.med !== null).append('line').attr('class', 'rb-ref').attr('x1', (g) => xv(g.med)).attr('x2', (g) => xv(g.med)).attr('y1', (g) => g.y0 + gh - 4).attr('y2', (g) => g.y1).style('stroke', (g) => FC(g.f));
+  const withV = items.filter((d) => d.v !== null);
+  const stems = svg.append('g').selectAll('line').data(withV).join('line').attr('x1', x(0)).attr('x2', (d) => (anim ? x(0) : xv(d.v))).attr('y1', (d) => d.y).attr('y2', (d) => d.y).attr('stroke-width', 2).attr('opacity', 0.45).style('stroke', (d) => FC(d.r.these));
+  const dots = svg.append('g').selectAll('circle').data(withV).join('circle').attr('cx', (d) => (anim ? x(0) : xv(d.v))).attr('cy', (d) => d.y).attr('r', 6).style('fill', (d) => FC(d.r.these));
+  svg.append('g').selectAll('text').data(withV).join('text').attr('class', 'rb-vlab').attr('x', (d) => xv(d.v) + 11).attr('y', (d) => d.y).attr('dy', '0.32em').text((d) => (d.v > cap ? '› ' : '') + (d.r[libKey] || fX(d.v)));
+  svg.append('g').selectAll('text').data(items.filter((d) => d.v === null)).join('text').attr('class', 'rb-note').attr('x', x(0) + 4).attr('y', (d) => d.y).attr('dy', '0.32em').text((d) => d.r[libKey] || 'n.d.');
+  svg.append('g').selectAll('rect').data(items).join('rect').attr('class', 'rb-hitrow').attr('x', 0).attr('y', (d) => d.y - rh / 2).attr('width', W).attr('height', rh).style('fill', 'transparent')
+    .on('pointermove', (ev, d) => {
+      dots.classed('dim', (p) => p !== d);
+      const g = groups.find((x2) => x2.f === d.r.these);
+      showTip(box, ev, d.name, [
+        { c: FC(d.r.these), k: MULT_LABEL[vMult], v: d.r[libKey] || 'n.d.' },
+        { k: 'Médiane de la famille', v: g && g.med !== null ? fX(g.med) : 'n.d.' },
+      ], d.r.these);
+    })
+    .on('pointerleave', () => { dots.classed('dim', false); hideTip(box); })
+    .on('click', (ev, d) => selectValo(d.name, true));
+  if (anim) {
+    stems.transition().delay((d, i) => 150 + i * 80).duration(800).ease(d3.easeCubicOut).attr('x2', (d) => xv(d.v));
+    dots.transition().delay((d, i) => 150 + i * 80).duration(800).ease(d3.easeCubicOut).attr('cx', (d) => xv(d.v));
+  }
+}
+
+const TV = { key: 'capi_libelle', dir: -1 };
+const TV_NUM = { capi_libelle: 'capi_usd_mds', per_libelle: 'per_ttm', ev_libelle: 'ev_ebitda', perf_1an_libelle: 'perf_1an_pct', perf_ytd_libelle: 'perf_ytd_pct' };
+function drawValoTable() {
+  const tb = document.getElementById('tv-body');
+  const rows = rowsOf('valorisations');
+  if (!rows) { tb.replaceChildren(); return; }
+  const nk = TV_NUM[TV.key];
+  const list = rows.slice().sort((a, b) => {
+    if (!nk) return a.acteur.localeCompare(b.acteur, 'fr') * TV.dir;
+    const A = num(a[nk]);
+    const Bv = num(b[nk]);
+    if (A === null || Bv === null) return A === null && Bv === null ? 0 : A === null ? 1 : -1;
+    return (A - Bv) * TV.dir;
+  });
+  const sign = (v) => (num(v) === null ? '' : num(v) >= 0 ? ' up' : ' down');
+  tb.replaceChildren(...list.map((r) => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = r.acteur;
+    tr.tabIndex = 0;
+    if (r.acteur === vSel) tr.classList.add('sel');
+    const td = (cls, txt) => { const c = document.createElement('td'); if (cls) c.className = cls; if (txt) c.append(txt); return c; };
+    const first = td('', '');
+    const dot = document.createElement('span');
+    dot.className = 'rb-dot';
+    dot.style.setProperty('--c', FC(r.these));
+    first.append(dot, r.acteur);
+    tr.append(first, td('c-cours rb-nb', r.cours_libelle), td('rb-nb', r.capi_libelle), td('rb-nb', r.per_libelle), td('c-ev rb-nb', r.ev_libelle),
+      td('rb-nb' + sign(r.perf_1an_pct), r.perf_1an_libelle), td('c-ytd rb-nb' + sign(r.perf_ytd_pct), r.perf_ytd_libelle));
+    tr.addEventListener('click', () => selectValo(r.acteur, true));
+    tr.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectValo(r.acteur, true); } });
+    return tr;
+  }));
+  R.querySelectorAll('#t-valo th').forEach((th) => {
+    if (th.querySelector('.rb-th')) th.setAttribute('aria-sort', th.dataset.field === TV.key ? (TV.dir > 0 ? 'ascending' : 'descending') : 'none');
+  });
+}
+R.querySelectorAll('#t-valo .rb-th').forEach((b) => b.addEventListener('click', () => {
+  const k = b.closest('th').dataset.field;
+  TV.dir = TV.key === k ? -TV.dir : (k === 'acteur' ? 1 : -1);
+  TV.key = k;
+  drawValoTable();
+}));
+
+function drawDetail() {
+  const box = document.getElementById('valo-detail');
+  const rows = rowsOf('valorisations');
+  const srcs = rowsOf('sources_valo') || [];
+  if (!rows || !rows.length) { box.replaceChildren(); return; }
+  if (!vSel || !rows.some((r) => r.acteur === vSel)) vSel = rows[0].acteur;
+  const r = rows.find((x) => x.acteur === vSel);
+  const el = (tag, cls, txt) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt !== undefined && txt !== null && txt !== '') e.textContent = String(txt);
+    return e;
+  };
+  const dotOf = (t) => { const d = el('i', 'rb-dot'); d.style.setProperty('--c', FC(t)); return d; };
+  const picker = el('div', 'rb-chips rb-picker');
+  rows.forEach((x) => {
+    const b = el('button', 'rb-chip');
+    b.type = 'button';
+    b.setAttribute('aria-pressed', x.acteur === vSel ? 'true' : 'false');
+    b.append(dotOf(x.these), x.acteur);
+    b.addEventListener('click', () => selectValo(x.acteur, false));
+    picker.appendChild(b);
+  });
+  const head = el('div', 'rb-fiche-h');
+  const ident = el('div');
+  ident.append(el('h4', 'rb-h4', r.acteur), el('p', 'rb-small', [r.ticker, r.bourse, r.devise].filter(Boolean).join(' · ')));
+  const fam = el('span', 'rb-chip');
+  fam.append(dotOf(r.these), r.these || '—');
+  head.append(ident, fam);
+  const stat = (label, value, sub) => {
+    const s = el('div', 'rb-stat');
+    s.append(el('span', '', label), el('b', '', value || 'n.d.'));
+    if (sub) s.appendChild(el('small', '', sub));
+    return s;
+  };
+  const grid = el('div', 'rb-detail-grid');
+  grid.append(
+    stat('Cours', r.cours_libelle, r.date_cours ? 'clôture du ' + fDate(r.date_cours) : ''),
+    stat('Capitalisation', r.capi_libelle, r.capi_locale_libelle),
+    stat('PER 12 mois', r.per_libelle, r.per_fwd_libelle ? 'prévisionnel : ' + r.per_fwd_libelle : ''),
+    stat('VE/EBITDA', r.ev_libelle, ''),
+    stat('Sur un an', r.perf_1an_libelle, r.perf_ytd_libelle ? 'depuis janvier : ' + r.perf_ytd_libelle : ''),
+    stat("Chiffre d'affaires", r.ca_libelle, r.marge_libelle ? 'marge opérationnelle : ' + r.marge_libelle : ''),
+  );
+  const sec = (title, ...kids) => { const s = el('div', 'rb-fiche-s'); s.append(el('h5', '', title), ...kids); return s; };
+  const parts = [picker, head, grid];
+  if (r.exposition_robotique) parts.push(sec('Exposition à la robotique', el('p', '', r.exposition_robotique)));
+  if (r.actualite_robotique) parts.push(sec('Actualité robotique', el('p', '', r.actualite_robotique)));
+  if (r.verification_statut || r.verification_detail) {
+    const st = String(r.verification_statut || '').toLowerCase();
+    const cls = st.startsWith('infirm') ? 'bad' : st.startsWith('confirm') ? 'ok' : 'warn';
+    parts.push(sec('Contrôle des affirmations du dossier', el('span', 'rb-verif ' + cls, r.verification_statut || 'À vérifier'), el('p', '', r.verification_detail)));
+  }
+  if (r.alertes) parts.push(sec('Réserves et divergences entre sources', el('p', 'rb-small', r.alertes)));
+  const list = el('ul', 'rb-srcs');
+  srcs.filter((s) => s.acteur === r.acteur).forEach((s) => {
+    const li = el('li');
+    li.append(el('b', '', s.libelle), el('span', '', [s.champ, s.date_donnee ? fDate(s.date_donnee) : ''].filter(Boolean).join(' · ')));
+    const url = String(s.url || '');
+    if (/^https?:\/\//.test(url)) {
+      let host = 'lien';
+      try { host = new URL(url).hostname.replace(/^www\./, ''); } catch (err) { host = 'lien'; }
+      const a = el('a', '', host);
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      li.appendChild(a);
+    }
+    list.appendChild(li);
+  });
+  if (list.children.length) parts.push(sec('Sources datées', list));
+  box.replaceChildren(...parts);
+}
+
+function selectValo(name, scroll) {
+  vSel = name;
+  if (ready(document.getElementById('valo-detail'), ['valorisations', 'sources_valo'])) drawDetail();
+  R.querySelectorAll('#tv-body tr').forEach((tr) => tr.classList.toggle('sel', tr.dataset.key === name));
+  if (scroll) {
+    const card = document.getElementById('carte-fiche');
+    const b = card.getBoundingClientRect();
+    if (b.top < 0 || b.top > window.innerHeight * 0.6) card.scrollIntoView({ behavior: MOTION ? 'smooth' : 'auto', block: 'start' });
+  }
+}
+
+function valoToggle(attr, set, chartId) {
+  R.querySelectorAll('[' + attr + ']').forEach((b) => b.addEventListener('click', () => {
+    set(b.getAttribute(attr));
+    R.querySelectorAll('[' + attr + ']').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    const c = charts.find((x) => x.el.id === chartId);
+    swap(c.el);
+    runChart(c);
+  }));
+}
+valoToggle('data-vscale', (v) => { vScale = v; }, 'ch-capi');
+valoToggle('data-vperf', (v) => { vPerf = v; }, 'ch-perf');
+valoToggle('data-vmult', (v) => { vMult = v; }, 'ch-mult');
+
+/* Graphiques, apparition au défilement et sommaire */
+let revealOn = false;
+const charts = [
+  { el: document.getElementById('ch-marche'), ids: ['marche'], draw: drawMarket, done: false },
+  { el: document.getElementById('ch-bom-annee'), ids: ['marche', 'faits'], draw: drawBomAn, done: false },
+  { el: document.getElementById('ch-oem'), ids: ['oem'], draw: drawOem, done: false },
+  { el: document.getElementById('bomrows'), ids: ['bom'], draw: drawBom, done: false, css: true },
+  { el: document.getElementById('mx-body'), ids: ['couches'], draw: drawMatrix, done: false, css: true },
+  { el: document.getElementById('ch-flow'), ids: ['alliances'], draw: drawFlow, done: false },
+  { el: document.getElementById('ch-capi'), ids: ['valorisations'], draw: drawCapi, done: false },
+  { el: document.getElementById('ch-perf'), ids: ['valorisations'], draw: drawPerf, done: false },
+  { el: document.getElementById('ch-mult'), ids: ['valorisations', 'valo_familles'], draw: drawMult, done: false },
+  { el: document.getElementById('valo-detail'), ids: ['valorisations', 'sources_valo'], draw: drawDetail, done: false, css: true },
+];
+function runChart(c) {
+  if (!ready(c.el, c.ids)) return;
+  const host = c.el.closest('.rv');
+  const visible = !revealOn || !host || host.classList.contains('in');
+  c.draw(MOTION && revealOn && visible && !c.done);
+  if (visible || c.css) c.done = true;
+}
+function swap(box) { box.classList.remove('swap'); void box.offsetWidth; box.classList.add('swap'); }
+R.querySelectorAll('[data-scale]').forEach((b) => b.addEventListener('click', () => {
+  mScale = b.dataset.scale;
+  R.querySelectorAll('[data-scale]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+  swap(charts[0].el);
+  runChart(charts[0]);
+}));
+R.querySelectorAll('[data-oemf]').forEach((b) => b.addEventListener('click', () => {
+  oemF = b.dataset.oemf;
+  R.querySelectorAll('[data-oemf]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+  R.querySelectorAll('.rb-oem').forEach((card) => { card.hidden = oemF !== 'Tous' && card.dataset.bloc !== oemF; });
+  swap(charts[2].el);
+  runChart(charts[2]);
+}));
+
+function reveal(el) {
+  if (el.classList.contains('in')) return;
+  el.classList.add('in');
+  el.querySelectorAll('.cu').forEach((c) => { seen.add(c); countUp(c); });
+  charts.forEach((c) => { if (!c.done && el.contains(c.el)) runChart(c); });
+}
+(function setupReveal() {
+  if (!MOTION || !('IntersectionObserver' in window)) return;
+  let io;
+  try {
+    io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }
+    }), { root: document, rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+  } catch (err) {
+    return;
+  }
+  revealOn = true;
+  R.classList.add('rv-on');
+  R.querySelectorAll('.rv').forEach((el) => io.observe(el));
+  setTimeout(() => { if (!R.querySelector('.rv.in')) R.querySelectorAll('.rv').forEach(reveal); }, 2500);
+})();
+
+function setupNav() {
+  const nav = document.getElementById('sommaire');
+  const links = [...nav.querySelectorAll('a')];
+  links.forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const el = document.getElementById(a.dataset.target);
+    if (!el) return;
+    el.scrollIntoView({ behavior: MOTION ? 'smooth' : 'auto', block: 'start' });
+    dash.setLink(a.dataset.target);
+  }));
+  if (!('IntersectionObserver' in window)) return;
+  let io;
+  try {
+    io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => {
+        const on = a.dataset.target === e.target.id;
+        a.classList.toggle('on', on);
+        if (on) nav.scrollTo({ left: Math.max(0, a.offsetLeft - 16), behavior: 'auto' });
+      });
+      dash.setLink(e.target.id);
+    }), { root: document, rootMargin: '-35% 0px -60% 0px' });
+  } catch (err) {
+    return;
+  }
+  R.querySelectorAll('#apercu, .rb-ch').forEach((s) => io.observe(s));
+}
+
+let booted = false;
+dash.onData(() => {
+  fillMarks();
+  fillBars();
+  charts.forEach(runChart);
+  drawTable();
+  drawValoTable();
+  if (!booted) {
+    booted = true;
+    R.querySelectorAll('#apercu .cu').forEach((c) => { seen.add(c); countUp(c); });
+    const named = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    if (named && R.contains(named)) { if (named.classList.contains('rv')) reveal(named); named.scrollIntoView(); }
+    setupNav();
+  }
+});
+</script>
+    <div class="rb">
+      <p class="rb-foot" id="a-propos">Dossier conçu avec Claude (Anthropic) à partir des recherches de Ludovic Labeaut. Jeux de données téléchargeables (JSON) : <a href="/dossiers/robotique-humanoide/donnees/marche.json" download>trajectoire du marché</a> · <a href="/dossiers/robotique-humanoide/donnees/projections.json" download>projections des banques</a> · <a href="/dossiers/robotique-humanoide/donnees/oem.json" download>constructeurs</a> · <a href="/dossiers/robotique-humanoide/donnees/bom.json" download>coût matériel</a> · <a href="/dossiers/robotique-humanoide/donnees/goulots.json" download>goulots d'étranglement</a> · <a href="/dossiers/robotique-humanoide/donnees/couches.json" download>chaîne de valeur</a> · <a href="/dossiers/robotique-humanoide/donnees/blocs.json" download>blocs géopolitiques</a> · <a href="/dossiers/robotique-humanoide/donnees/alliances.json" download>alliances industrielles</a> · <a href="/dossiers/robotique-humanoide/donnees/acteurs.json" download>annuaire des acteurs</a> · <a href="/dossiers/robotique-humanoide/donnees/theses.json" download>grille de lecture</a> · <a href="/dossiers/robotique-humanoide/donnees/enjeux.json" download>opportunités et menaces</a> · <a href="/dossiers/robotique-humanoide/donnees/faits.json" download>chiffres clés</a> · <a href="/dossiers/robotique-humanoide/donnees/valorisations.json" download>valorisations boursières</a> · <a href="/dossiers/robotique-humanoide/donnees/sources_valo.json" download>sources des valorisations</a>.</p>
+    </div>
+  </main>
+</body>
+</html>

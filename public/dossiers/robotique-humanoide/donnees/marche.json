@@ -1,0 +1,7 @@
+[
+  {"annee": 2024, "marche_min_mds": 0.5, "marche_max_mds": 1, "bom_min_usd": 150000, "bom_max_usd": 200000, "phase": "Prototypes & R&D", "jalon": "Démonstrateurs de laboratoire, avant la réévaluation du marché par les grandes banques."},
+  {"annee": 2026, "marche_min_mds": 2.5, "marche_max_mds": 4.2, "bom_min_usd": 45000, "bom_max_usd": 85000, "phase": "Préséries & pilotes usines", "jalon": "Point de bascule : des flottes pilotes de quelques centaines d'unités aux premières lignes d'assemblage en série."},
+  {"annee": 2030, "marche_min_mds": 15, "marche_max_mds": 30, "bom_min_usd": 25000, "bom_max_usd": 40000, "phase": "Série B2B (auto / logistique)", "jalon": "Le coût unitaire passe sous le salaire annuel d'un ouvrier posté aux États-Unis ou en Europe."},
+  {"annee": 2035, "marche_min_mds": 38, "marche_max_mds": 150, "bom_min_usd": 18000, "bom_max_usd": 25000, "phase": "Masse industrielle & tertiaire", "jalon": "Adoption industrielle généralisée : plus de 1,4 million d'unités expédiées par an (Goldman Sachs)."},
+  {"annee": 2050, "marche_min_mds": 4700, "marche_max_mds": 5000, "bom_min_usd": 12000, "bom_max_usd": 15000, "phase": "Ubiquité (industrie + foyers)", "jalon": "Basculement grand public et services : un parc approchant 1 milliard de robots (Morgan Stanley)."}
+]

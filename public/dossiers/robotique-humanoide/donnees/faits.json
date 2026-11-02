@@ -1,0 +1,23 @@
+[
+  {"id": "marche_2026", "label": "Marché mondial 2026", "valeur": "2,5–4,2 Md$", "min": 2.5, "max": 4.2, "unite": "Md$", "source": "Fourchette des estimations"},
+  {"id": "marche_2035", "label": "Marché 2035", "valeur": "38–150 Md$", "min": 38, "max": 150, "unite": "Md$", "source": "De Goldman Sachs aux scénarios offensifs"},
+  {"id": "tam_2050", "label": "Potentiel 2050", "valeur": "5 000 Md$", "min": 5000, "max": 5000, "unite": "Md$", "source": "Morgan Stanley"},
+  {"id": "parc_2050", "label": "Parc installé 2050", "valeur": "~1 Md de robots", "min": 1000000000, "max": 1000000000, "unite": "robots", "source": "Morgan Stanley"},
+  {"id": "part_chine_volumes", "label": "Volumes produits en Chine", "valeur": "~90 %", "min": 90, "max": 90, "unite": "%", "source": "Part mondiale 2025-2026"},
+  {"id": "bom_2050", "label": "Coût de revient 2050", "valeur": "12–15 k$", "min": 12000, "max": 15000, "unite": "$", "source": "BOM moyen par robot"},
+  {"id": "salaire_ouvrier", "label": "Salaire annuel d'un ouvrier posté (US/UE)", "valeur": "30 000–40 000 $", "min": 30000, "max": 40000, "unite": "$", "source": "Seuil de bascule économique"},
+  {"id": "gs_revision", "label": "Révision de la prévision de Goldman Sachs", "valeur": "six", "min": 6, "max": 6, "unite": "facteur", "source": "Goldman Sachs"},
+  {"id": "mecatronique_bom", "label": "Part des articulations et des mains dans le coût matériel", "valeur": "~60 %", "min": 60, "max": 66, "unite": "%", "source": "Près des deux tiers du BOM"},
+  {"id": "dof_robot", "label": "Degrés de liberté d'un humanoïde", "valeur": "28 à 50", "min": 28, "max": 50, "unite": "DoF", "source": "Robot type ~40 DoF"},
+  {"id": "aimants_kg", "label": "Aimants NdFeB par robot", "valeur": "2–4 kg", "min": 2, "max": 4, "unite": "kg", "source": "Presque autant qu'une voiture électrique"},
+  {"id": "chine_extraction", "label": "Extraction de terres rares contrôlée par la Chine", "valeur": "~70 %", "min": 70, "max": 70, "unite": "%", "source": "Part mondiale"},
+  {"id": "chine_aimants", "label": "Fabrication d'aimants permanents contrôlée par la Chine", "valeur": "~90 %", "min": 90, "max": 90, "unite": "%", "source": "Part mondiale"},
+  {"id": "isaac_heures", "label": "Essais virtuels accumulés dans Isaac Lab", "valeur": "10 000 h", "min": 10000, "max": 10000, "unite": "heures", "source": "En quelques heures de calcul GPU"},
+  {"id": "bom_usa_chine", "label": "Surcoût de fabrication aux États-Unis face à la Chine", "valeur": "2 à 3 fois", "min": 2, "max": 3, "unite": "facteur", "source": "Coût du BOM"},
+  {"id": "fonds_chine", "label": "Fonds robotiques d'État chinois (plus de)", "valeur": "10 Md$", "min": 10, "max": 10, "unite": "Md$", "source": "Subventions d'État"},
+  {"id": "tesla_jours", "label": "Reconversion de la ligne de Fremont pour Optimus V3", "valeur": "46 jours", "min": 46, "max": 46, "unite": "jours", "source": "Mai 2026"},
+  {"id": "parc_chine_2050", "label": "Parc chinois en 2050", "valeur": "~302 M", "min": 302, "max": 302, "unite": "millions de robots", "source": "Morgan Stanley"},
+  {"id": "parc_usa_2050", "label": "Parc américain en 2050", "valeur": "~78 M", "min": 78, "max": 78, "unite": "millions de robots", "source": "Morgan Stanley"},
+  {"id": "usage_pro_2050", "label": "Usages industriels, commerciaux et logistiques", "valeur": "90 %", "min": 90, "max": 90, "unite": "%", "source": "Morgan Stanley"},
+  {"id": "usage_foyers_2050", "label": "Foyers domestiques", "valeur": "10 %", "min": 10, "max": 10, "unite": "%", "source": "Morgan Stanley"}
+]

@@ -1,0 +1,332 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Frontier, non-frontier et open weights : qui détient réellement la puissance scientifique ?</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="En septembre et octobre 2026, quatre annonces se sont succédé : Claude Fable 5.1 et Mythos 5.1 chez Anthropic, GPT-6 Astra chez OpenAI, Gemini 4 Argon chez Google, Mistral Large 4 chez Mistral AI. Chacune revendique des capacités scientifiques inédites. Mais la puissance scientifique ne se résume pas au score d'un modèle sur un test. Elle dépend de trois ressources très inégalement réparties : le calcul nécessaire pour entraîner les modèles, les données et outils qui les rendent utiles, et, de plus en plus, le droit d'y accéder. Cet article cartographie ces trois pouvoirs et ce qu'ils signifient pour la recherche française et européenne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/10-frontier-non-frontier-et-open-weights">
+<link rel="alternate" hreflang="en" href="/en/publications/10-frontier-non-frontier-et-open-weights">
+<link rel="alternate" hreflang="x-default" href="/publications/10-frontier-non-frontier-et-open-weights">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Langue">
+  <a href="/publications/10-frontier-non-frontier-et-open-weights" hreflang="fr" lang="fr" translate="no" aria-label="Français" aria-current="page">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/10-frontier-non-frontier-et-open-weights" hreflang="en" lang="en" translate="no" aria-label="English">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Enregistrer en PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Série « L'IA à la conquête du savoir »</small></div><div class="issue"><b>IA &amp; science · Note n°10</b><br>8 octobre 2026</div></div>
+<div class="kicker">IA &amp; science · Article 1 sur 8</div>
+<h1>Frontier, non-frontier et open weights : qui détient réellement la puissance scientifique ?</h1>
+<p class="standfirst">En septembre et octobre 2026, quatre annonces se sont succédé : Claude Fable 5.1 et Mythos 5.1 chez Anthropic, GPT-6 Astra chez OpenAI, Gemini 4 Argon chez Google, Mistral Large 4 chez Mistral AI. Chacune revendique des capacités scientifiques inédites. Mais la puissance scientifique ne se résume pas au score d&#39;un modèle sur un test. Elle dépend de trois ressources très inégalement réparties : le calcul nécessaire pour entraîner les modèles, les données et outils qui les rendent utiles, et, de plus en plus, le droit d&#39;y accéder. Cet article cartographie ces trois pouvoirs et ce qu&#39;ils signifient pour la recherche française et européenne.</p>
+<div class="byline"><span>Par <b>Ludovic Labeaut</b></span><span>Lecture : 9 min</span><span>État des connaissances au 8 octobre 2026</span></div>
+<h2><span class="n">01</span>Problématique</h2>
+<p>On oppose souvent les modèles « frontier », fermés et très puissants, aux modèles « open weights », dont les paramètres sont téléchargeables. Cette opposition est utile mais incomplète. En 2026, une troisième frontière est apparue : la frontière de l&#39;accès. Le modèle le plus capable d&#39;Anthropic pour la biologie n&#39;est ouvert qu&#39;à des organisations américaines vérifiées ; celui de Google n&#39;est distribué qu&#39;à des « cyberdéfenseurs de confiance ». La question devient donc : un laboratoire de l&#39;Inserm ou du CNRS peut-il utiliser les meilleurs outils, dans quelles conditions, et avec quelle dépendance ?</p>
+
+<h2><span class="n">02</span>Explication technique accessible</h2>
+<h3 class="sub">Trois familles de modèles</h3><table class="data">
+<thead>
+<tr>
+<th>Famille</th>
+<th>Définition</th>
+<th>Exemples (octobre 2026)</th>
+<th>Ce que l&#39;utilisateur contrôle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Frontier fermé</td>
+<td>Modèle à la pointe des capacités, accessible seulement par API ou application</td>
+<td>Claude Fable 5.1, GPT-6 Astra, Gemini 4 Argon</td>
+<td>Les requêtes envoyées, pas le modèle</td>
+</tr>
+<tr>
+<td>Open weights généraliste</td>
+<td>Paramètres publiés, exécutables sur ses propres machines</td>
+<td>Mistral Large 4 (poids annoncés, pas encore publiés) ; modèles chinois cités par Mistral comme points de comparaison (DeepSeek V4 Pro, Qwen3.8 Max, Kimi K3, GLM-5.3)</td>
+<td>Le modèle, son hébergement, son ajustement</td>
+</tr>
+<tr>
+<td>Modèle scientifique spécialisé</td>
+<td>Entraîné sur un type de données précis (protéines, génomes, cristaux)</td>
+<td>AlphaFold 3, OpenFold3, Boltz-2, Evo 2</td>
+<td>Selon la licence</td>
+</tr>
+</tbody></table>
+<p>Quelques définitions. Les « paramètres » ou « poids » sont les nombres qui encodent ce que le modèle a appris. Un modèle « à mélange d&#39;experts » (MoE, mixture of experts) n&#39;active qu&#39;une partie de ses paramètres pour chaque mot traité : Mistral Large 4 annonce 1 000 milliards de paramètres au total, dont 52 milliards actifs (<a href="https://mistral.ai/news/mistral-large-4/">Mistral AI</a>) ; SiliconANGLE écrit 49 milliards (<a href="https://siliconangle.com/2026/10/06/mistral-launches-open-source-mistral-large-4-details-ai-roadmap/">SiliconANGLE</a>), écart non expliqué à ce stade. « Open weights » ne veut pas dire « open source » : les données d&#39;entraînement et le code ne sont pas forcément publiés.</p>
+<h3 class="sub">Le droit européen a sa propre définition de la « frontière »</h3><p>Le règlement européen sur l&#39;IA (AI Act) ne parle pas de « frontier » mais de modèles d&#39;IA à usage général « à risque systémique ». Le seuil de présomption est une puissance de calcul d&#39;entraînement supérieure à 10^25 opérations en virgule flottante ; les obligations pour ces modèles s&#39;appliquent depuis le 2 août 2025 (<a href="https://digital-strategy.ec.europa.eu/en/factpages/general-purpose-ai-obligations-under-ai-act">Commission européenne</a>). Ce critère technique ne dit rien de l&#39;utilité scientifique d&#39;un modèle, mais il détermine ses obligations de documentation et d&#39;évaluation.</p>
+<h3 class="sub">Trois ressources qui font la puissance</h3><ol>
+<li>Le calcul d&#39;entraînement. GPT-6 Astra aurait été pré-entraîné sur plus de 100 000 GPU dans le centre Stargate au Texas, selon <a href="https://en.wikipedia.org/wiki/GPT-6_Astra">Wikipédia</a> (source secondaire, information non confirmée par OpenAI dans les documents consultés). Mistral indique avoir entraîné Large 4 sur 3 800 GPU Grace Blackwell dans ses propres centres européens (<a href="https://mistral.ai/news/mistral-large-4/">Mistral AI</a>). L&#39;écart d&#39;échelle est d&#39;au moins un ordre de grandeur.</li>
+<li>Les données et outils. Un modèle généraliste brillant reste aveugle sans accès à des bases de données, à des simulateurs et à des instruments. C&#39;est l&#39;objet de l&#39;article 2.</li>
+<li>L&#39;accès. C&#39;est la nouveauté de 2026, détaillée ci-dessous.</li>
+</ol>
+
+<h2><span class="n">03</span>Cas d&#39;usage documentés</h2>
+<h3 class="sub">Anthropic : un même modèle, deux régimes d&#39;accès</h3><p>Selon <a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>, Claude Fable 5.1 et Claude Mythos 5.1 sont le même modèle sous-jacent, avec des garde-fous différents. Fable est commercialisé largement (10 dollars par million de jetons en entrée, 50 en sortie). Mythos n&#39;est accessible que via des programmes vérifiés : un programme pour la cybersécurité et un « Life Sciences Verification Program » construit avec le gouvernement américain. L&#39;entreprise précise que Mythos 5.1 n&#39;est « actuellement disponible que pour un ensemble d&#39;organisations américaines ». En biologie, Fable bloque les requêtes professionnelles liées au développement de médicaments, et les chercheurs en biologie et chimie restent limités aux modèles de classe Opus (<a href="https://www.anthropic.com/news/expanding-support-for-scientists">Anthropic, 27 août 2026</a>).</p>
+<p>Cette architecture d&#39;accès a déjà été bousculée. Après l&#39;annonce de Fable 5 et Mythos 5 en juin 2026, l&#39;accès a été suspendu du 12 juin au 1er juillet à la suite de contrôles à l&#39;export américains concernant des ressortissants étrangers, puis rétabli (<a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews</a>). Pour un laboratoire européen, l&#39;accès au meilleur outil dépend donc d&#39;une décision prise à Washington.</p>
+<p>Côté capacités, Anthropic revendique pour Fable 5.1 un score de 52,6 % sur Terminal-Bench-Science 0.1 (contre 24,7 % pour Fable 5, dans sa propre reproduction), avec une erreur standard de 3,5 à 4,5 points (<a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>). Il s&#39;agit d&#39;un benchmark public, mais mesuré par l&#39;entreprise : niveau BI.</p>
+<h3 class="sub">OpenAI : la puissance par la distribution</h3><p><a href="https://openai.com/index/gpt-6-astra-next-generation-work/">OpenAI</a> présente GPT-6 Astra comme un modèle de travail disponible dans ChatGPT Work, Codex et l&#39;API, au même prix que Fable 5.1. L&#39;entreprise indique qu&#39;il est le premier modèle à atteindre le seuil « Critical » en cybersécurité de son Preparedness Framework, et que la non-conservation des données (zero data retention) est possible sur approbation. Le modèle est aussi distribué par Amazon Bedrock (<a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html">AWS</a>). OpenAI ajoute un levier d&#39;adoption : 100 000 accès gratuits pour des chercheurs académiques jusqu&#39;en 2027, dont des premiers accès à l&#39;IAS de Princeton et à l&#39;École normale supérieure ; plus de 13 000 candidatures avaient été reçues au 10 août 2026 (<a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI</a>).</p>
+<p>Point important : les résultats mathématiques les plus spectaculaires d&#39;OpenAI (Navier–Stokes, 722 manuscrits) proviennent d&#39;un modèle interne non commercialisé. Le modèle le plus puissant n&#39;est pas celui que les chercheurs peuvent utiliser (voir article 5).</p>
+<h3 class="sub">Google : diffusion par paliers</h3><p><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Google</a> a annoncé Gemini 4 Argon le 30 septembre 2026, distribué d&#39;abord à des cyberdéfenseurs sélectionnés (programme Fairwind), avant une ouverture plus large non datée. Prix d&#39;introduction : 2 dollars en entrée, 10 en sortie. L&#39;entreprise revendique, en interne, l&#39;optimisation d&#39;un sous-programme d&#39;algorithme quantique dépassant de 40 % la référence publiée (niveau BI).</p>
+<h3 class="sub">Mistral : l&#39;ouverture promise, pas encore livrée</h3><p><a href="https://mistral.ai/news/mistral-large-4/">Mistral AI</a> a lancé le 6 octobre 2026 une préversion de Large 4 par API, avec publication des poids prévue « d&#39;ici la fin du mois ». L&#39;entreprise revendique l&#39;état de l&#39;art parmi les modèles ouverts sur SciCode-Verified (implémentation de calculs scientifiques en code) et une exécution possible sur cloud privé ou sur site. Prix : 1,36 dollar en entrée et 4,18 en sortie par million de jetons, selon <a href="https://siliconangle.com/2026/10/06/mistral-launches-open-source-mistral-large-4-details-ai-roadmap/">SiliconANGLE</a>. Elle reconnaît rester en retrait des modèles frontier sur le code. Le financement suit : levée de 3 milliards d&#39;euros en série D en septembre 2026, valorisation supérieure à 21 milliards (<a href="https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/">TechCrunch</a>).</p>
+<h3 class="sub">Les modèles scientifiques spécialisés : l&#39;autre ouverture</h3><p>L&#39;ouverture la plus utile à la science ne vient pas toujours des grands modèles de langage :</p>
+<ul>
+<li>AlphaFold 3 : code et poids publiés en novembre 2024 pour un usage académique, non commercial (<a href="https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/">Google</a>).</li>
+<li>OpenFold3 : reproduction ouverte d&#39;AlphaFold 3 sous licence Apache 2.0, avec publication des données d&#39;entraînement ; performances « compétitives » revendiquées par le consortium, faiblesse reconnue sur les complexes anticorps–antigène (<a href="https://www.businesswire.com/news/home/20260313170622/en/OpenFold-Consortium-Announces-Major-OpenFold3-Update-and-Public-Release-of-Training-Data-for-Reproducible-Biomolecular-AI">OpenFold Consortium</a>).</li>
+<li>Boltz-2 (MIT et Recursion) : modèle ouvert prédisant structures et affinités de liaison ; publié en prépublication (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12262699/">PMC</a>).</li>
+<li>Evo 2 (Arc Institute, NVIDIA et universités) : modèle génomique ouvert, publié dans Nature en 2026 (<a href="https://arcinstitute.org/news/evo-2-one-year-later">Arc Institute</a>).</li>
+</ul>
+<p>Le sondage de Nature auprès de 1 907 chercheurs, publié en juin 2026, indique que les modèles conçus pour des tâches scientifiques précises sont plus populaires que les grands modèles généralistes (<a href="https://www.nature.com/articles/d41586-026-01690-7">Nature</a>).</p>
+
+<h2><span class="n">04</span>Ce qui a réellement été démontré</h2>
+<table class="data">
+<thead>
+<tr>
+<th>Affirmation</th>
+<th>Niveau de preuve</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Les modèles frontier progressent rapidement sur des tests scientifiques (Terminal-Bench-Science, HLE)</td>
+<td>BI</td>
+<td>Mesures par les éditeurs, protocoles non harmonisés</td>
+</tr>
+<tr>
+<td>Des modèles spécialisés ouverts égalent ou approchent des modèles fermés sur certaines tâches (OpenFold3 vs AlphaFold 3)</td>
+<td>BI / PP</td>
+<td>Revendiqué par le consortium, à confirmer par des évaluations tierces</td>
+</tr>
+<tr>
+<td>L&#39;accès aux modèles les plus capables est restreint par pays et par profil</td>
+<td>Fait documenté</td>
+<td>Pages officielles d&#39;Anthropic et Google</td>
+</tr>
+<tr>
+<td>Evo 2 et AlphaFold 3 sont des outils scientifiques publiés et évalués</td>
+<td>P</td>
+<td>Nature 2024 et 2026</td>
+</tr>
+</tbody></table>
+
+<h2><span class="n">05</span>Ce qui reste incertain</h2>
+<ul>
+<li>Le classement réel des modèles sur des tâches scientifiques : les scores Terminal-Bench 4.0 publiés par Anthropic (Mythos 5.1 : 60,9 % ; Fable 5.1 : 55,8 %) et par OpenAI (Astra : 57,9 %) proviennent de mesures internes distinctes (<a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a>, <a href="https://openai.com/index/gpt-6-astra-next-generation-work/">OpenAI</a>). Les comparer directement relève de l&#39;approximation.</li>
+<li>La date effective et la licence des poids de Mistral Large 4 : information non confirmée au 8 octobre 2026.</li>
+<li>L&#39;ouverture de Mythos 5.1 à des partenaires internationaux : Anthropic dit y travailler avec le gouvernement américain, sans calendrier.</li>
+<li>La taille réelle des moyens d&#39;entraînement des concurrents : rarement publiée de façon vérifiable.</li>
+</ul>
+
+<h2><span class="n">06</span>Architecture opérationnelle : où se situe le pouvoir</h2>
+<figure class="schema"><div class="schema__art"> ENTRAÎNEMENT                 DISTRIBUTION                  USAGE SCIENTIFIQUE
+ (qui a le calcul ?)          (qui a le droit d'accès ?)    (qui contrôle les données ?)
+
+ 100 000+ GPU (US)  ──►  API publique (Fable, Astra) ──► Labo : requêtes envoyées
+                     ──►  Accès vérifié (Mythos, Argon)    au fournisseur
+                     ──►  Modèle interne non diffusé
+                          (preuves mathématiques)
+ 3 800 GPU (UE)     ──►  API + poids promis (ML4)  ──► Labo : modèle hébergé
+                                                         sur HPC ou cloud souverain
+ Consortiums        ──►  Poids + données ouverts   ──► Labo : contrôle complet,
+ (OpenFold, Arc)          (OpenFold3, Evo 2)              réentraînement possible</div></figure><p>Lecture : plus on descend, plus le chercheur gagne en contrôle et en reproductibilité, et plus il perd en capacité brute.</p>
+
+<h2><span class="n">07</span>Enjeux économiques, industriels, publics et géopolitiques</h2>
+<p>Économiquement, l&#39;écart de prix entre modèles fermés et ouverts reste net : environ sept fois moins cher en entrée pour Mistral Large 4 que pour Fable 5.1 ou Astra, selon les tarifs publiés. Pour un laboratoire qui lance des milliers d&#39;agents, ce facteur compte autant que la qualité.</p>
+<p>Industriellement, la France dispose d&#39;un acteur capable d&#39;entraîner un grand modèle sur son sol. Mistral finance un centre à Bruyères-le-Châtel (Essonne), avec plus de 13 800 GPU GB300 et 44 mégawatts, financé par 830 millions de dollars de dette ; l&#39;entreprise vise 200 mégawatts en Europe fin 2027 (<a href="https://www.numerama.com/tech/2221393-830-millions-de-dollars-limmense-data-center-de-mistral-aux-portes-de-paris-prend-forme.html">Numerama</a>). Elle reste dépendante des puces NVIDIA, faute d&#39;alternative européenne.</p>
+<p>Géopolitiquement, l&#39;accès devient un instrument de politique publique. Les restrictions de Mythos 5.1 et la suspension de juin 2026 montrent qu&#39;un chercheur européen peut perdre l&#39;accès à un outil en quelques jours. Les modèles ouverts, européens ou non, offrent une assurance contre ce risque, mais posent la question du double usage : des chercheurs de Microsoft ont montré que des outils ouverts de conception de protéines pouvaient « paraphraser » des toxines pour échapper aux filtres de synthèse d&#39;ADN (<a href="https://cen.acs.org/policy/chemical-weapons/AI-tools-design-harmful-proteins/103/web/2025/10">C&amp;EN</a>, étude publiée dans Science en 2025). L&#39;équipe d&#39;Evo 2 a d&#39;ailleurs exclu les virus eucaryotes des données d&#39;entraînement (<a href="https://arcinstitute.org/news/evo-2-one-year-later">Arc Institute</a>).</p>
+<p>Pour la France et l&#39;Europe, trois implications :</p>
+<ol>
+<li>Disposer de modèles ouverts compétitifs hébergeables sur Jean Zay, Alice Recoque ou un cloud qualifié SecNumCloud (article 6).</li>
+<li>Négocier collectivement l&#39;accès aux modèles fermés, plutôt que laboratoire par laboratoire.</li>
+<li>Investir dans les modèles spécialisés ouverts et leurs données, là où l&#39;écart avec les géants est le plus faible.</li>
+</ol>
+
+<div class="encadre"><div class="tag">Encadré</div><h4>Ce qu&#39;il ne faut pas confondre</h4><table class="data">
+<thead>
+<tr>
+<th>On lit</th>
+<th>Ce que cela signifie vraiment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>« Modèle open source »</td>
+<td>Souvent « poids ouverts » seulement ; données et code d&#39;entraînement rarement publiés</td>
+</tr>
+<tr>
+<td>« Poids disponibles »</td>
+<td>Pour Mistral Large 4, annoncés, pas encore publiés au 8 octobre 2026</td>
+</tr>
+<tr>
+<td>« Le meilleur modèle scientifique »</td>
+<td>Le meilleur score sur un test choisi et mesuré par l&#39;éditeur</td>
+</tr>
+<tr>
+<td>« Disponible »</td>
+<td>Parfois réservé à des organisations vérifiées d&#39;un seul pays</td>
+</tr>
+<tr>
+<td>« Modèle frontier »</td>
+<td>Notion commerciale ; l&#39;AI Act retient un seuil de calcul (10^25 FLOP)</td>
+</tr>
+<tr>
+<td>« Le modèle a résolu… »</td>
+<td>Souvent un modèle interne non diffusé, avec des milliers d&#39;agents et un budget non public</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">08</span>Conclusion</h2>
+<p>La puissance scientifique des IA ne se lit pas dans un classement. Elle se distribue entre ceux qui ont le calcul (quelques entreprises américaines), ceux qui décident de l&#39;accès (ces mêmes entreprises, sous contrôle de l&#39;État américain) et ceux qui maîtrisent les données et les outils de leur discipline. L&#39;Europe est en retard sur le premier point, dépendante sur le second, mais compétitive sur le troisième. Les modèles ouverts, généralistes comme spécialisés, ne sont pas une solution de repli : ce sont des infrastructures de reproductibilité. La suite de la série montre pourquoi cette reproductibilité compte davantage que la puissance brute.</p>
+
+<div class="sources"><h3>Bibliographie commentée</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Apport</th>
+<th>Fiabilité</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic — Claude Fable 5.1 et Mythos 5.1</a></td>
+<td>Régimes d&#39;accès, benchmarks, restrictions géographiques</td>
+<td>B — fiable sur les conditions d&#39;accès, déclaratif sur les performances</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/expanding-support-for-scientists">Anthropic — Expanding support for scientists</a></td>
+<td>Limites en biologie, programmes académiques</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.mobihealthnews.com/news/anthropic-debuts-claude-science-renews-access-fable-5-mythos-5">MobiHealthNews — suspension et rétablissement de l&#39;accès</a></td>
+<td>Chronologie juin–juillet 2026</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://openai.com/index/gpt-6-astra-next-generation-work/">OpenAI — GPT-6 Astra</a></td>
+<td>Distribution, seuil cyber « Critical »</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI — ChatGPT for Academic Researchers</a></td>
+<td>Programme d&#39;accès gratuit, ENS et IAS</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html">AWS — fiche GPT-6 Astra sur Bedrock</a></td>
+<td>Distribution par cloud public</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/GPT-6_Astra">Wikipédia — GPT-6 Astra</a></td>
+<td>Infrastructure d&#39;entraînement (Stargate)</td>
+<td>D — à recouper</td>
+</tr>
+<tr>
+<td><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Google — Gemini 4 Argon</a></td>
+<td>Diffusion par paliers, prix</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://mistral.ai/news/mistral-large-4/">Mistral AI — Mistral Large 4</a></td>
+<td>Architecture, calendrier des poids, déploiement</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://siliconangle.com/2026/10/06/mistral-launches-open-source-mistral-large-4-details-ai-roadmap/">SiliconANGLE — Mistral Large 4</a></td>
+<td>Prix, divergence sur les paramètres actifs</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/">TechCrunch — série D de Mistral</a></td>
+<td>Financement</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.numerama.com/tech/2221393-830-millions-de-dollars-limmense-data-center-de-mistral-aux-portes-de-paris-prend-forme.html">Numerama — centre de Bruyères-le-Châtel</a></td>
+<td>Capacités, financement bancaire, dépendance NVIDIA</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://digital-strategy.ec.europa.eu/en/factpages/general-purpose-ai-obligations-under-ai-act">Commission européenne — obligations GPAI</a></td>
+<td>Seuil de 10^25 FLOP, calendrier</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/">Google — AlphaFold 3 (mise à jour nov. 2024)</a></td>
+<td>Publication des poids pour la recherche</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.businesswire.com/news/home/20260313170622/en/OpenFold-Consortium-Announces-Major-OpenFold3-Update-and-Public-Release-of-Training-Data-for-Reproducible-Biomolecular-AI">OpenFold Consortium — OpenFold3</a></td>
+<td>Modèle et données ouverts</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12262699/">Boltz-2 — prépublication</a></td>
+<td>Modèle ouvert structure + affinité</td>
+<td>PP, B</td>
+</tr>
+<tr>
+<td><a href="https://arcinstitute.org/news/evo-2-one-year-later">Arc Institute — Evo 2, un an après</a></td>
+<td>Publication Nature, exclusions de biosécurité</td>
+<td>B (renvoie à une publication A)</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/d41586-026-01690-7">Nature — sondage auprès de 1 907 chercheurs</a></td>
+<td>Usages réels, préférence pour les outils spécialisés</td>
+<td>C — sondage non probabiliste</td>
+</tr>
+<tr>
+<td><a href="https://cen.acs.org/policy/chemical-weapons/AI-tools-design-harmful-proteins/103/web/2025/10">C&amp;EN — Paraphrase Project</a></td>
+<td>Double usage des outils ouverts</td>
+<td>C (renvoie à Science, A)</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Série « L'IA à la conquête du savoir »">
+<p class="serie-nav__label">Série « L'IA à la conquête du savoir » · Article 1 sur 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__next" href="/publications/11-du-chatbot-au-co-scientifique"><span>Article suivant →</span><b>Du chatbot au co-scientifique : comment fonctionnent les systèmes IA de découverte</b></a></div>
+<ol class="serie-nav__list"><li><a href="/publications/10-frontier-non-frontier-et-open-weights" aria-current="page">Frontier, non-frontier et open weights : qui détient réellement la puissance scientifique ?</a></li><li><a href="/publications/11-du-chatbot-au-co-scientifique">Du chatbot au co-scientifique : comment fonctionnent les systèmes IA de découverte</a></li><li><a href="/publications/12-chimie-materiaux-et-energie">Chimie, matériaux et énergie : prédire, synthétiser et valider avec les laboratoires autonomes</a></li><li><a href="/publications/13-medecine-biologie-et-medicaments">Médecine, biologie et médicaments : accélérer la découverte sans confondre hypothèse, préclinique et clinique</a></li><li><a href="/publications/14-mathematiques-physique-et-informatique">Mathématiques, physique et informatique : peut-on parler de percée lorsque l'IA trouve un algorithme ou pilote une expérience ?</a></li><li><a href="/publications/15-deployer-l-ia-scientifique">Déployer l'IA scientifique : API, cloud, VPC, on-premise, HPC, GPU, gouvernance et sécurité</a></li><li><a href="/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">États, Big Tech, universités et industrie : la nouvelle géopolitique de l'IA pour la science</a></li><li><a href="/publications/17-le-chercheur-augmente">Le chercheur augmenté : nouveaux métiers, risques, reproductibilité, éthique et scénarios à 5–10 ans</a></li></ol>
+</nav>
+<div class="disclaimer">Analyse personnelle fondée sur des sources publiques. Elle n'engage que son auteur et ne constitue ni un conseil en investissement ni une recommandation.</div>
+</body></html>

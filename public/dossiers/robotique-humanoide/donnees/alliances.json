@@ -1,0 +1,10 @@
+[
+  {"client": "BMW", "robot": "Figure AI", "secteur": "Automobile", "relation": "Déploiements pilotes commerciaux de Figure 03 en usine."},
+  {"client": "Mercedes-Benz", "robot": "Apptronik", "secteur": "Automobile", "relation": "Constructeur partenaire : investisseur, méthodes d'industrialisation et client captif."},
+  {"client": "Hyundai", "robot": "Boston Dynamics", "secteur": "Automobile", "relation": "Le groupe Hyundai porte Boston Dynamics."},
+  {"client": "BYD / Nio / Geely", "robot": "UBTECH", "secteur": "Automobile", "relation": "Walker S2 déployés chez les constructeurs automobiles chinois."},
+  {"client": "BYD / Nio / Geely", "robot": "AgiBot", "secteur": "Automobile", "relation": "Constructeurs chinois partenaires : investisseurs et premiers clients."},
+  {"client": "Tesla", "robot": "Optimus", "secteur": "Automobile", "relation": "Développement intégré : Optimus déployé dans les usines Tesla."},
+  {"client": "GXO Logistics", "robot": "Agility Robotics", "secteur": "Logistique", "relation": "Location de robots Digit à l'heure travaillée (Robot-as-a-Service)."},
+  {"client": "Schaeffler", "robot": "Agility Robotics", "secteur": "Équipementier", "relation": "Double rôle : fournisseur de rang 1 et client, avec des Digit déployés dans ses usines pour tester ses composants."}
+]

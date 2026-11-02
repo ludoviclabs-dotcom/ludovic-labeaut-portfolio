@@ -1,0 +1,6 @@
+[
+  {"institution": "Consensus des estimations", "horizon": 2030, "fourchette": "15–30 Md$", "min_mds": 15, "max_mds": 30, "perimetre": "Déploiement B2B industriel et logistique", "detail": "Porté par un coût unitaire qui passe sous le salaire annuel d'un ouvrier posté aux États-Unis ou en Europe."},
+  {"institution": "Goldman Sachs", "horizon": 2035, "fourchette": "38 Md$", "min_mds": 38, "max_mds": 38, "perimetre": "Robots humanoïdes", "detail": "Prévision initiale multipliée par six ; plus de 1,4 million d'unités expédiées par an."},
+  {"institution": "Bank of America / Citi", "horizon": 2035, "fourchette": "100–250 Md$", "min_mds": 100, "max_mds": 250, "perimetre": "Robots et services logiciels associés", "detail": "Scénarios offensifs qui intègrent les revenus logiciels."},
+  {"institution": "Morgan Stanley", "horizon": 2050, "fourchette": "5 000 Md$", "min_mds": 5000, "max_mds": 5000, "perimetre": "Marché potentiel total", "detail": "Parc approchant 1 milliard d'humanoïdes : 90 % industrie, commerce et logistique, 10 % foyers."}
+]

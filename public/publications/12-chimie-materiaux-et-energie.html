@@ -1,0 +1,358 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Chimie, matériaux et énergie : prédire, synthétiser et valider avec les laboratoires autonomes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="Fin 2023, deux articles de Nature ont marqué les esprits : Google DeepMind annonçait 2,2 millions de cristaux prédits, dont 380 000 stables, et le laboratoire robotisé A-Lab de Berkeley disait avoir synthétisé 41 nouveaux composés en 17 jours. Trois ans plus tard, ces travaux restent des jalons, mais aussi des cas d'école de controverse : des chimistes du solide contestent la nouveauté de nombreux matériaux et la qualité des analyses automatiques. Entre-temps, les « laboratoires autonomes » se sont multipliés, financés par des start-up, des États et des géants du cloud. Que vaut une prédiction de matériau tant qu'elle n'a pas été fabriquée, caractérisée et utilisée ?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/12-chimie-materiaux-et-energie">
+<link rel="alternate" hreflang="en" href="/en/publications/12-chimie-materiaux-et-energie">
+<link rel="alternate" hreflang="x-default" href="/publications/12-chimie-materiaux-et-energie">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Langue">
+  <a href="/publications/12-chimie-materiaux-et-energie" hreflang="fr" lang="fr" translate="no" aria-label="Français" aria-current="page">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/12-chimie-materiaux-et-energie" hreflang="en" lang="en" translate="no" aria-label="English">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Enregistrer en PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Série « L'IA à la conquête du savoir »</small></div><div class="issue"><b>IA &amp; science · Note n°12</b><br>8 octobre 2026</div></div>
+<div class="kicker">IA &amp; science · Article 3 sur 8</div>
+<h1>Chimie, matériaux et énergie : prédire, synthétiser et valider avec les laboratoires autonomes</h1>
+<p class="standfirst">Fin 2023, deux articles de Nature ont marqué les esprits : Google DeepMind annonçait 2,2 millions de cristaux prédits, dont 380 000 stables, et le laboratoire robotisé A-Lab de Berkeley disait avoir synthétisé 41 nouveaux composés en 17 jours. Trois ans plus tard, ces travaux restent des jalons, mais aussi des cas d&#39;école de controverse : des chimistes du solide contestent la nouveauté de nombreux matériaux et la qualité des analyses automatiques. Entre-temps, les « laboratoires autonomes » se sont multipliés, financés par des start-up, des États et des géants du cloud. Que vaut une prédiction de matériau tant qu&#39;elle n&#39;a pas été fabriquée, caractérisée et utilisée ?</p>
+<div class="byline"><span>Par <b>Ludovic Labeaut</b></span><span>Lecture : 9 min</span><span>État des connaissances au 8 octobre 2026</span></div>
+<h2><span class="n">01</span>Problématique</h2>
+<p>En science des matériaux, le chemin entre une idée et un produit compte au moins quatre étapes : prédire qu&#39;un composé est stable, le synthétiser, vérifier qu&#39;on a bien obtenu ce composé, puis démontrer qu&#39;il a une propriété utile, à une échelle industrielle. L&#39;IA a accéléré massivement la première étape. La question est de savoir si elle accélère aussi les trois suivantes, et à quel prix pour la rigueur.</p>
+
+<h2><span class="n">02</span>Explication technique accessible</h2>
+<h3 class="sub">Les outils de base</h3><table class="data">
+<thead>
+<tr>
+<th>Terme</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DFT (théorie de la fonctionnelle de la densité)</td>
+<td>Méthode de calcul quantique qui estime l&#39;énergie d&#39;un arrangement d&#39;atomes ; coûteuse mais standard</td>
+</tr>
+<tr>
+<td>Enveloppe convexe</td>
+<td>Frontière des composés énergétiquement stables : un matériau « sous l&#39;enveloppe » ne devrait pas se décomposer spontanément</td>
+</tr>
+<tr>
+<td>Réseau de neurones sur graphes</td>
+<td>Modèle qui représente un cristal comme un graphe d&#39;atomes reliés, pour prédire sa stabilité bien plus vite que la DFT</td>
+</tr>
+<tr>
+<td>Modèle génératif</td>
+<td>Modèle qui propose directement de nouvelles structures ayant des propriétés visées</td>
+</tr>
+<tr>
+<td>Diffraction des rayons X (DRX)</td>
+<td>Technique qui identifie la structure cristalline d&#39;une poudre à partir de son motif de diffraction</td>
+</tr>
+<tr>
+<td>Affinement de Rietveld</td>
+<td>Méthode d&#39;ajustement du motif de DRX pour déterminer la composition exacte d&#39;un échantillon</td>
+</tr>
+<tr>
+<td>Laboratoire autonome (self-driving lab)</td>
+<td>Laboratoire où un logiciel choisit l&#39;expérience suivante à partir des résultats précédents et des robots l&#39;exécutent</td>
+</tr>
+</tbody></table>
+<h3 class="sub">La boucle de découverte</h3><p>Periodic Labs, start-up américaine, résume bien la boucle visée : formuler une cible à partir de prédictions de stabilité et de propriétés, prédire comment la synthétiser, puis déterminer ce qui a réellement été fabriqué et si cela possède les propriétés voulues (<a href="https://periodic.com/news/building-labs-that-learn">Periodic Labs</a>). La troisième étape, la caractérisation, est la plus négligée dans les annonces et la plus critiquée par les spécialistes.</p>
+
+<h2><span class="n">03</span>Cas d&#39;usage documentés</h2>
+<h3 class="sub">GNoME : la prédiction à grande échelle</h3><p>Selon <a href="https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/">Google DeepMind</a> (29 novembre 2023), GNoME, un réseau de neurones sur graphes entraîné sur les données du Materials Project, a proposé 2,2 millions de nouveaux cristaux, dont 380 000 sur l&#39;enveloppe convexe finale, après vérification par DFT. L&#39;entreprise indique que 736 de ces structures ont été réalisées expérimentalement par des équipes extérieures. Niveau : P pour la méthode de prédiction (Nature), BI pour l&#39;interprétation (« 800 ans de connaissances »).</p>
+<p>Critique : Anthony Cheetham et Ram Seshadri (UC Santa Barbara) ont examiné un échantillon aléatoire de ces structures dans Chemistry of Materials (2024) et mis en doute la nouveauté et l&#39;utilité de nombreuses entrées (<a href="https://www.404media.co/google-says-it-discovered-millions-of-new-materials-with-ai-human-researchers/">404 Media</a>). Le débat porte moins sur les calculs que sur ce qu&#39;il faut appeler « nouveau matériau ».</p>
+<h3 class="sub">A-Lab : la synthèse robotisée et sa contestation</h3><p>L&#39;article de <a href="https://www.nature.com/articles/s41586-023-06734-w">Nature</a> (novembre 2023) rapporte que l&#39;A-Lab du Lawrence Berkeley National Laboratory a obtenu 41 des 58 cibles en 17 jours et 355 expériences. Détails souvent omis : 35 des 41 succès utilisaient des recettes inspirées de la littérature ; seules 37 % des 355 recettes ont produit leur cible ; la cinétique lente explique 11 des 17 échecs, et l&#39;algorithme ne savait ni rebroyer ni chauffer plus longtemps.</p>
+<p>En mars 2024, Josh Leeman, Leslie Schoop (Princeton), Robert Palgrave (University College London) et leurs collègues ont publié une réanalyse dans <a href="https://link.aps.org/doi/10.1103/PRXEnergy.3.011002">PRX Energy</a>. Selon <a href="https://www.chemistryworld.com/news/new-analysis-raises-doubts-over-autonomous-labs-materials-discoveries/4018791.article">Chemistry World</a>, ils reprochent au système d&#39;ignorer le désordre compositionnel : d&#39;après Palgrave, « deux tiers de leurs prédictions étaient simplement des versions ordonnées de composés déjà connus comme désordonnés ». Ils critiquent aussi l&#39;affinement de Rietveld automatisé. Conclusion de Palgrave : « il est probable qu&#39;ils n&#39;aient fait aucune découverte ». Gerbrand Ceder, responsable du projet, a répondu en publiant des données supplémentaires qu&#39;il juge confirmer les synthèses. Susan Latturner (Florida State University) estime qu&#39;il faut encore « un humain compétent » pour déterminer ce qui a réellement été fabriqué.</p>
+<p>Ce débat ne disqualifie pas l&#39;automatisation de la synthèse, qui fonctionne. Il montre que l&#39;étape d&#39;interprétation, confiée à l&#39;IA, était le maillon faible.</p>
+<h3 class="sub">MatterGen : générer plutôt que filtrer</h3><p>Microsoft Research a publié MatterGen dans Nature en janvier 2025 (doi <a href="https://doi.org/10.1038/s41586-025-08628-5">10.1038/s41586-025-08628-5</a>) : un modèle génératif qui propose des structures inorganiques selon des propriétés visées (composition, symétrie, propriétés mécaniques ou magnétiques). L&#39;article inclut une synthèse expérimentale de preuve de concept ; il s&#39;agit d&#39;un exemple unique, pas d&#39;une validation statistique.</p>
+<h3 class="sub">Les laboratoires autonomes de 2026</h3><table class="data">
+<thead>
+<tr>
+<th>Acteur</th>
+<th>Ce qui est annoncé</th>
+<th>Niveau de preuve</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Periodic Labs</td>
+<td>Neon, modèle d&#39;un trillion de paramètres post-entraîné pour analyser la DRX, déployé dans des laboratoires fonctionnant 24 h sur 24 ; cibles : supraconducteurs, aimants</td>
+<td>BI, aucune évaluation publiée</td>
+<td><a href="https://periodic.com/news/building-labs-that-learn">Periodic Labs, 15 sept. 2026</a></td>
+</tr>
+<tr>
+<td>Microsoft (Genesis Mission)</td>
+<td>Microsoft Discovery, plateforme unifiant modèles, simulation et expériences, désormais disponible ; connexion directe à l&#39;automatisation de laboratoire du PNNL ; 60 millions de dollars (40 en crédits Azure, 20 en services)</td>
+<td>BI</td>
+<td><a href="https://blogs.microsoft.com/blog/2026/07/22/powering-americas-genesis-mission-microsofts-commitment-to-scientific-discovery/">Microsoft</a></td>
+</tr>
+<tr>
+<td>Anthropic (Model Hardware Standard)</td>
+<td>Standard de connexion entre modèles et instruments ; à Carnegie Mellon, pilotes et orchestration écrits en environ 8 heures, six situations dangereuses provoquées bloquées avant mouvement, expériences environ trois fois plus rapides</td>
+<td>BI, preuves de concept non évaluées</td>
+<td><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic, 27 août 2026</a></td>
+</tr>
+<tr>
+<td>Mistral AI</td>
+<td>Démonstration d&#39;une simulation Hartree–Fock complète générée par Large 4</td>
+<td>BI (démonstration)</td>
+<td><a href="https://mistral.ai/news/mistral-large-4/">Mistral AI</a></td>
+</tr>
+</tbody></table>
+<p>Un exemple instructif du standard d&#39;Anthropic : à Carnegie Mellon, l&#39;agent a rejeté de lui-même une mesure saturée (coefficient R² inférieur à 0,9), relancé l&#39;expérience à une concentration deux fois plus faible et accepté un ajustement avec R² supérieur à 0,98 (<a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic</a>). C&#39;est exactement la tâche de contrôle qualité qui manquait à l&#39;A-Lab en 2023. Mais il s&#39;agit d&#39;une démonstration choisie par l&#39;entreprise.</p>
+<p>Le reportage de Nature « Inside the self-driving lab revolution » (avril 2026) fait le point sur ce mouvement et ses implications pour les carrières (<a href="https://pubmed.ncbi.nlm.nih.gov/41912878/">Nature/PubMed</a>).</p>
+<h3 class="sub">Énergie</h3><p>Les applications énergétiques sont l&#39;argument principal des financements : batteries, conducteurs ioniques, catalyseurs, matériaux pour la fusion. GNoME revendique 528 conducteurs lithium-ion potentiels (<a href="https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/">Google DeepMind</a>) ; Microsoft affirme réduire l&#39;analyse de données sur les matériaux de stockage d&#39;énergie « d&#39;années à semaines » (<a href="https://blogs.microsoft.com/blog/2026/07/22/powering-americas-genesis-mission-microsofts-commitment-to-scientific-discovery/">Microsoft</a>). Ces chiffres sont des prédictions ou des revendications : aucune des sources consultées ne documente un matériau découvert par IA déployé industriellement dans une batterie commerciale (information non confirmée).</p>
+
+<h2><span class="n">04</span>Ce qui a réellement été démontré</h2>
+<table class="data">
+<thead>
+<tr>
+<th>Affirmation</th>
+<th>Niveau</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L&#39;IA accélère de plusieurs ordres de grandeur le criblage de stabilité</td>
+<td>P</td>
+<td>Méthodes publiées, reproduites</td>
+</tr>
+<tr>
+<td>Des robots peuvent enchaîner synthèses et mesures sans intervention pendant des jours</td>
+<td>P</td>
+<td>A-Lab, malgré la controverse sur l&#39;interprétation</td>
+</tr>
+<tr>
+<td>Une partie des structures prédites a été synthétisée par d&#39;autres équipes</td>
+<td>P / BI</td>
+<td>736 selon DeepMind ; le degré de nouveauté est discuté</td>
+</tr>
+<tr>
+<td>L&#39;analyse automatique de DRX est fiable pour des matériaux désordonnés</td>
+<td>Non démontré</td>
+<td>C&#39;est précisément le point contesté</td>
+</tr>
+<tr>
+<td>Un matériau découvert par IA a atteint un usage industriel</td>
+<td>Information non confirmée</td>
+<td>—</td>
+</tr>
+</tbody></table>
+
+<h2><span class="n">05</span>Ce qui reste incertain</h2>
+<ul>
+<li>La nouveauté : un composé substitué ou dopé est-il un « nouveau matériau » ? La communauté n&#39;a pas de convention partagée.</li>
+<li>La synthétisabilité : stable selon la DFT ne veut pas dire fabricable dans des conditions réalistes.</li>
+<li>Les données négatives : les échecs de synthèse sont rarement publiés, ce qui biaise l&#39;entraînement des modèles. Les laboratoires autonomes produisent ces échecs de façon systématique ; reste à savoir s&#39;ils seront partagés ou gardés comme avantage concurrentiel.</li>
+<li>La reproductibilité : les systèmes privés (Periodic Labs, Microsoft Discovery) ne publient ni données ni protocoles complets.</li>
+<li>Le passage à l&#39;échelle : entre quelques grammes et une production industrielle, les obstacles sont surtout de procédé, pas de prédiction.</li>
+</ul>
+
+<h2><span class="n">06</span>Architecture opérationnelle : un laboratoire autonome de matériaux</h2>
+<figure class="schema"><div class="schema__art"> BASES (Materials Project, ICSD, données internes)
+          │
+          ▼
+ MODÈLE DE STABILITÉ / GÉNÉRATIF ──► candidats ──► filtrage DFT sur HPC
+          │                                         (Jean Zay, Alice Recoque…)
+          ▼
+ AGENT PLANIFICATEUR (LLM + historique de recettes)
+          │  propose précurseurs, températures, durées
+          ▼
+ COUCHE INSTRUMENTS (pilotes, standard de connexion, verrous de sécurité)
+          │
+   ┌──────┼──────────────┬───────────────┐
+   ▼      ▼              ▼               ▼
+ Dosage  Four          Broyeur        Diffractomètre DRX
+   └──────┴──────┬───────┴───────────────┘
+                 ▼
+ ANALYSE AUTOMATIQUE (Rietveld, identification de phases)
+                 │
+       ┌─────────┴─────────┐
+       ▼                   ▼
+  Succès apparent      Échec / mélange
+       │                   │
+       ▼                   └──► nouvelle recette (apprentissage actif)
+ CONTRÔLE HUMAIN : chimiste du solide, comparaison aux bases et à la littérature
+       │
+       ▼
+ Publication + dépôt des données (y compris négatives) ──► réplication externe</div></figure>
+<h2><span class="n">07</span>Enjeux économiques, industriels, publics et géopolitiques</h2>
+<p>Les montants restent modestes face à ceux des modèles de langage, mais la logique est stratégique : aimants sans terres rares, batteries sans métaux critiques, catalyseurs pour l&#39;hydrogène. Aux États-Unis, Periodic Labs et Radical AI figurent parmi les 24 organisations signataires d&#39;accords avec le département de l&#39;Énergie pour la Genesis Mission (<a href="https://www.energy.gov/articles/energy-department-announces-collaboration-agreements-24-organizations-advance-genesis">DOE</a>). Au Royaume-Uni, la stratégie AI for Science prévoit un appel pour développer des plateformes de laboratoires autonomes et cite la Materials Innovation Factory de Liverpool (<a href="https://www.techuk.org/resource/techuk-insight-uk-government-launches-ai-for-science-strategy.html">techUK</a>). En Chine, la municipalité de Pékin a publié en juillet 2026 un plan visant des laboratoires autonomes combinant IA, robotique et instruments à haut débit d&#39;ici 2028 ; information de source unique (média d&#39;État ECNS), détails non confirmés (<a href="https://letsdatascience.com/news/beijing-plans-global-ai-powered-science-hub-by-2028-d376eb0c">Let&#39;s Data Science</a>).</p>
+<p>En France, l&#39;outil principal est le PEPR exploratoire DIADEM, copiloté par le CNRS et le CEA, doté d&#39;environ 85 millions d&#39;euros sur huit ans depuis 2022, qui structure quatre plateformes de synthèse, caractérisation à haut débit, simulation et exploitation des données par IA (<a href="https://www.cnrs.fr/fr/presse/diadem-un-programme-et-equipement-prioritaire-de-recherche-exploratoire-liant-materiaux-et">CNRS</a>). Il s&#39;appuie sur les grands instruments SOLEIL et ESRF. Le CNRS affiche l&#39;objectif de faire passer le cycle d&#39;identification d&#39;un matériau de 20 ans à 4 à 10 ans (<a href="https://www.cnrs.fr/sites/default/files/page/2022-09/Liste_des_PEPR.pdf">CNRS, liste des PEPR</a>) : c&#39;est un objectif, pas un résultat. Nous n&#39;avons pas trouvé de source publique documentant en France un laboratoire autonome en boucle fermée de l&#39;échelle d&#39;A-Lab (information non confirmée).</p>
+<p>Deux atouts européens méritent d&#39;être soulignés : la densité de grands instruments (synchrotrons, sources de neutrons) qui fournissent des données de caractérisation de haute qualité, et une culture de chimie du solide qui a justement produit les critiques les plus solides. Le risque principal est que les données issues de ces infrastructures publiques servent surtout à entraîner des modèles privés étrangers.</p>
+<p>Dernier enjeu, la sécurité : la chimie partage avec la biologie un risque de double usage (molécules toxiques, explosifs). Le standard d&#39;Anthropic intègre des verrous matériels, ce qui va dans le bon sens, mais aucune norme publique ne régit encore la connexion d&#39;agents IA à des instruments de laboratoire.</p>
+
+<div class="encadre"><div class="tag">Encadré</div><h4>Ce qu&#39;il ne faut pas confondre</h4><table class="data">
+<thead>
+<tr>
+<th>On lit</th>
+<th>Ce que cela signifie vraiment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>« 380 000 nouveaux matériaux »</td>
+<td>380 000 structures calculées comme stables ; non fabriquées pour la plupart</td>
+</tr>
+<tr>
+<td>« Synthétisé par un robot »</td>
+<td>Un produit a été obtenu ; reste à prouver qu&#39;il s&#39;agit du composé visé</td>
+</tr>
+<tr>
+<td>« Nouveau composé »</td>
+<td>Parfois une variante ordonnée ou substituée d&#39;un composé connu</td>
+</tr>
+<tr>
+<td>« Laboratoire autonome »</td>
+<td>Autonome sur un enchaînement précis ; contrôle humain toujours nécessaire sur l&#39;interprétation</td>
+</tr>
+<tr>
+<td>« Matériau pour batteries »</td>
+<td>Candidat prédit ; aucun déploiement industriel documenté</td>
+</tr>
+<tr>
+<td>« Modèle d&#39;un trillion de paramètres pour la DRX »</td>
+<td>Annonce d&#39;entreprise sans évaluation publiée</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">08</span>Conclusion</h2>
+<p>L&#39;IA a résolu le problème de l&#39;abondance des candidats et commence à automatiser la synthèse. Le goulot d&#39;étranglement s&#39;est déplacé vers la caractérisation et l&#39;interprétation : savoir ce que l&#39;on a vraiment fabriqué. C&#39;est là que la controverse A-Lab est précieuse, et c&#39;est là que l&#39;expertise humaine, les grands instruments publics et le partage des données négatives restent décisifs. Pour l&#39;Europe, l&#39;avantage comparatif est moins dans le modèle que dans l&#39;instrument et la donnée de qualité.</p>
+
+<div class="sources"><h3>Bibliographie commentée</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Apport</th>
+<th>Fiabilité</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.nature.com/articles/s41586-023-06734-w">Szymanski et al., Nature 2023 — A-Lab</a></td>
+<td>Résultats détaillés et modes d&#39;échec</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://link.aps.org/doi/10.1103/PRXEnergy.3.011002">Leeman et al., PRX Energy 2024</a></td>
+<td>Réanalyse critique d&#39;A-Lab et des prédictions</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.chemistryworld.com/news/new-analysis-raises-doubts-over-autonomous-labs-materials-discoveries/4018791.article">Chemistry World — doutes sur A-Lab</a></td>
+<td>Citations des critiques et réponse de Ceder</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/">Google DeepMind — GNoME</a></td>
+<td>Chiffres et méthode</td>
+<td>B (renvoie à Nature, A)</td>
+</tr>
+<tr>
+<td><a href="https://www.404media.co/google-says-it-discovered-millions-of-new-materials-with-ai-human-researchers/">404 Media — critique Cheetham et Seshadri</a></td>
+<td>Résumé de la critique publiée dans Chem. Mater.</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1038/s41586-025-08628-5">Zeni et al., Nature 2025 — MatterGen</a></td>
+<td>Modèle génératif de matériaux</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://periodic.com/news/building-labs-that-learn">Periodic Labs — Building Labs that Learn</a></td>
+<td>Laboratoire autonome privé, modèle Neon</td>
+<td>B — non évalué</td>
+</tr>
+<tr>
+<td><a href="https://blogs.microsoft.com/blog/2026/07/22/powering-americas-genesis-mission-microsofts-commitment-to-scientific-discovery/">Microsoft — Genesis Mission</a></td>
+<td>Microsoft Discovery, PNNL, financements</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic — Model Hardware Standard</a></td>
+<td>Connexion agents–instruments, démonstrations</td>
+<td>B — preuves de concept</td>
+</tr>
+<tr>
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/41912878/">Nature — Inside the self-driving lab revolution</a></td>
+<td>Panorama du mouvement</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.energy.gov/articles/energy-department-announces-collaboration-agreements-24-organizations-advance-genesis">DOE — 24 accords Genesis Mission</a></td>
+<td>Partenaires industriels</td>
+<td>A (document public)</td>
+</tr>
+<tr>
+<td><a href="https://www.techuk.org/resource/techuk-insight-uk-government-launches-ai-for-science-strategy.html">techUK — stratégie britannique AI for Science</a></td>
+<td>Laboratoires autonomes au Royaume-Uni</td>
+<td>C (résume un document gouvernemental)</td>
+</tr>
+<tr>
+<td><a href="https://letsdatascience.com/news/beijing-plans-global-ai-powered-science-hub-by-2028-d376eb0c">Let&#39;s Data Science — plan de Pékin</a></td>
+<td>Politique chinoise</td>
+<td>D — source unique</td>
+</tr>
+<tr>
+<td><a href="https://www.cnrs.fr/fr/presse/diadem-un-programme-et-equipement-prioritaire-de-recherche-exploratoire-liant-materiaux-et">CNRS — PEPR DIADEM</a></td>
+<td>Programme français matériaux et IA</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.cnrs.fr/sites/default/files/page/2022-09/Liste_des_PEPR.pdf">CNRS — liste des PEPR</a></td>
+<td>Objectifs chiffrés de DIADEM</td>
+<td>B</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Série « L'IA à la conquête du savoir »">
+<p class="serie-nav__label">Série « L'IA à la conquête du savoir » · Article 3 sur 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/publications/11-du-chatbot-au-co-scientifique"><span>← Article précédent</span><b>Du chatbot au co-scientifique : comment fonctionnent les systèmes IA de découverte</b></a><a class="serie-nav__next" href="/publications/13-medecine-biologie-et-medicaments"><span>Article suivant →</span><b>Médecine, biologie et médicaments : accélérer la découverte sans confondre hypothèse, préclinique et clinique</b></a></div>
+<ol class="serie-nav__list"><li><a href="/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier et open weights : qui détient réellement la puissance scientifique ?</a></li><li><a href="/publications/11-du-chatbot-au-co-scientifique">Du chatbot au co-scientifique : comment fonctionnent les systèmes IA de découverte</a></li><li><a href="/publications/12-chimie-materiaux-et-energie" aria-current="page">Chimie, matériaux et énergie : prédire, synthétiser et valider avec les laboratoires autonomes</a></li><li><a href="/publications/13-medecine-biologie-et-medicaments">Médecine, biologie et médicaments : accélérer la découverte sans confondre hypothèse, préclinique et clinique</a></li><li><a href="/publications/14-mathematiques-physique-et-informatique">Mathématiques, physique et informatique : peut-on parler de percée lorsque l'IA trouve un algorithme ou pilote une expérience ?</a></li><li><a href="/publications/15-deployer-l-ia-scientifique">Déployer l'IA scientifique : API, cloud, VPC, on-premise, HPC, GPU, gouvernance et sécurité</a></li><li><a href="/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">États, Big Tech, universités et industrie : la nouvelle géopolitique de l'IA pour la science</a></li><li><a href="/publications/17-le-chercheur-augmente">Le chercheur augmenté : nouveaux métiers, risques, reproductibilité, éthique et scénarios à 5–10 ans</a></li></ol>
+</nav>
+<div class="disclaimer">Analyse personnelle fondée sur des sources publiques. Elle n'engage que son auteur et ne constitue ni un conseil en investissement ni une recommandation.</div>
+</body></html>

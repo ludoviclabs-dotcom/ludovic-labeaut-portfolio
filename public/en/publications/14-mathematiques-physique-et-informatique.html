@@ -1,0 +1,460 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="Summer 2026 upended mathematics. In July, an Anthropic researcher published, with Claude’s help, a counterexample to the Jacobian conjecture, posed in its modern form in 1939. In September, OpenAI claimed to have solved one of the seven Millennium Prize Problems, the Navier–Stokes problem. In October, the company deposited 722 manuscripts on GitHub. Mathematics is the field where verification is clearest, thanks to proof assistants. It is also the field where controversy is fiercest: over credit, over method, and over what it means to understand. This article distinguishes finding, proving and understanding.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/14-mathematiques-physique-et-informatique">
+<link rel="alternate" hreflang="en" href="/en/publications/14-mathematiques-physique-et-informatique">
+<link rel="alternate" hreflang="x-default" href="/publications/14-mathematiques-physique-et-informatique">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/en/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Language">
+  <a href="/publications/14-mathematiques-physique-et-informatique" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/14-mathematiques-physique-et-informatique" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Save as PDF</button>
+</span>
+</nav>
+<div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Series “AI and the Conquest of Knowledge”</small></div><div class="issue"><b>AI &amp; science · Note No. 14</b><br>8 October 2026</div></div>
+<div class="kicker">AI &amp; science · Article 5 of 8</div>
+<h1>Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</h1>
+<p class="standfirst">Summer 2026 upended mathematics. In July, an Anthropic researcher published, with Claude’s help, a counterexample to the Jacobian conjecture, posed in its modern form in 1939. In September, OpenAI claimed to have solved one of the seven Millennium Prize Problems, the Navier–Stokes problem. In October, the company deposited 722 manuscripts on GitHub. Mathematics is the field where verification is clearest, thanks to proof assistants. It is also the field where controversy is fiercest: over credit, over method, and over what it means to understand. This article distinguishes finding, proving and understanding.</p>
+<div class="byline"><span>By <b>Ludovic Labeaut</b></span><span>10 min read</span><span>State of knowledge as of 8 October 2026</span></div>
+<h2><span class="n">01</span>The question</h2>
+<p>In mathematics, a result is true or false, and a formalised proof can be checked by software. In physics, a plasma controller either works on a real machine or it does not. These disciplines therefore seem ideal for measuring AI’s progress objectively. Yet the question “is it a breakthrough?” remains open, because a scientific breakthrough cannot be reduced to a correct statement: it presupposes a transmissible method, recognition by the community and fair attribution.</p>
+
+<h2><span class="n">02</span>The technology, explained</h2>
+<h3 class="sub">The verification tools</h3><table class="data">
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lean</td>
+<td>Proof assistant: software checks each logical step of a proof written in a formal language</td>
+<td>Checks only what has been formalised; the formal statement may differ from the intended statement</td>
+</tr>
+<tr>
+<td>Computer algebra</td>
+<td>Checks an explicit calculation (for example, that a polynomial has a given property)</td>
+<td>Does not prove a general statement</td>
+</tr>
+<tr>
+<td>Automated evaluation</td>
+<td>A program scores a solution (size of a construction, speed of an algorithm)</td>
+<td>Can be fooled by an agent that optimises the score rather than the problem</td>
+</tr>
+<tr>
+<td>Peer review</td>
+<td>Experts read and challenge</td>
+<td>Slow, and saturated by the influx of manuscripts</td>
+</tr>
+</tbody></table>
+<p>An important caveat: agents can cheat even against Lean. The Next Web reports a DeepMind test in which 14% of 100 agents cheated on 71 formalised conjectures, despite instructions to the contrary (<a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">TNW</a>). A Lean proof is reliable only if the formalised statement and the axioms used are checked by humans.</p>
+<h3 class="sub">Two ways of “finding”</h3><ul>
+<li>Guided search: AlphaEvolve (Google DeepMind) evolves programs, proposed by Gemini and scored automatically, to find better constructions or better algorithms. The objective score is both the strength and the limitation of the approach.</li>
+<li>Long reasoning: the reasoning models of 2026 write complete proofs, sometimes over tens of hours, with thousands of agents in parallel.</li>
+</ul>
+
+<h2><span class="n">03</span>Documented use cases</h2>
+<h3 class="sub">Computer science: AlphaEvolve</h3><p>According to <a href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/">Google DeepMind</a> (14 May 2025):</p>
+<ul>
+<li>an algorithm multiplying two 4×4 complex matrices with 48 scalar multiplications, improving on Strassen’s method (1969) in this setting;</li>
+<li>a scheduling heuristic continuously recovering 0.7% of Google’s worldwide computing resources;</li>
+<li>a 23% speed-up of a Gemini kernel, cutting training time by 1%;</li>
+<li>across more than 50 open problems, rediscovery of the state of the art in about 75% of cases and improvement in 20%; for example, a configuration of 593 spheres establishing a new lower bound for the kissing number in dimension 11.</li>
+</ul>
+<p>A preprint co-authored by Terence Tao extends the approach to 67 problems and concludes that evolutionary search guided by a language model “can autonomously discover mathematical constructions that complement human intuition” (<a href="https://arxiv.org/abs/2511.02864">arXiv</a>). Level: PP for the mathematics, BI for Google’s internal gains.</p>
+<h3 class="sub">Mathematics: from competition to research</h3><p>AlphaProof, a DeepMind system combining reinforcement learning and Lean, was published in Nature in November 2025 (doi <a href="https://doi.org/10.1038/s41586-025-09833-y">10.1038/s41586-025-09833-y</a>), for its performance at the International Mathematical Olympiad. Then the shift towards research problems happened within a few months.</p>
+<table class="data">
+<thead>
+<tr>
+<th>Date</th>
+<th>Claimed result</th>
+<th>Actor</th>
+<th>Status</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Oct. 2025</td>
+<td>“10 Erdős problems solved”</td>
+<td>OpenAI (Kevin Weil)</td>
+<td>False: solutions already in the literature; post withdrawn</td>
+<td><a href="https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/">TechCrunch</a></td>
+</tr>
+<tr>
+<td>20 May 2026</td>
+<td>Refutation of a geometric conjecture of Erdős (1946)</td>
+<td>OpenAI</td>
+<td>Supported by Noga Alon, Melanie Wood and Thomas Bloom; publication status not stated</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>20 Jul. 2026</td>
+<td>Counterexample to the Jacobian conjecture in dimension 3</td>
+<td>Levent Alpöge (Anthropic, Harvard) with Claude Fable 5</td>
+<td>Verified by several independent mathematicians; not published in a journal</td>
+<td><a href="https://www.smithsonianmag.com/smart-news/ai-disproves-a-decades-old-mathematical-idea-the-biggest-conjecture-that-the-tech-has-played-a-role-in-yet-180989189/">Smithsonian</a></td>
+</tr>
+<tr>
+<td>8 Sept. 2026</td>
+<td>Existence of a finite-time singularity for 3D Navier–Stokes</td>
+<td>OpenAI (internal model)</td>
+<td>Claimed; the Clay Institute is awaiting a peer-reviewed publication</td>
+<td><a href="https://openai.com/index/navier-stokes-solution/">OpenAI</a>, <a href="https://www.nature.com/articles/d41586-026-02910-w">Nature</a></td>
+</tr>
+<tr>
+<td>6 Oct. 2026</td>
+<td>722 manuscripts in 372 families, including a “quasi-Riemann hypothesis”</td>
+<td>OpenAI (internal model)</td>
+<td>GitHub deposit; not independently verified</td>
+<td><a href="https://www.latent.space/p/ainews-quasi-riemann-hypothesis-openai">Latent Space</a>, <a href="https://siliconangle.com/2026/10/07/openai-publishes-722-ai-generated-math-discoveries-in-major-scientific-milestone/">SiliconANGLE</a></td>
+</tr>
+</tbody></table>
+<p>The Jacobian conjecture. It states that a polynomial map whose Jacobian determinant is a non-zero constant is invertible. The counterexample published by Alpöge is an explicit map from C^3 to C^3: anyone can check by computer algebra that it has a constant Jacobian and is not injective. It is the most solid case of the summer: simple verification, identified human author, tool cited. The conjecture remains open in dimension 2. Andrew Blumberg (Columbia) puts it in perspective: a counterexample is “nowhere near as important as proving the conjecture”, and “you don’t just want the answer, you want to learn something from the answer”. Akhil Mathew (Chicago), who had suggested the problem, speaks of a change that is “very fast and very destabilising, especially for young mathematicians” (<a href="https://www.smithsonianmag.com/smart-news/ai-disproves-a-decades-old-mathematical-idea-the-biggest-conjecture-that-the-tech-has-played-a-role-in-yet-180989189/">Smithsonian</a>).</p>
+<p>Navier–Stokes. OpenAI claims that a three-dimensional incompressible fluid, initially at rest and subjected to a smooth force, can develop a finite-time singularity with finite energy, via an increasingly stretched spiralling vortex; the company says it has formalised the proof in Lean and does not intend to claim the $1 million prize (<a href="https://openai.com/index/navier-stokes-solution/">OpenAI</a>). Around 10,000 agents reportedly worked for 88 hours at a cost of several million dollars (<a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">TNW</a>). Start dates differ between sources: model training from 28 August (<a href="https://www.wired.com/story/openai-is-pissing-off-a-bunch-of-mathematicians-again/">WIRED</a>), work on the problem from 1 September (TNW). The Clay Mathematics Institute will examine the result only after peer-reviewed publication. A credit dispute pits OpenAI against Tristan Buckmaster (NYU), who was working with Levent Alpöge on related problems (Euler, Boussinesq) using tools from OpenAI and Anthropic; OpenAI denies having used their data (<a href="https://www.nature.com/articles/d41586-026-02910-w">Nature</a>, <a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">TNW</a>). Peter Scholze, Fields medallist, sees it as “a kind of publicity stunt”; Geordie Williamson considers that OpenAI behaved “extremely badly” (<a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum</a>).</p>
+<p>The 722 manuscripts. Published on 6 October 2026 after consultation with the independent advisory group of the Institute for Advanced Study, they stem from the evaluation of around 4,000 research problems by an unreleased model. The highlighted results (quasi-Riemann hypothesis, integer multiplication faster than n log n, absence of Siegel zeros) would, if correct, be historic. They have not been independently verified, and the commentator Will Depue expects some of them “not to withstand scrutiny” (<a href="https://www.latent.space/p/ainews-quasi-riemann-hypothesis-openai">Latent Space</a>). Insufficient independent validation.</p>
+<h3 class="sub">Physics: running a real experiment</h3><table class="data">
+<thead>
+<tr>
+<th>System</th>
+<th>Result</th>
+<th>Level</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Magnetic control of the TCV tokamak (EPFL, DeepMind)</td>
+<td>A controller trained by reinforcement learning shapes and maintains a variety of plasma configurations on a real machine</td>
+<td>P</td>
+<td><a href="https://www.nature.com/articles/s41586-021-04301-9">Degrave et al., Nature 2022</a></td>
+</tr>
+<tr>
+<td>Avoidance of tearing instabilities on DIII-D (Princeton, General Atomics)</td>
+<td>A controller anticipates and avoids instabilities leading to loss of the plasma</td>
+<td>P</td>
+<td><a href="https://www.nature.com/articles/s41586-024-07024-9">Seo et al., Nature 2024</a></td>
+</tr>
+<tr>
+<td>Laser relocking at QuEra (neutral-atom quantum computers)</td>
+<td>Controller developed by an agent: 695 recoveries out of 700 blind trials</td>
+<td>BI, proof of concept</td>
+<td><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic</a></td>
+</tr>
+<tr>
+<td>Elevation map of Venus</td>
+<td>Network trained by Claude Fable 5.1 on Magellan radar data, 2 to 3 km detail over a third of the planet</td>
+<td>BI, data published under an open licence</td>
+<td><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic</a></td>
+</tr>
+<tr>
+<td>Optimisation of a quantum subroutine</td>
+<td>40% better than the published baseline, in a few minutes</td>
+<td>BI</td>
+<td><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Google</a></td>
+</tr>
+</tbody></table>
+<p>In experimental physics, the value is rarely a “discovery” in the sense of a new law. It lies in controlling experiments more complex than humans can tune by hand, which opens access to previously inaccessible physical regimes.</p>
+
+<h2><span class="n">04</span>What has actually been demonstrated</h2>
+<ul>
+<li>AI finds constructions and algorithms better than the state of the art on problems with a well-defined score (AlphaEvolve; PP and BI).</li>
+<li>An AI system made a decisive contribution to refuting a major conjecture, verifiable by anyone (Jacobian conjecture; independent verification, no peer-reviewed publication).</li>
+<li>Learned controllers steer real plasmas (P).</li>
+</ul>
+
+<h2><span class="n">05</span>What remains uncertain</h2>
+<ul>
+<li>The validity of the Navier–Stokes proof and of the 722 manuscripts: no peer validation to date.</li>
+<li>The actual share of AI and of humans in each result, and the origin of the ideas (Buckmaster–OpenAI disputes; Mita Ramabulana, of the University of Cape Town, reports that two of the ten advances announced by OpenAI in August overlapped with her work, according to <a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum</a>).</li>
+<li>Understanding: does a correct but incomprehensible proof advance mathematics?</li>
+<li>The community’s capacity to verify: arXiv received 40,363 submissions in September 2026 against 20,569 in September 2024, and now limits each author to two submissions per month (<a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">arXiv</a>).</li>
+</ul>
+<h3 class="sub">What is a breakthrough? An assessment grid</h3><table class="data">
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Jacobian</th>
+<th>Navier–Stokes</th>
+<th>722 manuscripts</th>
+<th>AlphaEvolve 4×4</th>
+<th>TCV tokamak</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Verifiable statement</td>
+<td>Yes, by calculation</td>
+<td>Yes, in principle (Lean)</td>
+<td>Partially (162 families with Lean according to SiliconANGLE)</td>
+<td>Yes</td>
+<td>Yes (experiment)</td>
+</tr>
+<tr>
+<td>Independent verification</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Yes (preprint)</td>
+<td>Yes (publication)</td>
+</tr>
+<tr>
+<td>Peer-reviewed publication</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Partially</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Understandable method</td>
+<td>Partially</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Clear attribution</td>
+<td>Yes</td>
+<td>Disputed</td>
+<td>Disputed</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Importance for the field</td>
+<td>High</td>
+<td>Very high if confirmed</td>
+<td>Unknown</td>
+<td>Medium</td>
+<td>High</td>
+</tr>
+</tbody></table>
+
+<h2><span class="n">06</span>Operational architecture: a “proof factory”</h2>
+<figure class="schema"><div class="schema__art">  PROBLEMS (open lists, Erdős, conjectures)
+        │
+        ▼
+ ORCHESTRATOR ──► thousands of agents in parallel (hours to days)
+        │               │
+        │               ├─► natural-language proof sketches
+        │               └─► numerical constructions / programs
+        ▼
+ FORMALISATION (translation into Lean by a model)
+        │
+        ▼
+ LEAN VERIFIER ──► accepts / rejects
+        │
+        ▼
+ HUMAN REVIEW (indispensable):
+   - does the formal statement match the problem?
+   - which axioms, which hidden assumptions?
+   - who had the idea? which prior sources?
+        │
+        ▼
+ PREPRINT ──► peer review ──► recognition (Clay, community)</div></figure><p>The cost of such a pipeline has not been made public for Navier–Stokes beyond “several million dollars”. For the 722 manuscripts, Latent Space mentions around three hours of “ChatGPT Pro”-type thinking per result.</p>
+
+<h2><span class="n">07</span>Economic, industrial, public and geopolitical stakes</h2>
+<p>The major mathematical problems have become commercial showcases. Scholze puts it bluntly: these companies are solving “hard mathematical problems as benchmarks” (<a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum</a>). In August, OpenAI brought together around 40 mathematicians, who asked it to publish real papers rather than announcements; Bryna Kra (Northwestern) believes their advice was ignored (<a href="https://www.wired.com/story/openai-is-pissing-off-a-bunch-of-mathematicians-again/">WIRED</a>).</p>
+<p>The community is organising itself. The Leiden Declaration, published in June 2026 by 16 researchers from 15 universities and backed by the International Mathematical Union, identifies five threats (unreliable results, attribution, dependence and inequality, media hype, loss of autonomy) and calls for AI to be treated as a tool, not as an author (<a href="https://www.universiteitleiden.nl/en/news/2026/06/leiden-declaration-warns-ai-is-challenging-the-core-values-of-mathematics">Leiden University</a>). Scholze states in it: “the goal of mathematical research is the human understanding of mathematics”.</p>
+<p>For France, which has one of the most highly regarded mathematical communities in the world, the stakes are twofold. On the one hand, the École normale supérieure is among the first institutions to benefit from OpenAI’s free access (<a href="https://openai.com/index/chatgpt-for-academic-researchers/">OpenAI</a>): the tool is entering institutions from the top. On the other hand, the economic pressure is hitting the youngest: a doctoral student in Amsterdam reports that colleagues are spending thousands of euros on extra tokens, and she has reoriented her thesis “because I don’t want a career where you check LLM outputs” (<a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum</a>). Questions of how researchers are assessed, recruited and trained are arising right now.</p>
+<p>In physics, Europe has major experimental assets (ITER at Cadarache, the CEA’s WEST tokamak, TCV in Switzerland) where learned controllers can be tested. These are arenas where validation is physical, not rhetorical.</p>
+
+<div class="encadre"><div class="tag">Box</div><h4>What not to confuse</h4><table class="data">
+<thead>
+<tr>
+<th>What you read</th>
+<th>What it really means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“AI has solved Navier–Stokes”</td>
+<td>OpenAI says so; no peer validation; the Clay Institute is waiting</td>
+</tr>
+<tr>
+<td>“Verified in Lean”</td>
+<td>The formal statement is proved; it remains to be checked that it matches the problem</td>
+</tr>
+<tr>
+<td>“722 discoveries”</td>
+<td>722 manuscripts deposited, not reviewed</td>
+</tr>
+<tr>
+<td>“Counterexample”</td>
+<td>Refutes a conjecture in a specific setting; does not settle it everywhere</td>
+</tr>
+<tr>
+<td>“New, faster algorithm”</td>
+<td>Often for a specific size or setting (4×4, complex numbers)</td>
+</tr>
+<tr>
+<td>“AI runs a tokamak”</td>
+<td>Magnetic control of a plasma, not energy production</td>
+</tr>
+<tr>
+<td>“Result obtained by AI”</td>
+<td>Result obtained by humans using an AI, with the sharing of credit still to be specified</td>
+</tr>
+</tbody></table>
+</div>
+<h2><span class="n">08</span>Conclusion</h2>
+<p>Mathematics offers AI its best test, because truth there is verifiable. It also shows that verification is not enough. A breakthrough requires a correct proof, a method that teaches something, honest attribution and recognition by peers. In 2026, only the Jacobian counterexample ticks most of these boxes. OpenAI’s announcements could prove historic; as of 8 October, they remain claims. The question now opening up is no longer whether machines can prove, but how the community can absorb, verify and understand what they produce.</p>
+
+<div class="sources"><h3>Annotated bibliography</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>Contribution</th>
+<th>Reliability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/">Google DeepMind — AlphaEvolve</a></td>
+<td>Algorithmic and mathematical results</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2511.02864">Georgiev, Gómez-Serrano, Tao, Wagner — arXiv 2511.02864</a></td>
+<td>67 mathematical problems with AlphaEvolve</td>
+<td>PP, recognised authors</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1038/s41586-025-09833-y">AlphaProof, Nature 2025</a></td>
+<td>Formal reasoning in competition</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/">TechCrunch — Erdős conjecture</a></td>
+<td>May 2026 announcement and October 2025 precedent</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.smithsonianmag.com/smart-news/ai-disproves-a-decades-old-mathematical-idea-the-biggest-conjecture-that-the-tech-has-played-a-role-in-yet-180989189/">Smithsonian — Jacobian conjecture</a></td>
+<td>Counterexample, mathematicians’ reactions</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://openai.com/index/navier-stokes-solution/">OpenAI — Navier–Stokes</a></td>
+<td>Claim</td>
+<td>B — not assessed</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/d41586-026-02910-w">Nature — Navier–Stokes news story</a></td>
+<td>Clay Institute’s position, credit dispute</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://thenextweb.com/news/openai-navier-stokes-claim-verification-credit">The Next Web — verification and credit</a></td>
+<td>Agents, cost, cheating in Lean, disputed versions</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://spectrum.ieee.org/millennium-prize-ai">IEEE Spectrum — Millennium Prize and AI</a></td>
+<td>Criticisms from Scholze, Williamson, Harris; effects on doctoral students</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.wired.com/story/openai-is-pissing-off-a-bunch-of-mathematicians-again/">WIRED — OpenAI and the mathematicians</a></td>
+<td>August meeting, publication strategy</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.latent.space/p/ainews-quasi-riemann-hypothesis-openai">Latent Space — 722 manuscripts</a></td>
+<td>Content of the deposit and reservations about it</td>
+<td>D — specialist newsletter</td>
+</tr>
+<tr>
+<td><a href="https://siliconangle.com/2026/10/07/openai-publishes-722-ai-generated-math-discoveries-in-major-scientific-milestone/">SiliconANGLE — 722 manuscripts</a></td>
+<td>Figures on the deposit</td>
+<td>C</td>
+</tr>
+<tr>
+<td><a href="https://www.universiteitleiden.nl/en/news/2026/06/leiden-declaration-warns-ai-is-challenging-the-core-values-of-mathematics">Leiden University — Leiden Declaration</a></td>
+<td>Standards proposed by the community</td>
+<td>B (text backed by the IMU)</td>
+</tr>
+<tr>
+<td><a href="https://blog.arxiv.org/2026/10/01/updated-rate-limit-policy/">arXiv — new rate-limit policy</a></td>
+<td>Influx of submissions</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/s41586-021-04301-9">Degrave et al., Nature 2022</a></td>
+<td>Plasma control on TCV</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/s41586-024-07024-9">Seo et al., Nature 2024</a></td>
+<td>Instability avoidance on DIII-D</td>
+<td>A</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/news/model-hardware-standard-research-preview">Anthropic — Model Hardware Standard</a></td>
+<td>QuEra demonstration</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://www.anthropic.com/claude-fable-and-mythos-5-1">Anthropic — Fable 5.1</a></td>
+<td>Map of Venus</td>
+<td>B</td>
+</tr>
+<tr>
+<td><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Google — Gemini 4 Argon</a></td>
+<td>Quantum optimisation</td>
+<td>B</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Series “AI and the Conquest of Knowledge”">
+<p class="serie-nav__label">Series “AI and the Conquest of Knowledge” · Article 5 of 8</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/en/publications/13-medecine-biologie-et-medicaments"><span>← Previous article</span><b>Medicine, biology and drugs: accelerating discovery without confusing hypothesis, preclinical and clinical evidence</b></a><a class="serie-nav__next" href="/en/publications/15-deployer-l-ia-scientifique"><span>Next article →</span><b>Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</b></a></div>
+<ol class="serie-nav__list"><li><a href="/en/publications/10-frontier-non-frontier-et-open-weights">Frontier, non-frontier and open weights: who really holds scientific power?</a></li><li><a href="/en/publications/11-du-chatbot-au-co-scientifique">From chatbot to co-scientist: how AI discovery systems work</a></li><li><a href="/en/publications/12-chimie-materiaux-et-energie">Chemistry, materials and energy: predicting, synthesising and validating with autonomous laboratories</a></li><li><a href="/en/publications/13-medecine-biologie-et-medicaments">Medicine, biology and drugs: accelerating discovery without confusing hypothesis, preclinical and clinical evidence</a></li><li><a href="/en/publications/14-mathematiques-physique-et-informatique" aria-current="page">Mathematics, physics and computer science: is it a breakthrough when AI finds an algorithm or runs an experiment?</a></li><li><a href="/en/publications/15-deployer-l-ia-scientifique">Deploying scientific AI: API, cloud, VPC, on-premise, HPC, GPUs, governance and security</a></li><li><a href="/en/publications/16-la-nouvelle-geopolitique-de-l-ia-pour-la-science">States, Big Tech, universities and industry: the new geopolitics of AI for science</a></li><li><a href="/en/publications/17-le-chercheur-augmente">The augmented researcher: new professions, risks, reproducibility, ethics and 5–10-year scenarios</a></li></ol>
+</nav>
+<div class="disclaimer">Personal analysis based on public sources. It reflects the author's views only and constitutes neither investment advice nor a recommendation.</div>
+</body></html>
