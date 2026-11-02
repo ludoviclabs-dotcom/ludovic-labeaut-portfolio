@@ -527,6 +527,7 @@ async function main() {
     const files = (await readdir(serie.dir)).map((f) => f.normalize("NFC")).filter((f) => /^Article\s+\d+\s*[—–-].+\.md$/i.test(f));
     const articles = [];
     for (const f of files) articles.push(readSeriesArticle(serie, f, await readFile(path.join(serie.dir, f), "utf8")));
+    if (!articles.length) throw new Error(`Aucun article « Article N — Titre.md » dans ${serie.dir} : la série « ${serie.name} » disparaîtrait du site.`);
     articles.sort((a, b) => a.index - b.index);
     articles.forEach((a, i) => {
       if (a.index !== i + 1 || a.total !== articles.length) throw new Error(`Série « ${serie.name} » incomplète ou mal numérotée (${a.slug}).`);
