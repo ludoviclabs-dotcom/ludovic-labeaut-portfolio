@@ -16,6 +16,7 @@
   const STAGGER = 1300; // décalage entre deux panneaux voisins (ms)
   const INTRO = 2600; // laisse l'animation d'entrée se terminer avant le premier changement
   const KEN_BURNS = ["kb-1", "kb-2", "kb-3", "kb-4"];
+  const BAR_STEPS = 88; // pas de la barre de progression (22 px × 4)
 
   const root = document.documentElement;
   // Textes produits par ce script, dans la langue de la page (public/en/ pour l'anglais).
@@ -69,14 +70,16 @@
         img.width = slide.photo.width;
         img.height = slide.photo.height;
       }
-      if (slide.photo.focus) img.style.objectPosition = slide.photo.focus;
+      if (slide.photo.focus) {
+        img.style.objectPosition = slide.photo.focus;
+        img.style.setProperty("--fx", parseFloat(slide.photo.focus) / 100);
+      }
       img.src = slide.photo.src;
       slide.img = img;
       slide.promise = img
         .decode()
         .then(() => {
           slide.state = "ready";
-          if (!img.isConnected) this.media.appendChild(img);
           updateToggle();
           return true;
         })
@@ -117,15 +120,19 @@
       next.img.style.setProperty("--kb", KEN_BURNS[(i + this.index) % KEN_BURNS.length]);
       next.img.style.setProperty("--kb-duration", `${INTERVAL + FADE * 2}ms`);
       next.img.classList.remove("is-live");
+      // Seules les photos affichées sont dans la page : la suivante entre transparente,
+      // au-dessus de la précédente, puis apparaît en fondu.
+      this.media.appendChild(next.img);
       void next.img.offsetWidth; // relance l'animation Ken Burns depuis le début
       next.img.classList.add("is-live", "is-active");
-      this.media.appendChild(next.img); // passe au-dessus de la précédente
 
       if (prev && prev !== next) {
         prev.img.classList.remove("is-active");
         const leaving = prev.img;
         window.setTimeout(() => {
-          if (!leaving.classList.contains("is-active")) leaving.classList.remove("is-live");
+          if (leaving.classList.contains("is-active")) return;
+          leaving.classList.remove("is-live");
+          leaving.remove(); // libère sa couche graphique et sa mémoire décodée
         }, FADE + 100);
       }
 
@@ -165,6 +172,7 @@
       });
       this.progress.replaceChildren(...bars);
       this.bar = this.progress.querySelector(".is-current");
+      this.barStep = -1;
     }
 
     tick(dt) {
@@ -173,7 +181,13 @@
 
       this.elapsed += dt;
       const ratio = Math.max(0, Math.min(1, this.elapsed / INTERVAL));
-      if (this.bar) this.bar.style.setProperty("--p", ratio.toFixed(4));
+      // La barre fait 22 px : on ne la redessine que par pas d'un quart de pixel,
+      // au lieu d'un recalcul de style à chaque image.
+      const step = Math.round(ratio * BAR_STEPS);
+      if (this.bar && step !== this.barStep) {
+        this.barStep = step;
+        this.bar.style.setProperty("--p", (step / BAR_STEPS).toFixed(4));
+      }
 
       const next = this.nextIndex(this.current);
       if (next === -1 || next === this.current) return;
@@ -319,7 +333,10 @@
   });
   window.addEventListener("resize", () => alignFor(150));
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => alignFor(100));
-  alignFor(INTRO + 400); // couvre l'animation d'entrée (lettrage du titre)
+  // Pendant l'entrée, les textes ne bougent que de quelques pixels en hauteur : deux
+  // alignements suffisent (au départ et à la fin), sans recalcul à chaque image.
+  alignFor(150);
+  window.setTimeout(() => alignFor(150), INTRO + 400);
 
   /* ---------- Aperçus vidéo des panneaux ------------------------------- */
   // Une boucle courte recouvre la photo quand le panneau est actif : survolé ou
