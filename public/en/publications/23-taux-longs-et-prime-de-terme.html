@@ -1,0 +1,234 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>The US 10-Year at 5.3%: Rate Expectations or Term Premium? The Answer Depends on the Model</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Ludovic Labeaut">
+<meta name="description" content="On 5 October 2026, the yield on the 10-year US Treasury note reached 5.31% in the San Francisco Fed's data, 107 basis points (bp), or 1.07 percentage points, more than a year earlier. Two explanations compete: the market expects higher short-term rates, or it demands a larger premium for lending long. This split cannot be observed. It comes out of a model, and two Fed models do not estimate the same premium. This article describes the moves in the US yield curve since the end of 2025, shows what the published decomposition allows us to say, examines the role of central bank balance sheets, and recalls what Japan learned when its central bank set the long-term rate itself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style> :root{--ink:#16202c;--ink-2:#465262;--muted:#76808c;--rule:#d8dce1;--rule-2:#eceef1;--paper:#ffffff;--tint:#f5f2ec;--tint-2:#f9f7f3;--navy:#16263d;--data:#2a64a8;--data-soft:#dbe6f3;--accent:#c24a30;--accent-soft:#f7e7e2;--context:#c3cad3;--serif:"Source Serif 4", "DejaVu Serif", Georgia, serif;--sans:"Inter", "DejaVu Sans", Arial, sans-serif;--mono:"IBM Plex Mono", "DejaVu Sans Mono", monospace;} @page{size:A4;margin:17mm 19mm 18mm 19mm} *{box-sizing:border-box} html{-webkit-print-color-adjust:exact;print-color-adjust:exact} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:10.4pt;line-height:1.52;font-kerning:normal;font-feature-settings:"kern","liga","onum" 0;hyphens:auto;-webkit-hyphens:auto} p{margin:0 0 7pt;text-align:justify;text-justify:inter-word;orphans:3;widows:3} strong{font-weight:600;color:var(--navy)} em{font-style:italic} a{color:inherit;text-decoration:none} sup.r{font-family:var(--sans);font-size:6.3pt;color:var(--accent);font-weight:600;vertical-align:super;line-height:0;margin-left:1px} .mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.2pt solid var(--navy);padding-bottom:5pt;margin-bottom:14pt} .brand{font-family:var(--sans);font-weight:700;letter-spacing:.22em;font-size:9pt;color:var(--navy)} .brand span{color:var(--accent)} .brand small{display:block;font-weight:500;letter-spacing:.04em;font-size:7pt;color:var(--muted);margin-top:1pt} .issue{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);text-align:right;letter-spacing:.02em} .issue b{color:var(--navy);font-weight:600} .kicker{font-family:var(--sans);font-size:7.8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6pt} h1{font-family:var(--serif);font-weight:700;font-size:25.5pt;line-height:1.1;letter-spacing:-.012em;color:var(--navy);margin:0 0 9pt} .standfirst{font-family:var(--serif);font-style:italic;font-size:12.4pt;line-height:1.42;color:var(--ink-2);margin:0 0 10pt;text-align:left} .byline{display:flex;gap:14pt;flex-wrap:wrap;font-family:var(--sans);font-size:7.6pt;color:var(--muted);border-top:.6pt solid var(--rule);border-bottom:.6pt solid var(--rule);padding:5pt 0;margin-bottom:13pt} .byline b{color:var(--ink);font-weight:600} .essentiel{background:var(--tint);border-left:3pt solid var(--accent);padding:10pt 13pt 6pt;margin:0 0 12pt;break-inside:avoid} .essentiel h3{font-family:var(--sans);font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6pt;color:var(--navy)} .essentiel ol{margin:0;padding:0;list-style:none;counter-reset:e} .essentiel li{counter-increment:e;position:relative;padding-left:19pt;margin-bottom:5pt;font-size:10pt;line-height:1.44} .essentiel li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:.5pt;font-family:var(--mono);font-size:8pt;font-weight:500;color:var(--accent)} .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--rule);margin:0 0 16pt;break-inside:avoid} .kpi{padding:8pt 9pt 7pt;border-right:.6pt solid var(--rule)} .kpi:last-child{border-right:none} .kpi .v{font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.05;color:var(--navy);white-space:nowrap} .kpi .v small{font-size:10pt;font-weight:600;color:var(--ink-2)} .kpi .v .arrow{font-family:var(--sans);font-weight:500;font-size:12pt;color:var(--accent);margin:0 2pt} .kpi .l{font-family:var(--sans);font-size:7.5pt;line-height:1.3;color:var(--ink);margin-top:4pt} .kpi .s{font-family:var(--sans);font-size:6.4pt;color:var(--muted);margin-top:3pt} h2{font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.2;color:var(--navy);margin:16pt 0 7pt;break-after:avoid;display:flex;gap:9pt;align-items:baseline} h2 .n{font-family:var(--mono);font-weight:500;font-size:9pt;color:var(--accent);letter-spacing:.04em;flex:none} h3.sub{font-family:var(--sans);font-size:8.6pt;font-weight:600;letter-spacing:.02em;color:var(--navy);margin:10pt 0 4pt;break-after:avoid} .lead-in{font-family:var(--sans);font-weight:600;font-size:9.2pt;color:var(--navy)} ul.tight{margin:2pt 0 8pt;padding-left:13pt} ul.tight li{margin-bottom:3pt} ul.tight li::marker{color:var(--accent)} .pullquote{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.35;color:var(--navy);border-top:.6pt solid var(--navy);border-bottom:.6pt solid var(--navy);padding:8pt 4pt;margin:12pt 18pt;text-align:center;break-inside:avoid} figure{margin:10pt 0 13pt;break-inside:avoid} figure .ft{font-family:var(--sans);font-size:8.8pt;font-weight:600;color:var(--navy);margin-bottom:1pt} figure .ft .fn{color:var(--accent);font-weight:600;margin-right:4pt} figure .fs{font-family:var(--sans);font-size:7.6pt;color:var(--ink-2);margin-bottom:6pt} figure svg{display:block;width:100%;height:auto} figure figcaption{font-family:var(--sans);font-size:6.9pt;line-height:1.4;color:var(--muted);margin-top:5pt;border-top:.5pt solid var(--rule-2);padding-top:4pt} table.data{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:7.7pt;line-height:1.35;margin:4pt 0 2pt} table.data th{font-weight:600;text-align:left;color:var(--navy);border-bottom:1pt solid var(--navy);padding:4pt 5pt;vertical-align:bottom;font-size:7.2pt;letter-spacing:.02em} table.data td{padding:4pt 5pt;border-bottom:.5pt solid var(--rule);vertical-align:top} table.data tr:nth-child(even) td{background:var(--tint-2)} table.data td.num,table.data th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} table.data td.strong{font-weight:600;color:var(--navy)} table.data tr.hl td{background:var(--accent-soft)!important} .encadre{background:var(--tint-2);border:.6pt solid var(--rule);border-top:2.4pt solid var(--navy);padding:10pt 13pt 5pt;margin:12pt 0 14pt;break-inside:avoid} .encadre .tag{font-family:var(--sans);font-size:7.2pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:2pt} .encadre h4{font-family:var(--serif);font-size:12.5pt;margin:0 0 6pt;color:var(--navy)} .encadre p,.encadre li{font-size:9.6pt;line-height:1.46} .encadre ul{margin:0 0 6pt;padding-left:13pt} .encadre li{margin-bottom:3.5pt} .encadre li::marker{color:var(--accent)} .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin:6pt 0 12pt} .card{border:.6pt solid var(--rule);border-top:2pt solid var(--data);padding:7pt 9pt 6pt;break-inside:avoid;background:#fff} .card.a{border-top-color:var(--accent)} .card.g{border-top-color:var(--context)} .card h5{font-family:var(--sans);font-size:8.4pt;font-weight:700;color:var(--navy);margin:0 0 3pt} .card .meta{font-family:var(--sans);font-size:6.9pt;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4pt} .card p{font-family:var(--sans);font-size:7.9pt;line-height:1.42;margin:0 0 4pt;text-align:left} .card p b{font-weight:600;color:var(--navy)} .signals{border-top:1pt solid var(--navy);margin:6pt 0 12pt;break-inside:avoid} .signal{display:grid;grid-template-columns:78pt 1fr 92pt;gap:9pt;padding:5pt 0;border-bottom:.5pt solid var(--rule);font-family:var(--sans);font-size:7.9pt;line-height:1.38} .signal .w{font-weight:600;color:var(--navy)} .signal .t{color:var(--accent);font-family:var(--mono);font-size:7.3pt;text-align:right} .next{margin:14pt 0 10pt;padding:8pt 11pt;border:.6pt dashed var(--context);font-family:var(--sans);font-size:7.9pt;color:var(--ink-2);break-inside:avoid} .next b{color:var(--navy)} .sources{margin-top:12pt;border-top:1.4pt solid var(--navy);padding-top:6pt} .sources h3{font-family:var(--sans);font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 5pt} .sources ol{columns:2;column-gap:14pt;margin:0;padding-left:14pt;font-family:var(--sans);font-size:6.6pt;line-height:1.38;color:var(--ink-2)} .sources li{break-inside:avoid;margin-bottom:2.4pt} .sources li::marker{color:var(--accent);font-weight:600} .method{font-family:var(--sans);font-size:6.8pt;line-height:1.42;color:var(--muted);margin-top:7pt} .method b{color:var(--ink-2)} .disclaimer{font-family:var(--sans);font-size:6.6pt;color:var(--muted);border-top:.5pt solid var(--rule);margin-top:8pt;padding-top:5pt;line-height:1.4} .pb{break-before:page} .nobreak{break-inside:avoid} body{max-width:172mm;margin:0 auto;padding:14mm 0}@media print{body{padding:0;max-width:none}}@media screen and (max-width:700px){body{padding:16px}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}</style>
+<style id="lf-serie">
+.schema{margin:10pt 0 13pt;break-inside:avoid}
+.schema__art{white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:7.3pt;line-height:1.45;color:var(--ink);background:var(--tint-2);border:.6pt solid var(--rule);border-left:2.4pt solid var(--data);padding:9pt 11pt}
+.sources table.data{font-size:7pt}
+@media screen {
+  .serie-nav{margin-top:22pt;border-top:2.2pt solid var(--navy);padding-top:10pt;font-family:var(--sans)}
+  .serie-nav__label{font-size:7.6pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8pt;text-align:left}
+  .serie-nav__pn{display:grid;grid-template-columns:1fr 1fr;gap:9pt;margin-bottom:10pt}
+  .serie-nav__pn a{display:block;border:.6pt solid var(--rule);padding:8pt 10pt;transition:border-color .2s,background-color .2s}
+  .serie-nav__pn a:hover{border-color:var(--navy);background:var(--tint-2)}
+  .serie-nav__pn a:focus-visible,.serie-nav__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .serie-nav__pn span{display:block;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .serie-nav__pn b{display:block;font-family:var(--serif);font-size:10.5pt;line-height:1.3;color:var(--navy);margin-top:3pt}
+  .serie-nav__next{grid-column:2;text-align:right}
+  .serie-nav__list{margin:0;padding-left:16pt;font-size:8pt;line-height:1.55;color:var(--ink-2)}
+  .serie-nav__list a:hover{color:var(--accent)}
+  .serie-nav__list a[aria-current]{color:var(--navy);font-weight:600}
+}
+@media screen and (max-width:700px){.serie-nav__pn{grid-template-columns:1fr}.serie-nav__next{grid-column:1;text-align:left}}
+@media print{.serie-nav{display:none}}
+</style><link rel="alternate" hreflang="fr" href="/publications/23-taux-longs-et-prime-de-terme">
+<link rel="alternate" hreflang="en" href="/en/publications/23-taux-longs-et-prime-de-terme">
+<link rel="alternate" hreflang="x-default" href="/publications/23-taux-longs-et-prime-de-terme">
+<script src="/assets/js/lang.js"></script>
+<style id="lf-bar">
+@media screen {
+  body { padding-top: calc(14mm + 48px) !important; }
+  .lf-bar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    height: 48px; padding: 0 clamp(12px, 3vw, 28px); background: #0b0c0e; color: #f4f1ea; font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: .08em; }
+  .lf-bar a, .lf-bar button { color: inherit; text-decoration: none; font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .lf-bar a:hover, .lf-bar button:hover { color: #e2c27d; }
+  .lf-bar a:focus-visible, .lf-bar button:focus-visible { outline: 2px solid #e2c27d; outline-offset: 2px; }
+  .lf-bar .lf-name { color: rgba(244, 241, 234, .55); text-transform: uppercase; font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lf-tools { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .lf-bar .lang-switch { display: flex; align-items: center; gap: 6px; color: rgba(244, 241, 234, .55); font-size: 11px; letter-spacing: .2em; }
+  .lf-bar .lang-switch a { color: rgba(244, 241, 234, .55); }
+  .lf-bar .lang-switch a[aria-current], .lf-bar .lang-switch a:hover { color: #f4f1ea; }
+  .sources a { text-decoration: underline; text-decoration-color: rgba(22, 32, 44, .35); text-underline-offset: 2px; }
+  @media (max-width: 700px) { body { padding-top: 64px !important; } .lf-bar .lf-name { display: none; } }
+}
+@media print { .lf-bar { display: none !important; } }
+</style>
+<link rel="stylesheet" href="/assets/css/note.css">
+<script src="/assets/js/note.js" defer></script></head><body><nav class="lf-bar" aria-label="Navigation">
+<a href="/en/publications">← Publications</a>
+<span class="lf-name">Ludovic Labeaut · Lignes de force</span>
+<span class="lf-tools">
+<nav class="lang-switch" aria-label="Language">
+  <a href="/publications/23-taux-longs-et-prime-de-terme" hreflang="fr" lang="fr" translate="no" aria-label="Français">FR</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a href="/en/publications/23-taux-longs-et-prime-de-terme" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
+</nav>
+<button type="button" onclick="window.print()">Save as PDF</button>
+</span>
+</nav>
+<div class="lf-page"><main class="lf-note">
+<header class="lf-hero"><div class="mast"><div class="brand">LIGNES <span>DE</span> FORCE<small>Series “Central Banks: The Return of Tightening”</small></div><div class="issue"><b>Central banks &amp; rates · Note No. 23</b><br>31 October 2026</div></div>
+<div class="kicker">Central banks &amp; rates · Article 6 of 6</div>
+<h1>The US 10-Year at 5.3%: Rate Expectations or Term Premium? The Answer Depends on the Model</h1>
+<p class="standfirst">On 5 October 2026, the yield on the 10-year US Treasury note stood at 5.31% in the San Francisco Fed’s data, 107 basis points (bp), or 1.07 percentage points, higher than a year earlier. Two explanations compete: the market expects higher short-term rates, or it demands a larger premium for lending over a long period. This split cannot be observed. It comes from a model, and two Fed models do not estimate the same premium. This article describes the movements of the US curve since late 2025, shows what the published decomposition allows us to say, examines the role of central bank balance sheets, and recalls what Japan learnt when its central bank set the long-term rate itself.</p>
+<div class="byline"><span>By <b>Ludovic Labeaut</b></span><span>10 min read</span><span>State of knowledge as of 31 October 2026</span></div></header>
+<h2><span class="n">01</span>The 10-year’s rise changed driver mid-year</h2>
+<p>The yields published by the US Treasury, smoothed from market prices and collected on 8 October 2026, show two successive movements.</p>
+<table class="data">
+<thead>
+<tr>
+<th>Treasury data</th>
+<th>2-year</th>
+<th>10-year</th>
+<th>10-year − 2-year slope</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>End Dec. 2025</td>
+<td>3.47%</td>
+<td>4.18%</td>
+<td>+71 bp</td>
+</tr>
+<tr>
+<td>July 2026</td>
+<td>4.17%</td>
+<td>4.48%</td>
+<td>+31 bp</td>
+</tr>
+<tr>
+<td>Early Oct. 2026</td>
+<td>4.77%</td>
+<td>5.28%</td>
+<td>+51 bp</td>
+</tr>
+</tbody></table>
+<p>From December to July, the 2-year gained 70 bp and the 10-year 30: the curve flattened at the short end (<em>bear flattening</em>), which is usually read as a sign that more policy rate hikes are anticipated. From July to October, the 10-year gained 80 bp and the 2-year 60: the curve steepened at the long end (<em>bear steepening</em>), a movement ordinarily attributed to a rising term premium or rising expected inflation. These readings are conventions, not rules. On 7 October, the 20-year (5.71%) was even above the 30-year (5.67%), a small hump that the liquidity of each maturity or demand from investors attached to the 30-year could explain, though there is no proof at this stage.</p>
+<p>For a holder, the rise comes at a cost: a bond with a duration of 8 (the sensitivity of its price to its yield) loses about 8 × 1.10 = 8.8% for the 110 bp gained by the 10-year since late 2025, slightly less once convexity is taken into account.</p>
+<h3 class="sub">A decomposition, not a measurement</h3><p>A 10-year rate is the sum of two terms: the average of the short-term rates expected over ten years, and a term premium, the extra return demanded for holding a long-term bond rather than rolling over short-term securities. Only the total is observed; separating the two requires a model. The <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/">San Francisco Fed</a> publishes such a decomposition every day, drawn from the Christensen–Rudebusch model, which uses its own input curve. The table gives three dates from it.</p>
+<table class="data">
+<thead>
+<tr>
+<th>10-year, in %, according to the San Francisco Fed</th>
+<th>6 Oct. 2025</th>
+<th>16 Sept. 2026</th>
+<th>5 Oct. 2026</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Yield (model input)</td>
+<td>4.24</td>
+<td>5.01</td>
+<td>5.31</td>
+</tr>
+<tr>
+<td>Expected short-term rates (estimate)</td>
+<td>3.08</td>
+<td>3.73</td>
+<td>3.82</td>
+</tr>
+<tr>
+<td>Term premium (estimate)</td>
+<td>1.16</td>
+<td>1.28</td>
+<td>1.49</td>
+</tr>
+</tbody></table>
+<p>According to this model, of the 107 bp rise over one year, 74 bp comes from expectations and 33 bp from the premium. But the split reverses in September. From 6 October 2025 to 16 September 2026, the day the FOMC (Federal Open Market Committee, the Fed’s monetary policy committee) raised its rates, expectations account for 65 of the 77 bp increase. From 16 September to 5 October, the premium takes over: +21 bp against +9 bp, or about 70% of the 30 bp gained. <strong>These are a model’s figures, published as a research product by a regional Fed, not a position of the FOMC.</strong> The model does not say why the premium is rising: the supply of securities and uncertainty about inflation are the usual candidates, and these figures do not tell them apart.</p>
+<p>At 2 years, by contrast, the premium remains small: 0.32% on 5 October, against 4.47% for expectations.</p>
+<h3 class="sub">Three models, three premiums</h3><p>The Fed Board’s Kim-Wright model, which constrains its expectations with survey forecasts, puts the 10-year premium at 1.08% on 2 October (series THREEFYTP10 on FRED, <a href="https://www.federalreserve.gov/data/three-factor-nominal-term-structure-model.htm">Board page</a>), compared with 1.49% on 5 October at the San Francisco Fed. The third reference series, the New York Fed’s (ACM model), could not be read at source: the value in circulation comes from a secondary website and is not used here. As the Kim-Wright model does not publish the same decomposition on FRED, nothing shows that the two models agree on how the rise is split.</p>
+<p>Bauer, Rudebusch and Wu (2012) explain these gaps. Estimated on highly persistent rates, these models underestimate that persistence: the expected long-term rates they produce are too stable, and the premium absorbs too much of the variation. No series is “the right one”. <strong>The term premium is never observed; the most robust comparison concerns the shared movements of the series, not their levels.</strong></p>
+
+<div class="encadre"><div class="tag">Box</div><h4>Tool: why a forward rate is not a forecast</h4><p>A forward rate is the rate, fixed in advance, on a loan that will start later. It is derived from two zero-coupon rates, the rates on a single cash flow received at a given maturity. On the ECB’s AAA curve of 1 October 2026, estimated with continuous compounding, the 10-year stands at 3.592% and the 20-year at 3.901%. The forward between 10 and 20 years is therefore (20 × 3.901 − 10 × 3.592) / 10 = 4.21%.</p>
+<p>Reading this figure as the market’s forecast for European short-term rates between 2036 and 2046 would be a mistake. The forward equals the expected short-term rate plus a term premium, plus a small convexity effect. It would be a forecast only if the premium were zero, which the data reject: Cochrane and Piazzesi (2005) show that bond premiums vary over time, and they are probably large at these horizons. The only safe reading is a sum: expected short-term rates plus premium, about 4.2%. The curve itself is an ECB estimate, not an observation. The US 10-year poses the same difficulty.</p>
+</div>
+<h2><span class="n">02</span>Central bank balance sheets shift the premium, by an amount that is only estimated</h2>
+<p>In the preferred-habitat model of Vayanos and Vila (2021), some investors, insurers or pension funds, are attached to a particular maturity. When the central bank buys long-term securities (quantitative easing, or QE), arbitrageurs bear less duration risk and the premium falls. When it sells them or stops reinvesting its maturing securities (balance sheet reduction, or QT), or when the government issues more, the premium rises. The mechanism is theoretical.</p>
+<p>Its magnitude is estimated, not measured. Across four major central banks, including the Bank of Japan (BoJ), Rogers, Scotti and Wright (2014) conclude that unconventional policies eased financial conditions mainly by lowering term premiums. In the euro area, Altavilla, Carboni and Motto (2021) estimate that purchases of about 10% of GDP lowered 10-year sovereign yields by about 65 bp. Eser and co-authors (2023) attribute to duration extraction, and hence to the premium, a fall of nearly one percentage point in the 10-year linked to the stock held and expected; Bauer and Rudebusch (2014) route part of the effect of purchases through the signal on future short-term rates, and hence through expectations. These orders of magnitude concern purchases, and the split between premium and expectations depends, here too, on the model.</p>
+<p>The 2013 episode, recounted in article 5 of this series, suggests that a mere indication about the future pace of purchases can move long-term rates as much as a decision: the US 10-year rose 132 bp in four months. Without a decomposition of this episode, it is not known what share was due to the premium.</p>
+<p>Going into 2026, the Fed had <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20251029a.htm">stopped reducing its balance sheet on 1 December 2025</a>. Since 12 December it has been buying “reserve management” Treasury bills, for about $40 bn initially (<a href="https://www.newyorkfed.org/markets/opolicy/operating_policy_251210a">New York Fed</a>), an arrangement confirmed on <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm">28 October 2026</a>. These purchases of short-term securities target the level of reserves, not long-term rates; their effect on the premium remains an empirical question. The Eurosystem no longer reinvests the securities held under its purchase programmes, the APP since July 2023 and the PEPP since late 2024: its portfolios are declining “at a measured and predictable pace”. Article 4 of this series details these balance sheets.</p>
+<h3 class="sub">Euro area and Japan: the same question, less data</h3><p>The German 10-year, measured on the Bundesbank’s fitted curve, remained stable in the first half (2.94% on 30 December 2025, 2.93% on 30 June 2026), then rose 62 bp to 3.55% on 7 October, a period that includes the ECB’s rate hike of 10 September. On the <a href="https://www.ecb.europa.eu/stats/financial_markets_and_interest_rates/euro_area_yield_curves/html/index.en.html">ECB’s AAA curve</a>, an estimate that corresponds to no single country, the 10-year − 2-year slope was about +49 bp on 1 October (3.592% against 3.106%, read from the DBnomics mirror). With no decomposition available for the euro area, the premium’s share in the rise of the Bund cannot be quantified.</p>
+<p>The Japanese curve is very steep. On 6 October, Japanese government bonds (JGBs) yielded 1.93% at 2 years, 3.10% at 10 years and 4.17% at 30 years (Ministry of Finance), with a policy rate “around 1.25%” since 24 September, <a href="https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k261030a.pdf">held on 30 October</a>. The BoJ, whose assets were about 81% JGBs at 30 September (<a href="https://www.boj.or.jp/en/statistics/boj/other/acmai/release/2026/ac260930.htm">BoJ accounts</a>), is buying fewer and fewer of them: its <a href="https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260616b.pdf">plan of 16 June 2026</a> reduces monthly purchases from about 2,500 bn yen in July–September to 2,300 bn yen in October–December, then 2,100 bn yen in January–March 2027 and about 2,000 bn yen thereafter. Preferred habitat predicts a rising premium, especially at the maturities the BoJ buys least. <strong>But no Japanese premium estimate has been found: the link between this plan and the slope remains a hypothesis</strong>, all the more so as the slope also reflects the expected path of the policy rate.</p>
+
+<div class="encadre"><div class="tag">Box</div><h4>Precedent: Japan 2016–2024, when the central bank set the 10-year rate</h4><p>On 21 September 2016, the BoJ added to its short-term rate of −0.1% a target for the 10-year, “around zero percent”, adopted by 7 votes to 2. This is yield curve control: the commitment to buy whatever securities are needed to hold a long-term yield around a target. The band was widened to ±0.5 percentage point in December 2022 and made more flexible in 2023, then the statement of 19 March 2024 judged that these frameworks had “fulfilled their roles”.</p>
+<p>During those years, the Japanese 10-year was not a free market price. A yield close to zero did not mean that the market expected zero rates for ten years: it reflected the target, hence a decision, not an expectation. A decomposition into expectations and premium loses its meaning there.</p>
+<p>The cost is still debated. Hattori and Yoshida (2023) show that fixed-rate purchase operations kept the 10-year within its band, with less volatility. A BoJ working paper (Fukuma et al., 2024) notes falling volumes, wider bid-ask spreads and a distorted curve. The two findings are compatible. A central bank can set the long-term rate, but it then loses the information that rate provided about expectations.</p>
+</div>
+<h2><span class="n">03</span>What remains uncertain</h2>
+<ul>
+<li>The split between expectations and premium depends on the model, and only one full decomposition is tracked here. Gürkaynak, Sack and Swanson (2005) showed that distant US forward rates react to macroeconomic news, without being able to say whether it is the anchoring of expectations or the premium that is moving. The rise in autumn 2026 inherits this ambiguity.</li>
+<li>The estimated effects of balance sheets come from purchases announced in the middle of a crisis. Slow and predictable reductions could have weaker announcement effects, whereas Eurosystem analyses prepared for the 2025 strategy assessment treat purchases and reductions as symmetric. Without enough hindsight, the question remains open.</li>
+<li>A positive slope does not remove the risk of recession. Estrella and Mishkin (1998) establish that the US slope predicts recessions one year ahead better than most indicators, not that it causes them, nor that a positive slope rules them out. A curve inverts when the market expects rate cuts, often for fear of a slowdown, but an abnormally low premium can also invert it. The 10-year − 3-month spread stood at +1.06 percentage points on 6 October (FRED, series T10Y3M). A slope driven by a rising premium does not say the same thing as a slope driven by expectations of growth.</li>
+</ul>
+
+<h2><span class="n">04</span>What to watch</h2>
+<ul>
+<li>The San Francisco Fed’s daily decomposition, read alongside the Kim-Wright series: it will show whether the premium continues to drive the rise or whether expectations take over again.</li>
+<li>The FOMC meeting of 8 and 9 December, with new participants’ projections (SEP): it will show whether the expectations component reacts more than the premium.</li>
+<li>The ECB on 16 and 17 December, with the Eurosystem staff projections, and the BoJ on 17 and 18 December: how the Bund and the Japanese slope react to their decisions.</li>
+<li>The step-down in JGB purchases to about 2,100 bn yen a month in January 2027, and the supply of long-term securities in general. Testing preferred habitat in Japan would require a Japanese premium estimate and an event study around the plan’s announcements.</li>
+</ul>
+
+<h2><span class="n">05</span>Conclusion: saying, for each figure, what it is</h2>
+<p>This last article closes the series on its common thread: a yield of 5.31% is an observation; a slope, a forward rate or the loss on a bond are calculations; the term premium, from 1.08% to 1.49% in early October depending on the model, is an estimate; the December projections will not be decisions. From the autumn decisions to expectations, the six articles have followed the same rule: say, for each figure, what it is. It is this rule that makes it possible to read the US 10-year as information rather than as a verdict.</p>
+
+<div class="sources"><h3>Annotated bibliography</h3><table class="data">
+<thead>
+<tr>
+<th>Source</th>
+<th>What it establishes, and its limits</th>
+<th>Reliability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/">San Francisco Fed, Treasury Yield Premiums</a></td>
+<td>Daily decomposition into expectations and premium; a model’s figures, not a position of the FOMC.</td>
+<td>B — staff analysis</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.17016/FEDS.2005.33">Kim and Wright (2005), FEDS 2005-33</a></td>
+<td>Survey-disciplined model, the basis of the Board’s series; depends on the surveys used.</td>
+<td>B — working paper</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1080/07350015.2012.693855">Bauer, Rudebusch and Wu (2012)</a></td>
+<td>An estimation bias makes expectations too stable and the premium too volatile; no “right” model is identified.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.3982/ECTA17440">Vayanos and Vila (2021)</a></td>
+<td>How the supply of securities, QE and QT shift the premium; theoretical, with no measure of the magnitude.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1111/1468-0327.12042">Rogers, Scotti and Wright (2014)</a></td>
+<td>Unconventional policies of four central banks: effects mainly via term premiums; nothing on economic activity.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+<tr>
+<td>Altavilla, Carboni and Motto (2021), IJCB 17(4)</td>
+<td>About −65 bp at 10 years for purchases of about 10% of GDP; not automatically transferable to a reduction.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+<tr>
+<td>Eser, Lemke, Nyholm, Radde and Vladu (2023), IJCB 19(3)</td>
+<td>The stock held and expected lowers the 10-year by nearly one percentage point; a model result.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+<tr>
+<td><a href="https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260616b.pdf">BoJ, JGB purchase plan, 16 June 2026</a></td>
+<td>Monthly pace of purchases until 2027; not their effect on rates.</td>
+<td>A — official text</td>
+</tr>
+<tr>
+<td><a href="https://www.ecb.europa.eu/stats/financial_markets_and_interest_rates/euro_area_yield_curves/html/index.en.html">ECB, euro area yield curves</a></td>
+<td>Method and AAA curve; estimates, and the AAA curve corresponds to no single country.</td>
+<td>A — statistics</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1162/003465398557320">Estrella and Mishkin (1998)</a></td>
+<td>The slope predicts US recessions one year ahead; no causality, US sample.</td>
+<td>A — peer-reviewed journal</td>
+</tr>
+</tbody></table>
+</div>
+<nav class="serie-nav" aria-label="Series “Central Banks: The Return of Tightening”">
+<p class="serie-nav__label">Series “Central Banks: The Return of Tightening” · Article 6 of 6</p>
+<div class="serie-nav__pn"><a class="serie-nav__prev" href="/en/publications/22-ce-que-le-marche-attend"><span>← Previous article</span><b>What “the Market Expects” Means: A Date, an Instrument, Assumptions</b></a></div>
+<ol class="serie-nav__list"><li><a href="/en/publications/18-trois-hausses-en-neuf-jours-puis-la-pause">Three Hikes in Nine Days, Then a Pause: One Move, Three Diagnoses</a></li><li><a href="/en/publications/19-quelle-inflation-combattent-elles">Which Inflation Are They Fighting? One “2%”, Three Indices, an Energy Shock</a></li><li><a href="/en/publications/20-l-independance-a-l-epreuve">Independence Under Strain: What Grounds It, What Protects It, What Weakens It</a></li><li><a href="/en/publications/21-de-la-decision-au-credit-immobilier">From the Decision to the Mortgage: What a 25 Basis Point Hike Really Changes</a></li><li><a href="/en/publications/22-ce-que-le-marche-attend">What “the Market Expects” Means: A Date, an Instrument, Assumptions</a></li><li><a href="/en/publications/23-taux-longs-et-prime-de-terme" aria-current="page">The US 10-Year at 5.3%: Rate Expectations or Term Premium? The Answer Depends on the Model</a></li></ol>
+</nav>
+<div class="disclaimer">Personal analysis based on public sources. It reflects the author's views only and constitutes neither investment advice nor a recommendation.</div>
+</main></div>
+</body></html>
