@@ -39,6 +39,7 @@ const DISCLAIMER =
 const BLOCKS = [
   { id: "Géopolitique", intro: "Détroits, conflits, alliances : ce qui se joue sur la carte." },
   { id: "Géoéconomie", intro: "Sanctions, capital public, dépendances : la puissance par l'économie." },
+  { id: "Banques centrales & taux", intro: "Fed, BCE, Banque du Japon : décisions, inflation, anticipations et courbe des taux, lues avec leurs sources." },
   { id: "Defense-Tech", intro: "Munitions, achats d'armement, drones : l'industrie de défense en mutation." },
   { id: "IA & science", intro: "Modèles, laboratoires autonomes, souveraineté : comment l'IA transforme la production du savoir." },
   { id: "Robotique & marchés", intro: "Chaîne de valeur, volumes, valorisations : les données d'un marché en formation." },
@@ -52,6 +53,12 @@ const SERIES = [
     block: "IA & science",
     dir: path.resolve(process.env.SERIE_IA_DIR ?? path.join(os.homedir(), "Dropbox", "Articles IA")),
     firstNum: 10,
+  },
+  {
+    name: "Banques centrales : le retour du resserrement",
+    block: "Banques centrales & taux",
+    dir: path.resolve(process.env.SERIE_BC_DIR ?? path.join(os.homedir(), "Dropbox", "Articles banques centrales")),
+    firstNum: 18,
   },
 ];
 
@@ -476,7 +483,7 @@ function indexPage(notes) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publications — Ludovic Labeaut</title>
-  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, defense-tech, IA et robotique, sourcés et datés.">
+  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, banques centrales, defense-tech, IA et robotique, sourcés et datés.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   ${alternates("/publications").split("\n").join("\n  ")}
@@ -497,7 +504,7 @@ function indexPage(notes) {
     <section class="pub-hero">
       <p class="pub-hero__eyebrow">06 / 06 · Publications</p>
       <h1 class="pub-hero__title">Lignes de force</h1>
-      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, defense-tech, IA et robotique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
+      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, banques centrales, defense-tech, IA et robotique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
       <ul class="pub-hero__axes" aria-label="Thèmes">${sections.map((s) => `<li>${escapeHtml(s.id)}</li>`).join("")}</ul>
     </section>
 ${body}

@@ -101,15 +101,17 @@ La page `/publications` présente trois formats, signalés par un badge sur chaq
 | Format | Source | Configuration (`scripts/import-articles.mjs`) |
 |---|---|---|
 | Note | Dropbox `Articles rédigés` | blocs dans `BLOCKS` |
-| Série | Dropbox `Articles IA` : `Article 1 — Titre.md` … `Article 8 — Titre.md` | `SERIES` (nom, bloc, dossier, premier numéro) |
+| Série | Un dossier Dropbox par série (`Articles IA`, `Articles banques centrales`) : `Article 1 — Titre.md`, `Article 2 — Titre.md`… | `SERIES` (nom, bloc, dossier, premier numéro) |
 | Dossier interactif | `public/dossiers/<nom>/` (page autonome) | `DOSSIERS` (titre, chiffres clés, chapitres, couverture) |
 
-- **Séries** : chaque article devient une note numérotée à la suite (`firstNum` : 10 pour la série
-  « L'IA à la conquête du savoir », notes 10 à 17), avec la mise en page des notes, une navigation
-  « article précédent / suivant » et le sommaire de la série. Un article attend : `# Titre`, une
-  ligne « Article N sur 8. État des connaissances au … », une section `## Chapô`, puis ses sections ;
+- **Séries** : chaque article devient une note numérotée à la suite (`firstNum`), avec la mise en
+  page des notes, une navigation « article précédent / suivant » et le sommaire de la série :
+  « L'IA à la conquête du savoir » (Dropbox `Articles IA`, notes 10 à 17) et « Banques centrales :
+  le retour du resserrement » (Dropbox `Articles banques centrales`, notes 18 à 23). Une nouvelle
+  note de `Articles rédigés` prend donc le numéro 24 ou suivant. Un article attend : `# Titre`, une
+  ligne « Article N sur M. État des connaissances au … », une section `## Chapô`, puis ses sections ;
   `## Encadré — …` devient un encadré, `## Bibliographie commentée` la liste des sources, et un bloc
-  de code un schéma en texte. Autre dossier : `SERIE_IA_DIR="D:\…" npm run articles`.
+  de code un schéma en texte. Autres dossiers : `SERIE_IA_DIR="D:\…"` et `SERIE_BC_DIR="D:\…"`.
 - **Dossiers interactifs** : `public/dossiers/robotique-humanoide/` reprend le tableau de bord
   conçu avec Claude. `dash.js` remplace le moteur de Claude (chargement des jeux de données de
   `donnees/`, calculs, redessin) ; `dossier.css` l'accorde à la charte du site. Pour mettre à jour
