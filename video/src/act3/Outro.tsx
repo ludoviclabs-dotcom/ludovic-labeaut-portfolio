@@ -1,14 +1,17 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
 import { APPS, CONTACT, PERSON, PUBLICATIONS } from "../content";
 import { SANS, SERIF, SITE } from "../theme";
-import { backgroundIn, enter } from "./anim";
+import { enter, fr, prog } from "./anim";
+import { useSlot } from "./slot";
+import { Grid, Vignette } from "./ui";
 
-// Carte de fin : nom, coordonnées, liens. Elle reste à l'écran jusqu'à la dernière image,
-// qui sert aussi de vignette.
+// Carte de fin : nom, domaines, les six couleurs du portfolio, coordonnées, langues, technique,
+// crédits. Tout est en place en 1,2 s et reste lisible plus de 4 s avant le fondu au noir final
+// (dessiné par Presentation.tsx sur les 0,8 dernières secondes).
 
-const Icon: React.FC<{ children: React.ReactNode; color: string }> = ({ children, color }) => (
-  <svg width={38} height={38} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+const Icon: React.FC<{ children: React.ReactNode; color: string; size: number }> = ({ children, color, size }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
     {children}
   </svg>
 );
@@ -43,10 +46,9 @@ const ICONS = {
 };
 
 export const Outro: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
-  const landscape = width > height;
+  const { t, dur, landscape } = useSlot();
   const accents = [...APPS.map((a) => a.accent), PUBLICATIONS.accent];
+  const glow = interpolate(t, [0, dur], [0.9, 1.1]);
 
   const rows = [
     { icon: ICONS.mail, text: CONTACT.email },
@@ -55,19 +57,56 @@ export const Outro: React.FC = () => {
     { icon: ICONS.book, text: CONTACT.publications },
   ].filter((r) => r.text);
 
+  const rowSize = landscape ? 38 : 40;
+
   return (
-    <AbsoluteFill style={{ opacity: backgroundIn(frame), background: `radial-gradient(120% 80% at 50% 0%, #1b1d22 0%, ${SITE.bg} 60%)` }}>
-      <AbsoluteFill style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 30 }}>
-        <div style={{ ...enter(frame, 2, 36, 20), fontFamily: SERIF, fontWeight: 600, fontSize: landscape ? 140 : 124, lineHeight: 1, color: SITE.ink }}>
+    <AbsoluteFill style={{ background: SITE.bg }}>
+      <AbsoluteFill style={{ background: `radial-gradient(110% 75% at 50% 0%, #1d2026 0%, ${SITE.bg} 62%)` }} />
+      <Grid opacity={0.4} at="50% 35%" />
+      {/* Halo aux six couleurs, très discret */}
+      <AbsoluteFill
+        style={{
+          opacity: 0.22 * glow,
+          background: `conic-gradient(from ${interpolate(t, [0, dur], [200, 240])}deg at 50% 38%, ${accents.join(", ")}, ${accents[0]})`,
+          maskImage: "radial-gradient(38% 30% at 50% 38%, #000 0%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(38% 30% at 50% 38%, #000 0%, transparent 100%)",
+          filter: "blur(40px)",
+        }}
+      />
+      <Vignette />
+      <AbsoluteFill
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: landscape ? "100px 120px 110px" : "110px 80px 110px",
+          gap: landscape ? 26 : 26,
+        }}
+      >
+        <div
+          style={{
+            ...enter(t, -4, 40, 22),
+            fontFamily: SERIF,
+            fontWeight: 600,
+            fontSize: landscape ? 150 : 132,
+            lineHeight: landscape ? 1 : 0.98,
+            letterSpacing: "-0.01em",
+            color: SITE.ink,
+            textWrap: "balance",
+          }}
+        >
           {PERSON.name}
         </div>
         <div
           style={{
-            ...enter(frame, 8),
+            ...enter(t, 4, 18),
             fontFamily: SANS,
             fontWeight: 500,
-            fontSize: 28,
-            letterSpacing: "0.32em",
+            fontSize: landscape ? 30 : 30,
+            letterSpacing: "0.3em",
+            marginRight: "-0.3em",
             textTransform: "uppercase",
             color: SITE.inkDim,
           }}
@@ -75,21 +114,59 @@ export const Outro: React.FC = () => {
           {PERSON.domains}
         </div>
         {/* Les six couleurs des panneaux du portfolio */}
-        <div style={{ ...enter(frame, 12, 0, 14), display: "flex", gap: 8, margin: "14px 0 22px" }}>
-          {accents.map((c) => (
-            <div key={c} style={{ width: 56, height: 4, borderRadius: 2, background: c }} />
+        <div style={{ display: "flex", gap: 10, margin: landscape ? "10px 0 18px" : "8px 0 14px" }}>
+          {accents.map((c, i) => (
+            <div
+              key={c}
+              style={{
+                width: 60 * prog(t, 8 + i * 2, 22 + i * 2),
+                height: 4,
+                borderRadius: 2,
+                background: c,
+                boxShadow: `0 0 10px ${c}80`,
+                marginRight: 60 * (1 - prog(t, 8 + i * 2, 22 + i * 2)),
+              }}
+            />
           ))}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: landscape ? 18 : 20 }}>
           {rows.map((r, i) => (
-            <div key={r.text} style={{ ...enter(frame, 16 + i * 4, 18), display: "flex", alignItems: "center", gap: 22 }}>
-              <Icon color={accents[i % accents.length]}>{r.icon}</Icon>
-              <span style={{ fontFamily: SANS, fontWeight: 500, fontSize: landscape ? 38 : 34, color: SITE.ink }}>{r.text}</span>
+            <div key={r.text} style={{ ...enter(t, 12 + i * 4, 18), display: "flex", alignItems: "center", gap: 22 }}>
+              <Icon color={accents[i % accents.length]} size={rowSize}>
+                {r.icon}
+              </Icon>
+              <span style={{ fontFamily: SANS, fontWeight: 500, fontSize: rowSize, color: SITE.ink }}>{r.text}</span>
             </div>
           ))}
         </div>
-        <div style={{ ...enter(frame, 34), marginTop: 30, fontFamily: SANS, fontSize: 24, letterSpacing: "0.08em", color: SITE.inkFaint }}>
-          {CONTACT.stack}
+        <div
+          style={{
+            ...enter(t, 28, 14),
+            marginTop: landscape ? 16 : 18,
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            alignItems: "center",
+          }}
+        >
+          <div style={{ fontFamily: SANS, fontSize: landscape ? 28 : 30, color: SITE.inkDim }}>{fr(CONTACT.languages)}</div>
+          <div style={{ fontFamily: SANS, fontSize: landscape ? 24 : 26, letterSpacing: "0.06em", color: SITE.inkFaint, textWrap: "balance" }}>
+            {fr(CONTACT.stack)}
+          </div>
+        </div>
+        <div
+          style={{
+            ...enter(t, 34, 10),
+            marginTop: landscape ? 10 : 8,
+            maxWidth: landscape ? 1500 : 920,
+            fontFamily: SANS,
+            fontSize: landscape ? 24 : 26,
+            lineHeight: 1.35,
+            color: "rgba(244,241,234,0.42)",
+            textWrap: "balance",
+          }}
+        >
+          {fr(CONTACT.credits)}
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

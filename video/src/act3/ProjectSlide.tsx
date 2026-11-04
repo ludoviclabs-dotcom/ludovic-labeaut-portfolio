@@ -1,146 +1,332 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
+import { APPS, type App } from "../content";
 import { SANS, SERIF, SITE } from "../theme";
-import { backgroundIn, enter, exitOpacity } from "./anim";
-import { CaptureWindow } from "./CaptureWindow";
+import { easeInOut, enter, enterLeave, fr, leave, lerp, prog } from "./anim";
+import { CAPTURE_RATIO, CaptureWindow } from "./CaptureWindow";
+import { safe, useSlot } from "./slot";
+import { Badge, Photo, Progress, UpdatePill, Vignette } from "./ui";
 
-// Un plan de la vitrine : un projet (ou les publications), sa fenêtre réelle et ses repères.
-// Mise en page en colonnes au format 16:9, empilée au format 4:5.
+// Un projet en deux temps (6 s) :
+// A (0 → 2,4 s) la photo du site en plein cadre, le numéro, le nom, le problème traité, les badges
+//   et la pastille de mise à jour ;
+// B (2,2 → 6 s) la photo recule (flou, assombrie, teintée du dégradé du site), le nom glisse en haut
+//   de la colonne de gauche, les fonctions clés arrivent une à une, et la vraie fenêtre de
+//   l’application s’ouvre à droite (en dessous au format 4:5).
 
-export type ProjectSlideProps = {
-  kicker: string;
-  name: string;
-  subtitle: string;
-  axes: string[];
-  accent: string;
-  background: string;
-  capture: string;
-  captureFromSec: number;
-  slotFrames: number;
-  /** Rang du projet (0 à 4) pour l'indicateur de progression ; absent pour les publications. */
-  progress?: number;
-  children?: React.ReactNode;
+const B_FROM = 62; // début du passage A → B (images)
+const B_TO = 88;
+
+type Layout = {
+  x: number;
+  nameA: number; // taille du nom en A
+  nameB: number; // taille du nom en B
+  nameTopA: number;
+  nameTopB: number;
+  problem: number;
+  problemW: number;
+  colW: number; // largeur de la colonne de texte en B
+  subtitle: number;
+  feature: number;
+  badge: number;
+  capW: number;
 };
 
-const Progress: React.FC<{ index: number; accent: string }> = ({ index, accent }) => (
-  <div style={{ display: "flex", gap: 10 }}>
-    {Array.from({ length: 5 }).map((_, i) => (
-      <div
-        key={i}
-        style={{
-          width: 44,
-          height: 4,
-          borderRadius: 2,
-          background: i === index ? accent : i < index ? "rgba(244,241,234,0.45)" : "rgba(244,241,234,0.15)",
-        }}
-      />
-    ))}
-  </div>
-);
+const layoutFor = (landscape: boolean, width: number): Layout =>
+  landscape
+    ? {
+        x: 100,
+        nameA: 168,
+        nameB: 100,
+        nameTopA: 560,
+        nameTopB: 318,
+        problem: 42,
+        problemW: 1120,
+        colW: 640,
+        subtitle: 34,
+        feature: 32,
+        badge: 26,
+        capW: 1020,
+      }
+    : {
+        x: 80,
+        nameA: 136,
+        nameB: 100,
+        nameTopA: 808,
+        nameTopB: 168,
+        problem: 42,
+        problemW: 920,
+        colW: 920,
+        subtitle: 38,
+        feature: 40,
+        badge: 26,
+        capW: width - 80,
+      };
 
-export const ProjectSlide: React.FC<ProjectSlideProps> = ({
-  kicker,
-  name,
-  subtitle,
-  axes,
-  accent,
-  background,
-  capture,
-  captureFromSec,
-  slotFrames,
-  progress,
-  children,
-}) => {
-  const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
-  const landscape = width > height;
-  const out = exitOpacity(frame, slotFrames);
+export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index }) => {
+  const { t, dur, lead, width, height, landscape } = useSlot();
+  const L = layoutFor(landscape, width);
+  const s = safe(landscape);
+  const pB = prog(t, B_FROM, B_TO, easeInOut);
+  const k = (t + lead) / (dur + 2 * lead);
+  const out = leave(t, dur - 8, dur + 4);
+  const aOut = (delay: number, dist = 28) => enterLeave(t, delay, B_FROM - 6, B_FROM + 8, dist);
 
-  const text = (
-    <div style={{ display: "flex", flexDirection: "column", gap: landscape ? 22 : 18, width: landscape ? 600 : "100%" }}>
-      <div
-        style={{
-          ...enter(frame, 2),
-          fontFamily: SANS,
-          fontWeight: 600,
-          fontSize: 26,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: accent,
-        }}
-      >
-        {kicker}
-      </div>
-      <div
-        style={{
-          ...enter(frame, 5, 36),
-          fontFamily: SERIF,
-          fontWeight: 600,
-          fontSize: landscape ? 116 : 104,
-          lineHeight: 0.95,
-          color: SITE.ink,
-        }}
-      >
-        {name}
-      </div>
-      <div style={{ ...enter(frame, 9), fontFamily: SANS, fontSize: 32, color: SITE.inkDim }}>{subtitle}</div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 6 }}>
-        {axes.map((a, i) => (
-          <div
-            key={a}
+  // Nom : un seul élément qui glisse de A vers B (position et échelle).
+  const nameTop = lerp(L.nameTopA, L.nameTopB, pB);
+  const nameScale = lerp(1, L.nameB / L.nameA, pB);
+
+  // Fenêtre de l’application.
+  const capH = L.capW / CAPTURE_RATIO;
+  const capEnter = 70;
+  const capShow = dur + lead - capEnter;
+  const nameBBottom = L.nameTopB + L.nameB;
+
+  const pulse = (((t + 300) % 40) / 40) as number;
+
+  const features = (
+    <div style={{ display: "flex", flexDirection: "column", gap: landscape ? 18 : 16 }}>
+      {app.features.map((f, i) => (
+        <div
+          key={f}
+          style={{
+            ...enter(t, 84 + i * 9, 0, 18),
+            translate: `${(1 - prog(t, 84 + i * 9, 102 + i * 9)) * -30}px 0`,
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 20,
+          }}
+        >
+          <span
             style={{
-              ...enter(frame, 12 + i * 3, 16),
+              flex: "none",
+              width: 10,
+              height: 10,
+              marginTop: L.feature * 0.5,
+              borderRadius: 2,
+              rotate: "45deg",
+              background: app.accent,
+              boxShadow: `0 0 12px ${app.accent}`,
+            }}
+          />
+          <span
+            style={{
               fontFamily: SANS,
-              fontWeight: 500,
-              fontSize: 24,
-              color: SITE.ink,
-              padding: "9px 18px",
-              borderRadius: 999,
-              border: `1px solid ${accent}80`,
-              background: `${accent}14`,
+              fontSize: L.feature,
+              lineHeight: 1.3,
+              color: "rgba(244,241,234,0.9)",
+              textWrap: "balance",
+              fontVariantNumeric: "lining-nums",
             }}
           >
-            {a}
-          </div>
-        ))}
-      </div>
-      {children}
+            {fr(f)}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+
+  const badgesB = (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      {app.badges.map((b, i) => (
+        <div key={b} style={enter(t, 110 + i * 4, 14, 16)}>
+          <Badge accent={app.accent} size={L.badge}>
+            {fr(b)}
+          </Badge>
+        </div>
+      ))}
     </div>
   );
 
   return (
-    <AbsoluteFill>
-      <AbsoluteFill style={{ background, opacity: backgroundIn(frame) }} />
+    <AbsoluteFill style={{ background: SITE.bg }}>
+      {/* Fond : photo plein cadre qui recule en B */}
+      <Photo
+        src={app.photo}
+        k={k}
+        blur={pB * 22}
+        brightness={lerp(0.86, 0.5, pB)}
+        zoom={[1.04, 1.17]}
+        drift={[index % 2 ? 1.5 : -1.5, -1]}
+      />
+      <AbsoluteFill style={{ background: app.background, opacity: 0.25 + 0.6 * pB }} />
       <AbsoluteFill
         style={{
-          opacity: out,
-          padding: landscape ? "0 100px 0 120px" : "120px 80px 110px",
-          display: "flex",
-          flexDirection: landscape ? "row" : "column",
-          alignItems: landscape ? "center" : "flex-start",
-          justifyContent: landscape ? "space-between" : "flex-start",
-          gap: landscape ? 40 : 64,
+          background: landscape
+            ? "linear-gradient(90deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.55) 45%, rgba(6,7,9,0.05) 80%), linear-gradient(0deg, rgba(6,7,9,0.85) 0%, rgba(6,7,9,0) 55%)"
+            : "linear-gradient(0deg, rgba(6,7,9,0.95) 0%, rgba(6,7,9,0.75) 40%, rgba(6,7,9,0) 75%)",
+          opacity: 1 - 0.55 * pB,
+        }}
+      />
+      <AbsoluteFill style={{ background: `radial-gradient(70% 60% at ${landscape ? "72% 50%" : "50% 72%"}, ${app.accent}22 0%, transparent 70%)`, opacity: pB }} />
+      <Vignette strength={0.8} />
+
+      {/* Progression des cinq projets : même position d’un projet à l’autre */}
+      <div
+        style={{
+          position: "absolute",
+          left: s.x,
+          top: s.top,
+          ...(index === 0 ? enter(t, -6, 0, 14) : {}),
+          ...(index === APPS.length - 1 ? leave(t, dur - 8, dur + 4, 0) : {}),
         }}
       >
-        {text}
-        <CaptureWindow
-          file={capture}
-          fromSec={captureFromSec}
-          width={landscape ? 1080 : width - 160}
-          accent={accent}
-        />
-        {progress !== undefined ? (
+        <Progress index={index} total={APPS.length} accent={app.accent} fill={prog(t, 0, dur, (x) => x)} />
+      </div>
+
+      <AbsoluteFill style={out}>
+        {/* A — pastille de mise à jour, au-dessus du nom */}
+        {app.update ? (
+          <div style={{ position: "absolute", left: L.x, top: L.nameTopA - 82, ...aOut(4, 20) }}>
+            <UpdatePill text={fr(app.update)} accent={app.accent} pulse={pulse} />
+          </div>
+        ) : null}
+
+        {/* Le nom, partagé par A et B */}
+        <div
+          style={{
+            position: "absolute",
+            left: L.x,
+            top: nameTop,
+            transformOrigin: "0 0",
+            scale: String(nameScale),
+            ...enter(t, -2, 40, 24),
+            fontFamily: SERIF,
+            fontWeight: 600,
+            fontSize: L.nameA,
+            lineHeight: 1,
+            letterSpacing: "-0.01em",
+            color: SITE.ink,
+            whiteSpace: "nowrap",
+            textShadow: "0 4px 40px rgba(0,0,0,0.45)",
+          }}
+        >
+          {app.name}
+        </div>
+
+        {/* A — le problème traité et les badges */}
+        <div
+          style={{
+            position: "absolute",
+            left: L.x,
+            top: L.nameTopA + L.nameA + 26,
+            width: L.problemW,
+            display: "flex",
+            flexDirection: "column",
+            gap: 30,
+          }}
+        >
+          <div
+            style={{
+              ...aOut(10, 24),
+              fontFamily: SANS,
+              fontWeight: 400,
+              fontSize: L.problem,
+              lineHeight: 1.28,
+              color: "rgba(244,241,234,0.92)",
+              textWrap: "balance",
+            }}
+          >
+            {fr(app.problem)}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+            {app.badges.map((b, i) => (
+              <div key={b} style={aOut(18 + i * 4, 14)}>
+                <Badge accent={app.accent} size={L.badge}>
+                  {fr(b)}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* B — colonne de texte et fenêtre de l’application */}
+        {landscape ? (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                left: L.x,
+                top: nameBBottom + 18,
+                width: L.colW,
+                display: "flex",
+                flexDirection: "column",
+                gap: 36,
+              }}
+            >
+              <div style={{ ...enter(t, 78, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
+                {fr(app.subtitle)}
+              </div>
+              {features}
+              {badgesB}
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                right: s.x,
+                top: (height - capH) / 2 + 30,
+              }}
+            >
+              <CaptureWindow
+                file={app.capture}
+                fromSec={app.captureFromSec}
+                width={L.capW}
+                accent={app.accent}
+                t={t}
+                start={capEnter + lead}
+                enterAt={capEnter}
+                showFrames={capShow}
+              />
+            </div>
+          </>
+        ) : (
           <div
             style={{
               position: "absolute",
-              ...(landscape ? { right: 100, top: 84 } : { left: 80, bottom: 90 }),
-              ...enter(frame, 0, 0, 10),
+              left: L.x,
+              right: L.x,
+              top: nameBBottom + 14,
+              bottom: s.bottom,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Progress index={progress} accent={accent} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
+              <div style={{ ...enter(t, 78, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
+                {fr(app.subtitle)}
+              </div>
+              {features}
+              {badgesB}
+            </div>
+            <div style={{ flex: 1, minHeight: 30 }} />
+            <div style={{ marginLeft: -40 }}>
+            <CaptureWindow
+              file={app.capture}
+              fromSec={app.captureFromSec}
+              width={L.capW}
+              accent={app.accent}
+              t={t}
+              start={capEnter + lead}
+              enterAt={capEnter}
+              showFrames={capShow}
+            />
+            </div>
+            <div style={{ flex: 0.6 }} />
           </div>
-        ) : null}
+        )}
       </AbsoluteFill>
+      {/* Liseré d’accent qui balaie le bas du cadre au passage A → B */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          bottom: 0,
+          height: 3,
+          width: `${interpolate(pB, [0, 1], [0, 100])}%`,
+          background: `linear-gradient(90deg, transparent, ${app.accent})`,
+          opacity: 0.8 * (1 - prog(t, B_TO, B_TO + 20)),
+        }}
+      />
     </AbsoluteFill>
   );
 };

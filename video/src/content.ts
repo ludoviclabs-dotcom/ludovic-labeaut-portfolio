@@ -112,7 +112,7 @@ export const APPS: App[] = [
     background: "radial-gradient(120% 70% at 40% 25%, #1f2a4d 0%, #11172b 55%, #070910 100%)",
     photo: "probant/loupe.webp",
     capture: "probant.mp4",
-    captureFromSec: 12.6,
+    captureFromSec: 13.4,
   },
   {
     id: "panoplie",
@@ -126,7 +126,7 @@ export const APPS: App[] = [
     background: "radial-gradient(120% 70% at 45% 20%, #2e3b48 0%, #141c24 55%, #090d11 100%)",
     photo: "panoplie/rafale-pacifique.webp",
     capture: "panoplie.mp4",
-    captureFromSec: 4.6,
+    captureFromSec: 5.4,
   },
   {
     id: "finvalstudio",
@@ -140,7 +140,7 @@ export const APPS: App[] = [
     background: "radial-gradient(120% 70% at 50% 25%, #23252b 0%, #131417 55%, #09090b 100%)",
     photo: "finvalstudio/la-defense-nuit.webp",
     capture: "finvalstudio.mp4",
-    captureFromSec: 16.6,
+    captureFromSec: 17,
   },
   {
     id: "kyb-graph",
@@ -154,7 +154,7 @@ export const APPS: App[] = [
     background: "radial-gradient(120% 70% at 50% 25%, #1e3a3f 0%, #101c1f 55%, #080d0e 100%)",
     photo: "kyb-graph/ville-brume-bleue.webp",
     capture: "kyb-graph.mp4",
-    captureFromSec: 4.6,
+    captureFromSec: 5.2,
   },
 ];
 
@@ -167,7 +167,7 @@ export const PUBLICATIONS = {
   background: "radial-gradient(120% 70% at 55% 25%, #3a3833 0%, #1d1c19 55%, #0d0c0b 100%)",
   photo: "publications/bibliotheque.webp",
   capture: "publications.mp4",
-  captureFromSec: 12.6,
+  captureFromSec: 13.4,
   update: "Nouveau · nov. 2026",
   stats: [
     { value: "23", label: "notes d'analyse" },
