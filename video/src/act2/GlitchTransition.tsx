@@ -25,10 +25,7 @@ export const glitchAt = (t: number) => {
   return g;
 };
 
-const easeInOutCubic = (x: number) => {
-  const c = Math.min(1, Math.max(0, x));
-  return c < 0.5 ? 4 * c * c * c : 1 - Math.pow(-2 * c + 2, 3) / 2;
-};
+const easeInOutSine = (x: number) => (1 - Math.cos(Math.PI * Math.min(1, Math.max(0, x)))) / 2;
 
 // Format vertical : le téléviseur est cadré sur le centre de l'ÉCRAN (le panneau de commande est
 // rogné), assez grand pour que le cadre de l'écran se voie également des deux côtés, et placé
@@ -84,7 +81,7 @@ export const RetroScene: React.FC = () => {
     const sClose = Math.min(width, height) / 330;
     const w0 = width / sClose;
     const w1 = width / s;
-    const u = easeInOutCubic((t - P.pullBackFromSec) / (P.pullBackToSec - P.pullBackFromSec));
+    const u = easeInOutSine((t - P.pullBackFromSec) / (P.pullBackToSec - P.pullBackFromSec));
     const w = Math.exp(Math.log(w0) + (Math.log(w1) - Math.log(w0)) * u);
     const k = (w - w0) / (w1 - w0);
     cx = POWER_CLOSEUP.x + (cx - POWER_CLOSEUP.x) * k;

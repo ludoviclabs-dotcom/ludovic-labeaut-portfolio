@@ -203,7 +203,7 @@ const hash01 = (k: number) => {
 type Item = { z: number; draw: () => void };
 
 function palmItems(p: Pixels, scroll: number, items: Item[]) {
-  const first = Math.max(0, Math.ceil((scroll + 0.18) / PALM_GAP));
+  const first = Math.max(0, Math.ceil((scroll + 0.1) / PALM_GAP));
   for (let k = first; k < first + 26; k++) {
     const zw = k * PALM_GAP;
     const side = palmSide(k);
