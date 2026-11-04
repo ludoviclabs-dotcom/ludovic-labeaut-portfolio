@@ -25,11 +25,11 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "captures": "node scripts/sync-captures.mjs",
+    "assets": "node scripts/sync-assets.mjs",
     "soundtrack": "node scripts/build-soundtrack.mjs",
-    "dev": "npm run captures && remotion studio",
-    "render": "npm run captures && remotion render Presentation-16x9 out/ludovic-labeaut-16x9.mp4 && remotion render Presentation-4x5 out/ludovic-labeaut-4x5.mp4",
-    "build": "remotion bundle",
+    "dev": "npm run assets && remotion studio",
+    "render": "npm run assets && remotion render Presentation-16x9 out/ludovic-labeaut-16x9.mp4 && remotion render Presentation-4x5 out/ludovic-labeaut-4x5.mp4",
+    "build": "npm run assets && remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },

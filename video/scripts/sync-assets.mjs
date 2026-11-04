@@ -1,20 +1,29 @@
-// Copie les vidéos de démonstration du site (../public/videos) dans public/captures,
-// où la vidéo les lit. Les copies ne sont pas versionnées : le site reste la seule source.
-import { copyFileSync, existsSync, mkdirSync, statSync } from "node:fs";
+// Copie dans public/ les médias du site dont la vidéo a besoin :
+//   ../public/videos/<projet>.mp4   → public/captures/   (démonstrations des applications)
+//   ../public/images/<thème>/*.webp → public/photos/      (photos Unsplash et DVIDS du portfolio)
+// Les copies ne sont pas versionnées : le site reste la seule source.
+import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const from = path.resolve(root, "../public/videos");
-const to = path.join(root, "public/captures");
-const files = ["carbon-co", "probant", "panoplie", "finvalstudio", "kyb-graph", "publications"].map((n) => `${n}.mp4`);
+const site = path.resolve(root, "../public");
 
-mkdirSync(to, { recursive: true });
-for (const file of files) {
-  const src = path.join(from, file);
-  const dest = path.join(to, file);
-  if (!existsSync(src)) throw new Error(`Vidéo introuvable : ${src}`);
-  if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(src).mtimeMs) continue;
+const copy = (src, dest) => {
+  if (!existsSync(src)) throw new Error(`Fichier introuvable : ${src}`);
+  mkdirSync(path.dirname(dest), { recursive: true });
+  if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(src).mtimeMs) return;
   copyFileSync(src, dest);
-  console.log(`copié : ${file}`);
+  console.log(`copié : ${path.relative(root, dest)}`);
+};
+
+for (const n of ["carbon-co", "probant", "panoplie", "finvalstudio", "kyb-graph", "publications"]) {
+  copy(path.join(site, "videos", `${n}.mp4`), path.join(root, "public/captures", `${n}.mp4`));
+}
+for (const theme of readdirSync(path.join(site, "images"))) {
+  const dir = path.join(site, "images", theme);
+  if (!statSync(dir).isDirectory()) continue;
+  for (const file of readdirSync(dir)) {
+    if (file.endsWith(".webp")) copy(path.join(dir, file), path.join(root, "public/photos", theme, file));
+  }
 }
