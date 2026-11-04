@@ -35,6 +35,7 @@ scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
 scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
 scripts/build-en.mjs         génération des pages anglaises à partir de i18n/en/*.json
 i18n/en/                     traductions anglaises, page par page
+video/                       vidéo de présentation (Remotion), hors du site publié : voir video/README.md
 ```
 
 ## Photos libres de droits

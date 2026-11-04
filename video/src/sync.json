@@ -1,0 +1,34 @@
+{
+  "_doc": "Réglages partagés par la vidéo (src/timeline.ts) et la bande-son (scripts/build-soundtrack.mjs). Après modification : npm run soundtrack.",
+  "fps": 30,
+  "totalSec": 45,
+  "dropSec": 18,
+  "bpm": 106.67,
+  "music": {
+    "_doc": "« Synth Wave » de pro-sensory, OpenGameArt, domaine public (CC0). dropInSourceSec : premier temps fort après la coupure, mesuré dans le fichier source.",
+    "file": "synth-wave.mp3",
+    "url": "https://opengameart.org/sites/default/files/Synth%20Wave_0.mp3",
+    "page": "https://opengameart.org/content/synth-wave",
+    "author": "pro-sensory",
+    "license": "CC0 1.0",
+    "dropInSourceSec": 96.238,
+    "audibleFromSec": 1.6,
+    "fadeOutSec": 2.5
+  },
+  "fill": {
+    "_doc": "Break de batterie : chaque coup est placé en double-croches (step) avant le drop. drum : hi, mid, low ou floor.",
+    "hits": [
+      { "step": -16, "drum": "hi" },
+      { "step": -14, "drum": "hi" },
+      { "step": -12, "drum": "mid" },
+      { "step": -10, "drum": "mid" },
+      { "step": -8, "drum": "low" },
+      { "step": -7, "drum": "low" },
+      { "step": -6, "drum": "low" },
+      { "step": -4, "drum": "floor" },
+      { "step": -3, "drum": "floor" },
+      { "step": -2, "drum": "floor" },
+      { "step": -1, "drum": "floor" }
+    ]
+  }
+}
