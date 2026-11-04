@@ -42,7 +42,7 @@ const Kicker: React.FC<{ children: React.ReactNode; style?: React.CSSProperties 
 const Overview: React.FC = () => {
   const { t, lead, width, landscape } = useSlot();
   const s = safe(landscape);
-  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT + 2, dist);
+  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT, dist);
   const capW = landscape ? 1040 : width - 160;
   const capH = capW / CAPTURE_RATIO;
   const capEnter = 16;
@@ -104,7 +104,7 @@ const Overview: React.FC = () => {
     </>
   );
   const capture = (
-    <div style={enterLeave(t, 0, BEAT - 10, BEAT + 2, 0)}>
+    <div style={enterLeave(t, 0, BEAT - 10, BEAT, 0)}>
       <CaptureWindow
         file={P.capture}
         fromSec={P.captureFromSec}
@@ -148,17 +148,17 @@ const Series: React.FC = () => {
   const { t: t0, landscape, width } = useSlot();
   const t = t0 - BEAT;
   const s = safe(landscape);
-  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT + 2, dist);
+  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT, dist);
   const cardW = landscape ? (width - 2 * s.x - 32) / 2 : width - 2 * s.x;
 
   return (
     <AbsoluteFill style={{ padding: `${s.top}px ${s.x}px ${s.bottom}px`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-      <div style={{ ...out(-4, 16), display: "flex", alignItems: "baseline", gap: 24 }}>
+      <div style={{ ...out(-8, 16), display: "flex", alignItems: "baseline", gap: 24 }}>
         <Kicker>{P.kicker}</Kicker>
       </div>
       <div
         style={{
-          ...out(0, 30),
+          ...out(-4, 30),
           marginTop: 16,
           fontFamily: SERIF,
           fontWeight: 600,
@@ -172,13 +172,13 @@ const Series: React.FC = () => {
       </div>
       <div style={{ display: "flex", flexDirection: landscape ? "row" : "column", gap: landscape ? 32 : 26, marginTop: landscape ? 56 : 40 }}>
         {P.series.map((se, i) => {
-          const d = 8 + i * 14;
+          const d = 2 + i * 12;
           const p = prog(t, d, d + 24);
           return (
             <div
               key={se.title}
               style={{
-                ...enterLeave(t, d, BEAT - 10, BEAT + 2, 50, 24),
+                ...enterLeave(t, d, BEAT - 10, BEAT, 50, 24),
                 width: cardW,
                 padding: landscape ? "44px 48px" : "34px 40px",
                 borderRadius: 24,
@@ -245,7 +245,7 @@ const Dossier: React.FC = () => {
     <AbsoluteFill style={{ padding: `${s.top + 10}px ${s.x}px ${s.bottom + 10}px`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
       <div
         style={{
-          ...enter(t, -4, 16),
+          ...enter(t, -8, 16),
           display: "flex",
           alignItems: "center",
           gap: 16,
@@ -262,7 +262,7 @@ const Dossier: React.FC = () => {
       </div>
       <div
         style={{
-          ...enter(t, 2, 34, 22),
+          ...enter(t, -4, 34, 22),
           marginTop: 22,
           fontFamily: SERIF,
           fontWeight: 600,
@@ -285,7 +285,7 @@ const Dossier: React.FC = () => {
         }}
       >
         {d.figures.map((fg, i) => {
-          const dl = 22 + i * 14;
+          const dl = 16 + i * 14;
           const p = prog(t, dl, dl + 40);
           return (
             <div
@@ -337,7 +337,7 @@ const Dossier: React.FC = () => {
 
 export const Publications: React.FC = () => {
   const { t, dur, lead, landscape } = useSlot();
-  const out = enterLeave(t, -100, dur - 8, dur + 4, 0);
+  const out = enterLeave(t, -100, dur - 10, dur, 0);
   const k = (t + lead) / (dur + 2 * lead);
   const b2 = prog(t, BEAT - 8, BEAT + 10);
   const b3 = prog(t, 2 * BEAT - 8, 2 * BEAT + 10);

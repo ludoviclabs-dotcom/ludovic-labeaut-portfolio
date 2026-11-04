@@ -1,15 +1,20 @@
 # Vidéo de présentation
 
-Vidéo de 45 secondes, en code avec [Remotion](https://www.remotion.dev/), en deux formats :
-16:9 (1920 × 1080) et 4:5 (1080 × 1350, pour le fil LinkedIn sur mobile).
+Vidéo de 81 secondes, en code avec [Remotion](https://www.remotion.dev/), en deux formats :
+16:9 (1920 × 1080) et 4:5 (1080 × 1350, pour le fil LinkedIn sur mobile). Tempo : 80 BPM
+(une mesure = 3 s).
 
 | Temps | Acte | Ce qu'on voit |
 |---|---|---|
-| 0 → 2 s | 1 | Un téléviseur cathodique s'allume : déclic, trait blanc, neige |
-| 2 → 15,75 s | 1 | Route synthwave en pixel art dans l'écran, et le parcours tapé façon terminal (3, 6, 9 et 12 s) |
-| 15,75 → 18 s | 2 | Break de batterie : un zoom et un glitch par coup |
-| 18 s | 2 | Le drop : la caméra traverse l'écran (flash, éclats de pixels) |
-| 18 → 45 s | 3 | Vitrine moderne aux couleurs du site : titre, les 5 projets, les publications, la carte de fin |
+| 0 → 4,6 s | 1 | Gros plan sur le bouton du téléviseur, pressé à 0,6 s (déclic, voyant rouge) ; la caméra recule, trait blanc, neige « CH 03 », l'image apparaît sous la neige |
+| 4,6 → 18,75 s | 1 | Route synthwave en pixel art dans l'écran, panneaux aux mots des thèmes, cartes du terminal (5 ; 8,5 ; 12 et 15,5 s) |
+| 18,75 → 21 s | 2 | Break de batterie (10 coups) : un zoom et un glitch par coup |
+| 21 s | 2 | Le drop : la caméra traverse l'écran (flash, éclats de pixels) |
+| 21 → 27 s | 3 | Titre |
+| 27 → 33 s | 3 | « Ce à quoi je m'attaque » : trois thèmes, avec photos du site |
+| 33 → 63 s | 3 | Les cinq projets, 6 s chacun : problème, puis fonctionnalités et capture |
+| 63 → 75 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
+| 75 → 81 s | 3 | Carte de fin, fondu au noir sur les 0,8 dernières secondes (son : fondu 78 → 81 s) |
 
 Le dossier est indépendant du site : Vercel ne publie que `../public/`.
 
@@ -33,10 +38,10 @@ npm run soundtrack    # régénère public/audio/soundtrack.mp3 après une modif
 | `src/sync.json` | Tempo, instant du drop, coups du break, morceau utilisé. Partagé par l'image et le son |
 | `src/timeline.ts` | Chronologie dérivée de `sync.json` (allumage, cartes du terminal, plans de l'acte 3) |
 | `src/act1/CRTWrapper.tsx` | Le téléviseur et son écran (allumage, lignes de balayage, aberration chromatique) |
-| `src/act1/PixelArtHighwayCanvas.tsx` | La scène pixel art (ciel, soleil, montagnes, route, grille, palmiers, voiture) |
+| `src/act1/PixelArtHighwayCanvas.tsx` | La scène pixel art (ciel, soleil, montagnes, route, grille, palmiers, panneaux, voiture) |
 | `src/act1/TerminalText.tsx` | Le texte tapé façon terminal |
 | `src/act2/GlitchTransition.tsx` | La caméra (zoom par coup de batterie, glitch) et la traversée de l'écran |
-| `src/act3/` | La vitrine : titre, plans des projets (`ProjectSlide.tsx`), carte de fin |
+| `src/act3/` | La vitrine : titre, thèmes (`Themes.tsx`), projets (`ProjectSlide.tsx`), publications (`Publications.tsx`), carte de fin |
 
 ## La bande-son
 

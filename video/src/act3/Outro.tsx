@@ -87,7 +87,7 @@ export const Outro: React.FC = () => {
       >
         <div
           style={{
-            ...enter(t, -4, 40, 22),
+            ...enter(t, -6, 40, 20),
             fontFamily: SERIF,
             fontWeight: 600,
             fontSize: landscape ? 150 : 132,
@@ -101,7 +101,7 @@ export const Outro: React.FC = () => {
         </div>
         <div
           style={{
-            ...enter(t, 4, 18),
+            ...enter(t, 0, 18),
             fontFamily: SANS,
             fontWeight: 500,
             fontSize: landscape ? 30 : 30,
@@ -119,19 +119,19 @@ export const Outro: React.FC = () => {
             <div
               key={c}
               style={{
-                width: 60 * prog(t, 8 + i * 2, 22 + i * 2),
+                width: 60 * prog(t, 4 + i * 2, 18 + i * 2),
                 height: 4,
                 borderRadius: 2,
                 background: c,
                 boxShadow: `0 0 10px ${c}80`,
-                marginRight: 60 * (1 - prog(t, 8 + i * 2, 22 + i * 2)),
+                marginRight: 60 * (1 - prog(t, 4 + i * 2, 18 + i * 2)),
               }}
             />
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: landscape ? 18 : 20 }}>
           {rows.map((r, i) => (
-            <div key={r.text} style={{ ...enter(t, 12 + i * 4, 18), display: "flex", alignItems: "center", gap: 22 }}>
+            <div key={r.text} style={{ ...enter(t, 6 + i * 3, 18), display: "flex", alignItems: "center", gap: 22 }}>
               <Icon color={accents[i % accents.length]} size={rowSize}>
                 {r.icon}
               </Icon>
@@ -141,7 +141,7 @@ export const Outro: React.FC = () => {
         </div>
         <div
           style={{
-            ...enter(t, 28, 14),
+            ...enter(t, 16, 14),
             marginTop: landscape ? 16 : 18,
             display: "flex",
             flexDirection: "column",
@@ -156,7 +156,7 @@ export const Outro: React.FC = () => {
         </div>
         <div
           style={{
-            ...enter(t, 34, 10),
+            ...enter(t, 20, 10),
             marginTop: landscape ? 10 : 8,
             maxWidth: landscape ? 1500 : 920,
             fontFamily: SANS,

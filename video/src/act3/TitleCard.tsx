@@ -15,7 +15,7 @@ export const TitleCard: React.FC = () => {
   const cyan = interpolate(t, [0, 50], [0.22, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const rule = prog(t, 46, 78);
   const drift = interpolate(t, [0, dur], [1, 1.035]);
-  const out = leave(t, dur - 8, dur + 4);
+  const out = leave(t, dur - 10, dur);
 
   return (
     <AbsoluteFill style={{ background: SITE.bg }}>

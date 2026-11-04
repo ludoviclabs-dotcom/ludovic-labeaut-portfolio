@@ -14,7 +14,7 @@ const STAGGER = 18;
 
 const Panel: React.FC<{ theme: Theme; index: number; w: number; h: number }> = ({ theme, index, w, h }) => {
   const { t, dur, landscape } = useSlot();
-  const d = 6 + index * STAGGER;
+  const d = index * STAGGER;
   const p = prog(t, d, d + 26);
   const k = (t + 6) / (dur + 12);
   const titleSize = landscape ? 66 : 64;
@@ -119,7 +119,7 @@ const Panel: React.FC<{ theme: Theme; index: number; w: number; h: number }> = (
 export const Themes: React.FC = () => {
   const { t, dur, width, height, landscape } = useSlot();
   const s = safe(landscape);
-  const out = leave(t, dur - 8, dur + 4);
+  const out = leave(t, dur - 10, dur);
   const headSize = landscape ? 96 : 88;
   const top = landscape ? 120 : 110;
   const panelsTop = landscape ? 300 : 250;

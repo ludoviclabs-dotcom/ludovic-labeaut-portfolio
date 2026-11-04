@@ -69,7 +69,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
   const s = safe(landscape);
   const pB = prog(t, B_FROM, B_TO, easeInOut);
   const k = (t + lead) / (dur + 2 * lead);
-  const out = leave(t, dur - 8, dur + 4);
+  const out = leave(t, dur - 10, dur);
   const aOut = (delay: number, dist = 28) => enterLeave(t, delay, B_FROM - 6, B_FROM + 8, dist);
 
   // Nom : un seul élément qui glisse de A vers B (position et échelle).
@@ -168,7 +168,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
           left: s.x,
           top: s.top,
           ...(index === 0 ? enter(t, -6, 0, 14) : {}),
-          ...(index === APPS.length - 1 ? leave(t, dur - 8, dur + 4, 0) : {}),
+          ...(index === APPS.length - 1 ? leave(t, dur - 10, dur, 0) : {}),
         }}
       >
         <Progress index={index} total={APPS.length} accent={app.accent} fill={prog(t, 0, dur, (x) => x)} />
