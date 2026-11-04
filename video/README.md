@@ -28,7 +28,8 @@ npm run soundtrack    # régénère public/audio/soundtrack.mp3 après une modif
 ```
 
 `npm run dev` et `npm run render` copient d'abord les vidéos de démonstration du site
-(`../public/videos/*.mp4`) dans `public/captures/` (copies non versionnées).
+(`../public/videos/*.mp4`) dans `public/captures/` et les photos du site dans `public/photos/`
+(copies non versionnées).
 
 ## Où modifier quoi
 
