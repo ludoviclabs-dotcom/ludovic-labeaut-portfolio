@@ -1,24 +1,14 @@
 import React, { useLayoutEffect, useRef } from "react";
+import { BILLBOARD, drawBillboard } from "./pixelBillboard";
+import { FOCAL, HORIZON, hex, Pixels, PX_H, PX_W, RGB, ROAD, RUMBLE, smooth, SPEED } from "./pixelCore";
+
+export { PX_H, PX_W };
 
 // Scène synthwave en pixel art, dessinée image par image dans une toile de 320 × 240 pixels,
 // agrandie sans lissage (image-rendering: pixelated). Tout dépend du temps passé en paramètre :
 // le rendu est identique à chaque passage, comme l'exige Remotion.
 
-export const PX_W = 320;
-export const PX_H = 240;
-const HORIZON = 132;
-const FOCAL = 60;
-const ROAD = 0.75; // demi-largeur de la route (unités du monde)
-const RUMBLE = 0.09;
 const CELL = 0.5; // largeur des cases de la grille
-const SPEED = 7; // unités par seconde
-
-type RGB = [number, number, number];
-const hex = (h: string): RGB => [
-  parseInt(h.slice(1, 3), 16),
-  parseInt(h.slice(3, 5), 16),
-  parseInt(h.slice(5, 7), 16),
-];
 
 const SKY = [
   "#0b0221", "#140430", "#1f063d", "#2e0a4d", "#43105c", "#5c1468",
@@ -44,11 +34,6 @@ const C = {
   haze: hex("#ff3d9a"),
 };
 
-const smooth = (a: number, b: number, x: number) => {
-  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
-  return t * t * (3 - 2 * t);
-};
-
 const rng = (seed: number) => () => {
   seed = (seed + 0x6d2b79f5) | 0;
   let t = seed;
@@ -56,35 +41,6 @@ const rng = (seed: number) => () => {
   t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
-
-class Pixels {
-  data: Uint8ClampedArray;
-  constructor(public img: ImageData) {
-    this.data = img.data;
-  }
-  set(x: number, y: number, c: RGB) {
-    x |= 0;
-    y |= 0;
-    if (x < 0 || y < 0 || x >= PX_W || y >= PX_H) return;
-    const i = (y * PX_W + x) * 4;
-    this.data[i] = c[0];
-    this.data[i + 1] = c[1];
-    this.data[i + 2] = c[2];
-    this.data[i + 3] = 255;
-  }
-  blend(x: number, y: number, c: RGB, a: number) {
-    x |= 0;
-    y |= 0;
-    if (x < 0 || y < 0 || x >= PX_W || y >= PX_H || a <= 0) return;
-    const i = (y * PX_W + x) * 4;
-    this.data[i] += (c[0] - this.data[i]) * a;
-    this.data[i + 1] += (c[1] - this.data[i + 1]) * a;
-    this.data[i + 2] += (c[2] - this.data[i + 2]) * a;
-  }
-  rect(x: number, y: number, w: number, h: number, c: RGB) {
-    for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) this.set(x + i, y + j, c);
-  }
-}
 
 // Étoiles fixes, scintillement selon le temps.
 const STARS = (() => {
@@ -121,7 +77,7 @@ function drawSun(p: Pixels, t: number) {
   const r = 46;
   const cx = PX_W / 2;
   // Le soleil se lève doucement pendant tout l'acte 1.
-  const cy = HORIZON + 24 - 30 * smooth(1.5, 15.5, t);
+  const cy = HORIZON + 24 - 30 * smooth(3, 19.5, t);
   for (const [rr, a] of [[r + 18, 0.05], [r + 10, 0.09], [r + 4, 0.14]] as const) {
     for (let y = Math.floor(cy - rr); y < HORIZON; y++) {
       const half = Math.sqrt(Math.max(0, rr * rr - (y - cy) * (y - cy)));
@@ -231,25 +187,37 @@ function drawPalm(p: Pixels, bx: number, by: number, h: number, lean: number) {
   }
 }
 
-function drawPalms(p: Pixels, t: number) {
-  const scroll = t * SPEED;
-  const spacing = 3.2;
-  const items: { z: number; side: number; lean: number }[] = [];
-  for (let i = 0; i < 24; i++) {
-    const z = i * spacing - (scroll % spacing) + 0.6;
-    if (z <= 0.62) continue;
-    const id = Math.floor((scroll - (scroll % spacing)) / spacing) + i;
-    items.push({ z, side: id % 2 === 0 ? -1 : 1, lean: ((id * 7919) % 5) / 5 - 0.3 });
-    items.push({ z: z + spacing / 2, side: id % 2 === 0 ? 1 : -1, lean: ((id * 104729) % 5) / 5 - 0.5 });
-  }
-  items.sort((a, b) => b.z - a.z);
-  for (const it of items) {
-    const wx = it.side * (ROAD + RUMBLE + 1.1);
-    const x = PX_W / 2 + (wx * FOCAL) / it.z;
-    const y = HORIZON + FOCAL / it.z;
-    const h = (2.6 * FOCAL) / it.z;
-    if (h < 6 || y > PX_H + 40) continue;
-    drawPalm(p, x, y, h, it.side * (0.4 + it.lean * 0.3));
+// Palmiers : un index continu k le long de la route (un palmier tous les PALM_GAP), si bien que
+// chaque palmier garde son côté et son inclinaison jusqu'à sortir du cadre (correctif v1 : un
+// palmier sur deux disparaissait au milieu de l'écran). Côtés : G D D G G D D G…
+const PALM_GAP = 1.6;
+const PALM_X = ROAD + RUMBLE + 1.1;
+const palmSide = (k: number) => (((k + (k >> 1)) & 1) === 1 ? 1 : -1);
+const hash01 = (k: number) => {
+  let h = Math.imul(k ^ 0x5bd1e995, 0x27d4eb2d);
+  h ^= h >>> 15;
+  h = Math.imul(h, 0x165667b1);
+  return ((h ^ (h >>> 13)) >>> 0) / 4294967296;
+};
+
+type Item = { z: number; draw: () => void };
+
+function palmItems(p: Pixels, scroll: number, items: Item[]) {
+  const first = Math.max(0, Math.ceil((scroll + 0.18) / PALM_GAP));
+  for (let k = first; k < first + 26; k++) {
+    const zw = k * PALM_GAP;
+    const side = palmSide(k);
+    if (BILLBOARD.clearsPalm(zw, side)) continue;
+    const z = zw - scroll;
+    const wx = side * PALM_X;
+    const x = PX_W / 2 + (wx * FOCAL) / z;
+    const y = HORIZON + FOCAL / z;
+    const h = (2.6 * FOCAL) / z;
+    if (h < 6) continue;
+    // Hors champ (tronc et palmes) : inutile de dessiner.
+    if (side > 0 ? x - 0.62 * h > PX_W : x + 0.62 * h < 0) continue;
+    const lean = side * (0.4 + (hash01(k) - 0.4) * 0.3);
+    items.push({ z, draw: () => drawPalm(p, x, y, h, lean) });
   }
 }
 
@@ -351,7 +319,12 @@ export const PixelArtHighwayCanvas: React.FC<{
     drawSun(p, timeSec);
     drawMountains(p);
     drawGround(p, timeSec);
-    drawPalms(p, timeSec);
+    const scroll = timeSec * SPEED;
+    const items: Item[] = [];
+    palmItems(p, scroll, items);
+    BILLBOARD.items(scroll).forEach((b) => items.push({ z: b.z, draw: () => drawBillboard(p, b, timeSec) }));
+    items.sort((a, b) => b.z - a.z);
+    for (const it of items) it.draw();
     drawCar(p, timeSec, glitch);
     glitchPass(p, glitch, glitchSeed);
     ctx.putImageData(p.img, 0, 0);
