@@ -31,7 +31,8 @@
     "render": "npm run assets && remotion render Presentation-16x9 out/ludovic-labeaut-16x9.mp4 && remotion render Presentation-4x5 out/ludovic-labeaut-4x5.mp4",
     "build": "npm run assets && remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "publish-site": "node scripts/publish-site.mjs"
   },
   "allowScripts": {
     "esbuild": false

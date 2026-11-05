@@ -34,6 +34,10 @@
         <span class="lang-switch__sep" aria-hidden="true">/</span>
         <a href="/en/" hreflang="en" lang="en" translate="no" aria-label="English" aria-current="page">EN</a>
       </nav>
+      <a class="intro-open" href="/videos/presentation-16x9.mp4" aria-haspopup="dialog" aria-label="Watch the introduction video (1 min 21, in French)">
+        <span class="intro-open__icon" aria-hidden="true"></span>
+        <span class="intro-open__label">Intro video</span>
+      </a>
       <a class="topbar__link" href="/en/credits">Photo credits</a>
       <button class="motion-toggle" type="button" aria-pressed="false" hidden>
         <span class="motion-toggle__icon" aria-hidden="true"></span>
@@ -212,7 +216,21 @@
     </ul>
   </main>
 
+  <!-- Vidéo de présentation (rendue par video/, publiée par « npm run publish-site ») : chargée seulement à l'ouverture. -->
+  <dialog class="intro" aria-label="Introduction video">
+    <div class="intro__frame">
+      <video class="intro__video" controls playsinline preload="none"
+        poster="/videos/presentation-poster.jpg"
+        data-src-wide="/videos/presentation-16x9.mp4"
+        data-src-tall="/videos/presentation-4x5.mp4"></video>
+      <button class="intro__close" type="button" aria-label="Close the video">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      </button>
+    </div>
+  </dialog>
+
   <script src="/assets/js/photos.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/intro.js" defer></script>
 </body>
 </html>
