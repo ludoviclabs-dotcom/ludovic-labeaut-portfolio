@@ -7,7 +7,7 @@ import { DROP_SEC, TOTAL_SEC, f } from "./timeline";
 
 // La vidéo complète : le téléviseur (actes 1 et 2) passe devant la vitrine (acte 3),
 // qu'il révèle en traversant l'écran au drop. Une seule piste son, calée par sync.json
-// (son fondu de sortie, 78 → 81 s, est fabriqué dans le fichier audio lui-même).
+// (son fondu de sortie, 84 → 87 s, est fabriqué dans le fichier audio lui-même).
 
 /** Fondu au noir sur les 0,8 dernières secondes. */
 const FADE_OUT_SEC = 0.8;

@@ -21,12 +21,16 @@ dans une autre session, par exemple en local avec Claude Code.
 
 ## Dernier état
 
-Les 11 points du dernier audit sont corrigés et la v2 est rendue (2 430 images, 81 s, deux formats).
-Les mesures sont dans les messages de commit. Restent à valider à l'oreille : le déclic, la neige
-et le break (ils n'ont été vérifiés que par mesure).
+v3 (87 s, 2 610 images, deux formats) : après le drop, un bilan de compétences (actif, passif,
+sphères) précède le nom ; décor de la route enrichi (Grande Arche, éoliennes, globe, oiseaux, robot,
+péage « CONTRÔLE ») ; phrases réécrites, plus simples. Bande-son reconstruite à 87 s avec le même
+morceau CC0. La vidéo est publiée sur le site par `npm run publish-site` (bouton « Présentation »).
+Restent à valider à l'oreille : le déclic, la neige et le break (vérifiés seulement par mesure).
 
 ## Ce qui attend Ludovic
 
+- Ses centres d'intérêt hors travail : `PROFILE.passif.postes` (poste « Hors travail ») dans
+  `src/content.ts`. Le poste est masqué tant que sa liste est vide.
 - L'adresse de son profil LinkedIn : `CONTACT.linkedin` dans `src/content.ts`. La ligne est masquée
   tant qu'elle est vide.
 - La musique de Phil Collins, prévue plus tard, pour un usage privé ou avec une licence. Il faudra

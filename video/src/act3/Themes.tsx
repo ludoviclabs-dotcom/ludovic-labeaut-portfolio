@@ -7,7 +7,7 @@ import { NetworkVisual } from "./NetworkVisual";
 import { safe, useSlot } from "./slot";
 import { Grid, Photo, Vignette } from "./ui";
 
-// « Ce à quoi je m’attaque » : trois panneaux décalés de 0,6 s, chacun sur une photo du site
+// « Mes sujets » : trois panneaux décalés de 0,6 s, chacun sur une photo du site
 // (Ken Burns lent, dégradé sombre) ou, pour l’IA et la robotique, sur un visuel dessiné en code.
 
 const STAGGER = 18;
@@ -148,7 +148,7 @@ export const Themes: React.FC = () => {
             color: SITE.ink,
           }}
         >
-          Ce à quoi je m’attaque
+          Mes sujets
         </div>
         <div
           style={{

@@ -7,20 +7,21 @@ import { easeIn, enter, enterX, fr, leave, lerp, prog } from "./anim";
 import { useSlot } from "./slot";
 import { Grid, Vignette } from "./ui";
 
-// Premier plan après la traversée de l'écran (2 mesures, 8 temps), en quatre temps :
+// Deuxième plan après la traversée de l'écran (2 mesures, 8 temps), juste après le bilan de
+// compétences dont les sphères s'embrasent au centre :
 //  1. Décodage : le nom apparaît en caractères brouillés, en police du terminal de l'acte 1 ;
 //     ses lettres se fixent une à une, une par double-croche, dans le désordre.
 //  2. Premier temps de la 2e mesure : un glitch le change en serif du site, et il remonte.
 //  3. Piste d'audit : un registre de quatre lignes, chiffres du site qui défilent puis se cochent.
-//  4. Troisième temps : le tampon « Traçable · Sourcé · Auditable » frappe le registre.
+//  4. Troisième temps : le tampon « Contrôlé » frappe le registre, puis la phrase s'inscrit dessous.
 // Les chiffres viennent de content.ts (projets et publications) : rien n'est inventé ici.
 
 const SIX = SIXTEENTH_SEC * FPS; // une double-croche, en images (5,625)
 const BEAT = BEAT_SEC * FPS; // un temps, en images (22,5)
 
-const DECODE_FROM = 12; // après le gros du flash
-const MORPH = Math.round(4 * BEAT); // premier temps de la 2e mesure (24 s)
-const STAMP = Math.round(6 * BEAT); // troisième temps de la 2e mesure (25,5 s)
+const DECODE_FROM = 12; // après la lueur des sphères réunies
+const MORPH = Math.round(4 * BEAT); // premier temps de la 2e mesure (30 s)
+const STAMP = Math.round(6 * BEAT); // troisième temps de la 2e mesure (31,5 s)
 const ROWS_FROM = MORPH + 8;
 const ROW_STEP = 6;
 /** Une ligne : entrée, chiffre qui défile (+2 → +12), coche (+11 → +17), en images après son début. */
@@ -104,14 +105,14 @@ const Check: React.FC<{ p: number; size: number }> = ({ p, size }) => (
 
 export const TitleCard: React.FC = () => {
   const { t, dur, landscape, height } = useSlot();
-  // Reste de lueur néon du flash (rose puis violet), qui s'éteint en ~2 s.
+  // Lueur des sphères réunies à la fin du bilan (rose puis violet), qui s'éteint en ~2 s.
   const neon = interpolate(t, [0, 20, 70], [0.62, 0.42, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const out = leave(t, dur - 10, dur);
 
   // Mise en page (centres verticaux, en pixels de l'image).
   const L = landscape
-    ? { nameY: 228, domainsY: 332, ledgerTop: 400, ledgerW: 1060, rowH: 78, stampY: 838, nameScale: 0.66 }
-    : { nameY: 300, domainsY: 452, ledgerTop: 520, ledgerW: 880, rowH: 74, stampY: 935, nameScale: 0.62 };
+    ? { nameY: 228, domainsY: 332, ledgerTop: 400, ledgerW: 1060, rowH: 78, stampX: 150, stampY: 650, taglineY: 852, nameScale: 0.66 }
+    : { nameY: 300, domainsY: 452, ledgerTop: 520, ledgerW: 880, rowH: 74, stampX: 110, stampY: 760, taglineY: 968, nameScale: 0.62 };
   const lines = landscape ? [PERSON.name.toUpperCase()] : PERSON.name.toUpperCase().split(" ");
 
   // Glitch du changement de police, centré sur le premier temps de la 2e mesure.
@@ -268,7 +269,7 @@ export const TitleCard: React.FC = () => {
 
         {/* 4. Le tampon frappe le bas du registre */}
         {t >= STAMP && (
-          <div style={{ ...centered, top: L.stampY, translate: "0 -50%" }}>
+          <div style={{ ...centered, top: L.stampY, translate: `${L.stampX}px -50%` }}>
             <div
               style={{
                 opacity: prog(t, STAMP, STAMP + 3),
@@ -280,7 +281,7 @@ export const TitleCard: React.FC = () => {
                 background: "rgba(11, 12, 14, 0.82)",
                 fontFamily: SANS,
                 fontWeight: 700,
-                fontSize: landscape ? 36 : 30,
+                fontSize: landscape ? 44 : 40,
                 letterSpacing: "0.22em",
                 marginRight: "-0.22em",
                 textTransform: "uppercase",
@@ -294,6 +295,22 @@ export const TitleCard: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* 5. La phrase, sous le registre contrôlé */}
+        <div style={{ ...centered, top: L.taglineY, translate: "0 -50%" }}>
+          <div
+            style={{
+              ...enter(t, STAMP + 10, 16, 16),
+              fontFamily: SERIF,
+              fontStyle: "italic",
+              fontWeight: 500,
+              fontSize: landscape ? 50 : 46,
+              color: SITE.ink,
+            }}
+          >
+            {fr(PERSON.tagline)}
+          </div>
+        </div>
       </AbsoluteFill>
     </AbsoluteFill>
   );

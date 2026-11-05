@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { BILLBOARD, drawBillboard } from "./pixelBillboard";
+import { drawArche, drawBirds, drawGlobe, drawTurbines, mountainHeights, PROPS } from "./pixelProps";
 import { FOCAL, HORIZON, hex, Pixels, PX_H, PX_W, RGB, ROAD, RUMBLE, smooth, SPEED } from "./pixelCore";
 
 export { PX_H, PX_W };
@@ -104,13 +105,9 @@ function drawSun(p: Pixels, t: number) {
 
 function drawMountains(p: Pixels) {
   for (let x = 0; x < PX_W; x++) {
-    const side = Math.abs(x - PX_W / 2);
-    const mBack = Math.min(1, Math.max(0.12, (side - 28) / 90));
-    const hBack = Math.round((16 + 9 * Math.sin(x * 0.05 + 1) + 6 * Math.sin(x * 0.13 + 2) + 3 * Math.sin(x * 0.31)) * mBack);
+    const { back: hBack, front: hFront } = mountainHeights(x);
     for (let y = HORIZON - hBack; y < HORIZON; y++) p.set(x, y, C.mountainBack);
     p.set(x, HORIZON - hBack, C.edgeBack);
-    const mFront = Math.min(1, Math.max(0, (side - 70) / 70));
-    const hFront = Math.round((8 + 5 * Math.sin(x * 0.07 + 4) + 4 * Math.sin(x * 0.19 + 1)) * mFront);
     if (hFront > 0) {
       for (let y = HORIZON - hFront; y < HORIZON; y++) p.set(x, y, C.mountainFront);
       p.set(x, HORIZON - hFront, C.edgeFront);
@@ -207,7 +204,7 @@ function palmItems(p: Pixels, scroll: number, items: Item[]) {
   for (let k = first; k < first + 26; k++) {
     const zw = k * PALM_GAP;
     const side = palmSide(k);
-    if (BILLBOARD.clearsPalm(zw, side)) continue;
+    if (BILLBOARD.clearsPalm(zw, side) || PROPS.clearsPalm(zw, side)) continue;
     const z = zw - scroll;
     const wx = side * PALM_X;
     const x = PX_W / 2 + (wx * FOCAL) / z;
@@ -316,13 +313,18 @@ export const PixelArtHighwayCanvas: React.FC<{
     if (!ctx) return;
     const p = new Pixels(ctx.createImageData(PX_W, PX_H));
     drawSky(p, timeSec);
+    drawGlobe(p, timeSec);
     drawSun(p, timeSec);
+    drawBirds(p, timeSec);
+    drawArche(p, timeSec);
     drawMountains(p);
+    drawTurbines(p, timeSec);
     drawGround(p, timeSec);
     const scroll = timeSec * SPEED;
     const items: Item[] = [];
     palmItems(p, scroll, items);
     BILLBOARD.items(scroll).forEach((b) => items.push({ z: b.z, draw: () => drawBillboard(p, b, timeSec) }));
+    items.push(...PROPS.items(p, scroll, timeSec));
     items.sort((a, b) => b.z - a.z);
     for (const it of items) it.draw();
     drawCar(p, timeSec, glitch);

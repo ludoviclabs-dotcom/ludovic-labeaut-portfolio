@@ -9,6 +9,7 @@ import { ProjectSlide } from "./ProjectSlide";
 import { Publications } from "./Publications";
 import { SlotProvider } from "./slot";
 import { Themes } from "./Themes";
+import { ProfileCard } from "./Profile";
 import { TitleCard } from "./TitleCard";
 
 // Acte 3 : neuf plans calés sur les mesures (timeline.ts). Chaque plan commence XFADE_FRAMES / 2
@@ -23,11 +24,12 @@ const SlotFade: React.FC<{ first: boolean; children: React.ReactNode }> = ({ fir
 };
 
 const slotContent = (i: number) => {
-  if (i === 0) return { name: "Titre", node: <TitleCard /> };
-  if (i === 1) return { name: "Ce à quoi je m’attaque", node: <Themes /> };
-  const a = i - 2;
+  if (i === 0) return { name: "Bilan de compétences", node: <ProfileCard /> };
+  if (i === 1) return { name: "Titre", node: <TitleCard /> };
+  if (i === 2) return { name: "Mes sujets", node: <Themes /> };
+  const a = i - 3;
   if (a >= 0 && a < APPS.length) return { name: APPS[a].name, node: <ProjectSlide app={APPS[a]} index={a} /> };
-  if (i === APPS.length + 2) return { name: "Publications", node: <Publications /> };
+  if (i === APPS.length + 3) return { name: "Publications", node: <Publications /> };
   return { name: "Carte de fin", node: <Outro /> };
 };
 

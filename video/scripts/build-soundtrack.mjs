@@ -4,7 +4,7 @@
 //
 // Tout part de src/sync.json (tempo, drop, coups du break, morceau) et du bloc POWER_ON de
 // src/timeline.ts (instants de l'allumage), les deux fichiers que lit aussi la vidéo. Avec les
-// réglages actuels (80 BPM : un temps = 0,75 s, une mesure = 3 s, drop à 21 s, durée 81 s) :
+// réglages actuels (80 BPM : un temps = 0,75 s, une mesure = 3 s, drop à 21 s, durée 87 s) :
 //
 //   0 → 0,6 s     : silence de pièce (souffle à peine audible) ;
 //   0,6 s         : le bouton s'enfonce — déclic en deux temps (enfoncement, verrouillage), « tchk »
@@ -19,10 +19,10 @@
 //                   double-croches (0,1875 s) avant le drop, sur la coupure propre du morceau,
 //                   1,5 LU sous l'acte 3 ; souffle montant discret ;
 //   21 s          : le drop (crash, grosse caisse), la musique s'ouvre en pleine bande ;
-//   21 → 78 s     : l'acte 3, la partie la plus forte (≈ −13 LUFS) ;
-//   78 → 81 s     : fondu de sortie (fadeOutSec), jusqu'au silence.
+//   21 → 84 s     : l'acte 3, la partie la plus forte (≈ −13 LUFS) ;
+//   84 → 87 s     : fondu de sortie (fadeOutSec), jusqu'au silence.
 //
-// Fenêtre du morceau : de (dropInSourceSec − dropSec) à + totalSec, soit 75,238 → 156,238 s.
+// Fenêtre du morceau : de (dropInSourceSec − dropSec) à + totalSec, soit 75,238 → 162,238 s.
 // Mastering : intensité intégrée −14 LUFS (UIT-R BS.1770), crête vraie ≤ −1,5 dBTP après encodage
 // grâce à un limiteur à anticipation (crêtes mesurées en suréchantillonnage ×4) réglé à −2,2 dBTP :
 // un réencodage AAC par une plateforme ne peut pas saturer.

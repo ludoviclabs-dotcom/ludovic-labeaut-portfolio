@@ -37,11 +37,13 @@ export const FILL_HITS_SEC = sync.fill.hits.map(
 );
 export const FILL_START_SEC = Math.min(...FILL_HITS_SEC);
 
-// ---- Acte 3 : la vitrine, après le drop. Durées en mesures (une mesure = 3 s à 80 BPM) :
+// ---- Acte 3 : la vitrine, après le drop. Durées en mesures (une mesure = 3 s à 80 BPM) ;
+// leur somme doit égaler totalSec − dropSec (vérifié plus bas) :
 // chaque changement de plan tombe sur un premier temps.
 export const SLOT_BARS = [
-  2, // titre
-  2, // « Ce à quoi je m'attaque » : trois thèmes
+  2, // bilan de compétences (profil, sans l'identité)
+  2, // titre : le nom, la piste d'audit
+  2, // « Mes sujets » : trois thèmes
   2, 2, 2, 2, 2, // les cinq projets
   4, // publications : série IA, série banques centrales, dossier robotique
   2, // carte de fin
@@ -57,3 +59,7 @@ export const slotFrom = (i: number) => f(slotStartSec(i));
 export const slotFrames = (i: number) => slotFrom(i + 1) - slotFrom(i);
 /** Fondu enchaîné entre deux plans de l'acte 3 (images). */
 export const XFADE_FRAMES = 12;
+
+if (Math.abs(SLOT_BARS.reduce((a, b) => a + b, 0) * BAR_SEC - (TOTAL_SEC - DROP_SEC)) > 1e-6) {
+  throw new Error("timeline : la somme des plans de l'acte 3 ne correspond pas à totalSec − dropSec (sync.json).");
+}

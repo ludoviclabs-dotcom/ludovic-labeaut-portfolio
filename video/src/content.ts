@@ -8,29 +8,62 @@
 export const PERSON = {
   name: "Ludovic Labeaut",
   domains: "Finance · Audit · ESG · Data",
-  tagline: "Des données traçables, sourcées et directement auditables.",
-  /** Tampon du plan titre : la promesse en trois mots. */
-  stamp: "Traçable · Sourcé · Auditable",
+  tagline: "Chaque chiffre renvoie à sa source.",
+  /** Tampon du plan titre, posé sur la piste d'audit. */
+  stamp: "Contrôlé",
+};
+
+/**
+ * Séquence « profil », juste après le drop : un bilan de compétences présenté comme un bilan
+ * comptable. Actif : ce que je sais faire ; passif : ce que je suis de près. Chaque poste a sa
+ * sphère, de la couleur du projet ou de la série qui en témoigne. Un poste sans éléments
+ * (items vide) n'est pas affiché : c'est le cas de « Hors travail » tant qu'il n'est pas rempli.
+ */
+export type Poste = { label: string; items: string[]; accent: string };
+export const PROFILE = {
+  title: "Bilan de compétences",
+  period: "Exercice 2026",
+  actif: {
+    heading: "Actif",
+    caption: "Compétences",
+    postes: [
+      { label: "Audit", items: ["audit légal", "contrôle interne"], accent: "#829bed" },
+      { label: "ESG", items: ["CSRD", "bilan carbone"], accent: "#84c89a" },
+      { label: "Finance", items: ["DCF", "LBO", "Monte Carlo"], accent: "#e2c27d" },
+      { label: "Données et code", items: ["TypeScript", "Postgres", "API Claude"], accent: "#6ccad0" },
+    ] as Poste[],
+  },
+  passif: {
+    heading: "Passif",
+    caption: "Centres d'intérêt",
+    postes: [
+      { label: "Géopolitique", items: ["défense", "souveraineté"], accent: "#7fb0dc" },
+      { label: "Marchés", items: ["banques centrales", "taux"], accent: "#d97a5e" },
+      { label: "Technologie", items: ["IA", "robotique"], accent: "#ff3d9a" },
+      { label: "Hors travail", items: [], accent: "#ffd319" },
+    ] as Poste[],
+  },
+  total: "Bilan équilibré",
 };
 
 /** Cartes du terminal de l'acte 1 : 30 caractères au plus par ligne pour rester lisibles. */
 export const TERMINAL_CARDS: string[][] = [
   ["LUDOVIC LABEAUT", "M2 CCA · NEOMA"],
   ["2 ANS D'AUDIT FINANCIER", "FORVIS MAZARS · CAC 40"],
-  ["AUDIT LÉGAL", "CONTRÔLE INTERNE", "CSRD · SYSTÈMES IT"],
-  ["ET SI LA RIGUEUR DE L'AUDIT", "RENCONTRAIT L'IA ET LE CODE ?"],
+  ["AUDIT LÉGAL", "CONTRÔLE INTERNE", "CSRD · SYSTÈMES D'INFORMATION"],
+  ["AUDITEUR DE FORMATION,", "JE CODE MES PROPRES OUTILS"],
 ];
 
 /** Thème de chaque carte du terminal, repris dans le bandeau sous le téléviseur (format 4:5). */
 export const TERMINAL_THEMES = [
   "Finance · Audit · ESG · Data",
   "Audit légal · Comptes du CAC 40",
-  "Contrôle interne · CSRD · Systèmes IT",
+  "Contrôle interne · CSRD · Systèmes d'information",
   "IA · Code · Preuve",
 ];
 
-/** Mots des panneaux qui défilent au bord de la route (pixel art, majuscules sans accent). */
-export const BILLBOARDS = ["AUDIT", "ESG", "IA", "ROBOTIQUE", "CSRD", "DEFENSE", "LCB-FT", "DATA"];
+/** Mots des panneaux qui défilent au bord de la route (pixel art, majuscules ; É et È sont dessinés). */
+export const BILLBOARDS = ["AUDIT", "CSRD", "PREUVE", "IA", "DÉFENSE", "CONFORMITÉ", "ROBOTIQUE"];
 
 /** « Ce à quoi je m'attaque » : trois thèmes, chacun sur une photo du site ou un visuel en code. */
 export type Theme = {
@@ -44,21 +77,21 @@ export type Theme = {
 export const THEMES: Theme[] = [
   {
     title: "ESG & climat",
-    line: "Un reporting CSRD traçable, du classeur au rapport.",
+    line: "Le bilan carbone et le rapport CSRD, à partir des données de l'entreprise.",
     accent: "#84c89a",
     photo: "carbon-co/eolienne-brume.webp",
     evidence: "Carbon&Co",
   },
   {
     title: "Audit & preuve",
-    line: "Chaque chiffre relié à sa source, chaque contrôle documenté.",
+    line: "Contrôler les écritures comptables et garder la trace de chaque contrôle.",
     accent: "#829bed",
     photo: "probant/archives.webp",
     evidence: "Probant · KYB Graph",
   },
   {
     title: "IA & robotique",
-    line: "Comprendre où se crée la valeur, sources à l'appui.",
+    line: "Suivre l'IA et la robotique : qui produit, à quel coût, avec quelles dépendances.",
     accent: "#d97a5e",
     photo: null,
     evidence: "Série IA · Dossier robotique",
@@ -120,7 +153,7 @@ export const APPS: App[] = [
     id: "panoplie",
     name: "Panoplie",
     subtitle: "Intelligence défense",
-    problem: "Coût réel, chaîne industrielle, dépendances et régimes d'export, sourcés et datés.",
+    problem: "Ce que coûte un système d'armes, qui le fabrique et où il peut être exporté.",
     features: ["Carte des sous-systèmes, industriels et pays", "Six critères notés de A à E", "Evidence Pack, sources notées de A à D"],
     badges: ["Défense", "Souveraineté", "Sources ouvertes"],
     update: null,
@@ -134,7 +167,7 @@ export const APPS: App[] = [
     id: "finvalstudio",
     name: "FinValStudio",
     subtitle: "Modélisation & valorisation",
-    problem: "Modèles intégrés, valorisation, scénarios et reporting bancaire reproductible.",
+    problem: "Valoriser une entreprise : DCF, LBO et scénarios Monte Carlo.",
     features: ["DCF : du flux aux fonds propres", "Monte Carlo : 5 000 tirages, P10, médiane, P90", "LBO : TRI et multiple du sponsor"],
     badges: ["Valorisation", "Scénarios", "Data"],
     update: null,
@@ -164,7 +197,7 @@ export const APPS: App[] = [
 export const PUBLICATIONS = {
   name: "Publications",
   kicker: "Lignes de force",
-  subtitle: "Notes d'analyse, séries de fond et dossier interactif, sourcés et datés",
+  subtitle: "23 notes d'analyse, toutes sourcées et datées.",
   accent: "#d97a5e",
   background: "radial-gradient(120% 70% at 55% 25%, #3a3833 0%, #1d1c19 55%, #0d0c0b 100%)",
   photo: "publications/bibliotheque.webp",
