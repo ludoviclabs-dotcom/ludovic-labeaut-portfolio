@@ -10,7 +10,7 @@ Vidéo de 81 secondes, en code avec [Remotion](https://www.remotion.dev/), en de
 | 4,6 → 18,75 s | 1 | Route synthwave en pixel art dans l'écran, panneaux aux mots des thèmes, cartes du terminal (5 ; 8,5 ; 12 et 15,5 s) |
 | 18,75 → 21 s | 2 | Break de batterie (10 coups) : un zoom et un glitch par coup |
 | 21 s | 2 | Le drop : la caméra traverse l'écran (flash, éclats de pixels) |
-| 21 → 27 s | 3 | Titre |
+| 21 → 27 s | 3 | Titre : le nom se décode en police du terminal (une lettre par double-croche), un glitch le change en serif à 24 s ; piste d'audit (5 projets, 23 notes, 2 séries, 1 dossier) qui se coche, puis le tampon « Traçable · Sourcé · Auditable » à 25,5 s |
 | 27 → 33 s | 3 | « Ce à quoi je m'attaque » : trois thèmes, avec photos du site |
 | 33 → 63 s | 3 | Les cinq projets, 6 s chacun : problème, puis fonctionnalités et capture |
 | 63 → 75 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
@@ -43,7 +43,7 @@ aux noms fixes, que `npm run publish-site` produit à partir de `out/` :
 |---|---|
 | `../public/videos/presentation-16x9.mp4` | écran large (et lien direct sans JavaScript) |
 | `../public/videos/presentation-4x5.mp4` | téléphone tenu en portrait |
-| `../public/videos/presentation-poster.jpg` | image avant lecture (le titre, à 23 s) |
+| `../public/videos/presentation-poster.jpg` | image avant lecture (le plan titre complet, à 26,6 s) |
 
 Après chaque modification de la vidéo : `npm run publish-site`, puis versionner ces trois fichiers
 et pousser. `npm run publish-site -- --no-render` republie les fichiers déjà présents dans `out/`.

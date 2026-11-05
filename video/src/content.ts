@@ -9,6 +9,8 @@ export const PERSON = {
   name: "Ludovic Labeaut",
   domains: "Finance · Audit · ESG · Data",
   tagline: "Des données traçables, sourcées et directement auditables.",
+  /** Tampon du plan titre : la promesse en trois mots. */
+  stamp: "Traçable · Sourcé · Auditable",
 };
 
 /** Cartes du terminal de l'acte 1 : 30 caractères au plus par ligne pour rester lisibles. */
