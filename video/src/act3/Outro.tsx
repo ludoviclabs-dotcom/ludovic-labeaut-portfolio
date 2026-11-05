@@ -1,4 +1,5 @@
 import React from "react";
+import QRCode from "qrcode";
 import { AbsoluteFill, interpolate } from "remotion";
 import { APPS, CONTACT, PERSON, PUBLICATIONS } from "../content";
 import { SANS, SERIF, SITE } from "../theme";
@@ -9,6 +10,8 @@ import { Grid, Vignette } from "./ui";
 // Carte de fin : nom, domaines, les six couleurs du portfolio, coordonnées, langues, technique,
 // crédits. Tout est en place en 1,2 s et reste lisible plus de 4 s avant le fondu au noir final
 // (dessiné par Presentation.tsx sur les 0,8 dernières secondes).
+// Un QR code vers le portfolio complète les adresses écrites : on ne scanne pas l'écran du
+// téléphone sur lequel on regarde, mais la vidéo passe aussi sur un autre écran (entretien, salon).
 
 const Icon: React.FC<{ children: React.ReactNode; color: string; size: number }> = ({ children, color, size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -43,6 +46,66 @@ const ICONS = {
       <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
     </>
   ),
+};
+
+// Modules du QR code, calculés une fois (correction d'erreur M : version 3, 29 × 29 modules).
+const QR = QRCode.create(CONTACT.qr, { errorCorrectionLevel: "M" }).modules;
+const QUIET = 4; // marge blanche réglementaire, en modules
+
+/** QR code en pixel art : les modules apparaissent au passage d'une ligne de balayage, puis l'image
+ *  reste fixe (rien ne la recouvre) pour être scannée. Coins de viseur aux couleurs du portfolio. */
+const QrCard: React.FC<{ t: number; module: number; accents: string[] }> = ({ t, module, accents }) => {
+  const n = QR.size;
+  const side = (n + QUIET * 2) * module;
+  const FROM = 8; // image où commence le balayage
+  const SWEEP = 18; // durée du balayage, en images
+  const scanRow = ((t - FROM) / SWEEP) * n; // rangée atteinte par la ligne de balayage
+  let d = "";
+  for (let r = 0; r < n; r++) {
+    if (r > scanRow) break;
+    for (let c = 0; c < n; c++) if (QR.get(r, c)) d += `M${(c + QUIET) * module} ${(r + QUIET) * module}h${module}v${module}h-${module}z`;
+  }
+  const scanning = scanRow >= 0 && scanRow <= n;
+  const corner = module * 3;
+  const gap = module * 1.5;
+  const brackets = [
+    [-1, -1],
+    [1, -1],
+    [1, 1],
+    [-1, 1],
+  ] as const;
+  return (
+    <div style={{ ...enter(t, 6, 14), position: "relative", width: side, height: side, flexShrink: 0 }}>
+      <svg width={side} height={side} viewBox={`0 0 ${side} ${side}`} shapeRendering="crispEdges" style={{ display: "block" }}>
+        <rect width={side} height={side} fill="#f4f1ea" />
+        <path d={d} fill="#0b0c0f" />
+        {scanning && <rect x={0} y={(Math.max(0, scanRow) + QUIET) * module} width={side} height={module} fill="#3df0ff" opacity={0.85} />}
+      </svg>
+      {/* Coins de viseur, en dehors de la marge blanche */}
+      <svg
+        width={side + gap * 2}
+        height={side + gap * 2}
+        style={{ position: "absolute", left: -gap, top: -gap, overflow: "visible" }}
+        shapeRendering="crispEdges"
+      >
+        {brackets.map(([sx, sy], i) => {
+          const x = sx < 0 ? 0 : side + gap * 2;
+          const y = sy < 0 ? 0 : side + gap * 2;
+          const k = prog(t, 10 + i * 2, 22 + i * 2);
+          return (
+            <path
+              key={i}
+              d={`M${x} ${y + -sy * corner * k}V${y}H${x + -sx * corner * k}`}
+              fill="none"
+              stroke={accents[(i * 2) % accents.length]}
+              strokeWidth={module * 0.6}
+              strokeLinecap="square"
+            />
+          );
+        })}
+      </svg>
+    </div>
+  );
 };
 
 export const Outro: React.FC = () => {
@@ -129,15 +192,40 @@ export const Outro: React.FC = () => {
             />
           ))}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: landscape ? 18 : 20 }}>
-          {rows.map((r, i) => (
-            <div key={r.text} style={{ ...enter(t, 6 + i * 3, 18), display: "flex", alignItems: "center", gap: 22 }}>
-              <Icon color={accents[i % accents.length]} size={rowSize}>
-                {r.icon}
-              </Icon>
-              <span style={{ fontFamily: SANS, fontWeight: 500, fontSize: rowSize, color: SITE.ink }}>{r.text}</span>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: landscape ? "row" : "column",
+            alignItems: "center",
+            gap: landscape ? 80 : 34,
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: landscape ? 18 : 20 }}>
+            {rows.map((r, i) => (
+              <div key={r.text} style={{ ...enter(t, 6 + i * 3, 18), display: "flex", alignItems: "center", gap: 22 }}>
+                <Icon color={accents[i % accents.length]} size={rowSize}>
+                  {r.icon}
+                </Icon>
+                <span style={{ fontFamily: SANS, fontWeight: 500, fontSize: rowSize, color: SITE.ink }}>{r.text}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: landscape ? "column" : "row", alignItems: "center", gap: landscape ? 18 : 28 }}>
+            <QrCard t={t} module={6} accents={accents} />
+            <div
+              style={{
+                ...enter(t, 18, 12),
+                maxWidth: landscape ? 260 : 300,
+                fontFamily: SANS,
+                fontSize: landscape ? 22 : 26,
+                lineHeight: 1.3,
+                color: SITE.inkDim,
+                textAlign: landscape ? "center" : "left",
+              }}
+            >
+              {fr(CONTACT.qrLabel)}
             </div>
-          ))}
+          </div>
         </div>
         <div
           style={{

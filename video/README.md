@@ -16,7 +16,7 @@ Vidéo de 100,8 secondes (1,8 s de prologue, puis 99 s), en code avec [Remotion]
 | 46,8 → 52,8 s | 3 | « Mes sujets » : trois thèmes, avec photos du site |
 | 52,8 → 82,8 s | 3 | Les cinq projets, 6 s chacun : problème, puis fonctionnalités et capture |
 | 82,8 → 94,8 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
-| 94,8 → 100,8 s | 3 | Carte de fin, fondu au noir sur les 0,8 dernières secondes |
+| 94,8 → 100,8 s | 3 | Carte de fin (adresses écrites et QR code vers le portfolio, `CONTACT.qr`), fondu au noir sur les 0,8 dernières secondes |
 
 Le code compte le temps depuis le début du téléviseur (`src/timeline.ts`, `src/sync.json`) : la vidéo
 commence `prologueSec` (1,8 s) plus tôt. Les instants ci-dessus sont ceux de la vidéo.

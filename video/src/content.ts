@@ -296,6 +296,9 @@ export const CONTACT = {
   linkedin: "",
   portfolio: "l-labs-portfolio.vercel.app",
   publications: "l-labs-portfolio.vercel.app/publications",
+  /** QR code de la carte de fin : utile quand la vidéo passe sur un autre écran (entretien, salon). */
+  qr: "https://l-labs-portfolio.vercel.app",
+  qrLabel: "Scannez pour ouvrir le portfolio",
   stack: "Next.js · TypeScript · Neon / Postgres · API Claude",
   languages: "Portfolio en français et en anglais",
   credits: "Photos : Unsplash et DVIDS (domaine public). Musique : « Synth Wave », pro-sensory (CC0).",
