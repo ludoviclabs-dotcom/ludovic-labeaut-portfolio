@@ -51,6 +51,58 @@ export const PROFILE = {
   total: "Bilan équilibré",
 };
 
+/**
+ * « Ce que je sais faire » : six écrans de contrôle animés (pixel art, terminal), un par savoir-faire.
+ * Les écrans montrent une démarche (contrôles, structure, maillage…), pas des chiffres de clients.
+ */
+export const SKILLS = {
+  title: "Ce que je sais faire",
+  tiles: [
+    {
+      key: "audit",
+      title: "Audit",
+      caption: "Revue analytique",
+      lines: ["[OK] Rapprochements", "[OK] Cut-off", "[!!] Écriture en double"],
+      accent: "#829bed",
+    },
+    {
+      key: "groupe",
+      title: "Ingénierie sociétaire",
+      caption: "Structure de groupe",
+      lines: ["Holding", "Filiale A", "Filiale B", "Filiale C", "Sous-filiale"],
+      accent: "#e9a3c9",
+    },
+    {
+      key: "mesh",
+      title: "Modélisation 3D",
+      caption: "Maillage et axes",
+      lines: [],
+      accent: "#ff8b2c",
+    },
+    {
+      key: "ui",
+      title: "Visuels et fonctionnalités",
+      caption: "Interface",
+      lines: [],
+      accent: "#ffd319",
+    },
+    {
+      key: "auto",
+      title: "Skills et automatisation",
+      caption: "Tâches en chaîne",
+      lines: ["> déclencheur : nouveau FEC", "  import ........ OK", "  contrôles ..... OK", "  rapport ....... OK"],
+      accent: "#6ccad0",
+    },
+    {
+      key: "api",
+      title: "Connexion d'applications",
+      caption: "API",
+      lines: ["API", "ERP", "Banque", "CRM", "IA", "Docs", "Mail"],
+      accent: "#3df0ff",
+    },
+  ],
+};
+
 /** Cartes du terminal de l'acte 1 : 30 caractères au plus par ligne pour rester lisibles. */
 export const TERMINAL_CARDS: string[][] = [
   ["LUDOVIC LABEAUT", "M2 CCA · NEOMA"],

@@ -10,9 +10,9 @@ import { Grid, Vignette } from "./ui";
 
 // Premier plan après la traversée de l'écran (3 mesures, 12 temps) : le profil, sans l'identité.
 // Un « bilan de compétences » présenté comme un bilan comptable, en quatre temps :
-//  1. Les sphères (pixel art) jaillissent du flash et se mettent en orbite autour du titre.
-//  2. Un poste par demi-temps, en alternant actif et passif : sa sphère quitte l'orbite et vient
-//     se poser devant lui, dans un éclat de pixels.
+//  1. Les sphères (fil de fer néon tramé) jaillissent du flash et tournent autour du titre.
+//  2. Un poste par demi-temps, en alternant actif et passif : sa sphère quitte l'orbite, se défait
+//     en particules et se reforme devant lui, dans un éclat de pixels.
 //  3. Premier temps de la 3e mesure : doubles traits des totaux, « Bilan équilibré ».
 //  4. Les sphères se rejoignent au centre et forment le soleil synthwave de la route, qui
 //     s'embrase : le plan suivant (le nom) sort de cette lumière.
@@ -60,7 +60,7 @@ export const ProfileCard: React.FC = () => {
         ],
         rowH: 80,
         inline: false,
-        bullet: 14,
+        bullet: 16,
       }
     : {
         titleY: 112,
@@ -72,7 +72,7 @@ export const ProfileCard: React.FC = () => {
         ],
         rowH: 56,
         inline: true,
-        bullet: 12,
+        bullet: 14,
       };
   const totalY = (side: number) =>
     landscape ? L.cols[0].rowsY + MAX_ROWS * L.rowH + 10 : L.cols[side].rowsY + COLUMNS[side].postes.length * L.rowH + 6;
@@ -114,6 +114,8 @@ export const ProfileCard: React.FC = () => {
       alpha: dock > 0 ? 1 : 0.6 + 0.4 * o.depth,
       phase: k * 1.7,
       burst: dock >= 1 ? (t - row.at - 2) / 10 : 0,
+      // En chemin, la sphère se défait en particules et se reforme à son arrivée.
+      scatter: Math.max(Math.sin(dock * Math.PI), Math.sin(merge * Math.PI) * 0.8),
     };
     (dock > 0 || merge > 0 || o.depth > 0.5 ? front : back).push(s);
   });

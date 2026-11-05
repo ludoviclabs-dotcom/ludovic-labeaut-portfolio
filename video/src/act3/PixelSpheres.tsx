@@ -2,10 +2,13 @@ import React, { useLayoutEffect, useRef } from "react";
 
 // Sphères en pixel art, dans le style de la route synthwave de l'acte 1 : dessinées dans une toile
 // trois fois plus petite que l'image, puis agrandies sans lissage. Chaque sphère a :
-//   · un ombrage en tramage ordonné (Bayer 4 × 4) sur cinq tons de sa couleur ;
-//   · un reflet qui tourne lentement autour d'elle ;
-//   · dans sa moitié basse, des bandes horizontales qui défilent, comme le soleil de la route ;
-//   · un liseré clair et un halo tramé.
+//   · un maillage fil de fer néon (méridiens qui tournent sur l'axe vertical, parallèles), arrière
+//     plus pâle que l'avant ;
+//   · un remplissage et un halo en tramage ordonné (Bayer 4 × 4), plus denses en haut, comme le
+//     soleil de la route, avec des lignes de balayage une ligne sur deux ;
+//   · une pulsation lumineuse lente ;
+//   · quand elle change de place, elle se défait en particules et se reforme (scatter) ;
+//   · des éclats de pixels quand elle se pose.
 // La « sphère soleil » (sun) reprend le dégradé jaune → rose du soleil de l'acte 1.
 // Tout dépend du numéro d'image : rendu identique à chaque passage, comme l'exige Remotion.
 
@@ -23,6 +26,8 @@ export type PixelSphere = {
   /** 0 → 1 : éclats de pixels autour de la sphère quand elle se pose. */
   burst?: number;
   sun?: boolean;
+  /** 0 → 1 : la sphère se défait en particules (0 : entière). */
+  scatter?: number;
 };
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
@@ -32,12 +37,6 @@ const mix = (a: RGB, b: RGB, k: number): RGB => [a[0] + (b[0] - a[0]) * k, a[1] 
 const BLACK: RGB = [6, 3, 14];
 const WHITE: RGB = [255, 250, 255];
 const SUN = ["#e7258f", "#ff3d7f", "#ff5a55", "#ff7d36", "#ffa431", "#ffc93a", "#ffe156", "#fff4a8"].map(hex);
-
-/** Cinq tons, du plus sombre au plus clair. */
-const palette = (accent: string): RGB[] => {
-  const c = hex(accent);
-  return [mix(c, BLACK, 0.78), mix(c, BLACK, 0.45), c, mix(c, WHITE, 0.4), mix(c, WHITE, 0.78)];
-};
 
 class Canvas {
   constructor(
@@ -60,63 +59,119 @@ class Canvas {
 function drawSphere(cv: Canvas, s: PixelSphere, frame: number) {
   const alpha = s.alpha ?? 1;
   if (alpha <= 0 || s.r <= 0) return;
+  if (s.sun) return drawSun(cv, s, frame);
   const cx = s.x / PIXEL_SCALE;
   const cy = s.y / PIXEL_SCALE;
-  const r = Math.max(1.5, s.r / PIXEL_SCALE);
-  const pal = s.sun ? SUN : palette(s.accent);
-  const accent = s.sun ? SUN[3] : hex(s.accent);
+  const r = Math.max(2, s.r / PIXEL_SCALE);
   const phase = s.phase ?? 0;
-  // Reflet tournant : direction de la lumière.
-  const la = -2.3 + Math.sin((frame + phase * 40) / 34) * 0.55;
-  const L = [Math.cos(la) * 0.62, Math.sin(la) * 0.62, 0.48];
-  const stripeShift = Math.floor((frame + phase * 13) / 5);
-  const halo = Math.max(2, r * 0.35);
+  const accent = hex(s.accent);
+  const bright = mix(accent, WHITE, 0.55);
+  const deep = mix(accent, BLACK, 0.55);
+  const scatter = s.scatter ?? 0;
+  // Pulsation lumineuse lente, propre à chaque sphère.
+  const pulse = 0.75 + 0.25 * Math.sin((frame + phase * 30) / 11);
+  const halo = Math.max(2, r * 0.5);
 
-  const x0 = Math.floor(cx - r - halo - 1);
-  const x1 = Math.ceil(cx + r + halo + 1);
-  const y0 = Math.floor(cy - r - halo - 1);
-  const y1 = Math.ceil(cy + r + halo + 1);
-  for (let py = y0; py <= y1; py++) {
-    for (let px = x0; px <= x1; px++) {
-      const dx = px + 0.5 - cx;
-      const dy = py + 0.5 - cy;
-      const d = Math.hypot(dx, dy);
-      const b = BAYER[(py & 3) * 4 + (px & 3)];
-      if (d > r) {
-        // Halo tramé, plus dense près du bord.
-        const k = 1 - (d - r) / halo;
-        if (k > 0 && b < 16 * k * k * 0.55) cv.blend(px, py, accent, 0.55 * alpha);
-        continue;
+  // 1. Halo et remplissage tramés (Bayer), lignes de balayage une ligne sur deux.
+  if (scatter < 0.5) {
+    const fillA = alpha * (1 - scatter * 2);
+    const x0 = Math.floor(cx - r - halo);
+    const x1 = Math.ceil(cx + r + halo);
+    const y0 = Math.floor(cy - r - halo);
+    const y1 = Math.ceil(cy + r + halo);
+    for (let py = y0; py <= y1; py++) {
+      for (let px = x0; px <= x1; px++) {
+        const d = Math.hypot(px + 0.5 - cx, py + 0.5 - cy);
+        const b = BAYER[(py & 3) * 4 + (px & 3)];
+        if (d > r) {
+          const k = 1 - (d - r) / halo;
+          if (k > 0 && b < 16 * k * k * 0.5 * pulse) cv.blend(px, py, accent, 0.5 * fillA);
+          continue;
+        }
+        if ((py & 1) === 1) continue; // ligne de balayage
+        const v = (py + 0.5 - cy) / r; // −1 en haut, +1 en bas
+        const density = 0.42 * (1 - (v + 1) / 2) + 0.08; // plus dense en haut, comme le soleil
+        if (b < 16 * density) cv.blend(px, py, mix(deep, accent, 0.5 - v * 0.4), 0.8 * fillA);
       }
-      const v = dy / r; // −1 en haut, +1 en bas
-      // Bandes du soleil synthwave, de plus en plus larges vers le bas, qui défilent.
-      if (v > 0.12 && r >= 4) {
-        const period = Math.max(3, Math.round(r / 3.2));
-        const gap = 1 + Math.floor((v - 0.12) * (period - 1));
-        if ((((py - Math.floor(cy) + stripeShift) % period) + period) % period < gap) continue;
-      }
-      let level: number;
-      if (s.sun) {
-        level = (1 - (v + 1) / 2) * (pal.length - 1);
-      } else {
-        const nz = Math.sqrt(Math.max(0, 1 - (d / r) ** 2));
-        const dot = (dx / r) * L[0] + (dy / r) * L[1] + nz * L[2];
-        level = Math.min(1, Math.max(0, 0.42 + 0.62 * dot)) * (pal.length - 1);
-      }
-      const base = Math.floor(level);
-      const idx = Math.min(pal.length - 1, (level - base) * 16 > b ? base + 1 : base);
-      let c = pal[idx];
-      if (d > r - 1) c = mix(c, WHITE, 0.45); // liseré
-      cv.blend(px, py, c, alpha);
     }
   }
-  // Éclats de pixels quand la sphère se pose.
+
+  // 2. Maillage fil de fer : méridiens qui tournent sur l'axe vertical, parallèles fixes.
+  const spin = (frame + phase * 20) * 0.045;
+  const tilt = 0.32;
+  const pt = (lat: number, lon: number, seed: number) => {
+    const x = Math.cos(lat) * Math.sin(lon + spin);
+    const y0 = Math.sin(lat);
+    const z0 = Math.cos(lat) * Math.cos(lon + spin);
+    const y = y0 * Math.cos(tilt) - z0 * Math.sin(tilt);
+    const z = y0 * Math.sin(tilt) + z0 * Math.cos(tilt);
+    // Dispersion en particules : chaque point s'écarte selon sa propre direction.
+    const h1 = Math.sin(seed * 12.9898 + phase * 78.233) * 43758.5453;
+    const h2 = Math.sin(seed * 39.3468 + phase * 11.135) * 24634.6345;
+    const jx = (h1 - Math.floor(h1) - 0.5) * 2;
+    const jy = (h2 - Math.floor(h2) - 0.5) * 2;
+    return { x: cx + x * r + jx * scatter * r * 1.8, y: cy - y * r + jy * scatter * r * 1.8, front: z > 0 };
+  };
+  const meridians = r >= 8 ? 8 : 6;
+  const steps = Math.max(16, Math.round(r * 4));
+  let seed = 0;
+  const plot = (q: { x: number; y: number; front: boolean }) => {
+    const c = q.front ? bright : accent;
+    const a = (q.front ? 1 : 0.28) * alpha * (scatter > 0 ? 1 : pulse * 0.25 + 0.75);
+    cv.blend(Math.round(q.x), Math.round(q.y), c, a);
+  };
+  for (let m = 0; m < meridians; m++) {
+    for (let k = 0; k <= steps; k++) {
+      if (scatter > 0 && k % 3) continue;
+      plot(pt(-Math.PI / 2 + (k / steps) * Math.PI, (m * Math.PI) / meridians, seed++));
+    }
+  }
+  for (const lat of [-0.9, -0.45, 0, 0.45, 0.9]) {
+    const n = Math.round(steps * 2 * Math.cos(lat));
+    for (let k = 0; k < n; k++) {
+      if (scatter > 0 && k % 3) continue;
+      plot(pt(lat, (k / n) * 2 * Math.PI, seed++));
+    }
+  }
+
+  // 3. Éclats de pixels quand la sphère se pose.
   const burst = s.burst ?? 0;
   if (burst > 0 && burst < 1) {
     const dist = r + 1 + burst * 7;
     for (let k = 0; k < 8; k++) {
       const a = (k * Math.PI) / 4 + 0.4;
       cv.blend(Math.round(cx + Math.cos(a) * dist), Math.round(cy + Math.sin(a) * dist), WHITE, (1 - burst) * alpha);
+    }
+  }
+}
+
+/** Le soleil synthwave de la route : dégradé jaune → rose tramé, bandes qui défilent. */
+function drawSun(cv: Canvas, s: PixelSphere, frame: number) {
+  const alpha = s.alpha ?? 1;
+  const cx = s.x / PIXEL_SCALE;
+  const cy = s.y / PIXEL_SCALE;
+  const r = Math.max(2, s.r / PIXEL_SCALE);
+  const halo = Math.max(2, r * 0.35);
+  const stripeShift = Math.floor(frame / 5);
+  for (let py = Math.floor(cy - r - halo); py <= Math.ceil(cy + r + halo); py++) {
+    for (let px = Math.floor(cx - r - halo); px <= Math.ceil(cx + r + halo); px++) {
+      const d = Math.hypot(px + 0.5 - cx, py + 0.5 - cy);
+      const b = BAYER[(py & 3) * 4 + (px & 3)];
+      if (d > r) {
+        const k = 1 - (d - r) / halo;
+        if (k > 0 && b < 16 * k * k * 0.55) cv.blend(px, py, SUN[3], 0.55 * alpha);
+        continue;
+      }
+      const v = (py + 0.5 - cy) / r;
+      if (v > 0.12 && r >= 4) {
+        const period = Math.max(3, Math.round(r / 3.2));
+        const gap = 1 + Math.floor((v - 0.12) * (period - 1));
+        if ((((py - Math.floor(cy) + stripeShift) % period) + period) % period < gap) continue;
+      }
+      const level = (1 - (v + 1) / 2) * (SUN.length - 1);
+      const base = Math.floor(level);
+      const idx = Math.min(SUN.length - 1, (level - base) * 16 > b ? base + 1 : base);
+      cv.blend(px, py, d > r - 1 ? mix(SUN[idx], WHITE, 0.45) : SUN[idx], alpha);
     }
   }
 }

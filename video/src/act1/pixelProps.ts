@@ -71,7 +71,14 @@ export function drawTurbines(p: Pixels, t: number) {
   }
 }
 
-/** Globe filaire néon en haut à droite : méridiens et parallèles, rotation lente. */
+const BAYER4 = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+const VIOLET = hex("#7b2cff");
+
+/**
+ * Globe néon en haut à droite (géopolitique), dans le style du soleil : remplissage tramé (Bayer)
+ * cyan → violet avec lignes de balayage, maillage fil de fer qui tourne sur l'axe vertical
+ * (arrière plus pâle), halo qui pulse, anneau incliné et satellite en orbite.
+ */
 export function drawGlobe(p: Pixels, t: number) {
   const a = smooth(5, 6.5, t);
   if (a <= 0) return;
@@ -80,23 +87,44 @@ export function drawGlobe(p: Pixels, t: number) {
   const r = 14;
   const tilt = 0.38;
   const spin = t * 0.55;
+  const pulse = 0.75 + 0.25 * Math.sin(t * 3.2);
+  // Halo tramé et remplissage, une ligne sur deux (balayage).
+  for (let y = cy - r - 5; y <= cy + r + 5; y++) {
+    for (let x = cx - r - 5; x <= cx + r + 5; x++) {
+      const d = Math.hypot(x + 0.5 - cx, y + 0.5 - cy);
+      const b = BAYER4[(y & 3) * 4 + (x & 3)];
+      if (d > r) {
+        const k = 1 - (d - r) / 5;
+        if (k > 0 && b < 16 * k * k * 0.45 * pulse) p.blend(x, y, CYAN, 0.35 * a);
+        continue;
+      }
+      if (y & 1) continue;
+      const v = (y + 0.5 - cy) / r;
+      if (b < 16 * (0.36 * (1 - (v + 1) / 2) + 0.06)) p.blend(x, y, v < 0 ? CYAN : VIOLET, 0.55 * a);
+    }
+  }
   const plot = (lat: number, lon: number) => {
     const x = Math.cos(lat) * Math.sin(lon + spin);
     const y0 = Math.sin(lat);
     const z0 = Math.cos(lat) * Math.cos(lon + spin);
     const y = y0 * Math.cos(tilt) - z0 * Math.sin(tilt);
     const z = y0 * Math.sin(tilt) + z0 * Math.cos(tilt);
-    p.blend(Math.round(cx + x * r), Math.round(cy - y * r), CYAN, (z > 0 ? 0.9 : 0.22) * a);
+    p.blend(Math.round(cx + x * r), Math.round(cy - y * r), z > 0 ? WHITE : PINK, (z > 0 ? 0.95 : 0.3) * a);
   };
-  // Halo.
-  for (let y = cy - r - 3; y <= cy + r + 3; y++) {
-    for (let x = cx - r - 3; x <= cx + r + 3; x++) {
-      const d = Math.hypot(x - cx, y - cy);
-      if (d < r + 3) p.blend(x, y, CYAN, 0.06 * a * (1 - Math.abs(d - r) / 4));
-    }
-  }
   for (let m = 0; m < 6; m++) for (let s = -40; s <= 40; s++) plot((s / 40) * (Math.PI / 2), (m * Math.PI) / 6);
   for (const lat of [-60, -30, 0, 30, 60]) for (let s = 0; s < 90; s++) plot((lat * Math.PI) / 180, (s / 90) * 2 * Math.PI);
+  // Anneau incliné (moitié avant seulement, l'arrière passe derrière le globe) et satellite.
+  for (let s = 0; s < 120; s++) {
+    const th = (s / 120) * 2 * Math.PI;
+    const front = Math.sin(th) > 0;
+    const x = cx + Math.cos(th) * (r + 7);
+    const y = cy + Math.sin(th) * 4 - Math.cos(th) * 3;
+    if (front || Math.hypot(x - cx, y - cy) > r) p.blend(Math.round(x), Math.round(y), CYAN, (front ? 0.7 : 0.25) * a);
+  }
+  const sat = t * 1.6;
+  const sx = cx + Math.cos(sat) * (r + 7);
+  const sy = cy + Math.sin(sat) * 4 - Math.cos(sat) * 3;
+  if (Math.sin(sat) > 0 || Math.hypot(sx - cx, sy - cy) > r) p.fillF(sx - 1, sy - 1, sx + 1, sy + 1, hex("#ffd319"), a);
 }
 
 /** Vol d'oiseaux en V, de droite à gauche, devant le soleil (5,2 → 10,2 s). */

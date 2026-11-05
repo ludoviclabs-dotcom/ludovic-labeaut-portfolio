@@ -4,12 +4,16 @@
 //
 // Tout part de src/sync.json (tempo, drop, coups du break, morceau) et du bloc POWER_ON de
 // src/timeline.ts (instants de l'allumage), les deux fichiers que lit aussi la vidéo. Avec les
-// réglages actuels (80 BPM : un temps = 0,75 s, une mesure = 3 s, drop à 21 s, durée 90 s) :
+// réglages actuels (80 BPM : un temps = 0,75 s, une mesure = 3 s, drop à 21 s, durée 99 s, plus le prologue) :
 //
+//   prologue      : avant le téléviseur (sync.prologueSec, ajouté devant la piste) : ambiance de pièce,
+//                   deux pas, le fauteuil, le froissement du bras, le clic de la télécommande ;
+//   (les instants qui suivent sont comptés depuis le début du téléviseur)
 //   0 → 0,6 s     : silence de pièce (souffle à peine audible) ;
 //   0,6 s         : le bouton s'enfonce — déclic en deux temps (enfoncement, verrouillage), « tchk »
 //                   du relais, coup sourd du transformateur, puis la démagnétisation (« bwoum » grave) ;
 //   1,25 → 1,6 s  : le trait blanc s'ouvre, la neige monte (léger sifflement THT, moins de 0,6 s) ;
+//                   le tube bourdonne (50 Hz et harmoniques) jusqu'à la fin de la neige ;
 //   1,6 → 4,8 s   : la neige, un « bruit numérique » large et dense (souffle stéréo, crépitements),
 //                   qui enfle doucement puis s'efface de 3,6 à 4,8 s ;
 //   3,2 → 4,6 s   : la musique monte sous la neige, filtrée comme si elle sortait du petit
@@ -19,10 +23,10 @@
 //                   double-croches (0,1875 s) avant le drop, sur la coupure propre du morceau,
 //                   1,5 LU sous l'acte 3 ; souffle montant discret ;
 //   21 s          : le drop (crash, grosse caisse), la musique s'ouvre en pleine bande ;
-//   21 → 87 s     : l'acte 3, la partie la plus forte (≈ −13 LUFS) ;
-//   87 → 90 s     : fondu de sortie (fadeOutSec), jusqu'au silence.
+//   21 → 96 s     : l'acte 3, la partie la plus forte (≈ −13 LUFS) ;
+//   96 → 99 s     : fondu de sortie (fadeOutSec), jusqu'au silence.
 //
-// Fenêtre du morceau : de (dropInSourceSec − dropSec) à + totalSec, soit 75,238 → 165,238 s.
+// Fenêtre du morceau : de (dropInSourceSec − dropSec) à + totalSec, soit 75,238 → 174,238 s.
 // Mastering : intensité intégrée −14 LUFS (UIT-R BS.1770), crête vraie ≤ −1,5 dBTP après encodage
 // grâce à un limiteur à anticipation (crêtes mesurées en suréchantillonnage ×4) réglé à −2,2 dBTP :
 // un réencodage AAC par une plateforme ne peut pas saturer.
@@ -738,6 +742,18 @@ const power = stereo();
   }
   mixInto(power, whine);
 
+  // bourdonnement du tube (50 Hz et harmoniques), du trait blanc à la fin de la neige
+  const hum = mono();
+  for (let i = at(PO.lineSec - 0.05); i < at(PO.snowEndSec + 1); i++) {
+    const t = i / SR;
+    const env = smooth(PO.lineSec - 0.05, PO.lineSec + 0.15, t) * (1 - smooth(PO.snowEndSec, PO.snowEndSec + 1, t));
+    const flutter = 1 + 0.08 * Math.sin(2 * Math.PI * 3.1 * t);
+    hum[i] =
+      (Math.sin(2 * Math.PI * 50 * t) + 0.55 * Math.sin(2 * Math.PI * 100 * t) + 0.3 * Math.sin(2 * Math.PI * 150 * t) + 0.12 * Math.sin(2 * Math.PI * 250 * t)) *
+      env * flutter * dbToGain(-46);
+  }
+  mixInto(power, hum);
+
   // la neige, réglée pour que l'allumage sonne au niveau de la musique de l'acte 1
   const snow = staticBed();
   const before = stereo();
@@ -792,10 +808,80 @@ for (let it = 0; it < 5; it++) {
 }
 const tp = 20 * Math.log10(intervalPeaks(out).reduce((a, b) => Math.max(a, b), 0));
 
-const inter = new Float32Array(N * 2);
-for (let i = 0; i < N; i++) {
-  inter[2 * i] = out[0][i];
-  inter[2 * i + 1] = out[1][i];
+// ---------------------------------------------------------------- prologue (avant le téléviseur)
+// Le plan large de la pièce : ambiance feutrée, deux pas, le fauteuil (cuir, coussin), le bras qui
+// se tend (froissement de la chemise), le petit clic de la télécommande juste avant le déclic du
+// poste. Les instants sont comptés dans le temps du téléviseur (négatifs avant son début) ; ce qui
+// tombe après 0 est mêlé au début de la piste du téléviseur.
+const PRE = sync.prologueSec ?? 0;
+const NPRE = Math.round(PRE * SR);
+const pro = [new Float32Array(NPRE + SR), new Float32Array(NPRE + SR)];
+{
+  const idx = (tau) => Math.round((tau + PRE) * SR);
+  const burst = (tau, dur, type, f, q, peakDb, pan = 0, decay = dur / 3) => {
+    const len = Math.round(dur * SR);
+    const x = new Float32Array(len);
+    for (let i = 0; i < len; i++) x[i] = noise() * Math.exp(-i / SR / decay) * smooth(0, 0.004, i / SR);
+    biquad(x, type, f, q);
+    let pk = 0;
+    for (const v of x) pk = Math.max(pk, Math.abs(v));
+    const g = dbToGain(peakDb) / (pk || 1);
+    const i0 = idx(tau);
+    for (let i = 0; i < len && i0 + i < pro[0].length; i++) {
+      if (i0 + i < 0) continue;
+      pro[0][i0 + i] += x[i] * g * (1 - Math.max(0, pan));
+      pro[1][i0 + i] += x[i] * g * (1 + Math.min(0, pan));
+    }
+  };
+  const thump = (tau, f, dur, peakDb) => {
+    const i0 = idx(tau);
+    for (let i = 0; i < Math.round(dur * SR); i++) {
+      const t = i / SR;
+      const v = Math.sin(2 * Math.PI * f * t * (1 - 0.3 * t / dur)) * Math.exp(-t / (dur / 4)) * dbToGain(peakDb);
+      if (i0 + i >= 0 && i0 + i < pro[0].length) {
+        pro[0][i0 + i] += v;
+        pro[1][i0 + i] += v;
+      }
+    }
+  };
+  // ambiance de pièce, un peu plus présente que le souffle du téléviseur, qui s'y fond à 0
+  const room = new Float32Array(pro[0].length);
+  for (let i = 0; i < room.length; i++) room[i] = noise();
+  biquad(room, 'lowpass', 900);
+  biquad(room, 'highpass', 50);
+  let e = 0;
+  for (let i = 0; i < SR; i++) e += room[i] * room[i];
+  const k = dbToGain(-56) / Math.sqrt(e / SR);
+  for (let i = 0; i < room.length; i++) {
+    const tau = i / SR - PRE;
+    const env = smooth(-PRE, -PRE + 0.3, tau) * (1 - smooth(-0.25, 0.15, tau));
+    pro[0][i] += room[i] * k * env;
+    pro[1][i] += room[i] * k * env * 0.92;
+  }
+  // deux pas sur un tapis
+  for (const [tau, pan] of [[-1.62, -0.4], [-1.28, -0.2]]) {
+    thump(tau, 70, 0.16, -34);
+    burst(tau, 0.12, 'lowpass', 420, 0.7, -38, pan);
+  }
+  // le fauteuil : craquement du cuir, puis le coussin
+  for (let k2 = 0; k2 < 6; k2++) burst(-0.86 + k2 * 0.045, 0.05, 'bandpass', 1100 + 160 * (k2 % 3), 6, -40, -0.3);
+  thump(-0.72, 58, 0.3, -30);
+  burst(-0.74, 0.35, 'lowpass', 260, 0.7, -34, -0.2, 0.12);
+  // le bras se tend : froissement de la chemise
+  burst(-0.35, 0.6, 'bandpass', 2600, 0.8, -46, -0.1, 0.25);
+  // clic de la télécommande (plastique), juste avant le relais du poste
+  burst(PO.buttonSec - 0.035, 0.02, 'highpass', 3500, 0.7, -30, 0.1, 0.004);
+}
+const outMix = [new Float32Array(NPRE + N), new Float32Array(NPRE + N)];
+for (const c of [0, 1]) {
+  for (let i = 0; i < NPRE; i++) outMix[c][i] = pro[c][i];
+  for (let i = 0; i < N; i++) outMix[c][NPRE + i] = out[c][i] + (i < SR ? pro[c][NPRE + i] : 0);
+}
+
+const inter = new Float32Array((NPRE + N) * 2);
+for (let i = 0; i < NPRE + N; i++) {
+  inter[2 * i] = outMix[0][i];
+  inter[2 * i + 1] = outMix[1][i];
 }
 
 const dest = path.join(root, 'public/audio/soundtrack.mp3');
@@ -807,7 +893,7 @@ ffmpeg(
 const seg = (a, b) => lufs(out, a, b).toFixed(1);
 console.log(
   [
-    `Bande-son écrite : ${path.relative(root, dest)} (${TOTAL} s, drop à ${DROP} s, break à ${FILL_START.toFixed(3)} s)`,
+    `Bande-son écrite : ${path.relative(root, dest)} (${(PRE + TOTAL).toFixed(1)} s dont ${PRE} s de prologue ; temps du téléviseur : drop à ${DROP} s, break à ${FILL_START.toFixed(3)} s)`,
     `  intégré ${integrated.toFixed(1)} LUFS, crête vraie ${tp.toFixed(1)} dBTP (avant MP3), gain global ${(20 * Math.log10(applied)).toFixed(1)} dB, limiteur −${(-20 * Math.log10(minGain)).toFixed(1)} dB au plus`,
     `  allumage 0–${PO.snowEndSec} s : ${seg(0, PO.snowEndSec)} · acte 1 : ${seg(PO.snowEndSec, FILL_START)} · break : ${seg(FILL_START, DROP)} · acte 3 : ${seg(DROP, TOTAL - FADE_OUT)} LUFS`,
   ].join('\n'),

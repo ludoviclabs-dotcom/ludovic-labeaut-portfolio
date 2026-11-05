@@ -4,6 +4,14 @@ import sync from "./sync.json";
 
 export const FPS = sync.fps;
 export const TOTAL_SEC = sync.totalSec;
+/**
+ * Prologue : un plan large de la pièce avant le téléviseur. Toute la chronologie ci-dessous (et la
+ * bande-son) est comptée depuis le début du téléviseur ; la vidéo commence PROLOGUE_SEC plus tôt.
+ * L'allumage (POWER_ON) se voit dans ce plan large : le bouton est pressé à la télécommande.
+ */
+export const PROLOGUE_SEC = sync.prologueSec;
+/** Durée totale de la vidéo, prologue compris. */
+export const VIDEO_SEC = PROLOGUE_SEC + TOTAL_SEC;
 export const DROP_SEC = sync.dropSec;
 
 export const BEAT_SEC = 60 / sync.bpm;
@@ -43,6 +51,7 @@ export const FILL_START_SEC = Math.min(...FILL_HITS_SEC);
 export const SLOT_BARS = [
   3, // bilan de compétences (profil, sans l'identité) : 12 postes, un par demi-temps
   2, // titre : le nom, la piste d'audit
+  3, // « Ce que je sais faire » : six écrans de contrôle animés
   2, // « Mes sujets » : trois thèmes
   2, 2, 2, 2, 2, // les cinq projets
   4, // publications : série IA, série banques centrales, dossier robotique

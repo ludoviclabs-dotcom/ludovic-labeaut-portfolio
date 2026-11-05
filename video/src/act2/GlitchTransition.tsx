@@ -1,11 +1,12 @@
 import React from "react";
 import { AbsoluteFill, random, useCurrentFrame, useVideoConfig } from "remotion";
-import { CRTWrapper, POWER_CLOSEUP, SCREEN, screenLightAt, TV_H, TV_W } from "../act1/CRTWrapper";
+import { CRTWrapper, SCREEN, screenLightAt, TV_H, TV_W } from "../act1/CRTWrapper";
+import { Prologue, prologueFraming, PUSH_IN_FROM } from "../act1/Prologue";
 import { PixelArtHighwayCanvas } from "../act1/PixelArtHighwayCanvas";
 import { TerminalText } from "../act1/TerminalText";
 import { TERMINAL_THEMES } from "../content";
 import { NEON, SANS } from "../theme";
-import { DROP_SEC, FILL_HITS_SEC, FILL_START_SEC, POWER_ON, TERMINAL_AT_SEC } from "../timeline";
+import { DROP_SEC, FILL_HITS_SEC, FILL_START_SEC, POWER_ON, PROLOGUE_SEC, TERMINAL_AT_SEC } from "../timeline";
 
 // Acte 2 : à chaque coup du break, la caméra avance d'un cran vers l'écran avec un glitch ;
 // au drop, elle traverse l'écran (flash, éclats de pixels) et révèle la vitrine moderne.
@@ -45,11 +46,12 @@ const baseFraming = (width: number, height: number) => {
   return { base, cx: TV_W / 2, cy: TV_H / 2 };
 };
 
-/** Le téléviseur, sa scène et la caméra (gros plan sur le bouton, recul, zooms par paliers, traversée). */
+/** Le téléviseur, sa scène et la caméra (plan large du prologue, travelling avant, zooms par paliers, traversée). */
 export const RetroScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
-  const t = frame / fps;
+  // Temps du téléviseur : négatif pendant le prologue (poste éteint).
+  const t = frame / fps - PROLOGUE_SEC;
   const P = POWER_ON;
   const portrait = height > width;
 
@@ -74,23 +76,21 @@ export const RetroScene: React.FC = () => {
   let cy = fullCy + (SCREEN.y + SCREEN.h / 2 - fullCy) * toScreen;
   let s = base * zoom;
 
-  // Ouverture : gros plan sur le bouton de mise en marche, puis travelling arrière (un seul
-  // mouvement de caméra en ligne droite : le centre suit la largeur de champ).
+  // Ouverture (prologue) : plan large de la pièce, le poste allumé à la télécommande, puis
+  // travelling avant jusqu'au cadrage de base (un seul mouvement : le centre suit la largeur de champ).
+  let push = 1;
   if (t < P.pullBackToSec) {
-    const sClose = Math.min(width, height) / 330;
-    const w0 = width / sClose;
+    const wide = prologueFraming(width, height, base);
+    const w0 = width / wide.s;
     const w1 = width / s;
-    const u = easeInOutSine((t - P.pullBackFromSec) / (P.pullBackToSec - P.pullBackFromSec));
-    const w = Math.exp(Math.log(w0) + (Math.log(w1) - Math.log(w0)) * u);
+    push = easeInOutSine((t - PUSH_IN_FROM) / (P.pullBackToSec - PUSH_IN_FROM));
+    const w = Math.exp(Math.log(w0) + (Math.log(w1) - Math.log(w0)) * push);
     const k = (w - w0) / (w1 - w0);
-    cx = POWER_CLOSEUP.x + (cx - POWER_CLOSEUP.x) * k;
-    cy = POWER_CLOSEUP.y + (cy - POWER_CLOSEUP.y) * k;
+    cx = wide.cx + (cx - wide.cx) * k;
+    cy = wide.cy + (cy - wide.cy) * k;
     s = width / w;
   }
-
-  // Petit à-coup de la caméra au déclic du bouton.
-  const dc = t - P.buttonSec;
-  const clickNudge = dc >= 0 && dc < 0.4 ? Math.exp(-dc / 0.07) * Math.cos(dc * 55) * 5 : 0;
+  const clickNudge = 0;
 
   const g = glitchAt(t);
   const shake = g * 10;
@@ -103,11 +103,14 @@ export const RetroScene: React.FC = () => {
   const top = top0 + sy;
 
   const lit = Math.min(1, 0.12 + screenLightAt(t));
+  // Centre de l'écran dans l'image : la lueur de la pièce le suit pendant le travelling.
+  const glowX = ((left0 + (SCREEN.x + SCREEN.w / 2) * s) / width) * 100;
+  const glowY = ((top0 + (SCREEN.y + SCREEN.h / 2) * s) / height) * 100;
 
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(55% 60% at 50% ${portrait ? 40 : 48}%, rgba(120, 30, 110, ${0.35 * lit}) 0%, rgba(30, 6, 40, ${0.5 * lit}) 45%, #030205 85%)`,
+        background: `radial-gradient(55% 60% at ${glowX}% ${glowY}%, rgba(120, 30, 110, ${0.35 * lit}) 0%, rgba(30, 6, 40, ${0.5 * lit}) 45%, #030205 85%)`,
         opacity: 1 - smooth(DROP_SEC + 0.03, DROP_SEC + 0.25, t),
       }}
     >
@@ -126,6 +129,7 @@ export const RetroScene: React.FC = () => {
           <TerminalText timeSec={t} glitch={g} camera={{ s, left: left0, top: top0, width, height }} />
         </CRTWrapper>
       </div>
+      {t < P.pullBackToSec ? <Prologue t={t} frame={frame} push={push} light={screenLightAt(t)} /> : null}
       {portrait ? <ThemeLowerThird t={t} /> : null}
     </AbsoluteFill>
   );
@@ -199,7 +203,7 @@ const SHARDS = Array.from({ length: 170 }, (_, i) => {
 export const TraverseFlash: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
-  const t = frame / fps;
+  const t = frame / fps - PROLOGUE_SEC;
   const d = t - DROP_SEC;
   // Montée de lumière juste avant le drop, puis flash qui retombe.
   const pre = smooth(DROP_SEC - 0.12, DROP_SEC, t) * 0.5;

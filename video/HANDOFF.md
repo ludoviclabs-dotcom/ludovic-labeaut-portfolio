@@ -21,11 +21,12 @@ dans une autre session, par exemple en local avec Claude Code.
 
 ## Dernier état
 
-v3 (90 s, 2 700 images, deux formats) : après le drop, un bilan de compétences de 9 s (actif,
-passif, sphères en pixel art qui fusionnent en soleil synthwave) précède le nom ; décor de la route
-enrichi (panneaux illustrés animés, Grande Arche, éoliennes, globe, oiseaux, Rafale et F-22, drones,
-robots, péage « CONTRÔLE ») ; phrases réécrites, plus simples. Bande-son reconstruite à 90 s avec le
-même morceau CC0. La vidéo est publiée sur le site par `npm run publish-site` (bouton « Présentation »).
+v4 (100,8 s, 3 024 images, deux formats) : un prologue (cadre anonyme en clair-obscur qui allume le
+poste à la télécommande, puis travelling avant) remplace le gros plan d'ouverture ; sphères en fil de
+fer néon tramé (bilan et globe de la route) ; nouveau plan « Ce que je sais faire » (six écrans de
+contrôle animés) après le nom. Le temps du téléviseur est inchangé : la vidéo commence
+`prologueSec` plus tôt, et la bande-son y ajoute l'ambiance, les pas, le fauteuil, le clic et le
+bourdonnement du tube. Publication sur le site par `npm run publish-site` (bouton « Présentation »).
 Restent à valider à l'oreille : le déclic, la neige et le break (vérifiés seulement par mesure).
 
 ## Ce qui attend Ludovic

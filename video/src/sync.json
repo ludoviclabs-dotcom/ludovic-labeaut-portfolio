@@ -1,7 +1,8 @@
 {
   "_doc": "Réglages partagés par la vidéo (src/timeline.ts) et la bande-son (scripts/build-soundtrack.mjs). Après modification : npm run soundtrack.",
   "fps": 30,
-  "totalSec": 90,
+  "prologueSec": 1.8,
+  "totalSec": 99,
   "dropSec": 21,
   "bpm": 80,
   "music": {
