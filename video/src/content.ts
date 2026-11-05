@@ -209,7 +209,7 @@ export const APPS: App[] = [
   {
     id: "panoplie",
     name: "Panoplie",
-    subtitle: "Intelligence défense",
+    subtitle: "Veille défense",
     problem: "Ce que coûte un système d'armes, qui le fabrique et où il peut être exporté.",
     features: ["Carte des sous-systèmes, industriels et pays", "Six critères notés de A à E", "Evidence Pack, sources notées de A à D"],
     badges: ["Défense", "Souveraineté", "Sources ouvertes"],

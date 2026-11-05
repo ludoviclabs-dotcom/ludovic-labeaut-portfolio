@@ -1,7 +1,5 @@
 {
   "Ludovic Labeaut — Portfolio": "Ludovic Labeaut — Portfolio",
-  "Portfolio de Ludovic Labeaut : CarbonCo (pilotage ESG & CSRD), PROBANT (audit du FEC), Panoplie (intelligence défense), FinVal Studio (modélisation financière), KYB Graph (cartographie de conformité) et publications.": "Ludovic Labeaut's portfolio: CarbonCo (ESG & CSRD management), PROBANT (FEC audit), Panoplie (defence intelligence), FinVal Studio (financial modelling), KYB Graph (compliance mapping) and publications.",
-  "Finance, audit, ESG et data : six projets à explorer.": "Finance, audit, ESG and data: six projects to explore.",
   "Finance · Audit · ESG · Data": "Finance · Audit · ESG · Data",
   "06 projets": "06 projects",
   "Pause": "Pause",
@@ -10,7 +8,6 @@
   "Voir le projet<span class=\"visually-hidden\"> Carbon&amp;Co</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "View project<span class=\"visually-hidden\"> Carbon&amp;Co</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
   "Audit &amp; conformité comptable": "Audit &amp; accounting compliance",
   "Voir le projet<span class=\"visually-hidden\"> Probant</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "View project<span class=\"visually-hidden\"> Probant</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
-  "Intelligence défense": "Defence intelligence",
   "Voir le projet<span class=\"visually-hidden\"> Panoplie</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "View project<span class=\"visually-hidden\"> Panoplie</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
   "Modélisation &amp; valorisation": "Modelling &amp; valuation",
   "Voir le projet<span class=\"visually-hidden\"> FinValStudio</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "View project<span class=\"visually-hidden\"> FinValStudio</span> <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
@@ -19,9 +16,18 @@
   "Recherche &amp; articles": "Research &amp; articles",
   "Lire les publications <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>": "Read the notes <svg class=\"panel__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>",
   "Voir la démo<span class=\"visually-hidden\"> de Publications</span>": "Watch the demo<span class=\"visually-hidden\"> for Publications</span>",
-  "Lignes de force : vingt-trois notes d'analyse sourcées et datées, des détroits d'Ormuz aux banques centrales et à l'IA scientifique, et un dossier interactif sur la robotique humanoïde.": "Lignes de force: twenty-three sourced and dated analysis notes, from the Strait of Hormuz to central banks and AI for science, and an interactive dossier on humanoid robotics.",
-  "Voir la vidéo de présentation (1 min 21)": "Watch the introduction video (1 min 21, in French)",
   "Présentation": "Intro video",
   "Vidéo de présentation": "Introduction video",
-  "Fermer la vidéo": "Close the video"
+  "Fermer la vidéo": "Close the video",
+  "Portfolio de Ludovic Labeaut : Carbon&Co (pilotage ESG et CSRD), Probant (audit du FEC), Panoplie (veille défense), FinValStudio (modélisation financière), KYB Graph (cartographie de conformité) et publications.": "Ludovic Labeaut's portfolio: Carbon&Co (ESG and CSRD management), Probant (FEC audit), Panoplie (defence monitoring), FinValStudio (financial modelling), KYB Graph (compliance mapping) and publications.",
+  "Finance, audit, ESG et data : cinq applications et des notes d'analyse.": "Finance, audit, ESG and data: five applications and analysis notes.",
+  "Voir la vidéo de présentation (1 min 41)": "Watch the introduction video (1 min 41, in French)",
+  "Collecte les données d'activité, calcule le bilan carbone des scopes 1, 2 et 3 et prépare le rapport de durabilité CSRD.": "Collects activity data, calculates the Scope 1, 2 and 3 carbon footprint and prepares the CSRD sustainability statement.",
+  "Contrôle le fichier des écritures comptables (FEC) écriture par écriture et rassemble les anomalies dans un dossier de preuve scellé et horodaté.": "Checks the French general-ledger file (FEC) entry by entry and gathers the anomalies in a sealed, time-stamped evidence file.",
+  "Veille défense": "Defence monitoring",
+  "Chaîne industrielle": "Supply chain",
+  "Ce que coûte un système d'armes, qui le fabrique, de qui il dépend et où il peut être exporté, à partir de sources ouvertes.": "What a weapon system costs, who builds it, what it depends on and where it can be exported, from open sources.",
+  "Valorise une entreprise par DCF, comparables, LBO et scénarios Monte Carlo, dans un même modèle.": "Values a company with DCF, comparables, LBO and Monte Carlo scenarios, in a single model.",
+  "Cartographie des liens entre sociétés, dirigeants, adresses et sanctions, avec le niveau de preuve de chaque lien et l'explication de chaque alerte.": "Maps the links between companies, directors, addresses and sanctions, with the level of evidence for each link and an explanation for each alert.",
+  "Lignes de force : 23 notes d'analyse sur la géopolitique, les banques centrales et l'IA scientifique, et un dossier interactif sur la robotique humanoïde.": "Lignes de force: 23 analysis notes on geopolitics, central banks and AI for science, and an interactive dossier on humanoid robotics."
 }

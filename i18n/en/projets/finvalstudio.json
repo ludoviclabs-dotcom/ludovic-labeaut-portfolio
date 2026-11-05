@@ -1,7 +1,5 @@
 {
   "FinValStudio — Ludovic Labeaut": "FinValStudio — Ludovic Labeaut",
-  "FinValStudio, atelier de modélisation financière : hypothèses guidées, DCF, comparables, simulation Monte Carlo et LBO.": "FinValStudio, a financial modelling workshop: guided assumptions, DCF, comparables, Monte Carlo simulation and LBO.",
-  "Des hypothèses au rendement du LBO, en cinq étapes.": "From assumptions to LBO returns, in five steps.",
   "04 / 06 · Modélisation &amp; valorisation": "04 / 06 · Modelling &amp; valuation",
   "Démonstration de FinValStudio en cinq chapitres, 20 secondes, sans son": "FinValStudio demo in five chapters, 20 seconds, no sound",
   "Paramétrer": "Set up",
@@ -12,7 +10,10 @@
   "Multiples des pairs, médiane et valeur implicite par action": "Peer multiples, median and implied value per share",
   "Simuler": "Simulate",
   "Monte Carlo : 5 000 tirages, P10, médiane et P90": "Monte Carlo: 5,000 draws, P10, median and P90",
-  "Conclure": "Conclude",
   "LBO : désendettement, TRI et multiple du sponsor": "LBO: deleveraging, IRR and sponsor money multiple",
-  "Ouvrir l'application<span class=\"visually-hidden\"> FinValStudio (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> FinValStudio (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+  "Ouvrir l'application<span class=\"visually-hidden\"> FinValStudio (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> FinValStudio (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>",
+  "FinValStudio, modélisation et valorisation : hypothèses guidées, DCF, comparables, simulation Monte Carlo et LBO.": "FinValStudio, modelling and valuation: guided assumptions, DCF, comparables, Monte Carlo simulation and LBO.",
+  "La démonstration en cinq étapes : paramétrer, valoriser, comparer, simuler, structurer.": "The demo in five steps: set up, value, compare, simulate, structure.",
+  "Valorise une entreprise par DCF, comparables, LBO et scénarios Monte Carlo, dans un même modèle.": "Values a company with DCF, comparables, LBO and Monte Carlo scenarios, in a single model.",
+  "Structurer": "Structure"
 }
