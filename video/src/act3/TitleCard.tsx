@@ -21,8 +21,11 @@ const BEAT = BEAT_SEC * FPS; // un temps, en images (22,5)
 const DECODE_FROM = 12; // après le gros du flash
 const MORPH = Math.round(4 * BEAT); // premier temps de la 2e mesure (24 s)
 const STAMP = Math.round(6 * BEAT); // troisième temps de la 2e mesure (25,5 s)
-const ROWS_FROM = MORPH + 14;
-const ROW_STEP = 8;
+const ROWS_FROM = MORPH + 8;
+const ROW_STEP = 6;
+/** Une ligne : entrée, chiffre qui défile (+2 → +12), coche (+11 → +17), en images après son début. */
+const COUNT = [2, 12] as const;
+const CHECK = [11, 17] as const;
 
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@<>/=+*";
 
@@ -30,6 +33,11 @@ const ROWS = [
   { value: APPS.length, label: "Projets" },
   ...PUBLICATIONS.stats.map((s) => ({ value: Number(s.value), label: s.label[0].toUpperCase() + s.label.slice(1) })),
 ];
+
+// Le tampon ne frappe qu'un registre complet : la dernière coche doit être tracée avant lui.
+if (ROWS_FROM + (ROWS.length - 1) * ROW_STEP + CHECK[1] > STAMP) {
+  throw new Error("TitleCard : la piste d'audit doit se terminer avant le tampon.");
+}
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
@@ -112,7 +120,7 @@ export const TitleCard: React.FC = () => {
   const pixel = 1 - prog(t, MORPH - 2, MORPH + 3, easeIn);
   const serif = prog(t, MORPH - 1, MORPH + 7);
   // Le nom remonte pour laisser la place au registre.
-  const rise = prog(t, MORPH + 4, MORPH + 24);
+  const rise = prog(t, MORPH + 2, MORPH + 18);
   const nameY = lerp(height / 2, L.nameY, rise);
   const nameScale = lerp(1, L.nameScale, rise);
 
@@ -185,7 +193,7 @@ export const TitleCard: React.FC = () => {
         <div style={{ ...centered, top: L.domainsY, translate: "0 -50%" }}>
           <div
             style={{
-              ...enter(t, MORPH + 12, 16, 14),
+              ...enter(t, MORPH + 10, 16, 14),
               fontFamily: SANS,
               fontWeight: 500,
               fontSize: 28,
@@ -204,7 +212,7 @@ export const TitleCard: React.FC = () => {
           <div style={{ width: L.ledgerW, fontFamily: SANS }}>
             <div
               style={{
-                ...enter(t, MORPH + 8, 10, 10),
+                ...enter(t, MORPH + 5, 10, 10),
                 display: "flex",
                 justifyContent: "space-between",
                 fontSize: landscape ? 22 : 21,
@@ -218,13 +226,13 @@ export const TitleCard: React.FC = () => {
               <span>{fr("Piste d'audit")}</span>
               <span style={{ fontFamily: PIXEL, fontSize: landscape ? 32 : 31, letterSpacing: "0.08em", color: NEON.cyan, opacity: 0.85 }}>
                 {"> "}
-                {pad2(ROWS.filter((_, k) => t >= ROWS_FROM + k * ROW_STEP + 12).length)}/{pad2(ROWS.length)}
+                {pad2(ROWS.filter((_, k) => t >= ROWS_FROM + k * ROW_STEP + CHECK[1]).length)}/{pad2(ROWS.length)}
               </span>
             </div>
-            <div style={{ height: 1, background: SITE.line, width: `${100 * prog(t, MORPH + 8, MORPH + 22)}%` }} />
+            <div style={{ height: 1, background: SITE.line, width: `${100 * prog(t, MORPH + 5, MORPH + 19)}%` }} />
             {ROWS.map((row, k) => {
               const a = ROWS_FROM + k * ROW_STEP;
-              const count = Math.round(row.value * prog(t, a + 2, a + 12));
+              const count = Math.round(row.value * prog(t, a + COUNT[0], a + COUNT[1]));
               return (
                 <div
                   key={row.label}
@@ -251,7 +259,7 @@ export const TitleCard: React.FC = () => {
                   >
                     {pad2(count)}
                   </span>
-                  <Check p={prog(t, a + 11, a + 17)} size={landscape ? 34 : 32} />
+                  <Check p={prog(t, a + CHECK[0], a + CHECK[1])} size={landscape ? 34 : 32} />
                 </div>
               );
             })}
