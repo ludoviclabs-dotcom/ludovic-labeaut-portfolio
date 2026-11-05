@@ -70,7 +70,7 @@ const LEVEL = {
   act3: -13.2, // acte 3, musique en pleine bande : la partie la plus forte
   act1: -18, // musique « téléviseur » de l'acte 1
   powerOn: -18, // allumage 0 → snowEndSec, au niveau de la musique de l'acte 1
-  fillBelowAct3: 1.5, // le break reste 1 à 2 LU sous l'acte 3
+  fillBelowAct3: 2.2, // le break reste ≈ 2 LU sous l'acte 3 (il monte, puis le drop saute)
   riserBelowFill: 10, // souffle montant, discret
   crashBelowAct3: 7,
   integrated: -14,
@@ -506,7 +506,10 @@ function addTom(bus, t0, kind, gain, pan) {
     ph += (2 * Math.PI * f) / SR;
     const env = (1 - Math.exp(-t / 0.0012)) * Math.exp(-t / 0.2);
     let v = Math.sin(ph) * env + 0.22 * Math.sin(ph * 1.53) * Math.exp(-t / 0.07);
-    if (t < 0.008) v += noise() * (1 - t / 0.008) * 0.6;
+    // Harmonique et attaque (bruit) plus présentes sur les toms graves : ils percent le fond musical.
+    if (kind === 'floor' || kind === 'low') v += (kind === 'floor' ? 0.6 : 0.35) * Math.sin(ph * 2) * Math.exp(-t / (kind === 'floor' ? 0.1 : 0.06));
+    const click = kind === 'floor' ? 0.014 : 0.008;
+    if (t < click) v += noise() * (1 - t / click) * (kind === 'floor' ? 0.9 : 0.6);
     addPanned(bus, i0 + i, v * gain, pan);
   }
 }
@@ -561,7 +564,9 @@ function fillToms() {
   const dry = stereo();
   HITS.forEach((h, k) => {
     const pan = -0.45 + (0.9 * k) / Math.max(1, HITS.length - 1);
-    addTom(dry, h.t, h.drum, 0.4, pan);
+    // Le break monte jusqu'au drop : +0,7 dB par coup (≈ +6 dB du premier au dernier). Gain de base
+    // modéré : la saturation douce (tanh) ci-dessous ne doit pas écraser ce crescendo.
+    addTom(dry, h.t, h.drum, 0.22 * dbToGain(0.7 * k), pan);
   });
   const region = [at(FILL_START - 0.1), at(DROP + 0.5)];
   const wet = [
@@ -741,7 +746,7 @@ const power = stereo();
   mixInto(power, snow, solveGain(before, snow, LEVEL.powerOn, 0, PO.snowEndSec));
 }
 
-// Le break : toms (réglés 1,5 LU sous l'acte 3), souffle montant discret ; puis crash et grosse caisse.
+// Le break : toms (réglés ≈ 2 LU sous l'acte 3, en crescendo), souffle montant discret ; puis crash et grosse caisse.
 const fillLevel = LEVEL.act3 - LEVEL.fillBelowAct3;
 const drums = stereo();
 {

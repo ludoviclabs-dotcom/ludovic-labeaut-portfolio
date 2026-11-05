@@ -51,7 +51,7 @@ const Panel: React.FC<{ theme: Theme; index: number; w: number; h: number }> = (
         style={{
           background: landscape
             ? "linear-gradient(180deg, rgba(8,9,11,0) 25%, rgba(8,9,11,0.7) 55%, rgba(8,9,11,0.94) 100%)"
-            : "linear-gradient(90deg, rgba(8,9,11,0.94) 0%, rgba(8,9,11,0.78) 55%, rgba(8,9,11,0.25) 100%)",
+            : "linear-gradient(90deg, rgba(8,9,11,0.96) 0%, rgba(8,9,11,0.92) 66%, rgba(8,9,11,0.6) 84%, rgba(8,9,11,0.3) 100%)",
         }}
       />
       {/* Filet d’accent */}
