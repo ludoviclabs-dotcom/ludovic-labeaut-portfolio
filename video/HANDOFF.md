@@ -19,22 +19,11 @@ dans une autre session, par exemple en local avec Claude Code.
   - la bande-son est fabriquée par `npm run soundtrack` : allumage avec bouton et souffle, break à
     80 BPM, mastering à environ −14 LUFS.
 
-## Ce qui restait en cours
+## Dernier état
 
-L'agent de correction du dernier audit de la v2 tournait au moment de la reprise. S'il n'a rien
-commité après ce fichier, il reste ces 11 points (confirmés par un vérificateur indépendant) :
-
-| Id | Où | Correction attendue |
-|---|---|---|
-| QA16-01 | Acte 3, phrase « problème » de chaque projet | Lisible environ 1,9 s seulement : la laisser plus longtemps avant de passer à la démo |
-| QA16-02 | Publications, temps 3, 71–75 s | Les chiffres du dossier robotique finissent de compter trop tard (environ 1,4 s de lecture) : compter plus vite |
-| QA16-03, P45-3 | Publications, temps 2 | « Banques centrales : le / retour du resserrement » : éviter la coupure après « le » |
-| QA16-06 | 2,2–2,4 s | « CH 03 » coupé par le haut du cadre pendant le recul de la caméra |
-| QA16-08 | FinValStudio | « 5 000 / tirages » : espace insécable entre le nombre et le nom |
-| P45-1 | 4:5, 3,4–19,5 s | Le téléviseur paraît décentré : le panneau du bouton POWER sort du cadre |
-| P45-2 | 4:5, Publications | Pendant les fondus entre les temps, les deux titres se superposent (5–6 images) |
-| P45-4 | 4:5, thèmes | Coupure après « la » ; le texte « Audit & preuve » passe sur la photo chargée des archives |
-| A2 | Break, 18,75–21 s | Le break faiblit sur sa seconde moitié : le faire monter jusqu'au drop |
+Les 11 points du dernier audit sont corrigés et la v2 est rendue (2 430 images, 81 s, deux formats).
+Les mesures sont dans les messages de commit. Restent à valider à l'oreille : le déclic, la neige
+et le break (ils n'ont été vérifiés que par mesure).
 
 ## Ce qui attend Ludovic
 
