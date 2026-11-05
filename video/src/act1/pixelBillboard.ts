@@ -1,12 +1,14 @@
 import { BILLBOARDS } from "../content";
 import { FOCAL, HORIZON, hex, Pixels, PX_W, RGB, smooth, SPEED } from "./pixelCore";
+import { drawPicture, type Picture } from "./pixelPictures";
 
 // Panneaux d'affichage au bord de la route (pixel art) : un panneau néon sur deux poteaux, posé
 // en alternance à droite et à gauche, qui porte un mot de BILLBOARDS écrit avec une petite police
 // bitmap 5 × 7. Le mot est mis à l'échelle de la distance ; les palmiers du même côté sont retirés
 // devant et autour du panneau pour qu'ils ne le masquent jamais.
 
-// Police bitmap 5 × 7 (A–Z et tiret), une chaîne de 35 bits par glyphe, ligne par ligne.
+// Police bitmap 5 × 7 (A–Z et tiret), une chaîne de 35 bits par glyphe, ligne par ligne ;
+// É, È, Ê et Ô ajoutent leur accent au-dessus (voir ACCENTS).
 const GLYPHS: Record<string, string> = {
   A: "01110100011000111111100011000110001",
   B: "11110100011000111110100011000111110",
@@ -38,14 +40,34 @@ const GLYPHS: Record<string, string> = {
   " ": "00000000000000000000000000000000000",
 };
 
-/** Pixels allumés d'un mot : [colonne, ligne], et largeur totale (1 colonne d'espace entre lettres). */
-const wordPixels = (word: string) => {
+/** Hauteur d'une lettre sans accent, en points de la police. */
+export const GLYPH_ROWS = 7;
+
+// Lettres accentuées : la lettre de base, plus un accent sur deux lignes au-dessus (lignes −2 et −1).
+const ACCENTS: Record<string, { base: string; dots: [number, number][] }> = {
+  É: { base: "E", dots: [[3, -2], [2, -1]] },
+  È: { base: "E", dots: [[1, -2], [2, -1]] },
+  Ê: { base: "E", dots: [[2, -2], [1, -1], [3, -1]] },
+  Ô: { base: "O", dots: [[2, -2], [1, -1], [3, -1]] },
+};
+
+/**
+ * Pixels allumés d'un mot : [colonne, ligne] (ligne négative pour un accent), largeur totale
+ * (1 colonne d'espace entre lettres) et nombre de lignes d'accent au-dessus des lettres (0 ou 2).
+ */
+export const wordPixels = (word: string) => {
   const on: [number, number][] = [];
+  let accentRows = 0;
   [...word].forEach((ch, i) => {
-    const g = GLYPHS[ch] ?? GLYPHS[" "];
+    const accent = ACCENTS[ch];
+    const g = GLYPHS[accent ? accent.base : ch] ?? GLYPHS[" "];
     for (let k = 0; k < 35; k++) if (g[k] === "1") on.push([i * 6 + (k % 5), Math.floor(k / 5)]);
+    if (accent) {
+      accentRows = 2;
+      for (const [c, r] of accent.dots) on.push([i * 6 + c, r]);
+    }
   });
-  return { on, w: word.length * 6 - 1 };
+  return { on, w: word.length * 6 - 1, accentRows };
 };
 const WORDS = BILLBOARDS.map(wordPixels);
 
@@ -66,13 +88,25 @@ const NEAR = 4;
 const COUNT = 7;
 const FAR = 30;
 
-type Board = { j: number; z: number; side: number; zw: number };
+type Board = { j: number; z: number; side: number; zw: number; picture?: Picture };
 
-const BOARDS = Array.from({ length: COUNT }, (_, j) => ({
-  j,
-  zw: (FIRST + j * PERIOD) * SPEED + NEAR,
-  side: j % 2 === 0 ? 1 : -1,
-}));
+// Entre deux panneaux à mots, un panneau illustré sur le côté opposé (au plus près à
+// 5,96 · 8,18 · 10,40 · 12,62 · 14,84 · 17,06 s) : chaque savoir-faire en image animée.
+const PICTURES: Picture[] = ["loupe", "organigramme", "couts", "cube", "puce", "reseau"];
+
+const BOARDS: Omit<Board, "z">[] = [
+  ...Array.from({ length: COUNT }, (_, j) => ({
+    j,
+    zw: (FIRST + j * PERIOD) * SPEED + NEAR,
+    side: j % 2 === 0 ? 1 : -1,
+  })),
+  ...PICTURES.map((picture, j) => ({
+    j: j + 1,
+    zw: (FIRST + (j + 0.5) * PERIOD) * SPEED + NEAR,
+    side: j % 2 === 0 ? -1 : 1,
+    picture,
+  })),
+];
 
 const NEON_FRAME: RGB[] = [hex("#ff2bd6"), hex("#3df0ff")];
 const NEON_TEXT: RGB[] = [hex("#ffd319"), hex("#fff4fd")];
@@ -128,12 +162,20 @@ export function drawBillboard(p: Pixels, b: Board, t: number) {
   p.fillF(x0 + fr, top + fr, x1 - fr, bot - fr, BOARD_FILL, fade);
   p.fillF(x0 + fr, (top + bot) / 2, x1 - fr, bot - fr, BOARD_FILL2, 0.6 * fade);
 
+  if (b.picture) {
+    const px = Math.max(1.2, 0.3 * k);
+    drawPicture(p, b.picture, { x0: x0 + fr + px, y0: top + fr + px * 0.6, x1: x1 - fr - px, y1: bot - fr - px * 0.6 }, t, fade);
+    return;
+  }
+
   // Le mot, centré, à l'échelle de la distance.
   const word = WORDS[b.j % WORDS.length];
-  const cellW = Math.min((W - 2 * PAD_X) / word.w, (TOP - BOTTOM - 2 * PAD_Y) / 7);
+  const rows = GLYPH_ROWS + word.accentRows;
+  const cellW = Math.min((W - 2 * PAD_X) / word.w, (TOP - BOTTOM - 2 * PAD_Y) / rows);
   const cell = cellW * k; // taille d'un pixel du glyphe, en pixels de la toile
   const tx = sx(xc) - (word.w * cell) / 2;
-  const ty = sy((TOP + BOTTOM) / 2) - (7 * cell) / 2;
+  // Bloc centré, accents compris ; la ligne 0 des lettres est sous les lignes d'accent.
+  const ty = sy((TOP + BOTTOM) / 2) - (rows * cell) / 2 + word.accentRows * cell;
   const glow = Math.max(0.6, cell * 0.45);
   for (const [c, r] of word.on) {
     const gx = tx + c * cell;

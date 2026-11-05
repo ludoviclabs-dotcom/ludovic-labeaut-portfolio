@@ -69,3 +69,13 @@ export class Pixels {
   }
 }
 
+
+/** Trait d'un point à un autre, en petits carrés (épaisseur w, en pixels de la toile). */
+export function line(p: Pixels, x0: number, y0: number, x1: number, y1: number, c: RGB, w = 1, a = 1) {
+  const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) * 2));
+  for (let i = 0; i <= n; i++) {
+    const x = x0 + ((x1 - x0) * i) / n;
+    const y = y0 + ((y1 - y0) * i) / n;
+    p.fillF(x - w / 2, y - w / 2, x + w / 2, y + w / 2, c, a);
+  }
+}

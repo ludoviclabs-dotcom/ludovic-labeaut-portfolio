@@ -1014,6 +1014,10 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
 
+/* La fenêtre donne le focus au bouton Fermer (autofocus) : pas de contour du navigateur autour de
+   la vidéo (Safari sur iPhone dessinait un cadre bleu) ; ses contrôles gardent le leur. */
+.intro__video:focus { outline: none; }
+
 .intro--tall .intro__video { aspect-ratio: 4 / 5; }
 
 .intro__close {

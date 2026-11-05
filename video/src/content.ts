@@ -8,27 +8,119 @@
 export const PERSON = {
   name: "Ludovic Labeaut",
   domains: "Finance · Audit · ESG · Data",
-  tagline: "Des données traçables, sourcées et directement auditables.",
+  tagline: "Chaque chiffre renvoie à sa source.",
+  /** Tampon du plan titre, posé sur la piste d'audit. */
+  stamp: "Contrôlé",
+};
+
+/**
+ * Séquence « profil », juste après le drop : un bilan de compétences présenté comme un bilan
+ * comptable. Actif : ce que je sais faire ; passif : ce que je suis de près. Chaque poste a sa
+ * sphère (pixel art), de sa propre couleur. Sources : le CV 2026 (compétences, centres d'intérêt),
+ * les matières du Master CCA (consolidation, ingénierie sociétaire, fiscalité), les projets du
+ * portfolio et les maquettes Blender de Panoplie. Un poste sans éléments n'est pas affiché.
+ */
+export type Poste = { label: string; items: string[]; accent: string };
+export const PROFILE = {
+  title: "Bilan de compétences",
+  period: "Exercice 2026",
+  actif: {
+    heading: "Actif",
+    caption: "Compétences",
+    postes: [
+      { label: "Audit", items: ["audit légal", "contrôle interne", "revue analytique"], accent: "#829bed" },
+      { label: "Comptabilité", items: ["comptes sociaux et consolidés", "IFRS"], accent: "#b38cff" },
+      { label: "Droit des sociétés", items: ["ingénierie sociétaire", "fiscalité"], accent: "#e9a3c9" },
+      { label: "Finance", items: ["DCF", "LBO", "Monte Carlo"], accent: "#e2c27d" },
+      { label: "ESG", items: ["CSRD", "ESRS E1", "bilan carbone"], accent: "#84c89a" },
+      { label: "Conception", items: ["modélisation 3D", "visuels", "fonctionnalités"], accent: "#ff8b2c" },
+      { label: "Automatisation", items: ["Python", "skills", "connexion d'applications"], accent: "#6ccad0" },
+    ] as Poste[],
+  },
+  passif: {
+    heading: "Passif",
+    caption: "Centres d'intérêt",
+    postes: [
+      { label: "Géopolitique", items: ["géoéconomie", "défense"], accent: "#7fb0dc" },
+      { label: "Aéronautique", items: ["avions de combat", "drones"], accent: "#3df0ff" },
+      { label: "DeepTech", items: ["IA", "robotique"], accent: "#ff3d9a" },
+      { label: "Marchés", items: ["banques centrales", "taux"], accent: "#d97a5e" },
+      { label: "Hors travail", items: ["sport", "musique"], accent: "#ffd319" },
+    ] as Poste[],
+  },
+  total: "Bilan équilibré",
+};
+
+/**
+ * « Ce que je sais faire » : six écrans de contrôle animés (pixel art, terminal), un par savoir-faire.
+ * Les écrans montrent une démarche (contrôles, structure, maillage…), pas des chiffres de clients.
+ */
+export const SKILLS = {
+  title: "Ce que je sais faire",
+  tiles: [
+    {
+      key: "audit",
+      title: "Audit",
+      caption: "Revue analytique",
+      lines: ["[OK] Rapprochements", "[OK] Cut-off", "[!!] Écriture en double"],
+      accent: "#829bed",
+    },
+    {
+      key: "groupe",
+      title: "Ingénierie sociétaire",
+      caption: "Structure de groupe",
+      lines: ["Holding", "Filiale A", "Filiale B", "Filiale C", "Sous-filiale"],
+      accent: "#e9a3c9",
+    },
+    {
+      key: "mesh",
+      title: "Modélisation 3D",
+      caption: "Maillage et axes",
+      lines: [],
+      accent: "#ff8b2c",
+    },
+    {
+      key: "ui",
+      title: "Visuels et fonctionnalités",
+      caption: "Interface",
+      lines: [],
+      accent: "#ffd319",
+    },
+    {
+      key: "auto",
+      title: "Skills et automatisation",
+      caption: "Tâches en chaîne",
+      lines: ["> déclencheur : nouveau FEC", "  import ........ OK", "  contrôles ..... OK", "  rapport ....... OK"],
+      accent: "#6ccad0",
+    },
+    {
+      key: "api",
+      title: "Connexion d'applications",
+      caption: "API",
+      lines: ["API", "ERP", "Banque", "CRM", "IA", "Docs", "Mail"],
+      accent: "#3df0ff",
+    },
+  ],
 };
 
 /** Cartes du terminal de l'acte 1 : 30 caractères au plus par ligne pour rester lisibles. */
 export const TERMINAL_CARDS: string[][] = [
   ["LUDOVIC LABEAUT", "M2 CCA · NEOMA"],
   ["2 ANS D'AUDIT FINANCIER", "FORVIS MAZARS · CAC 40"],
-  ["AUDIT LÉGAL", "CONTRÔLE INTERNE", "CSRD · SYSTÈMES IT"],
-  ["ET SI LA RIGUEUR DE L'AUDIT", "RENCONTRAIT L'IA ET LE CODE ?"],
+  ["AUDIT LÉGAL", "CONTRÔLE INTERNE", "CSRD · SYSTÈMES D'INFORMATION"],
+  ["AUDITEUR DE FORMATION,", "JE CODE MES PROPRES OUTILS"],
 ];
 
 /** Thème de chaque carte du terminal, repris dans le bandeau sous le téléviseur (format 4:5). */
 export const TERMINAL_THEMES = [
   "Finance · Audit · ESG · Data",
   "Audit légal · Comptes du CAC 40",
-  "Contrôle interne · CSRD · Systèmes IT",
+  "Contrôle interne · CSRD · Systèmes d'information",
   "IA · Code · Preuve",
 ];
 
-/** Mots des panneaux qui défilent au bord de la route (pixel art, majuscules sans accent). */
-export const BILLBOARDS = ["AUDIT", "ESG", "IA", "ROBOTIQUE", "CSRD", "DEFENSE", "LCB-FT", "DATA"];
+/** Mots des panneaux qui défilent au bord de la route (pixel art, majuscules ; É et È sont dessinés). */
+export const BILLBOARDS = ["AUDIT", "CSRD", "PREUVE", "IA", "DÉFENSE", "CONFORMITÉ", "ROBOTIQUE"];
 
 /** « Ce à quoi je m'attaque » : trois thèmes, chacun sur une photo du site ou un visuel en code. */
 export type Theme = {
@@ -42,21 +134,21 @@ export type Theme = {
 export const THEMES: Theme[] = [
   {
     title: "ESG & climat",
-    line: "Un reporting CSRD traçable, du classeur au rapport.",
+    line: "Le bilan carbone et le rapport CSRD, à partir des données de l'entreprise.",
     accent: "#84c89a",
     photo: "carbon-co/eolienne-brume.webp",
     evidence: "Carbon&Co",
   },
   {
     title: "Audit & preuve",
-    line: "Chaque chiffre relié à sa source, chaque contrôle documenté.",
+    line: "Contrôler les écritures comptables et garder la trace de chaque contrôle.",
     accent: "#829bed",
     photo: "probant/archives.webp",
     evidence: "Probant · KYB Graph",
   },
   {
     title: "IA & robotique",
-    line: "Comprendre où se crée la valeur, sources à l'appui.",
+    line: "Suivre l'IA et la robotique : qui produit, à quel coût, avec quelles dépendances.",
     accent: "#d97a5e",
     photo: null,
     evidence: "Série IA · Dossier robotique",
@@ -118,7 +210,7 @@ export const APPS: App[] = [
     id: "panoplie",
     name: "Panoplie",
     subtitle: "Intelligence défense",
-    problem: "Coût réel, chaîne industrielle, dépendances et régimes d'export, sourcés et datés.",
+    problem: "Ce que coûte un système d'armes, qui le fabrique et où il peut être exporté.",
     features: ["Carte des sous-systèmes, industriels et pays", "Six critères notés de A à E", "Evidence Pack, sources notées de A à D"],
     badges: ["Défense", "Souveraineté", "Sources ouvertes"],
     update: null,
@@ -132,7 +224,7 @@ export const APPS: App[] = [
     id: "finvalstudio",
     name: "FinValStudio",
     subtitle: "Modélisation & valorisation",
-    problem: "Modèles intégrés, valorisation, scénarios et reporting bancaire reproductible.",
+    problem: "Valoriser une entreprise : DCF, LBO et scénarios Monte Carlo.",
     features: ["DCF : du flux aux fonds propres", "Monte Carlo : 5 000 tirages, P10, médiane, P90", "LBO : TRI et multiple du sponsor"],
     badges: ["Valorisation", "Scénarios", "Data"],
     update: null,
@@ -162,7 +254,7 @@ export const APPS: App[] = [
 export const PUBLICATIONS = {
   name: "Publications",
   kicker: "Lignes de force",
-  subtitle: "Notes d'analyse, séries de fond et dossier interactif, sourcés et datés",
+  subtitle: "23 notes d'analyse, toutes sourcées et datées.",
   accent: "#d97a5e",
   background: "radial-gradient(120% 70% at 55% 25%, #3a3833 0%, #1d1c19 55%, #0d0c0b 100%)",
   photo: "publications/bibliotheque.webp",
@@ -204,6 +296,9 @@ export const CONTACT = {
   linkedin: "",
   portfolio: "l-labs-portfolio.vercel.app",
   publications: "l-labs-portfolio.vercel.app/publications",
+  /** QR code de la carte de fin : utile quand la vidéo passe sur un autre écran (entretien, salon). */
+  qr: "https://l-labs-portfolio.vercel.app",
+  qrLabel: "Scannez pour ouvrir le portfolio",
   stack: "Next.js · TypeScript · Neon / Postgres · API Claude",
   languages: "Portfolio en français et en anglais",
   credits: "Photos : Unsplash et DVIDS (domaine public). Musique : « Synth Wave », pro-sensory (CC0).",

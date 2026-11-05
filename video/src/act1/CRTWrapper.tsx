@@ -209,8 +209,8 @@ export const CRTWrapper: React.FC<{
   const overshoot = 1 + 0.3 * (1 - smooth(P.snowEndSec, P.snowEndSec + 0.7, t));
   const flicker = 0.965 + 0.035 * Math.sin(frame * 2.7) * Math.sin(frame * 1.3);
   const split = 1.6 + 7 * glitch;
-  // Indicatif affiché une fois le haut de l'écran entré dans le cadre (recul de la caméra).
-  const osd = t >= 2.5 && t < 4.4;
+  // Indicatif « CH 03 » : dès que la neige apparaît (le poste est vu en plan large).
+  const osd = t >= P.snowFromSec + 0.1 && t < 4.4;
   const osdAlpha = osd ? 0.82 + 0.18 * hash(frame * 3 + 1) : 0;
 
   const light = screenLightAt(t);

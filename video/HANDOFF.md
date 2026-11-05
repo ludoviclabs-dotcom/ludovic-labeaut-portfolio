@@ -21,9 +21,13 @@ dans une autre session, par exemple en local avec Claude Code.
 
 ## Dernier état
 
-Les 11 points du dernier audit sont corrigés et la v2 est rendue (2 430 images, 81 s, deux formats).
-Les mesures sont dans les messages de commit. Restent à valider à l'oreille : le déclic, la neige
-et le break (ils n'ont été vérifiés que par mesure).
+v4 (100,8 s, 3 024 images, deux formats) : un prologue (cadre anonyme en clair-obscur qui allume le
+poste à la télécommande, puis travelling avant) remplace le gros plan d'ouverture ; sphères en fil de
+fer néon tramé (bilan et globe de la route) ; nouveau plan « Ce que je sais faire » (six écrans de
+contrôle animés) après le nom. Le temps du téléviseur est inchangé : la vidéo commence
+`prologueSec` plus tôt, et la bande-son y ajoute l'ambiance, les pas, le fauteuil, le clic et le
+bourdonnement du tube. Publication sur le site par `npm run publish-site` (bouton « Présentation »).
+Restent à valider à l'oreille : le déclic, la neige et le break (vérifiés seulement par mesure).
 
 ## Ce qui attend Ludovic
 

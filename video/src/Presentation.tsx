@@ -3,18 +3,18 @@ import React from "react";
 import { AbsoluteFill, Easing, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { RetroScene, TraverseFlash } from "./act2/GlitchTransition";
 import { Showcase } from "./act3/Showcase";
-import { DROP_SEC, TOTAL_SEC, f } from "./timeline";
+import { DROP_SEC, PROLOGUE_SEC, VIDEO_SEC, f } from "./timeline";
 
 // La vidéo complète : le téléviseur (actes 1 et 2) passe devant la vitrine (acte 3),
 // qu'il révèle en traversant l'écran au drop. Une seule piste son, calée par sync.json
-// (son fondu de sortie, 78 → 81 s, est fabriqué dans le fichier audio lui-même).
+// (son fondu de sortie, 97,8 → 100,8 s, est fabriqué dans le fichier audio lui-même).
 
 /** Fondu au noir sur les 0,8 dernières secondes. */
 const FADE_OUT_SEC = 0.8;
 
 const FadeToBlack: React.FC = () => {
   const frame = useCurrentFrame();
-  const end = f(TOTAL_SEC);
+  const end = f(VIDEO_SEC);
   const opacity = interpolate(frame, [end - f(FADE_OUT_SEC), end - 1], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -26,13 +26,13 @@ const FadeToBlack: React.FC = () => {
 export const Presentation: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      <Sequence name="Acte 3 — Vitrine" from={f(DROP_SEC)}>
+      <Sequence name="Acte 3 — Vitrine" from={f(PROLOGUE_SEC + DROP_SEC)}>
         <Showcase />
       </Sequence>
-      <Sequence name="Actes 1 et 2 — Téléviseur" durationInFrames={f(DROP_SEC + 0.5)}>
+      <Sequence name="Prologue, actes 1 et 2 — Téléviseur" durationInFrames={f(PROLOGUE_SEC + DROP_SEC + 0.5)}>
         <RetroScene />
       </Sequence>
-      <Sequence name="Traversée de l'écran" durationInFrames={f(DROP_SEC + 1)}>
+      <Sequence name="Traversée de l'écran" durationInFrames={f(PROLOGUE_SEC + DROP_SEC + 1)}>
         <TraverseFlash />
       </Sequence>
       <FadeToBlack />

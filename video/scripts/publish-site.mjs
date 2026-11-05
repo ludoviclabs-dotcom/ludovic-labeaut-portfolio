@@ -8,7 +8,7 @@
 // sous des noms stables lus par ../public/index.html :
 //   ../public/videos/presentation-16x9.mp4   écran large
 //   ../public/videos/presentation-4x5.mp4    téléphone tenu en portrait
-//   ../public/videos/presentation-poster.jpg image avant lecture (le titre, acte 3)
+//   ../public/videos/presentation-poster.jpg image avant lecture (le plan titre complet)
 // Vercel ne publie que ../public/ : sans cette étape, une vidéo rendue reste invisible sur le site.
 // Il suffit ensuite de versionner ces trois fichiers et de pousser.
 import { execFileSync } from "node:child_process";
@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const site = path.resolve(root, "../public/videos");
 const sync = JSON.parse(readFileSync(path.join(root, "src/sync.json"), "utf8"));
-const POSTER_SEC = 23; // le titre, en plein écran (acte 3 : 21 → 27 s)
+const POSTER_SEC = 37.3; // le plan du nom complet : piste d'audit cochée, tampon, phrase (31,8 → 37,8 s)
 
 const cli = path.join(root, "node_modules/@remotion/cli/remotion-cli.js");
 const remotion = (...args) => execFileSync(process.execPath, [cli, ...args], { cwd: root, stdio: "inherit" });
@@ -42,5 +42,5 @@ for (const format of ["16x9", "4x5"]) {
 }
 
 const poster = path.join(site, "presentation-poster.jpg");
-remotion("still", "Presentation-16x9", poster, `--frame=${POSTER_SEC * sync.fps}`, "--jpeg-quality=82");
+remotion("still", "Presentation-16x9", poster, `--frame=${Math.round(POSTER_SEC * sync.fps)}`, "--jpeg-quality=82");
 console.log("publié : public/videos/presentation-poster.jpg");
