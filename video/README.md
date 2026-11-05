@@ -16,7 +16,8 @@ Vidéo de 81 secondes, en code avec [Remotion](https://www.remotion.dev/), en de
 | 63 → 75 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
 | 75 → 81 s | 3 | Carte de fin, fondu au noir sur les 0,8 dernières secondes (son : fondu 78 → 81 s) |
 
-Le dossier est indépendant du site : Vercel ne publie que `../public/`.
+Le dossier est indépendant du site : Vercel ne publie que `../public/`. Une vidéo rendue dans `out/`
+n'apparaît donc sur le site qu'après `npm run publish-site` (voir plus bas).
 
 ## Commandes
 
@@ -24,12 +25,28 @@ Le dossier est indépendant du site : Vercel ne publie que `../public/`.
 npm install           # une seule fois
 npm run dev           # aperçu dans Remotion Studio (timeline, lecture, pause)
 npm run render        # out/ludovic-labeaut-16x9.mp4 et out/ludovic-labeaut-4x5.mp4
+npm run publish-site  # rend les deux formats et les publie sur le site (bouton « Présentation »)
 npm run soundtrack    # régénère public/audio/soundtrack.mp3 après une modification de src/sync.json
 ```
 
 `npm run dev` et `npm run render` copient d'abord les vidéos de démonstration du site
 (`../public/videos/*.mp4`) dans `public/captures/` et les photos du site dans `public/photos/`
 (copies non versionnées).
+
+## Publier sur le site
+
+Le bouton « Présentation » de la page d'accueil (`../public/index.html`, script
+`../public/assets/js/intro.js`) ouvre la vidéo dans une fenêtre, avec le son. Il lit trois fichiers
+aux noms fixes, que `npm run publish-site` produit à partir de `out/` :
+
+| Fichier | Rôle |
+|---|---|
+| `../public/videos/presentation-16x9.mp4` | écran large (et lien direct sans JavaScript) |
+| `../public/videos/presentation-4x5.mp4` | téléphone tenu en portrait |
+| `../public/videos/presentation-poster.jpg` | image avant lecture (le titre, à 23 s) |
+
+Après chaque modification de la vidéo : `npm run publish-site`, puis versionner ces trois fichiers
+et pousser. `npm run publish-site -- --no-render` republie les fichiers déjà présents dans `out/`.
 
 ## Où modifier quoi
 

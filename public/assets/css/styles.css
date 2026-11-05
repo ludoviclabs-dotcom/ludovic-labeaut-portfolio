@@ -732,6 +732,15 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
 
   .topbar__count { display: none; }
 
+  /* Le bouton Présentation passe sous les liens, aligné à droite, pour ne pas élargir la barre. */
+  .topbar__right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 0.7rem;
+  }
+
+  .intro-open { order: 1; }
+
   /* Barre étroite : seule la langue proposée reste affichée (« EN » sur une page française). */
   .lang-switch a[aria-current],
   .lang-switch__sep { display: none; }
@@ -933,4 +942,109 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   .slide.is-solo { animation: none !important; }
 
   .chart__draw { stroke-dashoffset: 0; }
+}
+
+/* ---------- Vidéo de présentation (bouton de la barre + fenêtre) ---------- */
+
+/* Même pastille que le bouton Pause, triangle de lecture en tête. */
+.intro-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(244, 241, 234, 0.45);
+  border-radius: 999px;
+  background: rgba(11, 12, 14, 0.55);
+  color: var(--ink);
+  font: 500 0.64rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.intro-open:hover {
+  border-color: var(--ink);
+  background: rgba(244, 241, 234, 0.12);
+}
+
+.intro-open:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.intro-open__icon {
+  width: 0;
+  height: 0;
+  border-block: 4.5px solid transparent;
+  border-inline-start: 7px solid currentColor;
+}
+
+.intro {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.intro[open] {
+  display: grid;
+  place-items: center;
+}
+
+.intro::backdrop { background: rgba(5, 6, 8, 0.9); }
+
+.intro__frame {
+  position: relative;
+  width: min(92vw, calc((100dvh - 7rem) * 16 / 9));
+}
+
+.intro--tall .intro__frame { width: min(94vw, calc((100dvh - 7rem) * 4 / 5)); }
+
+.intro__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.intro--tall .intro__video { aspect-ratio: 4 / 5; }
+
+.intro__close {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.75rem);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid rgba(244, 241, 234, 0.35);
+  border-radius: 50%;
+  background: rgba(11, 12, 14, 0.6);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.intro__close:hover { border-color: var(--ink); }
+
+.intro__close:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.intro__close svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
 }
