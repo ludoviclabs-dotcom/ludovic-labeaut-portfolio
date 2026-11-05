@@ -122,7 +122,7 @@ export const TERMINAL_THEMES = [
 /** Mots des panneaux qui défilent au bord de la route (pixel art, majuscules ; É et È sont dessinés). */
 export const BILLBOARDS = ["AUDIT", "CSRD", "PREUVE", "IA", "DÉFENSE", "CONFORMITÉ", "ROBOTIQUE"];
 
-/** « Ce à quoi je m'attaque » : trois thèmes, chacun sur une photo du site ou un visuel en code. */
+/** « Mes sujets » : trois thèmes, chacun sur une photo du site ou un visuel en code. */
 export type Theme = {
   title: string;
   line: string;
@@ -134,7 +134,7 @@ export type Theme = {
 export const THEMES: Theme[] = [
   {
     title: "ESG & climat",
-    line: "Le bilan carbone et le rapport CSRD, à partir des données de l'entreprise.",
+    line: "Le bilan carbone et le rapport de durabilité CSRD, à partir des données de l'entreprise.",
     accent: "#84c89a",
     photo: "carbon-co/eolienne-brume.webp",
     evidence: "Carbon&Co",
@@ -182,8 +182,8 @@ export const APPS: App[] = [
     id: "carbon-co",
     name: "Carbon&Co",
     subtitle: "Pilotage ESG & CSRD",
-    problem: "Collecter les données ESG, calculer l'empreinte carbone, produire le rapport CSRD.",
-    features: ["Scopes 1, 2 et 3 en tCO₂e, méthode GHG Protocol", "Double matérialité des thèmes ESRS", "Rapport CSRD et piste d'audit"],
+    problem: "Collecte les données d'activité, calcule le bilan carbone et prépare le rapport de durabilité CSRD.",
+    features: ["Scopes 1, 2 et 3 en tCO₂e, méthode GHG Protocol", "Double matérialité des thèmes ESRS", "Rapport de durabilité et piste d'audit"],
     badges: ["ESG", "CSRD", "Climat"],
     update: null,
     accent: "#84c89a",
@@ -196,7 +196,7 @@ export const APPS: App[] = [
     id: "probant",
     name: "Probant",
     subtitle: "Audit & conformité comptable",
-    problem: "Du fichier des écritures comptables au dossier de preuve opposable.",
+    problem: "Contrôle le FEC écriture par écriture et rassemble les anomalies dans un dossier de preuve.",
     features: ["Chaque écriture du FEC est contrôlée", "Doublons, hors période, séquence rompue", "Dossier scellé et horodaté"],
     badges: ["Audit", "Preuve", "Data"],
     update: "Nouvelle charte · oct. 2026",
@@ -224,7 +224,7 @@ export const APPS: App[] = [
     id: "finvalstudio",
     name: "FinValStudio",
     subtitle: "Modélisation & valorisation",
-    problem: "Valoriser une entreprise : DCF, LBO et scénarios Monte Carlo.",
+    problem: "Valorise une entreprise par DCF, comparables, LBO et scénarios Monte Carlo.",
     features: ["DCF : du flux aux fonds propres", "Monte Carlo : 5 000 tirages, P10, médiane, P90", "LBO : TRI et multiple du sponsor"],
     badges: ["Valorisation", "Scénarios", "Data"],
     update: null,
@@ -239,7 +239,7 @@ export const APPS: App[] = [
     name: "KYB Graph",
     subtitle: "Cartographie de conformité",
     problem: "Les liens entre sociétés, dirigeants, adresses et sanctions, chacun avec son niveau de preuve.",
-    features: ["26 sources publiques, jamais de scraping", "Confirmé, déclaré, inféré, simulé", "Journal chaîné par empreinte SHA-256"],
+    features: ["26 sources publiques, sans scraping", "Confirmé, déclaré, inféré, simulé", "Journal chaîné par empreinte SHA-256"],
     badges: ["LCB-FT", "Sanctions", "Preuve"],
     update: "Nouveau · oct. 2026",
     accent: "#6ccad0",
@@ -254,7 +254,7 @@ export const APPS: App[] = [
 export const PUBLICATIONS = {
   name: "Publications",
   kicker: "Lignes de force",
-  subtitle: "23 notes d'analyse, toutes sourcées et datées.",
+  subtitle: "23 notes d'analyse, chacune avec ses sources et sa date.",
   accent: "#d97a5e",
   background: "radial-gradient(120% 70% at 55% 25%, #3a3833 0%, #1d1c19 55%, #0d0c0b 100%)",
   photo: "publications/bibliotheque.webp",
