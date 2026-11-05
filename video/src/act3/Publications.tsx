@@ -11,7 +11,8 @@ import { Badge, Grid, Photo, UpdatePill, Vignette } from "./ui";
 // 1. « Lignes de force » : vue d’ensemble sur la photo de la bibliothèque (chiffres, rubriques,
 //    pastille de nouveauté, fenêtre de l’application).
 // 2. Les deux séries de fond, en deux cartes.
-// 3. Le dossier robotique : titre, mentions, trois chiffres qui se dévoilent.
+// 3. Le dossier robotique : titre, mentions, trois chiffres (valeurs du site, affichées d’emblée).
+// Entre deux temps, le temps sortant s’efface entièrement avant que l’entrant n’apparaisse.
 
 const BEAT = 120;
 const P = PUBLICATIONS;
@@ -42,7 +43,7 @@ const Kicker: React.FC<{ children: React.ReactNode; style?: React.CSSProperties 
 const Overview: React.FC = () => {
   const { t, lead, width, landscape } = useSlot();
   const s = safe(landscape);
-  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT, dist);
+  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 12, BEAT - 2, dist);
   const capW = landscape ? 1040 : width - 160;
   const capH = capW / CAPTURE_RATIO;
   const capEnter = 16;
@@ -104,7 +105,7 @@ const Overview: React.FC = () => {
     </>
   );
   const capture = (
-    <div style={enterLeave(t, 0, BEAT - 10, BEAT, 0)}>
+    <div style={enterLeave(t, 0, BEAT - 12, BEAT - 2, 0)}>
       <CaptureWindow
         file={P.capture}
         fromSec={P.captureFromSec}
@@ -148,17 +149,17 @@ const Series: React.FC = () => {
   const { t: t0, landscape, width } = useSlot();
   const t = t0 - BEAT;
   const s = safe(landscape);
-  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 10, BEAT, dist);
+  const out = (d: number, dist = 26) => enterLeave(t, d, BEAT - 12, BEAT - 2, dist);
   const cardW = landscape ? (width - 2 * s.x - 32) / 2 : width - 2 * s.x;
 
   return (
     <AbsoluteFill style={{ padding: `${s.top}px ${s.x}px ${s.bottom}px`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-      <div style={{ ...out(-8, 16), display: "flex", alignItems: "baseline", gap: 24 }}>
+      <div style={{ ...out(2, 16), display: "flex", alignItems: "baseline", gap: 24 }}>
         <Kicker>{P.kicker}</Kicker>
       </div>
       <div
         style={{
-          ...out(-4, 30),
+          ...out(4, 30),
           marginTop: 16,
           fontFamily: SERIF,
           fontWeight: 600,
@@ -172,13 +173,13 @@ const Series: React.FC = () => {
       </div>
       <div style={{ display: "flex", flexDirection: landscape ? "row" : "column", gap: landscape ? 32 : 26, marginTop: landscape ? 56 : 40 }}>
         {P.series.map((se, i) => {
-          const d = 2 + i * 12;
+          const d = 8 + i * 10;
           const p = prog(t, d, d + 24);
           return (
             <div
               key={se.title}
               style={{
-                ...enterLeave(t, d, BEAT - 10, BEAT, 50, 24),
+                ...enterLeave(t, d, BEAT - 12, BEAT - 2, 50, 24),
                 width: cardW,
                 padding: landscape ? "44px 48px" : "34px 40px",
                 borderRadius: 24,
@@ -224,16 +225,6 @@ const Series: React.FC = () => {
 };
 
 // ---------- Temps 3 : le dossier robotique
-/** Dévoile un chiffre : compte de 0 à la valeur en gardant son écriture (« 5 000 Md$ », « ~90 % »). */
-const countUp = (value: string, p: number) => {
-  const m = value.match(/^([^\d]*)(\d(?:[\d ]*\d)?)(.*)$/);
-  if (!m) return value;
-  const target = parseInt(m[2].replace(/ /g, ""), 10);
-  const n = Math.round(target * p);
-  const grouped = n >= 1000 ? `${Math.floor(n / 1000)} ${String(n % 1000).padStart(3, "0")}` : String(n);
-  return fr(`${m[1]}${grouped}${m[3]}`);
-};
-
 const Dossier: React.FC = () => {
   const { t: t0, landscape, width } = useSlot();
   const t = t0 - 2 * BEAT;
@@ -245,7 +236,7 @@ const Dossier: React.FC = () => {
     <AbsoluteFill style={{ padding: `${s.top + 10}px ${s.x}px ${s.bottom + 10}px`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
       <div
         style={{
-          ...enter(t, -8, 16),
+          ...enter(t, 2, 16),
           display: "flex",
           alignItems: "center",
           gap: 16,
@@ -262,7 +253,7 @@ const Dossier: React.FC = () => {
       </div>
       <div
         style={{
-          ...enter(t, -4, 34, 22),
+          ...enter(t, 4, 34, 20),
           marginTop: 22,
           fontFamily: SERIF,
           fontWeight: 600,
@@ -285,8 +276,8 @@ const Dossier: React.FC = () => {
         }}
       >
         {d.figures.map((fg, i) => {
-          const dl = 16 + i * 14;
-          const p = prog(t, dl, dl + 40);
+          const dl = 12 + i * 6;
+          const p = prog(t, dl, dl + 24);
           return (
             <div
               key={fg.label}
@@ -303,7 +294,7 @@ const Dossier: React.FC = () => {
               <div style={{ position: "absolute", left: 0, top: -1, height: 2, width: `${p * 100}%`, background: accent, boxShadow: `0 0 12px ${accent}` }} />
               <div
                 style={{
-                  ...enter(t, dl, 30, 20),
+                  ...enter(t, dl, 30, 16),
                   fontFamily: SERIF,
                   fontWeight: 600,
                   fontSize: landscape ? 120 : 112,
@@ -313,11 +304,11 @@ const Dossier: React.FC = () => {
                   fontVariantNumeric: "lining-nums tabular-nums",
                 }}
               >
-                {countUp(fg.value, p)}
+                {fr(fg.value)}
               </div>
               <div
                 style={{
-                  ...enter(t, dl + 12, 14, 18),
+                  ...enter(t, dl + 6, 14, 16),
                   fontFamily: SANS,
                   fontSize: landscape ? 30 : 36,
                   lineHeight: 1.3,

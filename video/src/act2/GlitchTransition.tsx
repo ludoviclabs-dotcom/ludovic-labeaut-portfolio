@@ -27,20 +27,19 @@ export const glitchAt = (t: number) => {
 
 const easeInOutSine = (x: number) => (1 - Math.cos(Math.PI * Math.min(1, Math.max(0, x)))) / 2;
 
-// Format vertical : le téléviseur est cadré sur le centre de l'ÉCRAN (le panneau de commande est
-// rogné), assez grand pour que le cadre de l'écran se voie également des deux côtés, et placé
-// assez haut pour laisser sous lui un bandeau (thème de la carte du terminal en cours).
-const PORTRAIT_VISIBLE_W = SCREEN.w + 80; // largeur de conception visible à l'échelle de base
+// Format vertical : le téléviseur entier (meuble, panneau de commande, pieds) est cadré sur son
+// centre, à peine rogné du même montant des deux côtés, et placé assez haut pour laisser sous lui
+// un bandeau (thème de la carte du terminal en cours).
+const PORTRAIT_SCALE = 0.85 * (1080 / 1040); // largeur visible ≈ 1224 px de conception (meuble : 1280)
 const PORTRAIT_SCREEN_Y = 535; // ordonnée (image) du centre de l'écran
 const LOWER_THIRD_TOP = 1166;
 
 /** Cadrage de base (avant le break) : échelle et point de conception placé au centre de l'image. */
 const baseFraming = (width: number, height: number) => {
-  const scx = SCREEN.x + SCREEN.w / 2;
   const scy = SCREEN.y + SCREEN.h / 2;
   if (height > width) {
-    const base = width / PORTRAIT_VISIBLE_W;
-    return { base, cx: scx, cy: scy + (height / 2 - PORTRAIT_SCREEN_Y) / base };
+    const base = (width / 1080) * PORTRAIT_SCALE;
+    return { base, cx: TV_W / 2, cy: scy + (height / 2 - PORTRAIT_SCREEN_Y) / base };
   }
   const base = Math.min((width * 0.88) / TV_W, (height * 0.88) / TV_H);
   return { base, cx: TV_W / 2, cy: TV_H / 2 };

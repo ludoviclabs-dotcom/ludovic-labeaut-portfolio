@@ -8,14 +8,14 @@ import { safe, useSlot } from "./slot";
 import { Badge, Photo, Progress, UpdatePill, Vignette } from "./ui";
 
 // Un projet en deux temps (6 s) :
-// A (0 → 2,4 s) la photo du site en plein cadre, le numéro, le nom, le problème traité, les badges
+// A (0 → 3,3 s) la photo du site en plein cadre, le numéro, le nom, le problème traité, les badges
 //   et la pastille de mise à jour ;
-// B (2,2 → 6 s) la photo recule (flou, assombrie, teintée du dégradé du site), le nom glisse en haut
+// B (3,3 → 6 s) la photo recule (flou, assombrie, teintée du dégradé du site), le nom glisse en haut
 //   de la colonne de gauche, les fonctions clés arrivent une à une, et la vraie fenêtre de
 //   l’application s’ouvre à droite (en dessous au format 4:5).
 
-const B_FROM = 62; // début du passage A → B (images)
-const B_TO = 88;
+const B_FROM = 98; // début du passage A → B (images) : le problème reste lisible ~2,8 s
+const B_TO = 120;
 
 type Layout = {
   x: number;
@@ -78,7 +78,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
 
   // Fenêtre de l’application.
   const capH = L.capW / CAPTURE_RATIO;
-  const capEnter = 70;
+  const capEnter = 100;
   const capShow = dur + lead - capEnter;
   const nameBBottom = L.nameTopB + L.nameB;
 
@@ -90,8 +90,8 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
         <div
           key={f}
           style={{
-            ...enter(t, 84 + i * 9, 0, 18),
-            translate: `${(1 - prog(t, 84 + i * 9, 102 + i * 9)) * -30}px 0`,
+            ...enter(t, 110 + i * 6, 0, 16),
+            translate: `${(1 - prog(t, 110 + i * 6, 126 + i * 6)) * -30}px 0`,
             display: "flex",
             alignItems: "flex-start",
             gap: 20,
@@ -129,7 +129,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
   const badgesB = (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
       {app.badges.map((b, i) => (
-        <div key={b} style={enter(t, 110 + i * 4, 14, 16)}>
+        <div key={b} style={enter(t, 128 + i * 3, 14, 14)}>
           <Badge accent={app.accent} size={L.badge}>
             {fr(b)}
           </Badge>
@@ -218,7 +218,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
         >
           <div
             style={{
-              ...aOut(10, 24),
+              ...aOut(6, 24),
               fontFamily: SANS,
               fontWeight: 400,
               fontSize: L.problem,
@@ -231,7 +231,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             {app.badges.map((b, i) => (
-              <div key={b} style={aOut(18 + i * 4, 14)}>
+              <div key={b} style={aOut(14 + i * 4, 14)}>
                 <Badge accent={app.accent} size={L.badge}>
                   {fr(b)}
                 </Badge>
@@ -254,7 +254,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
                 gap: 36,
               }}
             >
-              <div style={{ ...enter(t, 78, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
+              <div style={{ ...enter(t, 104, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
                 {fr(app.subtitle)}
               </div>
               {features}
@@ -292,7 +292,7 @@ export const ProjectSlide: React.FC<{ app: App; index: number }> = ({ app, index
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
-              <div style={{ ...enter(t, 78, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
+              <div style={{ ...enter(t, 104, 16), fontFamily: SANS, fontWeight: 500, fontSize: L.subtitle, color: app.accent }}>
                 {fr(app.subtitle)}
               </div>
               {features}

@@ -67,11 +67,16 @@ export const lerp = (a: number, b: number, p: number) => a + (b - a) * p;
 
 /**
  * Typographie française à l'affichage : apostrophe typographique, espaces insécables avant
- * : ; ? ! % et entre les groupes de chiffres (« 5 000 »), après « « » et avant « » ».
+ * : ; ? ! % et entre les groupes de chiffres (« 5 000 »), après « « » et avant « » » ; et après
+ * les articles et prépositions courtes, et entre un nombre et le mot qui le suit.
  */
 export const fr = (s: string) =>
   s
     .replace(/'/g, "’")
     .replace(/ ([:;?!%»])/g, " $1")
     .replace(/« /g, "« ")
-    .replace(/(\d) (\d{3})/g, "$1 $2");
+    .replace(/(\d) (\d{3})/g, "$1 $2")
+    // Pas de mot court en fin de ligne (« le / retour », « la / valeur ») ni de nombre séparé
+    // de son mot (« 5 000 / tirages ») : on les lie au mot suivant.
+    .replace(/(?<=^|[\s\u00a0’(])(le|la|les|un|une|des|du|de|au|aux|à) (?=\S)/gi, "$1\u00a0")
+    .replace(/(\d) (?=[a-zA-ZÀ-ÿ])/g, "$1\u00a0");
