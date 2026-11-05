@@ -1,21 +1,21 @@
 # Vidéo de présentation
 
-Vidéo de 87 secondes, en code avec [Remotion](https://www.remotion.dev/), en deux formats :
+Vidéo de 90 secondes, en code avec [Remotion](https://www.remotion.dev/), en deux formats :
 16:9 (1920 × 1080) et 4:5 (1080 × 1350, pour le fil LinkedIn sur mobile). Tempo : 80 BPM
 (une mesure = 3 s).
 
 | Temps | Acte | Ce qu'on voit |
 |---|---|---|
 | 0 → 4,6 s | 1 | Gros plan sur le bouton du téléviseur, pressé à 0,6 s (déclic, voyant rouge) ; la caméra recule, trait blanc, neige « CH 03 », l'image apparaît sous la neige |
-| 4,6 → 18,75 s | 1 | Route synthwave en pixel art dans l'écran, cartes du terminal (5 ; 8,5 ; 12 et 15,5 s). Panneaux aux mots des thèmes ; Grande Arche devant le soleil, éoliennes sur les crêtes, globe filaire, vol d'oiseaux (6,5 → 12,5 s), robot qui salue (12,6 s), péage « CONTRÔLE » dont la barrière se lève (17 s) |
+| 4,6 → 18,75 s | 1 | Route synthwave en pixel art dans l'écran, cartes du terminal (5 ; 8,5 ; 12 et 15,5 s). Panneaux à mots, et en face des panneaux illustrés animés (loupe d'audit, organigramme de groupe, calcul de coûts, cube 3D, puce, réseau d'applications) ; Grande Arche devant le soleil, éoliennes, globe filaire, vol d'oiseaux (5,2 → 10,2 s), Rafale poursuivi par un F-22 (11 → 13,6 s), drones (13,8 → 17,4 s), robot qui salue (12,6 s), robot quadrupède (15,4 s), péage « CONTRÔLE » dont la barrière se lève (17 s) |
 | 18,75 → 21 s | 2 | Break de batterie (10 coups) : un zoom et un glitch par coup |
 | 21 s | 2 | Le drop : la caméra traverse l'écran (flash, éclats de pixels) |
-| 21 → 27 s | 3 | Bilan de compétences : les sphères jaillissent du flash et tournent autour du titre ; un poste par demi-temps (actif : compétences, passif : centres d'intérêt), chacun avec sa sphère ; doubles traits des totaux et « Bilan équilibré » à 25,5 s ; les sphères se rejoignent au centre |
-| 27 → 33 s | 3 | Le nom : décodé en police du terminal (une lettre par double-croche), un glitch le change en serif à 30 s ; piste d'audit (5 projets, 23 notes, 2 séries, 1 dossier) qui se coche, tampon « Contrôlé » à 31,5 s, puis « Chaque chiffre renvoie à sa source. » |
-| 33 → 39 s | 3 | « Mes sujets » : trois thèmes, avec photos du site |
-| 39 → 69 s | 3 | Les cinq projets, 6 s chacun : problème, puis fonctionnalités et capture |
-| 69 → 81 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
-| 81 → 87 s | 3 | Carte de fin, fondu au noir sur les 0,8 dernières secondes (son : fondu 84 → 87 s) |
+| 21 → 30 s | 3 | Bilan de compétences : les sphères (pixel art tramé, bandes synthwave) jaillissent du flash et tournent autour du titre ; un poste par demi-temps (actif : 7 compétences, passif : 5 centres d'intérêt), chacun avec sa sphère ; doubles traits des totaux et « Bilan équilibré » à 27 s ; les sphères fusionnent en soleil synthwave, qui s'embrase |
+| 30 → 36 s | 3 | Le nom : décodé en police du terminal (une lettre par double-croche), un glitch le change en serif à 33 s ; piste d'audit (5 projets, 23 notes, 2 séries, 1 dossier) qui se coche, tampon « Contrôlé » à 34,5 s, puis « Chaque chiffre renvoie à sa source. » |
+| 36 → 42 s | 3 | « Mes sujets » : trois thèmes, avec photos du site |
+| 42 → 72 s | 3 | Les cinq projets, 6 s chacun : problème, puis fonctionnalités et capture |
+| 72 → 84 s | 3 | Publications : « Lignes de force », les deux séries, le dossier robotique |
+| 84 → 90 s | 3 | Carte de fin, fondu au noir sur les 0,8 dernières secondes (son : fondu 87 → 90 s) |
 
 Le dossier est indépendant du site : Vercel ne publie que `../public/`. Une vidéo rendue dans `out/`
 n'apparaît donc sur le site qu'après `npm run publish-site` (voir plus bas).
@@ -44,7 +44,7 @@ aux noms fixes, que `npm run publish-site` produit à partir de `out/` :
 |---|---|
 | `../public/videos/presentation-16x9.mp4` | écran large (et lien direct sans JavaScript) |
 | `../public/videos/presentation-4x5.mp4` | téléphone tenu en portrait |
-| `../public/videos/presentation-poster.jpg` | image avant lecture (le plan du nom complet, à 32,5 s) |
+| `../public/videos/presentation-poster.jpg` | image avant lecture (le plan du nom complet, à 35,5 s) |
 
 Après chaque modification de la vidéo : `npm run publish-site`, puis versionner ces trois fichiers
 et pousser. `npm run publish-site -- --no-render` republie les fichiers déjà présents dans `out/`.
@@ -53,15 +53,16 @@ et pousser. `npm run publish-site -- --no-render` republie les fichiers déjà p
 
 | Fichier | Contenu |
 |---|---|
-| `src/content.ts` | Tous les textes : cartes du terminal, mots des panneaux, bilan de compétences (`PROFILE`, dont le poste « Hors travail », masqué tant qu'il est vide), projets, publications, coordonnées de la carte de fin |
+| `src/content.ts` | Tous les textes : cartes du terminal, mots des panneaux, bilan de compétences (`PROFILE` ; un poste vide est masqué), projets, publications, coordonnées de la carte de fin |
 | `src/sync.json` | Tempo, instant du drop, coups du break, morceau utilisé. Partagé par l'image et le son |
 | `src/timeline.ts` | Chronologie dérivée de `sync.json` (allumage, cartes du terminal, plans de l'acte 3) |
 | `src/act1/CRTWrapper.tsx` | Le téléviseur et son écran (allumage, lignes de balayage, aberration chromatique) |
 | `src/act1/PixelArtHighwayCanvas.tsx` | La scène pixel art (ciel, soleil, montagnes, route, grille, palmiers, panneaux, voiture) |
-| `src/act1/pixelProps.ts` | Le décor : Grande Arche, éoliennes, globe, oiseaux, robot, péage |
+| `src/act1/pixelProps.ts` | Le décor : Grande Arche, éoliennes, globe, oiseaux, avions, drones, robots, péage |
+| `src/act1/pixelPictures.ts` | Les illustrations animées des panneaux (loupe, organigramme, coûts, cube, puce, réseau) |
 | `src/act1/TerminalText.tsx` | Le texte tapé façon terminal |
 | `src/act2/GlitchTransition.tsx` | La caméra (zoom par coup de batterie, glitch) et la traversée de l'écran |
-| `src/act3/` | La vitrine : bilan de compétences (`Profile.tsx`), titre (`TitleCard.tsx`), thèmes (`Themes.tsx`), projets (`ProjectSlide.tsx`), publications (`Publications.tsx`), carte de fin |
+| `src/act3/` | La vitrine : bilan de compétences (`Profile.tsx`, sphères `PixelSpheres.tsx`), titre (`TitleCard.tsx`), thèmes (`Themes.tsx`), projets (`ProjectSlide.tsx`), publications (`Publications.tsx`), carte de fin |
 
 ## La bande-son
 

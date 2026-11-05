@@ -1,11 +1,12 @@
-import { FOCAL, HORIZON, hex, Pixels, PX_W, RGB, ROAD, RUMBLE, smooth, SPEED } from "./pixelCore";
+import { FOCAL, HORIZON, hex, line, Pixels, PX_W, RGB, ROAD, RUMBLE, smooth, SPEED } from "./pixelCore";
 import { GLYPH_ROWS, wordPixels } from "./pixelBillboard";
 
 // Décor de la route, en pixel art, aux couleurs des sujets de la vidéo :
 //   · à l'horizon, la Grande Arche de la Défense, en silhouette devant le soleil (finance) ;
 //   · sur les crêtes, des éoliennes dont les pales tournent (ESG, climat) ;
 //   · dans le ciel, un globe filaire qui tourne (géopolitique) et un vol d'oiseaux en V ;
-//   · au bord de la route, un robot humanoïde qui fait signe (robotique) ;
+//   · dans le ciel encore, un Rafale poursuivi par un F-22, et trois drones (aéronautique) ;
+//   · au bord de la route, un robot humanoïde qui fait signe et un robot quadrupède (robotique) ;
 //   · avant le break, un péage « CONTRÔLE » dont la barrière se lève (contrôle interne).
 // Tout dépend du temps passé en paramètre : rendu identique à chaque passage.
 
@@ -22,16 +23,6 @@ export function mountainHeights(x: number) {
   const mFront = Math.min(1, Math.max(0, (side - 70) / 70));
   const front = Math.round((8 + 5 * Math.sin(x * 0.07 + 4) + 4 * Math.sin(x * 0.19 + 1)) * mFront);
   return { back, front };
-}
-
-/** Trait d'un point à un autre, en petits carrés (épaisseur w, en pixels de la toile). */
-function line(p: Pixels, x0: number, y0: number, x1: number, y1: number, c: RGB, w = 1, a = 1) {
-  const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) * 2));
-  for (let i = 0; i <= n; i++) {
-    const x = x0 + ((x1 - x0) * i) / n;
-    const y = y0 + ((y1 - y0) * i) / n;
-    p.fillF(x - w / 2, y - w / 2, x + w / 2, y + w / 2, c, a);
-  }
 }
 
 // ------------------------------------------------------------------ fond (au-delà de la route)
@@ -108,10 +99,10 @@ export function drawGlobe(p: Pixels, t: number) {
   for (const lat of [-60, -30, 0, 30, 60]) for (let s = 0; s < 90; s++) plot((lat * Math.PI) / 180, (s / 90) * 2 * Math.PI);
 }
 
-/** Vol d'oiseaux en V, de droite à gauche, devant le soleil (6,5 → 12,5 s). */
+/** Vol d'oiseaux en V, de droite à gauche, devant le soleil (5,2 → 10,2 s). */
 export function drawBirds(p: Pixels, t: number) {
-  const from = 6.5;
-  const to = 12.5;
+  const from = 5.2;
+  const to = 10.2;
   if (t < from || t > to) return;
   const lead = { x: 340 - ((t - from) / (to - from)) * 400, y: 96 + Math.sin(t * 1.3) * 2 };
   const flap = Math.floor(t * 7) % 2 === 0;
@@ -125,6 +116,80 @@ export function drawBirds(p: Pixels, t: number) {
     p.set(x + 1, up ? y - 1 : y, SIL);
     p.set(x - 2, up ? y - 2 : y, SIL);
     p.set(x + 2, up ? y - 2 : y, SIL);
+  });
+}
+
+// Avions de combat (profil, vers la droite), sprites de 20 × 7 : un Rafale (aile delta, canard,
+// une dérive) poursuivi par un F-22 (deux dérives), comme dans la maquette Blender de Panoplie.
+const RAFALE = [
+  "....#...............",
+  "....##..............",
+  "....###......#......",
+  "*#################o#",
+  "..################..",
+  "......######........",
+  "........###.........",
+];
+const F22 = [
+  "...#.#..............",
+  "...####.............",
+  "*#################o.",
+  "..################..",
+  "....#######.........",
+  ".....####...........",
+  "....................",
+];
+const FLAME: RGB[] = [hex("#ffd319"), hex("#ff7d36")];
+
+function drawSprite(p: Pixels, rows: string[], x: number, y: number, t: number) {
+  rows.forEach((row, r) =>
+    [...row].forEach((ch, c) => {
+      if (ch === "#") p.set(Math.round(x + c), Math.round(y + r), SIL);
+      else if (ch === "o") p.set(Math.round(x + c), Math.round(y + r), CYAN);
+      else if (ch === "*") p.set(Math.round(x + c - 1), Math.round(y + r), FLAME[Math.floor(t * 20) % 2]);
+    }),
+  );
+}
+
+/** Duel aérien (11 → 13,6 s) : les deux avions traversent le ciel devant le soleil, avec traînées. */
+export function drawJets(p: Pixels, t: number) {
+  const from = 11;
+  const to = 13.6;
+  if (t < from || t > to + 0.6) return;
+  const path = (tt: number, lag: number) => {
+    const q = (tt - from - lag) / (to - from);
+    return { x: -30 + q * 380, y: 98 - q * 18 + Math.sin((tt - lag) * 5) * 3 };
+  };
+  const jets = [
+    { rows: RAFALE, lag: 0 },
+    { rows: F22, lag: 0.22 },
+  ];
+  for (const jet of jets) {
+    // Traînée : positions passées, de plus en plus pâles.
+    for (let k = 1; k <= 14; k++) {
+      const pos = path(t - k * 0.03, jet.lag);
+      p.blend(Math.round(pos.x), Math.round(pos.y + 3), WHITE, 0.5 * (1 - k / 15));
+    }
+    const pos = path(t, jet.lag);
+    if (t - jet.lag <= to) drawSprite(p, jet.rows, pos.x, pos.y, t);
+  }
+}
+
+/** Trois drones quadrirotors au-dessus de la route (13,8 → 17,4 s), hélices et feux clignotants. */
+export function drawDrones(p: Pixels, t: number) {
+  const from = 13.8;
+  const to = 17.4;
+  if (t < from || t > to) return;
+  const q = (t - from) / (to - from);
+  [0, 1, 2].forEach((i) => {
+    const x = Math.round(250 - q * 160 + i * 16 + Math.sin(t * 2 + i) * 3);
+    const y = Math.round(104 - i * 5 + Math.sin(t * 3.1 + i * 2) * 2);
+    const spin = Math.floor(t * 24 + i) % 2;
+    p.fillF(x - 3, y, x + 4, y + 1, SIL); // bras
+    p.fillF(x - 1, y - 1, x + 2, y + 2, SIL); // corps
+    for (const hx of [x - 3, x + 3]) p.fillF(hx - (spin ? 2 : 1), y - 1, hx + (spin ? 3 : 2), y, WHITE, 0.7); // hélices
+    p.set(x - 3, y + 1, Math.floor(t * 4 + i) % 2 ? hex("#ff1e3c") : SIL);
+    p.set(x + 3, y + 1, Math.floor(t * 4 + i) % 2 ? hex("#3dff7a") : SIL);
   });
 }
 
@@ -173,6 +238,39 @@ function drawRobot(p: Pixels, z: number, t: number) {
   for (const [c, r, key] of WAVE[Math.floor(t * 4) % 2]) put(c, r, key);
   // Reflet cyan de la visière.
   p.fillF(sx(left + 4 * cell), sy(topH - cell) - Math.max(0.6, 0.05 * k), sx(left + 7 * cell), sy(topH - cell), CYAN, 0.35 * fade);
+}
+
+// Robot quadrupède (16 × 10 cases) qui trotte au bord de la route, côté droit.
+const DOG_BODY = [
+  "............GWW.",
+  "...........WWWWC",
+  "..WWWWWWWWWWWW..",
+  ".WWWWWWWWWWWWW..",
+  ".WGGGGGGGGGGGW..",
+  "..WW......WW....",
+];
+// Pattes, deux positions de trot : [colonne, ligne de départ].
+const DOG_LEGS: [number, number][][] = [
+  [[2, 6], [4, 6], [10, 6], [12, 6]],
+  [[3, 6], [3, 6], [11, 6], [11, 6]],
+];
+const DOG = { zw: 15.4 * SPEED + 4, side: 1, x: ROAD + RUMBLE + 0.62, cell: 0.075 };
+
+function drawDog(p: Pixels, z: number, t: number) {
+  const k = FOCAL / z;
+  const cell = DOG.cell;
+  const left = DOG.side * DOG.x - (16 * cell) / 2;
+  const topH = 10 * cell;
+  const sx = (wx: number) => PX_W / 2 + wx * k;
+  const sy = (h: number) => HORIZON + (1 - h) * k;
+  const fade = 1 - smooth(20, 30, z);
+  const put = (c: number, r: number, key: string) => {
+    const color = ROBOT_RGB[key];
+    if (!color) return;
+    p.fillF(sx(left + c * cell), sy(topH - r * cell), sx(left + (c + 1) * cell), sy(topH - (r + 1) * cell), color, fade);
+  };
+  DOG_BODY.forEach((row, r) => [...row].forEach((ch, c) => put(c, r, ch)));
+  for (const [c, r0] of DOG_LEGS[Math.floor(t * 6) % 2]) for (let r = r0; r < 10; r++) put(c, r, r === 9 ? "D" : "G");
 }
 
 // Péage « CONTRÔLE » : portique au-dessus de la route, cabines et barrière qui se lève.
@@ -236,12 +334,18 @@ export const PROPS = {
     const out: Prop[] = [];
     const zr = ROBOT.zw - scroll;
     if (zr > 0.3 && zr < 30) out.push({ z: zr, draw: () => drawRobot(p, zr, t) });
+    const zd = DOG.zw - scroll;
+    if (zd > 0.3 && zd < 30) out.push({ z: zd, draw: () => drawDog(p, zd, t) });
     const zt = TOLL.zw - scroll;
     if (zt > 0.25 && zt < 30) out.push({ z: zt, draw: () => drawToll(p, zt) });
     return out;
   },
   /** Vrai si un palmier (position zw, côté side) gênerait le robot ou le péage. */
   clearsPalm(zw: number, side: number) {
-    return (side === ROBOT.side && Math.abs(zw - ROBOT.zw) < 2.2) || Math.abs(zw - TOLL.zw) < 1.4;
+    return (
+      (side === ROBOT.side && Math.abs(zw - ROBOT.zw) < 2.2) ||
+      (side === DOG.side && Math.abs(zw - DOG.zw) < 2.2) ||
+      Math.abs(zw - TOLL.zw) < 1.4
+    );
   },
 };

@@ -16,8 +16,9 @@ export const PERSON = {
 /**
  * Séquence « profil », juste après le drop : un bilan de compétences présenté comme un bilan
  * comptable. Actif : ce que je sais faire ; passif : ce que je suis de près. Chaque poste a sa
- * sphère, de la couleur du projet ou de la série qui en témoigne. Un poste sans éléments
- * (items vide) n'est pas affiché : c'est le cas de « Hors travail » tant qu'il n'est pas rempli.
+ * sphère (pixel art), de sa propre couleur. Sources : le CV 2026 (compétences, centres d'intérêt),
+ * les matières du Master CCA (consolidation, ingénierie sociétaire, fiscalité), les projets du
+ * portfolio et les maquettes Blender de Panoplie. Un poste sans éléments n'est pas affiché.
  */
 export type Poste = { label: string; items: string[]; accent: string };
 export const PROFILE = {
@@ -27,20 +28,24 @@ export const PROFILE = {
     heading: "Actif",
     caption: "Compétences",
     postes: [
-      { label: "Audit", items: ["audit légal", "contrôle interne"], accent: "#829bed" },
-      { label: "ESG", items: ["CSRD", "bilan carbone"], accent: "#84c89a" },
+      { label: "Audit", items: ["audit légal", "contrôle interne", "revue analytique"], accent: "#829bed" },
+      { label: "Comptabilité", items: ["comptes sociaux et consolidés", "IFRS"], accent: "#b38cff" },
+      { label: "Droit des sociétés", items: ["ingénierie sociétaire", "fiscalité"], accent: "#e9a3c9" },
       { label: "Finance", items: ["DCF", "LBO", "Monte Carlo"], accent: "#e2c27d" },
-      { label: "Données et code", items: ["TypeScript", "Postgres", "API Claude"], accent: "#6ccad0" },
+      { label: "ESG", items: ["CSRD", "ESRS E1", "bilan carbone"], accent: "#84c89a" },
+      { label: "Conception", items: ["modélisation 3D", "visuels", "fonctionnalités"], accent: "#ff8b2c" },
+      { label: "Automatisation", items: ["Python", "skills", "connexion d'applications"], accent: "#6ccad0" },
     ] as Poste[],
   },
   passif: {
     heading: "Passif",
     caption: "Centres d'intérêt",
     postes: [
-      { label: "Géopolitique", items: ["défense", "souveraineté"], accent: "#7fb0dc" },
+      { label: "Géopolitique", items: ["géoéconomie", "défense"], accent: "#7fb0dc" },
+      { label: "Aéronautique", items: ["avions de combat", "drones"], accent: "#3df0ff" },
+      { label: "DeepTech", items: ["IA", "robotique"], accent: "#ff3d9a" },
       { label: "Marchés", items: ["banques centrales", "taux"], accent: "#d97a5e" },
-      { label: "Technologie", items: ["IA", "robotique"], accent: "#ff3d9a" },
-      { label: "Hors travail", items: [], accent: "#ffd319" },
+      { label: "Hors travail", items: ["sport", "musique"], accent: "#ffd319" },
     ] as Poste[],
   },
   total: "Bilan équilibré",

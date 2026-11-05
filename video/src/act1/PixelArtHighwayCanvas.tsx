@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { BILLBOARD, drawBillboard } from "./pixelBillboard";
-import { drawArche, drawBirds, drawGlobe, drawTurbines, mountainHeights, PROPS } from "./pixelProps";
+import { drawArche, drawBirds, drawDrones, drawGlobe, drawJets, drawTurbines, mountainHeights, PROPS } from "./pixelProps";
 import { FOCAL, HORIZON, hex, Pixels, PX_H, PX_W, RGB, ROAD, RUMBLE, smooth, SPEED } from "./pixelCore";
 
 export { PX_H, PX_W };
@@ -316,9 +316,11 @@ export const PixelArtHighwayCanvas: React.FC<{
     drawGlobe(p, timeSec);
     drawSun(p, timeSec);
     drawBirds(p, timeSec);
+    drawJets(p, timeSec);
     drawArche(p, timeSec);
     drawMountains(p);
     drawTurbines(p, timeSec);
+    drawDrones(p, timeSec);
     drawGround(p, timeSec);
     const scroll = timeSec * SPEED;
     const items: Item[] = [];

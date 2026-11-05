@@ -1,5 +1,6 @@
 import { BILLBOARDS } from "../content";
 import { FOCAL, HORIZON, hex, Pixels, PX_W, RGB, smooth, SPEED } from "./pixelCore";
+import { drawPicture, type Picture } from "./pixelPictures";
 
 // Panneaux d'affichage au bord de la route (pixel art) : un panneau néon sur deux poteaux, posé
 // en alternance à droite et à gauche, qui porte un mot de BILLBOARDS écrit avec une petite police
@@ -87,13 +88,25 @@ const NEAR = 4;
 const COUNT = 7;
 const FAR = 30;
 
-type Board = { j: number; z: number; side: number; zw: number };
+type Board = { j: number; z: number; side: number; zw: number; picture?: Picture };
 
-const BOARDS = Array.from({ length: COUNT }, (_, j) => ({
-  j,
-  zw: (FIRST + j * PERIOD) * SPEED + NEAR,
-  side: j % 2 === 0 ? 1 : -1,
-}));
+// Entre deux panneaux à mots, un panneau illustré sur le côté opposé (au plus près à
+// 5,96 · 8,18 · 10,40 · 12,62 · 14,84 · 17,06 s) : chaque savoir-faire en image animée.
+const PICTURES: Picture[] = ["loupe", "organigramme", "couts", "cube", "puce", "reseau"];
+
+const BOARDS: Omit<Board, "z">[] = [
+  ...Array.from({ length: COUNT }, (_, j) => ({
+    j,
+    zw: (FIRST + j * PERIOD) * SPEED + NEAR,
+    side: j % 2 === 0 ? 1 : -1,
+  })),
+  ...PICTURES.map((picture, j) => ({
+    j: j + 1,
+    zw: (FIRST + (j + 0.5) * PERIOD) * SPEED + NEAR,
+    side: j % 2 === 0 ? -1 : 1,
+    picture,
+  })),
+];
 
 const NEON_FRAME: RGB[] = [hex("#ff2bd6"), hex("#3df0ff")];
 const NEON_TEXT: RGB[] = [hex("#ffd319"), hex("#fff4fd")];
@@ -148,6 +161,12 @@ export function drawBillboard(p: Pixels, b: Board, t: number) {
   const fr = Math.max(0.8, 0.09 * k);
   p.fillF(x0 + fr, top + fr, x1 - fr, bot - fr, BOARD_FILL, fade);
   p.fillF(x0 + fr, (top + bot) / 2, x1 - fr, bot - fr, BOARD_FILL2, 0.6 * fade);
+
+  if (b.picture) {
+    const px = Math.max(1.2, 0.3 * k);
+    drawPicture(p, b.picture, { x0: x0 + fr + px, y0: top + fr + px * 0.6, x1: x1 - fr - px, y1: bot - fr - px * 0.6 }, t, fade);
+    return;
+  }
 
   // Le mot, centré, à l'échelle de la distance.
   const word = WORDS[b.j % WORDS.length];

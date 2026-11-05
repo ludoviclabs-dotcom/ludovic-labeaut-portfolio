@@ -21,16 +21,15 @@ dans une autre session, par exemple en local avec Claude Code.
 
 ## Dernier état
 
-v3 (87 s, 2 610 images, deux formats) : après le drop, un bilan de compétences (actif, passif,
-sphères) précède le nom ; décor de la route enrichi (Grande Arche, éoliennes, globe, oiseaux, robot,
-péage « CONTRÔLE ») ; phrases réécrites, plus simples. Bande-son reconstruite à 87 s avec le même
-morceau CC0. La vidéo est publiée sur le site par `npm run publish-site` (bouton « Présentation »).
+v3 (90 s, 2 700 images, deux formats) : après le drop, un bilan de compétences de 9 s (actif,
+passif, sphères en pixel art qui fusionnent en soleil synthwave) précède le nom ; décor de la route
+enrichi (panneaux illustrés animés, Grande Arche, éoliennes, globe, oiseaux, Rafale et F-22, drones,
+robots, péage « CONTRÔLE ») ; phrases réécrites, plus simples. Bande-son reconstruite à 90 s avec le
+même morceau CC0. La vidéo est publiée sur le site par `npm run publish-site` (bouton « Présentation »).
 Restent à valider à l'oreille : le déclic, la neige et le break (vérifiés seulement par mesure).
 
 ## Ce qui attend Ludovic
 
-- Ses centres d'intérêt hors travail : `PROFILE.passif.postes` (poste « Hors travail ») dans
-  `src/content.ts`. Le poste est masqué tant que sa liste est vide.
 - L'adresse de son profil LinkedIn : `CONTACT.linkedin` dans `src/content.ts`. La ligne est masquée
   tant qu'elle est vide.
 - La musique de Phil Collins, prévue plus tard, pour un usage privé ou avec une licence. Il faudra

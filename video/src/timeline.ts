@@ -41,7 +41,7 @@ export const FILL_START_SEC = Math.min(...FILL_HITS_SEC);
 // leur somme doit égaler totalSec − dropSec (vérifié plus bas) :
 // chaque changement de plan tombe sur un premier temps.
 export const SLOT_BARS = [
-  2, // bilan de compétences (profil, sans l'identité)
+  3, // bilan de compétences (profil, sans l'identité) : 12 postes, un par demi-temps
   2, // titre : le nom, la piste d'audit
   2, // « Mes sujets » : trois thèmes
   2, 2, 2, 2, 2, // les cinq projets

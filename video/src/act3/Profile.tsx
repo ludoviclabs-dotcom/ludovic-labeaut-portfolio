@@ -3,23 +3,25 @@ import { AbsoluteFill, interpolate } from "remotion";
 import { PROFILE, type Poste } from "../content";
 import { NEON, SANS, SERIF, SITE } from "../theme";
 import { BEAT_SEC, FPS } from "../timeline";
-import { easeInOut, easeIn, enter, enterX, fr, leave, lerp, prog } from "./anim";
+import { easeIn, easeInOut, enter, enterX, fr, leave, lerp, prog } from "./anim";
+import { PixelSpheres, type PixelSphere } from "./PixelSpheres";
 import { useSlot } from "./slot";
 import { Grid, Vignette } from "./ui";
 
-// Premier plan après la traversée de l'écran (2 mesures, 8 temps) : le profil, sans l'identité.
+// Premier plan après la traversée de l'écran (3 mesures, 12 temps) : le profil, sans l'identité.
 // Un « bilan de compétences » présenté comme un bilan comptable, en quatre temps :
-//  1. Les sphères jaillissent du flash et se mettent en orbite autour du titre.
+//  1. Les sphères (pixel art) jaillissent du flash et se mettent en orbite autour du titre.
 //  2. Un poste par demi-temps, en alternant actif et passif : sa sphère quitte l'orbite et vient
-//     se poser devant lui.
-//  3. Troisième temps de la 2e mesure : doubles traits des totaux, « Bilan équilibré ».
-//  4. Les sphères se rejoignent au centre et s'embrasent : le plan suivant (le nom) en sort.
+//     se poser devant lui, dans un éclat de pixels.
+//  3. Premier temps de la 3e mesure : doubles traits des totaux, « Bilan équilibré ».
+//  4. Les sphères se rejoignent au centre et forment le soleil synthwave de la route, qui
+//     s'embrase : le plan suivant (le nom) sort de cette lumière.
 
 const BEAT = BEAT_SEC * FPS; // un temps, en images (22,5)
 const HALF = BEAT / 2;
 const FIRST_ROW = 1.5 * BEAT; // premier poste, sur le contretemps du 2e temps
-const TOTALS = 6 * BEAT; // totaux sur le 3e temps de la 2e mesure (25,5 s)
-const MERGE = 160; // les sphères se rejoignent (images)
+const TOTALS = 8 * BEAT; // totaux sur le premier temps de la 3e mesure
+const MERGE = 10 * BEAT + 3; // les sphères se rejoignent (3e temps de la 3e mesure)
 
 type Row = { side: 0 | 1; index: number; poste: Poste; at: number };
 
@@ -39,105 +41,95 @@ const ROWS: Row[] = (() => {
 if (ROWS[ROWS.length - 1].at + 10 > TOTALS) {
   throw new Error("Profile : trop de postes pour la durée du plan (ils doivent être posés avant les totaux).");
 }
-
-/** Sphère néon, éclairée en haut à gauche. */
-const Sphere: React.FC<{ x: number; y: number; r: number; accent: string; glow: number; opacity: number }> = ({
-  x,
-  y,
-  r,
-  accent,
-  glow,
-  opacity,
-}) => (
-  <div
-    style={{
-      position: "absolute",
-      left: x - r,
-      top: y - r,
-      width: 2 * r,
-      height: 2 * r,
-      borderRadius: "50%",
-      opacity,
-      background: `radial-gradient(circle at 32% 28%, #ffffff 0%, ${accent} 34%, ${accent}66 70%, rgba(5, 6, 8, 0.9) 100%)`,
-      boxShadow: `0 0 ${glow}px ${accent}, 0 0 ${glow * 2.2}px ${accent}55`,
-    }}
-  />
-);
+const MAX_ROWS = Math.max(...COLUMNS.map((c) => c.postes.length));
 
 export const ProfileCard: React.FC = () => {
   const { t, landscape, width, height } = useSlot();
   const neon = interpolate(t, [0, 20, 70], [0.62, 0.42, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-  // Mise en page, en pixels de l'image.
+  // Mise en page, en pixels de l'image. En 16:9, deux colonnes et des postes sur deux lignes ;
+  // en 4:5, l'actif puis le passif, des postes sur une ligne.
   const L = landscape
     ? {
-        titleY: 150,
-        periodY: 208,
+        titleY: 116,
+        periodY: 170,
         orbit: { rx: 560, ry: 62 },
         cols: [
-          { x: 200, w: 700, headY: 290, rowsY: 338 },
-          { x: 1020, w: 700, headY: 290, rowsY: 338 },
+          { x: 200, w: 700, headY: 248, rowsY: 282 },
+          { x: 1020, w: 700, headY: 248, rowsY: 282 },
         ],
-        rowH: 104,
-        totalY: 790,
-        balanceY: 858,
-        bullet: 15,
+        rowH: 80,
+        inline: false,
+        bullet: 14,
       }
     : {
-        titleY: 128,
-        periodY: 182,
+        titleY: 112,
+        periodY: 162,
         orbit: { rx: 400, ry: 48 },
         cols: [
-          { x: 80, w: 920, headY: 262, rowsY: 300 },
-          { x: 80, w: 920, headY: 776, rowsY: 814 },
+          { x: 80, w: 920, headY: 232, rowsY: 256 },
+          { x: 80, w: 920, headY: 256 + COLUMNS[0].postes.length * 56 + 104, rowsY: 256 + COLUMNS[0].postes.length * 56 + 128 },
         ],
-        rowH: 84,
-        totalY: 0, // en 4:5, chaque total suit sa colonne
-        balanceY: 814 + COLUMNS[1].postes.length * 84 + 100,
-        bullet: 13,
+        rowH: 56,
+        inline: true,
+        bullet: 12,
       };
+  const totalY = (side: number) =>
+    landscape ? L.cols[0].rowsY + MAX_ROWS * L.rowH + 10 : L.cols[side].rowsY + COLUMNS[side].postes.length * L.rowH + 6;
+  const balanceY = landscape ? totalY(0) + 78 : totalY(1) + 70;
   const center = { x: width / 2, y: height / 2 };
   const fade = leave(t, MERGE, MERGE + 12);
 
   // Orbite autour du titre : les sphères partent du centre de l'image (le flash) et s'y installent.
-  const settle = prog(t, 2, 26);
+  const settle = prog(t, 2, 30);
   const orbitC = { x: width / 2, y: lerp(center.y, L.titleY, settle) };
   const orbitPos = (k: number) => {
-    const a = (2 * Math.PI * k) / ROWS.length + t * 0.045;
+    const a = (2 * Math.PI * k) / ROWS.length + t * 0.04;
     const depth = (Math.sin(a) + 1) / 2; // 1 : devant le titre
     return {
       x: orbitC.x + Math.cos(a) * L.orbit.rx * settle,
       y: orbitC.y + Math.sin(a) * L.orbit.ry * settle,
-      r: (landscape ? 26 : 22) * (0.62 + 0.5 * depth) * prog(t, 0, 10),
+      r: (landscape ? 30 : 26) * (0.6 + 0.5 * depth) * prog(t, 0, 10),
       depth,
     };
   };
   const bulletPos = (row: Row) => {
     const c = L.cols[row.side];
-    return { x: c.x + L.bullet, y: c.rowsY + row.index * L.rowH + (landscape ? 22 : 20) };
+    return { x: c.x + L.bullet, y: c.rowsY + row.index * L.rowH + (L.inline ? L.rowH / 2 - 6 : 21) };
   };
 
-  const spheres = (front: boolean) =>
-    ROWS.map((row, k) => {
-          const o = orbitPos(k);
-          const b = bulletPos(row);
-          const dock = prog(t, row.at - 10, row.at + 2, easeInOut);
-          const merge = prog(t, MERGE, MERGE + 16, easeIn);
-          if ((dock > 0 || merge > 0 || o.depth > 0.5) !== front) return null;
-          const docked = { x: lerp(o.x, b.x, dock), y: lerp(o.y, b.y, dock), r: lerp(o.r, L.bullet, dock) };
-          const pulse = dock >= 1 ? 1 + 0.12 * Math.max(0, 1 - (t - row.at - 2) / 8) : 1;
-          return (
-            <Sphere
-              key={k}
-              x={lerp(docked.x, center.x, merge)}
-              y={lerp(docked.y, center.y, merge)}
-              r={docked.r * pulse * lerp(1, 0.5, merge)}
-              accent={row.poste.accent}
-              glow={lerp(lerp(18, 12, dock), 40, merge)}
-              opacity={dock > 0 ? 1 : 0.55 + 0.45 * o.depth}
-            />
-          );
+  // Les sphères, réparties entre la toile de derrière (moitié arrière de l'orbite) et celle de devant.
+  const back: PixelSphere[] = [];
+  const front: PixelSphere[] = [];
+  const merge = prog(t, MERGE, MERGE + 16, easeIn);
+  ROWS.forEach((row, k) => {
+    const o = orbitPos(k);
+    const b = bulletPos(row);
+    const dock = prog(t, row.at - 10, row.at + 2, easeInOut);
+    const s: PixelSphere = {
+      x: lerp(lerp(o.x, b.x, dock), center.x, merge),
+      y: lerp(lerp(o.y, b.y, dock), center.y, merge),
+      r: lerp(o.r, L.bullet, dock) * lerp(1, 0.6, merge),
+      accent: row.poste.accent,
+      alpha: dock > 0 ? 1 : 0.6 + 0.4 * o.depth,
+      phase: k * 1.7,
+      burst: dock >= 1 ? (t - row.at - 2) / 10 : 0,
+    };
+    (dock > 0 || merge > 0 || o.depth > 0.5 ? front : back).push(s);
+  });
+  // Le soleil : les sphères réunies en une seule, qui grandit puis s'embrase.
+  const sunGrow = prog(t, MERGE + 10, MERGE + 30);
+  if (sunGrow > 0) {
+    front.push({
+      x: center.x,
+      y: center.y,
+      r: (landscape ? 190 : 170) * sunGrow,
+      accent: "#ff7d36",
+      sun: true,
+      alpha: prog(t, MERGE + 10, MERGE + 14),
     });
+  }
+  const orbitAlpha = 0.6 * settle * (1 - prog(t, FIRST_ROW, ROWS[ROWS.length - 1].at + 6));
 
   return (
     <AbsoluteFill style={{ background: SITE.bg }}>
@@ -150,26 +142,17 @@ export const ProfileCard: React.FC = () => {
       />
       <Vignette />
 
-      {/* Les sphères derrière le titre (moitié arrière de l'orbite) */}
-      <AbsoluteFill>{spheres(false)}</AbsoluteFill>
+      <PixelSpheres
+        width={width}
+        height={height}
+        frame={t}
+        spheres={back}
+        orbit={{ x: orbitC.x, y: orbitC.y, rx: L.orbit.rx * settle, ry: L.orbit.ry * settle, alpha: orbitAlpha }}
+      />
 
       <AbsoluteFill style={fade}>
-        {/* Trace de l'orbite, qui s'efface à mesure que les sphères se posent */}
-        <div
-          style={{
-            position: "absolute",
-            left: orbitC.x - L.orbit.rx * settle,
-            top: orbitC.y - L.orbit.ry * settle,
-            width: 2 * L.orbit.rx * settle,
-            height: 2 * L.orbit.ry * settle,
-            borderRadius: "50%",
-            border: `1px solid rgba(61, 240, 255, ${0.28 * (1 - prog(t, FIRST_ROW, ROWS[ROWS.length - 1].at + 6))})`,
-            zIndex: 2,
-          }}
-        />
-
         {/* En-tête du bilan */}
-        <div style={{ position: "absolute", left: 0, right: 0, top: L.titleY, translate: "0 -50%", textAlign: "center", zIndex: 3 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: L.titleY, translate: "0 -50%", textAlign: "center" }}>
           <div style={{ ...enter(t, 10, 24, 18), fontFamily: SERIF, fontWeight: 600, fontSize: landscape ? 72 : 64, color: SITE.ink, lineHeight: 1 }}>
             {fr(PROFILE.title)}
           </div>
@@ -195,10 +178,11 @@ export const ProfileCard: React.FC = () => {
           {PROFILE.period}
         </div>
 
-        {/* Colonnes actif et passif */}
+        {/* Colonnes actif et passif : en-tête, filet, totaux à double trait */}
         {COLUMNS.map((col, side) => {
           const c = L.cols[side];
           const headAt = FIRST_ROW - 8 + side * HALF;
+          const w = c.w * prog(t, TOTALS + side * 4, TOTALS + side * 4 + 12);
           return (
             <React.Fragment key={col.heading}>
               <div
@@ -212,7 +196,7 @@ export const ProfileCard: React.FC = () => {
                   display: "flex",
                   alignItems: "baseline",
                   justifyContent: "space-between",
-                  paddingBottom: 10,
+                  paddingBottom: 8,
                 }}
               >
                 <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: landscape ? 26 : 24, letterSpacing: "0.28em", textTransform: "uppercase", color: SITE.ink }}>
@@ -230,31 +214,24 @@ export const ProfileCard: React.FC = () => {
                   background: "rgba(244, 241, 234, 0.4)",
                 }}
               />
-              {/* Totaux : double trait comptable sous la colonne */}
-              {(() => {
-                const y = landscape ? L.totalY : c.rowsY + col.postes.length * L.rowH + 8;
-                const w = c.w * prog(t, TOTALS + side * 4, TOTALS + side * 4 + 12);
-                return (
-                  <div style={{ position: "absolute", left: c.x, top: y, width: c.w }}>
-                    <div style={{ height: 2, width: w, background: SITE.ink, opacity: 0.8 }} />
-                    <div style={{ height: 2, width: w, background: SITE.ink, opacity: 0.8, marginTop: 4 }} />
-                    <div
-                      style={{
-                        ...enter(t, TOTALS + 6 + side * 4, 8, 10),
-                        marginTop: 10,
-                        fontFamily: SANS,
-                        fontWeight: 600,
-                        fontSize: landscape ? 22 : 20,
-                        letterSpacing: "0.24em",
-                        textTransform: "uppercase",
-                        color: SITE.inkFaint,
-                      }}
-                    >
-                      Total {col.heading.toLowerCase()}
-                    </div>
-                  </div>
-                );
-              })()}
+              <div style={{ position: "absolute", left: c.x, top: totalY(side), width: c.w }}>
+                <div style={{ height: 2, width: w, background: SITE.ink, opacity: 0.8 }} />
+                <div style={{ height: 2, width: w, background: SITE.ink, opacity: 0.8, marginTop: 4 }} />
+                <div
+                  style={{
+                    ...enter(t, TOTALS + 6 + side * 4, 8, 10),
+                    marginTop: 8,
+                    fontFamily: SANS,
+                    fontWeight: 600,
+                    fontSize: landscape ? 22 : 18,
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                    color: SITE.inkFaint,
+                  }}
+                >
+                  Total {col.heading.toLowerCase()}
+                </div>
+              </div>
             </React.Fragment>
           );
         })}
@@ -263,22 +240,28 @@ export const ProfileCard: React.FC = () => {
         {ROWS.map((row) => {
           const c = L.cols[row.side];
           const y = c.rowsY + row.index * L.rowH;
+          const left = c.x + L.bullet * 2 + 22;
           return (
             <div
               key={`${row.side}-${row.index}`}
               style={{
                 ...enterX(t, row.at - 2, 26, 10),
                 position: "absolute",
-                left: c.x + L.bullet * 2 + 26,
-                width: c.w - L.bullet * 2 - 26,
+                left,
+                width: c.x + c.w - left,
                 top: y,
-                height: L.rowH - 12,
+                height: L.rowH - 8,
                 borderBottom: `1px solid ${SITE.line}`,
                 fontFamily: SANS,
+                display: "flex",
+                flexDirection: L.inline ? "row" : "column",
+                alignItems: L.inline ? "center" : "flex-start",
+                gap: L.inline ? 16 : 0,
+                whiteSpace: "nowrap",
               }}
             >
-              <div style={{ fontWeight: 600, fontSize: landscape ? 34 : 30, color: SITE.ink, lineHeight: 1.25 }}>{fr(row.poste.label)}</div>
-              <div style={{ fontWeight: 400, fontSize: landscape ? 28 : 26, color: SITE.inkDim, lineHeight: 1.35 }}>{fr(row.poste.items.join(" · "))}</div>
+              <span style={{ fontWeight: 600, fontSize: landscape ? 30 : 26, color: SITE.ink, lineHeight: 1.25 }}>{fr(row.poste.label)}</span>
+              <span style={{ fontWeight: 400, fontSize: landscape ? 25 : 22, color: SITE.inkDim, lineHeight: 1.35 }}>{fr(row.poste.items.join(" · "))}</span>
             </div>
           );
         })}
@@ -290,7 +273,7 @@ export const ProfileCard: React.FC = () => {
             position: "absolute",
             left: 0,
             right: 0,
-            top: L.balanceY,
+            top: balanceY,
             translate: "0 -50%",
             display: "flex",
             justifyContent: "center",
@@ -316,14 +299,12 @@ export const ProfileCard: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* Les sphères devant le titre (orbite avant), posées, ou en route vers le centre */}
-      <AbsoluteFill>{spheres(true)}</AbsoluteFill>
+      <PixelSpheres width={width} height={height} frame={t} spheres={front} />
 
-
-      {/* Les sphères réunies s'embrasent : le nom sort de cette lumière */}
+      {/* Le soleil s'embrase : le nom sort de cette lumière */}
       <AbsoluteFill
         style={{
-          background: `radial-gradient(40% 32% at 50% 50%, rgba(255, 244, 253, ${0.7 * prog(t, MERGE + 10, MERGE + 20)}) 0%, rgba(255, 61, 154, ${0.5 * prog(t, MERGE + 8, MERGE + 20)}) 40%, rgba(0,0,0,0) 75%)`,
+          background: `radial-gradient(42% 34% at 50% 50%, rgba(255, 244, 253, ${0.75 * prog(t, MERGE + 30, MERGE + 42)}) 0%, rgba(255, 61, 154, ${0.55 * prog(t, MERGE + 26, MERGE + 42)}) 40%, rgba(0,0,0,0) 75%)`,
         }}
       />
     </AbsoluteFill>

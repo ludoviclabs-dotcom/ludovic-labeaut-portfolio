@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const site = path.resolve(root, "../public/videos");
 const sync = JSON.parse(readFileSync(path.join(root, "src/sync.json"), "utf8"));
-const POSTER_SEC = 32.5; // le plan du nom complet : piste d'audit cochée, tampon, phrase (27 → 33 s)
+const POSTER_SEC = 35.5; // le plan du nom complet : piste d'audit cochée, tampon, phrase (30 → 36 s)
 
 const cli = path.join(root, "node_modules/@remotion/cli/remotion-cli.js");
 const remotion = (...args) => execFileSync(process.execPath, [cli, ...args], { cwd: root, stdio: "inherit" });
