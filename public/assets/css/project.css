@@ -415,6 +415,46 @@ body {
 .pj-chapter.is-active { color: var(--ink); }
 .pj-chapter.is-active .pj-chapter__num { color: var(--accent); }
 
+/* ---------- Planches d'illustration (Panoplie) ---------- */
+
+.pj-boards {
+  max-width: calc(1320px + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem) var(--gutter) 0;
+}
+
+.pj-boards__title {
+  margin: 0 0 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.pj-boards__figure { margin: 0; }
+
+/* Sur petit écran, la bande de trois planches défile au lieu de devenir illisible. */
+.pj-boards__scroll {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--line);
+}
+
+.pj-boards__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pj-boards__caption {
+  max-width: 64ch;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
 /* ---------- Lien vers l'application ---------- */
 
 .pj-cta-row {
@@ -491,6 +531,8 @@ body {
 
 @media (max-width: 900px) {
   .pj-demo { grid-template-columns: minmax(0, 1fr); }
+
+  .pj-boards__img { min-width: 820px; }
 
   .pj-chapter__label { font-size: 1.15rem; }
 }

@@ -211,7 +211,7 @@ export const APPS: App[] = [
     name: "Panoplie",
     subtitle: "Intelligence défense",
     problem: "Ce que coûte un système d'armes, qui le fabrique et où il peut être exporté.",
-    features: ["Carte des sous-systèmes, industriels et pays", "Six critères notés de A à E", "Evidence Pack, sources notées de A à D"],
+    features: ["Graphe des pays, systèmes et industriels", "Six paliers notés de A à E", "Evidence Pack en Markdown, par système"],
     badges: ["Défense", "Souveraineté", "Sources ouvertes"],
     update: null,
     accent: "#7fb0dc",
