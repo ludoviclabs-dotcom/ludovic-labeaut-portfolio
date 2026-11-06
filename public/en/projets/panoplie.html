@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Panoplie — Ludovic Labeaut</title>
-  <meta name="description" content="Panoplie, an open-source intelligence collection on defence systems: catalogue, map of industrial dependencies, cost register, A-to-E assessment and Evidence Pack.">
+  <meta name="description" content="Panoplie, an open-source intelligence collection on defence systems: catalogue, industrial graph, public cost register, A-to-E assessment and Evidence Pack.">
   <meta name="theme-color" content="#0b0c0e">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_GB">
@@ -87,7 +87,7 @@
               <span class="pj-chapter__num">02</span>
               <span class="pj-chapter__text">
                 <span class="pj-chapter__label">Map</span>
-                <span class="pj-chapter__desc">Relationship map: subsystems, manufacturers, countries</span>
+                <span class="pj-chapter__desc">Industrial graph: countries, systems, manufacturers</span>
               </span>
               <span class="pj-chapter__time">0:04</span>
               <span class="pj-chapter__bar" aria-hidden="true"></span>
@@ -98,7 +98,7 @@
               <span class="pj-chapter__num">03</span>
               <span class="pj-chapter__text">
                 <span class="pj-chapter__label">Cost</span>
-                <span class="pj-chapter__desc">Register of costs and funding, with uncertainty and sources</span>
+                <span class="pj-chapter__desc">Register of public costs: scope, year, uncertainty and sources</span>
               </span>
               <span class="pj-chapter__time">0:08</span>
               <span class="pj-chapter__bar" aria-hidden="true"></span>
@@ -109,7 +109,7 @@
               <span class="pj-chapter__num">04</span>
               <span class="pj-chapter__text">
                 <span class="pj-chapter__label">Assess</span>
-                <span class="pj-chapter__desc">Six criteria graded A to E, watch points</span>
+                <span class="pj-chapter__desc">Six grades from A to E, each one argued</span>
               </span>
               <span class="pj-chapter__time">0:12</span>
               <span class="pj-chapter__bar" aria-hidden="true"></span>
@@ -120,7 +120,7 @@
               <span class="pj-chapter__num">05</span>
               <span class="pj-chapter__text">
                 <span class="pj-chapter__label">Export</span>
-                <span class="pj-chapter__desc">Evidence Pack in Markdown, sources graded A to D</span>
+                <span class="pj-chapter__desc">System X-Ray and Evidence Pack in Markdown, per system</span>
               </span>
               <span class="pj-chapter__time">0:16</span>
               <span class="pj-chapter__bar" aria-hidden="true"></span>
@@ -130,8 +130,19 @@
       </nav>
     </section>
 
+    <section class="pj-boards" aria-labelledby="pj-boards-title">
+      <h2 id="pj-boards-title" class="pj-boards__title">Illustration boards</h2>
+      <figure class="pj-boards__figure">
+        <div class="pj-boards__scroll" role="group" aria-labelledby="pj-boards-title" tabindex="0">
+          <img class="pj-boards__img" src="/videos/panoplie-planches-en.webp" width="1600" height="420" loading="lazy" decoding="async"
+            alt="Three wireframe and pixel-art boards: a 3D mesh, the industrial graph of countries, systems and manufacturers, and the cost of the MQ-9 Reaper, airframe versus full system.">
+        </div>
+        <figcaption class="pj-boards__caption">Illustrations in the spirit of the introduction film, based on the app's data. Its interactive 3D technical boards (Rafale F4, Patriot PAC-3 MSE…) open in the app.</figcaption>
+      </figure>
+    </section>
+
     <section class="pj-cta-row">
-      <p class="pj-note">Fictitious demo data. Open-source intelligence, no operational use.</p>
+      <p class="pj-note">Systems, grades and amounts taken from the app (as of 6 November 2026). Open-source intelligence, no operational use.</p>
       <a class="pj-cta" href="https://drones-mu.vercel.app" target="_blank" rel="noopener">
         Open the app<span class="visually-hidden"> Panoplie (new tab)</span> <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>
       </a>
