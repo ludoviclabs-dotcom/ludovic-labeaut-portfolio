@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Sphère de Bloch d’un qubit</title>
+<script src="./support.js"></script>
+<script src="/_blob/79089d79b76fc44e9e3218ddeb141af1"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div ref="{{hostRef}}" style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">L’état d’un qubit sur la sphère de Bloch, et ce que la mesure en révèle</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◌ Illustration · modèle exact d’un qubit idéal</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">Un qubit isolé, dans un état pur, se représente par un point à la surface d’une sphère. Quatre expériences guidées montrent ce qu’une mesure en révèle, et ce qu’elle laisse caché. Les réglages libres restent disponibles dans le laboratoire avancé.</p>
+<p class="clair"><b>Ce que vous voyez</b>Le point sur la sphère est l’état du qubit. Plus il est près du haut, plus la mesure a de chances de donner 0 ; plus il est près du bas, plus elle a de chances de donner 1.</p>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div role="group" aria-label="Choix de l’expérience" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 8px; margin-bottom: 26px">
+<sc-for list="{{menu}}" as="m" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{m.on}}" onClick="{{m.pick}}" style="display: block; text-align: left; min-height: 64px; padding: 9px 14px 10px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; border: 1px solid {{m.border}}; background: {{m.bg}}; color: {{m.fg}}"><span style="display: block; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; opacity: .78">{{m.kicker}}</span><span style="display: block; font-size: 15.5px; font-weight: 600; line-height: 1.3; margin-top: 3px">{{m.titre}}</span></button>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: flex-start">
+
+<div style="flex: 1.1 1 340px; min-width: 0">
+
+<sc-if value="{{scene3d}}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="position: relative; width: 100%; max-width: 540px; margin: 0 auto 56px; aspect-ratio: 1 / 1">
+<canvas ref="{{canvasRef}}" tabIndex="0" role="img" aria-label="{{canvasAria}}" onKeyDown="{{onKey}}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; outline-offset: -2px"></canvas>
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; line-height: 1; color: var(--ink, #0B1424)">
+<div data-anchor="z+" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|0⟩ · z</span></div>
+<div data-anchor="z-" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|1⟩</span></div>
+<div data-anchor="x+" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|+⟩ · x</span></div>
+<div data-anchor="x-" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|−⟩</span></div>
+<div data-anchor="y+" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|+i⟩ · y</span></div>
+<div data-anchor="y-" style="position: absolute; left: 0; top: 0; visibility: hidden"><span style="position: absolute; transform: translate(-50%, -50%); white-space: nowrap; background: var(--paper, #F7F8F6); padding: 2px 4px">|−i⟩</span></div>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: -52px; display: flex; justify-content: center; gap: 6px">
+<button type="button" aria-label="Tourner la vue vers la gauche" onClick="{{rotL}}" style="width: 44px; height: 44px; padding: 0; cursor: pointer; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round"><path d="M12.5 4 L6.5 10 L12.5 16"></path></svg></button>
+<button type="button" aria-label="Tourner la vue vers la droite" onClick="{{rotR}}" style="width: 44px; height: 44px; padding: 0; cursor: pointer; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round"><path d="M7.5 4 L13.5 10 L7.5 16"></path></svg></button>
+<button type="button" onClick="{{vueDefaut}}" style="min-height: 44px; padding: 0 12px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424)">Vue initiale</button>
+</div>
+</div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.6; color: var(--mut, #59636F); margin: 10px auto 0; max-width: 540px">Flèche cuivre : état préparé. Flèche bleue : état après une mesure. Trait bleu épais : axe de mesure ; ses deux pôles grossissent avec les résultats obtenus. Glisser pour tourner la sphère{{hintLab}}.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{schema}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 24px 28px">
+<sc-for list="{{views}}" as="v" hint-placeholder-count="1">
+<div style="min-width: 0">
+<div style="position: relative; width: 100%; max-width: 440px; margin: 0 auto; aspect-ratio: 400 / 380">
+<svg viewBox="0 0 400 380" role="img" aria-label="Sphère de Bloch : pôle nord état 0, pôle sud état 1, états plus, moins, plus i et moins i sur l’équateur" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+<circle cx="200" cy="190" r="130" style="fill: none; stroke: var(--ink, #0B1424); stroke-width: 1.2"></circle>
+<path d="M 70 190 A 130 31.45 0 0 1 330 190" style="fill: none; stroke: var(--ink, #0B1424); stroke-width: 0.9; stroke-dasharray: 3 4; opacity: 0.55"></path>
+<path d="M 70 190 A 130 31.45 0 0 0 330 190" style="fill: none; stroke: var(--ink, #0B1424); stroke-width: 0.9"></path>
+<line x1="200" y1="63.9" x2="200" y2="316.1" style="stroke: var(--blue, #366B93); stroke-width: 0.9"></line>
+<line x1="155.5" y1="219.5" x2="244.5" y2="160.5" style="stroke: var(--blue, #366B93); stroke-width: 0.9"></line>
+<line x1="77.8" y1="179.2" x2="322.2" y2="200.8" style="stroke: var(--blue, #366B93); stroke-width: 0.9"></line>
+<circle cx="200" cy="63.9" r="3" style="fill: var(--ink, #0B1424)"></circle>
+<circle cx="200" cy="316.1" r="3" style="fill: var(--ink, #0B1424)"></circle>
+<circle cx="155.5" cy="219.5" r="2.5" style="fill: var(--ink, #0B1424)"></circle>
+<circle cx="244.5" cy="160.5" r="2.5" style="fill: var(--ink, #0B1424)"></circle>
+<circle cx="322.2" cy="200.8" r="2.5" style="fill: var(--ink, #0B1424)"></circle>
+<circle cx="77.8" cy="179.2" r="2.5" style="fill: var(--ink, #0B1424)"></circle>
+<text x="200" y="46" text-anchor="middle" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 15px; fill: var(--ink, #0B1424)">|0⟩ · z</text>
+<text x="200" y="342" text-anchor="middle" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 15px; fill: var(--ink, #0B1424)">|1⟩</text>
+<text x="146" y="240" text-anchor="end" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; fill: var(--ink, #0B1424)">|+⟩ · x</text>
+<text x="252" y="152" text-anchor="start" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; fill: var(--mut, #59636F)">|−⟩</text>
+<text x="330" y="220" text-anchor="start" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; fill: var(--ink, #0B1424)">|+i⟩ · y</text>
+<text x="70" y="170" text-anchor="end" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; fill: var(--mut, #59636F)">|−i⟩</text>
+</svg>
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; height: 0; border-top: 1px solid var(--cut, #8A5526); opacity: 0.6; transform-origin: 0 0; width: {{v.shLen}}%; transform: rotate({{v.shAng}}deg)"></div>
+<div aria-hidden="true" style="position: absolute; width: 0; border-left: 1px dashed var(--cut, #8A5526); left: {{v.px}}%; top: {{v.dropTop}}%; height: {{v.dropH}}%"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; height: 0; border-top: 3px solid var(--cut, #8A5526); margin-top: -1.5px; transform-origin: 0 50%; width: {{v.len}}%; transform: rotate({{v.ang}}deg)"></div>
+<div aria-hidden="true" style="position: absolute; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; box-sizing: border-box; border: 3px solid var(--cut, #8A5526); left: {{v.px}}%; top: {{v.py}}%; background: {{v.dotBg}}"></div>
+</div>
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 6px 0 0; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; line-height: 1.6; text-align: center"><b style="font-weight: 500">{{v.name}}</b><br>θ = {{v.thetaTxt}} · φ = {{v.phiTxt}}<br>selon z : P(0) = {{v.p0Txt}} · P(1) = {{v.p1Txt}}<br>{{v.autre}}</p>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+
+<sc-if value="{{guide}}" hint-placeholder-val="{{ true }}">
+<div>
+<div aria-live="polite">
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{pas.kicker}}</span>
+<span aria-hidden="true" style="display: inline-flex; gap: 5px"><sc-for list="{{pas.points}}" as="d" hint-placeholder-count="4"><span style="width: 18px; height: 3px; background: {{d.bg}}"></span></sc-for></span>
+</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 31px; line-height: 1.1; margin: 8px 0 12px; text-wrap: balance">{{pas.titre}}</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.58">{{pas.texte}}</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px">
+<button type="button" aria-disabled="{{running}}" onClick="{{pas.go}}" style="min-height: 48px; padding: 0 18px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; font-weight: 600; border: 1px solid var(--ink, #0B1424); background: var(--ink, #0B1424); color: var(--paper, #F7F8F6); opacity: {{actOp}}">{{pas.action}}</button>
+<button type="button" onClick="{{recommencer}}" style="min-height: 48px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424); display: {{recDisplay}}">Recommencer l’expérience</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{lab}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">1 · Préparer un état</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{presets}}" as="b" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="min-width: 52px; min-height: 44px; padding: 0 10px; cursor: pointer; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 15px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{b.bg}}; color: {{b.fg}}">{{b.label}}</button>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 6px 28px; margin-top: 10px">
+<label style="display: block; font-size: 14.5px">
+<span style="display: flex; justify-content: space-between; gap: 12px"><span>Angle polaire θ</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{thetaTxt}}</span></span>
+<input type="range" min="0" max="180" step="1" value="{{theta}}" onChange="{{setTheta}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</label>
+<label style="display: block; font-size: 14.5px">
+<span style="display: flex; justify-content: space-between; gap: 12px"><span>Phase φ</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{phiTxt}}</span></span>
+<input type="range" min="0" max="359" step="1" value="{{phi}}" onChange="{{setPhi}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</label>
+</div>
+</div>
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">2 · Choisir l’axe de mesure</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{axes}}" as="a" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{a.on}}" onClick="{{a.pick}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{a.bg}}; color: {{a.fg}}">{{a.label}}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">3 · Mesurer</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" onClick="{{mesure1}}" style="min-height: 44px; padding: 0 16px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--ink, #0B1424); background: var(--ink, #0B1424); color: var(--paper, #F7F8F6)">Mesurer une fois</button>
+<button type="button" onClick="{{mesure100}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">100 shots</button>
+<button type="button" onClick="{{mesure1000}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">1 000 shots</button>
+<button type="button" aria-disabled="{{memeOff}}" onClick="{{mesureMeme}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424); opacity: {{memeOp}}">Mesurer à nouveau le même qubit</button>
+<button type="button" onClick="{{raz}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">Remettre à zéro</button>
+</div>
+<p style="margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: var(--mut, #59636F)">Un shot : l’état est préparé à nouveau, puis mesuré. « Mesurer à nouveau le même qubit » ne prépare rien : la mesure porte sur l’état laissé par la précédente, et n’est pas comptée comme un shot.</p>
+</div>
+</div>
+</sc-if>
+
+<div aria-live="polite" style="border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526); margin-bottom: 12px">{{resKicker}}</div>
+<sc-if value="{{showBars}}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="display: grid; grid-template-columns: 44px 104px minmax(0, 1fr); gap: 12px 12px; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace">
+<sc-for list="{{barres}}" as="b" hint-placeholder-count="2">
+<span style="font-size: 15px">{{b.ket}}</span>
+<span style="font-size: 27px; font-weight: 500; line-height: 1; letter-spacing: -.02em; text-align: right; white-space: nowrap; color: {{b.col}}">{{b.pct}}</span>
+<span style="display: block; position: relative; height: 18px; background: var(--soft, #ECEFEA); border: 1px solid var(--rule, rgba(11,20,36,.16))"><span style="display: block; height: 100%; background: {{b.fill}}; width: {{b.w}}%"></span><span title="Probabilité théorique" style="position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 2px solid var(--cut, #8A5526); left: {{b.pLeft}}%"></span></span>
+</sc-for>
+</div>
+<p style="margin: 12px 0 0; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; line-height: 1.65; color: var(--mut, #59636F)">Barre : fréquence observée. Trait cuivre : probabilité théorique, {{pTxt}}.<br>{{sigmaTxt}}</p>
+</div>
+</sc-if>
+<sc-if value="{{lab}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 12px 0 0; font-size: 15px; line-height: 1.55">{{phrase}}</p>
+</sc-if>
+<p style="margin: 10px 0 0; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: {{seqFs}}px; line-height: 1.6; overflow-wrap: anywhere; min-height: 21px">{{seqTxt}}</p>
+</div>
+
+<div>
+<button type="button" aria-expanded="{{lab}}" onClick="{{toggleLab}}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; text-align: left; min-height: 56px; padding: 8px 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; border: 1px dashed var(--rule2, rgba(11,20,36,.55)); background: {{labBg}}; color: var(--ink, #0B1424)"><span><span style="display: block; font-size: 15.5px; font-weight: 600">Laboratoire avancé</span><span style="display: block; font-size: 13.5px; color: var(--mut, #59636F)">{{labSub}}</span></span><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transform: rotate({{labRot}}deg)"><path d="M4 7.5 L10 13.5 L16 7.5"></path></svg></button>
+</div>
+
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 22px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Les quatre expériences du parcours guidé, résultats théoriques</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 18px minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.5fr); gap: 4px 12px; padding: 7px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-weight: 500">{{t.n}}</span>
+<span style="font-weight: 600">{{t.titre}}</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px">{{t.mesure}}</span>
+<span>{{t.lecon}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="margin-top: 28px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 14px 32px; font-size: {{fsDef}}px; line-height: 1.5">
+<div><b style="font-weight: 600">Qubit</b><br>Équivalent quantique du bit. Sa lecture donne 0 ou 1, mais avant la mesure son état peut être une superposition des deux.</div>
+<div><b style="font-weight: 600">Superposition</b><br>État décrit par deux amplitudes. Elles fixent les probabilités des résultats et la manière dont les états peuvent interférer.</div>
+<div><b style="font-weight: 600">Mesure</b><br>Elle produit un résultat classique, un seul bit. La superposition ne permet pas de lire toutes les réponses à la fois.</div>
+<div><a href="#g-shot" style="color: var(--ink, #0B1424); font-weight: 600">Shot</a><br>Exécution élémentaire suivie d’une mesure. Plusieurs répétitions servent à estimer un résultat ; chacune est facturée en accès cloud. Ici : préparer l’état, puis le mesurer.</div>
+</div>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : illustration pédagogique. Le modèle est exact pour un qubit isolé, idéal et dans un état pur, |ψ⟩ = cos(θ/2)|0⟩ + e<sup>iφ</sup> sin(θ/2)|1⟩ ; aucune machine n’est simulée, le bruit et la décohérence ne sont pas représentés. Probabilité d’obtenir le premier résultat selon un axe : (1 + projection du vecteur d’état sur cet axe) / 2, soit cos²(θ/2) selon z. Après une mesure, l’état est celui du résultat obtenu : une mesure répétée aussitôt selon le même axe le reproduit. Écart type de la fréquence sur N shots : √(p(1 − p)/N). Les tirages sont pseudo-aléatoires. Une sphère de Bloch ne représente pas l’intrication de plusieurs qubits. Convention usuelle des cours d’information quantique (IBM Quantum Learning, référence visuelle B du guide de conception). Notions du rapport : <span><a href="#S01" style="color: var(--blue, #366B93)">S01</a> <a href="#S04" style="color: var(--blue, #366B93)">S04</a></span></p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":1360}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { exp: 0, step: 0, lab: false, theta: 90, phi: 0, axe: 'z', n0: 0, n1: 0, dernier: null, effondre: false, seq: [], running: false, repli: false };
+    this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.canvasRef = React.createRef();
+    this.hostRef = React.createRef();
+    this.cam = { az: 0.38, el: 0.24 };
+    this.frames = 0;
+    this.axes = {
+      z: { label: 'Axe z · base de référence', v: [0, 0, 1], kets: ['|0⟩', '|1⟩'], res: ['0', '1'] },
+      x: { label: 'Axe x', v: [1, 0, 0], kets: ['|+⟩', '|−⟩'], res: ['+', '−'] },
+      y: { label: 'Axe y', v: [0, 1, 0], kets: ['|+i⟩', '|−i⟩'], res: ['+i', '−i'] },
+    };
+    const VUE = { az: 0.38, el: 0.24 };
+    const PLUS = { theta: 90, phi: 0, axe: 'z' };
+
+    // Parcours guidé. Chaque étape : un titre, un texte (fonction des résultats obtenus), une seule action principale.
+    // Tous les nombres affichés sont calculés par le modèle (voir proba) ou comptés dans les tirages : aucun n'est écrit en dur.
+    this.exps = [
+      { id: 'p50', titre: 'Pourquoi 50 % / 50 % ?', debut: PLUS, steps: [
+        { cam: VUE, titre: 'Un état à mi-chemin',
+          texte: () => 'Le qubit est préparé dans l’état |+⟩. La flèche cuivre pointe sur l’équateur, à égale distance du pôle nord, |0⟩, et du pôle sud, |1⟩. Le trait bleu épais est l’axe de mesure : ici z, celui qui distingue 0 de 1.',
+          action: 'Mesurer une fois', act: { shots: 1, next: true } },
+        { titre: 'Un seul bit',
+          texte: (c) => 'Résultat : ' + c.res + '. La mesure n’a livré qu’un bit, et la flèche a basculé sur le pôle ' + c.ket + ' : la superposition préparée, rappelée par la flèche pâle, n’est plus observable. Un résultat isolé ne dit presque rien de l’état de départ. Pour en savoir plus, il faut recommencer : préparer |+⟩ à nouveau, puis mesurer. C’est ce qu’on appelle un shot.',
+          action: 'Lancer 100 shots', act: { reset: true, shots: 100, next: true } },
+        { titre: 'Cent shots',
+          texte: (c) => 'Chaque shot refait tout : préparation, puis mesure. Sur ' + c.N + ' shots, 0 est sorti ' + c.n0 + ' fois et 1, ' + c.n1 + ' fois. La fréquence s’approche de ' + c.p0 + ' sans s’y fixer : sur 100 shots, l’écart type attendu est de ± ' + c.sig(100) + '.',
+          action: 'Continuer jusqu’à 1 000 shots', act: { shots: 900, next: true } },
+        { titre: 'Pourquoi 50 % ?',
+          texte: (c) => 'Avec ' + c.N + ' shots, la fréquence de 0 atteint ' + c.f0 + ' ; l’écart type attendu n’est plus que de ± ' + c.sig(1000) + '. Ce partage n’est pas un défaut de l’appareil. La probabilité d’obtenir 0 vaut (1 + projection de la flèche sur l’axe de mesure) / 2, et la flèche de |+⟩, couchée sur l’équateur, n’a aucune projection sur z.',
+          action: 'Expérience suivante : changer l’axe', act: { exp: 1 } },
+      ] },
+      { id: 'axe', titre: 'Changer l’axe de mesure', debut: PLUS, steps: [
+        { cam: VUE, titre: 'Même état, autre question',
+          texte: () => 'Le qubit est toujours préparé dans l’état |+⟩. Mesuré selon z, il donne 0 ou 1 avec la même probabilité. Mais mesurer selon z n’est qu’une question parmi d’autres : tournons l’axe de mesure.',
+          action: 'Tourner l’axe de mesure vers x', act: { prep: { axe: 'x' }, reset: true, next: true } },
+        { cam: { az: 1.0, el: 0.2 }, titre: 'L’axe rejoint la flèche',
+          texte: (c) => 'Le trait bleu épais est maintenant l’axe x ; ses deux résultats possibles se notent + et −. La flèche de |+⟩ est exactement alignée sur lui : sa projection vaut ' + c.proj + '.',
+          action: 'Lancer 100 shots selon x', act: { shots: 100, next: true } },
+        { titre: 'Cent fois le même résultat',
+          texte: (c) => c.n0 + ' fois + sur ' + c.N + ' shots. Le même état, imprévisible selon z, devient certain selon x. Le hasard d’une mesure ne signale donc pas une préparation imparfaite : il dépend de l’axe choisi.',
+          action: 'Essayer un état intermédiaire', act: { prep: { theta: 60, phi: 0, axe: 'z' }, reset: true, next: true } },
+        { cam: VUE, titre: 'Entre le pôle et l’équateur',
+          texte: (c) => 'La flèche est maintenant inclinée de 60° par rapport au pôle nord, et l’axe de mesure est revenu sur z. La projection vaut ' + c.proj + ' : la probabilité d’obtenir 0 est donc (1 + ' + c.proj + ') / 2, soit ' + c.p0 + '.',
+          action: 'Lancer 1 000 shots selon z', act: { shots: 1000, next: true } },
+        { titre: 'La géométrie fixe les probabilités',
+          texte: (c) => '0 est sorti ' + c.n0 + ' fois sur ' + c.N + ', soit ' + c.f0 + ' pour ' + c.p0 + ' attendus (écart type ± ' + c.sig(1000) + '). Plus la flèche s’approche d’un pôle de l’axe de mesure, plus le résultat correspondant devient probable.',
+          action: 'Expérience suivante : la phase', act: { exp: 2 } },
+      ] },
+      { id: 'phase', titre: 'Comprendre la phase', debut: PLUS, steps: [
+        { cam: { az: 0.38, el: 0.5 }, titre: 'Deux états que z confond',
+          texte: () => 'Revoici |+⟩. Sa phase relative, l’angle φ, vaut 0°. Faisons-la tourner de 90° : la flèche va glisser le long de l’équateur, sans changer de latitude.',
+          action: 'Faire tourner la phase de 90°', act: { prep: { phi: 90 }, reset: true, next: true } },
+        { titre: 'Même latitude, autre direction',
+          texte: (c) => 'La flèche pointe maintenant vers |+i⟩. Elle est restée sur l’équateur : sa projection sur z vaut toujours ' + c.proj + '.',
+          action: 'Lancer 100 shots selon z', act: { shots: 100, next: true } },
+        { titre: 'Selon z, rien n’a changé',
+          texte: (c) => c.n0 + ' fois 0, ' + c.n1 + ' fois 1 : le partage reste de ' + c.p0 + ' / ' + c.p1 + ', aux fluctuations près. Mesurés selon z, |+⟩ et |+i⟩ sont indiscernables. La phase est pourtant bien là.',
+          action: 'Mesurer selon y', act: { prep: { axe: 'y' }, reset: true, shots: 100, next: true } },
+        { cam: { az: 0.16, el: 0.3 }, titre: 'La phase révélée',
+          texte: (c) => 'Selon y : ' + c.n0 + ' fois +i sur ' + c.N + ' shots, soit ' + c.p0 + ' / ' + c.p1 + '. La phase relative change la direction du vecteur sur la sphère. Elle peut être révélée par une mesure dans une autre base, ici y. C’est elle qui règle la manière dont les états interfèrent.',
+          action: 'Expérience suivante : mesurer deux fois', act: { exp: 3 } },
+      ] },
+      { id: 'rep', titre: 'Mesurer deux fois de suite', debut: PLUS, steps: [
+        { cam: VUE, titre: 'Sans préparer entre-temps',
+          texte: () => 'Jusqu’ici, le qubit était préparé à nouveau avant chaque mesure. Que se passe-t-il si l’on mesure deux fois de suite le même qubit, sans le préparer entre-temps ?',
+          action: 'Mesurer une première fois', act: { shots: 1, next: true } },
+        { titre: 'Première mesure',
+          texte: (c) => 'Résultat : ' + c.res + '. Le qubit se trouve maintenant dans l’état ' + c.ket + ' : la flèche bleue. Avant la mesure, ce résultat avait une chance sur deux de sortir.',
+          action: 'Mesurer à nouveau le même qubit', act: { shots: 1, meme: true, next: true } },
+        { titre: 'Deuxième mesure, aucune surprise',
+          texte: (c) => 'Encore ' + c.res + '. La flèche est alignée sur l’axe de mesure : le résultat est devenu certain. Insistons.',
+          action: 'Mesurer encore 8 fois', act: { shots: 8, meme: true, next: true } },
+        { titre: 'Dix lectures du même bit',
+          texte: (c) => c.M + ' mesures de suite, ' + c.M + ' fois ' + c.res + '. Sur un qubit idéal, répéter aussitôt la même mesure reproduit le résultat précédent : la première mesure a fixé l’état, les suivantes le confirment.',
+          action: 'Préparer à nouveau, puis mesurer', act: { shots: 1, next: true } },
+        { titre: 'Pourquoi chaque shot recommence',
+          texte: (c) => 'Après une nouvelle préparation, le hasard revient : ' + c.res + ' cette fois. Voilà pourquoi un shot commence toujours par préparer l’état : sans cela, on relirait indéfiniment le même bit. Ce modèle est idéal ; le bruit et la décohérence d’une machine réelle n’y sont pas représentés.',
+          action: 'Ouvrir le laboratoire avancé', act: { lab: true } },
+      ] },
+    ];
+  }
+
+  // --- Physique du modèle (qubit idéal, état pur) ---------------------------------------------
+  static bloch(thetaDeg, phiDeg) {
+    const t = (thetaDeg * Math.PI) / 180, p = (phiDeg * Math.PI) / 180;
+    return [Math.sin(t) * Math.cos(p), Math.sin(t) * Math.sin(p), Math.cos(t)];
+  }
+  // Probabilité du premier résultat selon l'axe a : (1 + n·a) / 2.
+  static proba(n, a) {
+    const p = (1 + n[0] * a[0] + n[1] * a[1] + n[2] * a[2]) / 2;
+    return Math.min(1, Math.max(0, Math.abs(p) < 1e-12 ? 0 : Math.abs(1 - p) < 1e-12 ? 1 : p));
+  }
+  static fr(n, d) {
+    const v = Math.abs(n) < 5 * Math.pow(10, -(d + 1)) ? 0 : n;
+    return v.toFixed(d).replace('.', ',');
+  }
+  static entier(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  static pole(a, r) { return a.map((c) => c * (r === 0 ? 1 : -1)); }
+
+  // k mesures à partir de l'état « base ». meme = false : un shot, l'état est préparé à nouveau avant chaque mesure.
+  // meme = true : la mesure porte sur l'état laissé par la mesure précédente (pas de nouvelle préparation, pas de shot compté).
+  lancer(k, meme, base, patch) {
+    const C = Component, ax = this.axes[base.axe].v, prep = C.bloch(base.theta, base.phi);
+    let cur = base.effondre && base.dernier !== null ? C.pole(ax, base.dernier) : prep;
+    const out = [];
+    for (let i = 0; i < k; i++) {
+      const r = Math.random() < C.proba(meme ? cur : prep, ax) ? 0 : 1;
+      out.push(r); cur = C.pole(ax, r);
+    }
+    const reveal = (upto) => {
+      let n0 = base.n0, n1 = base.n1; const seq = base.seq.slice();
+      for (let i = 0; i < upto; i++) { if (!meme) { if (out[i] === 0) n0 += 1; else n1 += 1; } seq.push({ r: out[i], m: meme }); }
+      return { n0, n1, seq: seq.slice(-36), dernier: upto ? out[upto - 1] : base.dernier, effondre: upto > 0 ? (k === 1 || meme) : (meme ? base.effondre : false) };
+    };
+    clearInterval(this.timer); this.timer = null;
+    if (k === 1 || this.reduced) { this.setState(Object.assign({}, patch, reveal(k), { running: false })); return; }
+    // Les résultats apparaissent progressivement (immédiatement si l'utilisateur a demandé moins d'animations).
+    const dur = meme ? k * 160 : (k >= 500 ? 1500 : 1100), t0 = performance.now();
+    this.setState(Object.assign({}, patch, reveal(0), { running: true }));
+    this.timer = setInterval(() => {
+      const t = Math.min(1, (performance.now() - t0) / dur);
+      this.setState(Object.assign(reveal(Math.max(1, Math.round(k * t))), { running: t < 1 }));
+      if (t >= 1) { clearInterval(this.timer); this.timer = null; }
+    }, 60);
+  }
+
+  // Action d'une étape : préparation éventuelle, remise à zéro, mesures, passage à l'étape ou à l'expérience suivante.
+  act(a) {
+    if (this.state.running) return;
+    if (a.exp !== undefined) { this.ouvrir(a.exp); return; }
+    if (a.lab) { this.preparer({ lab: true }); return; }
+    const patch = Object.assign({}, a.prep || {});
+    if (a.reset) Object.assign(patch, { n0: 0, n1: 0, dernier: null, effondre: false, seq: [] });
+    if (a.next) patch.step = this.state.step + 1;
+    if (a.shots) this.lancer(a.shots, !!a.meme, Object.assign({}, this.state, patch), patch);
+    else this.setState(patch);
+  }
+  ouvrir(i) {
+    clearInterval(this.timer); this.timer = null;
+    this.setState(Object.assign({ exp: i, step: 0, lab: false, running: false, n0: 0, n1: 0, dernier: null, effondre: false, seq: [] }, this.exps[i].debut));
+  }
+  preparer(patch) {
+    clearInterval(this.timer); this.timer = null;
+    this.setState(Object.assign({ n0: 0, n1: 0, dernier: null, effondre: false, seq: [], running: false }, patch));
+  }
+
+  componentDidMount() { this.ensure(); }
+  componentDidUpdate() { this.ensure(); this.sync(); }
+  componentWillUnmount() { clearInterval(this.timer); this.dispose(); }
+
+  // --- Scène 3D -------------------------------------------------------------------------------
+  ensure() {
+    const canvas = this.canvasRef.current;
+    if (this.gl && this.gl.canvas !== canvas) this.dispose();
+    if (!canvas || this.gl || this.state.repli) return;
+    if (!window.THREE || !window.WebGLRenderingContext) { this.setState({ repli: true }); return; }
+    if (this.io) return;
+    this.io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      this.io.disconnect(); this.io = null;
+      this.init();
+    }, { rootMargin: '500px' });
+    this.io.observe(canvas);
+  }
+
+  init() {
+    const T = window.THREE, canvas = this.canvasRef.current;
+    if (!canvas || this.gl) return;
+    let renderer;
+    try { renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { this.setState({ repli: true }); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0);
+    const scene = new T.Scene();
+    const camera = new T.OrthographicCamera(-1.62, 1.62, 1.62, -1.62, 0.1, 20);
+    this.gl = { T, renderer, scene, camera, canvas, ray: new T.Raycaster(), v: new T.Vector3(), ndc: new T.Vector2() };
+    this.build();
+    this.bind();
+    this.ro = new ResizeObserver(() => this.resize());
+    this.ro.observe(canvas.parentElement);
+    const scope = this.hostRef.current && this.hostRef.current.closest('.q');
+    if (scope) { this.mo = new MutationObserver(() => this.draw()); this.mo.observe(scope, { attributes: true, attributeFilter: ['class', 'style'] }); }
+    this.resize();
+    this.sync(true);
+    this.frame();
+  }
+
+  // Repère : x de Bloch vers l'observateur (Z de la scène), y vers la droite (X), z vers le haut (Y).
+  static toScene(T, b, out) { return (out || new T.Vector3()).set(b[1], b[2], b[0]); }
+
+  build() {
+    const { T, scene } = this.gl;
+    const basic = (opacity) => new T.MeshBasicMaterial({ transparent: opacity < 1, opacity, depthWrite: opacity >= 1 });
+    const m = { ink: basic(1), inkSoft: basic(0.35), body: basic(0.05), blue: basic(1), cut: basic(1), after: basic(1), ghost: basic(0.45) };
+    const add = (geo, mat, parent) => { const mesh = new T.Mesh(geo, mat); (parent || scene).add(mesh); return mesh; };
+    add(new T.SphereGeometry(1, 48, 32), m.body);
+    const ring = (r, tubeR, mat) => new T.Mesh(new T.TorusGeometry(r, tubeR, 6, 128), mat);
+    const eq = ring(1, 0.006, m.ink); eq.rotation.x = Math.PI / 2; scene.add(eq);
+    scene.add(ring(1, 0.005, m.inkSoft));
+    const mer = ring(1, 0.005, m.inkSoft); mer.rotation.y = Math.PI / 2; scene.add(mer);
+    [-60, -30, 30, 60].forEach((lat) => {
+      const a = (lat * Math.PI) / 180, l = ring(Math.cos(a), 0.003, m.inkSoft);
+      l.rotation.x = Math.PI / 2; l.position.y = Math.sin(a); scene.add(l);
+    });
+    const axis = (dir, mat, r) => { const c = add(new T.CylinderGeometry(r, r, 2.5, 8), mat); c.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), dir); return c; };
+    axis(new T.Vector3(0, 1, 0), m.blue, 0.005); axis(new T.Vector3(1, 0, 0), m.blue, 0.005); axis(new T.Vector3(0, 0, 1), m.blue, 0.005);
+    const dots = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+    dots.forEach((d) => { const s = add(new T.SphereGeometry(0.022, 12, 12), m.ink); s.position.set(d[0], d[1], d[2]); });
+    // Axe de mesure : trait épais et deux pôles, dont la taille suit la fréquence des résultats.
+    const mAxis = new T.Group(); scene.add(mAxis);
+    add(new T.CylinderGeometry(0.014, 0.014, 2.2, 10), m.after, mAxis);
+    const poles = [1.1, -1.1].map((y) => { const s = add(new T.SphereGeometry(0.04, 20, 20), m.after, mAxis); s.position.y = y; return s; });
+    const arrow = (mat, r) => {
+      const g = new T.Group(); scene.add(g);
+      const shaft = add(new T.CylinderGeometry(r, r, 0.86, 16), mat, g); shaft.position.y = 0.43;
+      const head = add(new T.ConeGeometry(r * 3.1, 0.14, 24), mat, g); head.position.y = 0.93;
+      return g;
+    };
+    const ghost = arrow(m.ghost, 0.008);
+    const vec = arrow(m.cut, 0.02);
+    // Projection sur le plan équatorial.
+    const lineMat = new T.LineDashedMaterial({ dashSize: 0.05, gapSize: 0.04 });
+    const drop = new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]), lineMat); scene.add(drop);
+    const shadow = new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]), lineMat); scene.add(shadow);
+    this.o = { m, lineMat, mAxis, poles, ghost, vec, drop, shadow, up: new T.Vector3(0, 1, 0), dir: new T.Vector3(0, 0, 1), from: new T.Vector3(0, 0, 1), to: new T.Vector3(0, 0, 1),
+      axQ: new T.Quaternion(), axFrom: new T.Quaternion(), axTo: new T.Quaternion() };
+    const L = 1.3;
+    this.anchors = { 'z+': [0, 0, L], 'z-': [0, 0, -L], 'x+': [L, 0, 0], 'x-': [-L, 0, 0], 'y+': [0, L, 0], 'y-': [0, -L, 0] };
+  }
+
+  bind() {
+    const c = this.gl.canvas, pts = new Map(); let moved = 0;
+    this.onDown = (e) => { try { c.setPointerCapture(e.pointerId); } catch (err) { /* déjà relâché */ } pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = 0; };
+    this.onMove = (e) => {
+      const p = pts.get(e.pointerId); if (!p || pts.size !== 1) return;
+      const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
+      this.camTw = null;
+      this.cam.az -= dx * 0.01;
+      if (e.pointerType !== 'touch') this.cam.el = Math.min(1.45, Math.max(-1.45, this.cam.el + dy * 0.01));
+      this.draw();
+    };
+    this.onUp = (e) => {
+      const tap = pts.has(e.pointerId) && pts.size === 1 && moved < 6;
+      pts.delete(e.pointerId);
+      if (tap && e.type === 'pointerup') this.pick(e);
+    };
+    c.addEventListener('pointerdown', this.onDown); c.addEventListener('pointermove', this.onMove);
+    c.addEventListener('pointerup', this.onUp); c.addEventListener('pointercancel', this.onUp);
+  }
+
+  // Laboratoire avancé : toucher la sphère place l'état au point visé, sur la face visible.
+  pick(e) {
+    if (!this.state.lab) return;
+    const g = this.gl, r = g.canvas.getBoundingClientRect();
+    g.ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    g.ray.setFromCamera(g.ndc, g.camera);
+    const hit = g.ray.ray.intersectSphere(new g.T.Sphere(new g.T.Vector3(), 1), g.v);
+    if (!hit) return;
+    const bx = hit.z, by = hit.x, bz = hit.y;
+    const theta = Math.round((Math.acos(Math.min(1, Math.max(-1, bz))) * 180) / Math.PI);
+    let phi = Math.round((Math.atan2(by, bx) * 180) / Math.PI); if (phi < 0) phi += 360; if (phi === 360) phi = 0;
+    this.preparer({ theta, phi: theta === 0 || theta === 180 ? 0 : phi });
+  }
+
+  resize() {
+    const g = this.gl; if (!g) return;
+    const w = g.canvas.clientWidth, h = g.canvas.clientHeight; if (!w || !h) return;
+    g.renderer.setSize(w, h, false);
+    const k = 1.5, a = w / h;
+    g.camera.left = -k * Math.max(1, a); g.camera.right = k * Math.max(1, a);
+    g.camera.top = k / Math.min(1, a); g.camera.bottom = -k / Math.min(1, a);
+    g.camera.updateProjectionMatrix();
+    this.draw();
+  }
+
+  sync(force) {
+    const g = this.gl; if (!g) return;
+    const s = this.state, T = g.T, o = this.o, ax = this.axes[s.axe], C = Component;
+    const prepared = C.bloch(s.theta, s.phi);
+    const shown = s.effondre && s.dernier !== null ? C.pole(ax.v, s.dernier) : prepared;
+    C.toScene(T, shown, o.to);
+    o.vec.children.forEach((c) => { c.material = s.effondre ? o.m.after : o.m.cut; });
+    o.ghost.visible = s.effondre;
+    o.ghost.quaternion.setFromUnitVectors(o.up, C.toScene(T, prepared));
+    // Pôles de l'axe de mesure : leur taille suit la fréquence observée.
+    const N = !s.lab && this.exps[s.exp].id === 'rep' ? 0 : s.n0 + s.n1;
+    o.poles[0].scale.setScalar(N ? 1 + 1.8 * (s.n0 / N) : 1); o.poles[1].scale.setScalar(N ? 1 + 1.8 * (s.n1 / N) : 1);
+    // Axe de mesure : rotation animée vers le nouvel axe.
+    o.axTo.setFromUnitVectors(o.up, C.toScene(T, ax.v));
+    if (force || this.reduced) { o.axQ.copy(o.axTo); this.axTw = null; }
+    else if (this.lastAxe !== s.axe) { o.axFrom.copy(o.axQ); this.axTw = { t0: performance.now(), dur: 650 }; }
+    this.lastAxe = s.axe;
+    if (force || this.reduced) { o.dir.copy(o.to); this.tw = null; }
+    else if (o.dir.distanceTo(o.to) > 1e-6 && !(this.tw && this.twTo && this.twTo.distanceTo(o.to) < 1e-6)) { o.from.copy(o.dir); this.tw = { t0: performance.now(), dur: 520 }; this.twTo = o.to.clone(); }
+    // Caméra : chaque étape du parcours peut imposer son point de vue.
+    const key = s.lab ? 'lab' : s.exp + ':' + s.step;
+    if (this.lastKey !== key) {
+      const st = s.lab ? null : this.exps[s.exp].steps[s.step];
+      if (st && st.cam) {
+        if (force || this.reduced) { this.cam.az = st.cam.az; this.cam.el = st.cam.el; }
+        else this.camTw = { t0: performance.now(), dur: 750, a: { az: this.cam.az, el: this.cam.el }, b: { az: this.cam.az + Math.atan2(Math.sin(st.cam.az - this.cam.az), Math.cos(st.cam.az - this.cam.az)), el: st.cam.el } };
+      }
+      this.lastKey = key;
+    }
+    this.draw();
+  }
+
+  draw() { if (!this.gl || this.raf) return; this.raf = requestAnimationFrame(() => { this.raf = 0; this.frame(); }); }
+
+  frame() {
+    const g = this.gl; if (!g) return;
+    const T = g.T, o = this.o, now = performance.now(); let busy = false;
+    const io = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+    if (this.tw) {
+      const k = Math.min(1, (now - this.tw.t0) / this.tw.dur), e = 1 - Math.pow(1 - k, 3);
+      // Interpolation sphérique entre les deux directions (le vecteur reste sur la sphère).
+      const dot = Math.min(1, Math.max(-1, o.from.dot(o.to))), om = Math.acos(dot);
+      if (om < 1e-4 || Math.PI - om < 1e-3) o.dir.copy(e < 1 && Math.PI - om < 1e-3 ? this.viaEquator(o.from, o.to, e) : o.to);
+      else o.dir.copy(o.from).multiplyScalar(Math.sin((1 - e) * om) / Math.sin(om)).addScaledVector(o.to, Math.sin(e * om) / Math.sin(om));
+      if (k >= 1) { o.dir.copy(o.to); this.tw = null; this.twTo = null; } else busy = true;
+    }
+    if (this.axTw) {
+      const k = Math.min(1, (now - this.axTw.t0) / this.axTw.dur);
+      o.axQ.copy(o.axFrom).slerp(o.axTo, io(k));
+      if (k >= 1) { o.axQ.copy(o.axTo); this.axTw = null; } else busy = true;
+    }
+    if (this.camTw) {
+      const k = Math.min(1, (now - this.camTw.t0) / this.camTw.dur), e = io(k), a = this.camTw.a, b = this.camTw.b;
+      this.cam.az = a.az + (b.az - a.az) * e; this.cam.el = a.el + (b.el - a.el) * e;
+      if (k >= 1) this.camTw = null; else busy = true;
+    }
+    o.mAxis.quaternion.copy(o.axQ);
+    o.dir.normalize();
+    o.vec.quaternion.setFromUnitVectors(o.up, o.dir);
+    const foot = new T.Vector3(o.dir.x, 0, o.dir.z);
+    o.drop.geometry.setFromPoints([o.dir.clone(), foot]); o.drop.computeLineDistances();
+    o.shadow.geometry.setFromPoints([new T.Vector3(), foot]); o.shadow.computeLineDistances();
+    // Couleurs lues dans le thème de la page.
+    const cs = getComputedStyle(this.hostRef.current || g.canvas);
+    const col = (name, fb) => (cs.getPropertyValue(name) || '').trim() || fb;
+    const ink = col('--ink', '#0B1424'), blue = col('--blue', '#366B93'), cut = col('--cut', '#8A5526');
+    o.m.ink.color.set(ink); o.m.inkSoft.color.set(ink); o.m.body.color.set(ink);
+    o.m.blue.color.set(blue); o.m.after.color.set(blue); o.m.cut.color.set(cut); o.m.ghost.color.set(cut); o.lineMat.color.set(cut);
+    const c = this.cam, d = 6;
+    g.camera.position.set(d * Math.sin(c.az) * Math.cos(c.el), d * Math.sin(c.el), d * Math.cos(c.az) * Math.cos(c.el));
+    g.camera.lookAt(0, 0, 0);
+    g.renderer.render(g.scene, g.camera);
+    this.frames += 1; g.canvas.dataset.frames = String(this.frames);
+    g.canvas.dataset.dir = [o.dir.z, o.dir.x, o.dir.y].map((x) => x.toFixed(3)).join(',');
+    g.canvas.dataset.axe = this.state.axe;
+    this.place();
+    if (busy) this.draw();
+  }
+
+  // Cas des directions opposées (|0⟩ vers |1⟩) : passage par un méridien.
+  viaEquator(a, b, e) {
+    const T = this.gl.T, axis = Math.abs(a.y) > 0.9 ? new T.Vector3(1, 0, 0) : new T.Vector3(0, 1, 0).cross(a).normalize();
+    return a.clone().applyAxisAngle(axis, Math.PI * e);
+  }
+
+  place() {
+    const g = this.gl, host = this.hostRef.current; if (!g || !host) return;
+    const w = g.canvas.clientWidth, h = g.canvas.clientHeight;
+    host.querySelectorAll('[data-anchor]').forEach((el) => {
+      const b = this.anchors[el.getAttribute('data-anchor')]; if (!b) return;
+      Component.toScene(g.T, b, g.v);
+      const behind = g.v.dot(g.camera.position) < -0.4;
+      g.v.project(g.camera);
+      el.style.transform = 'translate(' + ((g.v.x * 0.5 + 0.5) * w).toFixed(1) + 'px,' + ((-g.v.y * 0.5 + 0.5) * h).toFixed(1) + 'px)';
+      el.style.visibility = 'visible';
+      el.style.opacity = behind ? '0.55' : '1';
+    });
+  }
+
+  dispose() {
+    if (this.io) { this.io.disconnect(); this.io = null; }
+    if (this.ro) { this.ro.disconnect(); this.ro = null; }
+    if (this.mo) { this.mo.disconnect(); this.mo = null; }
+    if (this.raf) { cancelAnimationFrame(this.raf); this.raf = 0; }
+    const g = this.gl; if (!g) return;
+    const c = g.canvas;
+    c.removeEventListener('pointerdown', this.onDown); c.removeEventListener('pointermove', this.onMove);
+    c.removeEventListener('pointerup', this.onUp); c.removeEventListener('pointercancel', this.onUp);
+    g.scene.traverse((x) => { if (x.geometry) x.geometry.dispose(); if (x.material) x.material.dispose(); });
+    g.renderer.dispose();
+    this.gl = null; this.lastKey = undefined; this.lastAxe = undefined;
+  }
+
+  // --- Vue 2D : version statique imprimable et repli sans WebGL -------------------------------
+  // Projection orthographique : azimut 20°, élévation 14°. Boîte 400 × 380, centre (200 ; 190), rayon 130.
+  project(b) {
+    const rad = Math.PI / 180, x = b[0], y = b[1], z = b[2];
+    const a = 20 * rad, e = 14 * rad, R = 130;
+    const sx = -x * Math.sin(a) + y * Math.cos(a);
+    const depth = x * Math.cos(a) + y * Math.sin(a);
+    const up = z * Math.cos(e) - depth * Math.sin(e);
+    const dx = R * sx, dy = -R * up, dys = R * depth * Math.sin(e);
+    const py = 190 + dy, pys = 190 + dys;
+    return {
+      px: ((200 + dx) / 400) * 100, py: (py / 380) * 100,
+      len: (Math.hypot(dx, dy) / 400) * 100, ang: (Math.atan2(dy, dx) / rad).toFixed(2),
+      shLen: (Math.hypot(dx, dys) / 400) * 100, shAng: (Math.atan2(dys, dx) / rad).toFixed(2),
+      dropTop: (Math.min(py, pys) / 380) * 100, dropH: (Math.abs(pys - py) / 380) * 100,
+      dotBg: depth * Math.cos(e) + z * Math.sin(e) < -1e-9 ? 'var(--paper, #F7F8F6)' : 'var(--cut, #8A5526)',
+    };
+  }
+  view(name, theta, phi, autreAxe) {
+    const C = Component, fr = C.fr, b = C.bloch(theta, phi), p0 = C.proba(b, [0, 0, 1]);
+    const pct = (v) => fr(v * 100, 1) + ' %';
+    let autre = '100 shots : écart type ± ' + fr(Math.sqrt((p0 * (1 - p0)) / 100) * 100, 1) + ' pt';
+    if (autreAxe) { const ax = this.axes[autreAxe], pa = C.proba(b, ax.v); autre = 'selon ' + autreAxe + ' : P(' + ax.res[0] + ') = ' + pct(pa) + ' · P(' + ax.res[1] + ') = ' + pct(1 - pa); }
+    return Object.assign(this.project(b), { name, thetaTxt: theta + '°', phiTxt: phi + '°', p0Txt: pct(p0), p1Txt: pct(1 - p0), autre });
+  }
+
+  renderVals() {
+    const statique = !!this.props.statique;
+    const s = this.state, C = Component, fr = C.fr;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const ax = this.axes[s.axe];
+    const n = C.bloch(s.theta, s.phi), p = C.proba(n, ax.v), N = s.n0 + s.n1;
+    const refs = [
+      { label: '|0⟩', theta: 0, phi: 0 }, { label: '|1⟩', theta: 180, phi: 0 }, { label: '|+⟩', theta: 90, phi: 0 },
+      { label: '|−⟩', theta: 90, phi: 180 }, { label: '|+i⟩', theta: 90, phi: 90 }, { label: '|−i⟩', theta: 90, phi: 270 },
+    ];
+    const match = refs.find((r) => r.theta === s.theta && (r.theta === 0 || r.theta === 180 || r.phi === s.phi));
+    const btn = (on) => ({ on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK });
+    const f0 = N ? s.n0 / N : 0, f1 = N ? s.n1 / N : 0;
+    const pct = (v, d) => fr(v * 100, d === undefined ? 1 : d) + ' %';
+    const pts = (v) => fr(v * 100, 1) + ' point' + (v * 100 >= 2 ? 's' : '');
+    const sigma = N ? Math.sqrt((p * (1 - p)) / N) : null;
+    const lab = s.lab, guide = !lab;
+    const exp = this.exps[s.exp], st = exp.steps[Math.min(s.step, exp.steps.length - 1)];
+    // Valeurs mises à la disposition des textes du parcours : toutes viennent du modèle ou des tirages.
+    const nMeme = s.seq.length;
+    const ctx = {
+      N: C.entier(N), n0: C.entier(s.n0), n1: C.entier(s.n1), M: nMeme,
+      res: s.dernier !== null ? ax.res[s.dernier] : '…', ket: s.dernier !== null ? ax.kets[s.dernier] : '…',
+      p0: pct(p, Math.abs(p * 100 - Math.round(p * 100)) < 1e-9 ? 0 : 1), p1: pct(1 - p, Math.abs(p * 100 - Math.round(p * 100)) < 1e-9 ? 0 : 1), f0: N ? pct(f0) : '…',
+      proj: fr(n[0] * ax.v[0] + n[1] * ax.v[1] + n[2] * ax.v[2], 1).replace(/,0$/, ''),
+      sig: (k) => pts(Math.sqrt((p * (1 - p)) / k)),
+    };
+    let phrase;
+    if (s.effondre && s.dernier !== null) {
+      phrase = 'Résultat : ' + ax.res[s.dernier] + '. Juste après la mesure, le qubit est dans l’état ' + ax.kets[s.dernier] +
+        ' (flèche bleue) : la superposition préparée n’est plus observable. Mesuré à nouveau sans préparation, il redonnera ' + ax.res[s.dernier] + ' ; au shot suivant, l’état est préparé à nouveau.';
+    } else if (p === 1 || p === 0) {
+      phrase = 'Selon cet axe, le résultat est certain : ' + ax.res[p === 1 ? 0 : 1] + ' à chaque shot. Changez d’axe de mesure : le même état peut devenir imprévisible.';
+    } else {
+      phrase = 'Selon cet axe, chaque shot donne ' + ax.res[0] + ' avec une probabilité de ' + pct(p) + ' et ' + ax.res[1] + ' avec une probabilité de ' + pct(1 - p) +
+        '. Un shot isolé ne dit presque rien ; la fréquence observée se rapproche de la probabilité quand les shots s’accumulent.';
+    }
+    // Suite des résultats : une barre verticale sépare deux préparations quand des mesures répétées y figurent.
+    const mixte = s.seq.some((t) => t.m);
+    const repExp = guide && exp.id === 'rep';
+    const seqVue = repExp || lab ? s.seq : s.seq.slice(-16);
+    const seqStr = seqVue.map((t, i) => (mixte && !t.m && i > 0 ? '│ ' : '') + ax.res[t.r]).join(' ');
+    const tableau = () => {
+      const P = (th, ph, a) => C.proba(C.bloch(th, ph), this.axes[a].v), sg = (q, k) => fr(Math.sqrt((q * (1 - q)) / k) * 100, 1);
+      const a = P(90, 0, 'z'), b = P(90, 0, 'x'), c = P(60, 0, 'z'), d = P(90, 90, 'z'), e = P(90, 90, 'y');
+      return [
+        { n: '1', titre: 'Pourquoi 50 % / 50 % ?', mesure: '|+⟩ selon z : ' + pct(a, 0) + ' / ' + pct(1 - a, 0) + ' · ± ' + sg(a, 100) + ' pt sur 100 shots, ± ' + sg(a, 1000) + ' pt sur 1 000',
+          lecon: 'Une mesure ne livre qu’un bit. La flèche de |+⟩ n’a aucune projection sur z : la répétition fait apparaître un partage égal.' },
+        { n: '2', titre: 'Changer l’axe de mesure', mesure: '|+⟩ selon x : ' + pct(b, 0) + ' / ' + pct(1 - b, 0) + ' · θ = 60° selon z : ' + pct(c, 0) + ' / ' + pct(1 - c, 0),
+          lecon: 'Le même état, imprévisible selon z, est certain selon x. La probabilité vaut (1 + projection sur l’axe de mesure) / 2.' },
+        { n: '3', titre: 'Comprendre la phase', mesure: '|+i⟩ selon z : ' + pct(d, 0) + ' / ' + pct(1 - d, 0) + ' · selon y : ' + pct(e, 0) + ' / ' + pct(1 - e, 0),
+          lecon: 'La phase relative change la direction du vecteur sur la sphère. Invisible selon z, elle est révélée par une mesure dans une autre base, ici y.' },
+        { n: '4', titre: 'Mesurer deux fois de suite', mesure: '|+⟩ selon z, puis même mesure sans préparation : résultat identique, ' + pct(C.proba(C.pole([0, 0, 1], 0), [0, 0, 1]), 0),
+          lecon: 'La première mesure fixe l’état ; répétée aussitôt selon le même axe, elle le confirme. C’est pourquoi chaque shot commence par une nouvelle préparation.' },
+      ];
+    };
+    return {
+      statique,
+      interactif: !statique,
+      scene3d: !statique && !s.repli,
+      schema: statique || s.repli,
+      repere: this.props.repere ?? 'Figure',
+      canvasRef: this.canvasRef, hostRef: this.hostRef,
+      canvasAria: 'Sphère de Bloch en trois dimensions. Flèches du clavier pour tourner la vue. ' + (lab ? 'Toucher la sphère prépare l’état correspondant ; les curseurs et les boutons font de même.' : 'Le parcours guidé se pilote avec les boutons placés à côté.'),
+      views: statique
+        ? [this.view('|+⟩ · expériences 1 et 2', 90, 0, 'x'), this.view('θ = 60° · expérience 2', 60, 0), this.view('|+i⟩ · expérience 3', 90, 90, 'y')]
+        : [this.view(match ? match.label : 'État préparé', s.theta, s.phi)],
+      tableau: statique ? tableau() : [],
+      guide, lab, running: s.running,
+      menu: this.exps.map((e, i) => {
+        const on = guide && i === s.exp;
+        return { kicker: 'Expérience ' + (i + 1), titre: e.titre, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, border: on ? INK : 'var(--rule2, rgba(11,20,36,.55))', pick: () => this.ouvrir(i) };
+      }),
+      pas: {
+        kicker: 'Expérience ' + (s.exp + 1) + ' · étape ' + (s.step + 1) + ' sur ' + exp.steps.length,
+        points: exp.steps.map((x, i) => ({ bg: i <= s.step ? 'var(--cu, #C68D5A)' : 'var(--rule, rgba(11,20,36,.16))' })),
+        titre: st.titre, texte: st.texte(ctx), action: st.action,
+        go: () => this.act(st.act),
+      },
+      actOp: s.running ? 0.45 : 1,
+      recDisplay: s.step > 0 ? 'inline-block' : 'none',
+      recommencer: () => this.ouvrir(s.exp),
+      toggleLab: () => { if (lab) this.ouvrir(s.exp); else this.preparer({ lab: true }); },
+      labBg: lab ? 'var(--soft, #ECEFEA)' : 'transparent', labRot: lab ? 180 : 0,
+      labSub: lab ? 'Refermer pour reprendre le parcours guidé.' : 'Angles θ et φ, axe de mesure et nombre de shots au choix.',
+      hintLab: lab ? ' ; toucher sa surface pour y placer l’état' : '',
+      theta: s.theta, phi: s.phi, thetaTxt: s.theta + '°', phiTxt: s.phi + '°',
+      presets: refs.map((r) => Object.assign({ label: r.label, pick: () => this.preparer({ theta: r.theta, phi: r.phi }) }, btn(!!match && match.label === r.label))),
+      axes: Object.keys(this.axes).map((k) => Object.assign({ label: this.axes[k].label, pick: () => this.preparer({ axe: k }) }, btn(k === s.axe))),
+      setTheta: (e) => this.preparer({ theta: Math.min(180, Math.max(0, parseInt(e.target.value, 10) || 0)) }),
+      setPhi: (e) => this.preparer({ phi: Math.min(359, Math.max(0, parseInt(e.target.value, 10) || 0)) }),
+      mesure1: () => this.act({ shots: 1 }), mesure100: () => this.act({ shots: 100 }), mesure1000: () => this.act({ shots: 1000 }),
+      mesureMeme: () => { if (s.effondre) this.act({ shots: 1, meme: true }); },
+      memeOff: !s.effondre, memeOp: s.effondre ? 1 : 0.45,
+      raz: () => this.preparer({}),
+      showBars: !repExp,
+      resKicker: repExp ? 'Mesures · ' + (nMeme === 0 ? 'aucune' : nMeme + (nMeme > 1 ? ' mesures' : ' mesure') + ' selon z')
+        : 'Résultats · ' + (N === 0 ? 'aucun shot' : C.entier(N) + (N > 1 ? ' shots' : ' shot')),
+      barres: [
+        { ket: ax.kets[0], fill: INK, col: INK, w: (f0 * 100).toFixed(2), pLeft: (p * 100).toFixed(2), pct: !N ? '—' : N < 10 ? s.n0 + ' fois' : pct(f0) },
+        { ket: ax.kets[1], fill: 'var(--blue, #366B93)', col: 'var(--blue, #366B93)', w: (f1 * 100).toFixed(2), pLeft: ((1 - p) * 100).toFixed(2), pct: !N ? '—' : N < 10 ? s.n1 + ' fois' : pct(f1) },
+      ],
+      pTxt: 'P(' + ax.res[0] + ') = ' + pct(p) + ' et P(' + ax.res[1] + ') = ' + pct(1 - p),
+      sigmaTxt: sigma === null ? 'Les shots viendront comparer la fréquence observée à cette probabilité.'
+        : N < 10 ? C.entier(N) + (N > 1 ? ' shots' : ' shot') + ' : trop peu pour parler de fréquence. Les pourcentages s’affichent à partir de 10 shots.'
+        : C.entier(s.n0) + ' fois ' + ax.res[0] + ', ' + C.entier(s.n1) + ' fois ' + ax.res[1] + '. Écart type attendu sur ' + C.entier(N) + (N > 1 ? ' shots' : ' shot') + ' : ± ' + pts(sigma) + ' ; écart observé : ' + pts(Math.abs(f0 - p)) + '.',
+      phrase,
+      seqTxt: s.seq.length ? (repExp ? '' : 'Derniers résultats : ') + seqStr : (repExp ? 'La suite des résultats s’affichera ici. Une barre verticale marquera chaque nouvelle préparation.' : ''),
+      seqFs: repExp && s.seq.length ? 24 : 13,
+      fsDef: statique ? 12.5 : 14.5,
+      rotL: () => { this.camTw = null; this.cam.az += 0.35; this.draw(); },
+      rotR: () => { this.camTw = null; this.cam.az -= 0.35; this.draw(); },
+      vueDefaut: () => { this.camTw = null; this.cam.az = 0.38; this.cam.el = 0.24; this.draw(); },
+      onKey: (e) => {
+        const k = e.key; let used = true;
+        if (k === 'ArrowLeft') this.cam.az += 0.12; else if (k === 'ArrowRight') this.cam.az -= 0.12;
+        else if (k === 'ArrowUp') this.cam.el = Math.min(1.45, this.cam.el + 0.1); else if (k === 'ArrowDown') this.cam.el = Math.max(-1.45, this.cam.el - 0.1);
+        else used = false;
+        if (used) { e.preventDefault(); this.camTw = null; this.draw(); }
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

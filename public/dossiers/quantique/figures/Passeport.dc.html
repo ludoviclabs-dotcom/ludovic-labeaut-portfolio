@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Passeport d’une preuve scientifique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Passeport d’une preuve : la même expérience, lue en 2023 puis en 2024</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">● Résultats publiés</span>
+</div>
+<sc-if value="{{showLegende}}" hint-placeholder-val="{{ true }}">
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 720px; margin: 0 0 24px">En juin 2023, une expérience sur 127 qubits paraît dans Nature. Sept mois plus tard, une méthode classique adaptée fait mieux sur cette même expérience. Ce que la première publication autorise à conclure dépend donc de la date à laquelle on la lit.</p>
+<p class="clair"><b>Ce que vous voyez</b>Le même résultat, lu à deux dates. Ce qu’il permettait de conclure en 2023 ne tient plus tout à fait en 2024, parce que la méthode classique de comparaison a progressé.</p>
+</sc-if>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="margin-bottom: 28px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">1 · Choisir la date de lecture</div>
+<div style="display: flex; align-items: stretch; flex-wrap: wrap; gap: 8px 0">
+<button type="button" aria-pressed="{{s1.on}}" onClick="{{s1.pick}}" style="flex: 1 1 220px; min-height: 56px; padding: 8px 16px; text-align: left; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{s1.bg}}; color: {{s1.fg}}"><span style="display: block; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; opacity: .85">Juin 2023</span><span style="font-weight: 500">L’expérience quantique paraît</span></button>
+<div aria-hidden="true" style="flex: 0 1 96px; min-width: 24px; align-self: center; height: 2px; background: var(--rule, rgba(11,20,36,.16)); position: relative"><div style="position: absolute; left: 0; top: 0; bottom: 0; background: var(--cu, #C68D5A); width: {{railW}}%; transition: {{trRail}}"></div></div>
+<button type="button" aria-pressed="{{s2.on}}" onClick="{{s2.pick}}" style="flex: 1 1 220px; min-height: 56px; padding: 8px 16px; text-align: left; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{s2.bg}}; color: {{s2.fg}}"><span style="display: block; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; opacity: .85">Janvier 2024</span><span style="font-weight: 500">La réponse classique paraît</span></button>
+</div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin: 22px 0 10px">2 · Choisir ce que l’on examine</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{facets}}" as="f" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{f.bg}}; color: {{f.fg}}">{{f.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{showFiches}}" hint-placeholder-val="{{ true }}">
+<div aria-live="polite" style="display: flex; flex-wrap: wrap; gap: 28px 40px; align-items: flex-start; margin-bottom: 32px">
+<sc-for list="{{papers}}" as="p" hint-placeholder-count="2">
+<div style="flex: 1 1 {{basis}}px; min-width: 0; border-top: 2px {{p.topStyle}} {{p.topCol}}; padding-top: 14px; font-size: {{fs}}px; line-height: 1.5; opacity: {{p.opacity}}; transition: {{trFade}}">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--cut, #8A5526)"><span>{{p.kicker}}</span><span>{{p.statut}}</span></div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: {{fsTitle}}px; line-height: 1.15; margin: 8px 0 14px">{{p.titre}}</p>
+<sc-if value="{{p.pending}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; padding: 18px 0; border-top: 1px dashed var(--rule2, rgba(11,20,36,.55)); color: var(--mut, #59636F)">Cette publication n’existe pas encore en juin 2023. Passez à janvier 2024 pour voir ce qu’elle change.</p>
+</sc-if>
+<sc-if value="{{p.shown}}" hint-placeholder-val="{{ true }}">
+<div style="display: {{panelDisplay}}; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 0 28px; align-items: start">
+<div style="display: grid; grid-template-columns: minmax(84px, 26%) minmax(0, 1fr); border-top: 1px solid var(--rule, rgba(11,20,36,.16))">
+<sc-for list="{{p.identite}}" as="r" hint-placeholder-count="6">
+<div style="padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--mut, #59636F)">{{r.k}}</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); overflow-wrap: anywhere">{{r.v}}</div>
+</sc-for>
+<div style="padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--mut, #59636F)">DOI</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; overflow-wrap: anywhere"><a href="{{p.doiUrl}}" style="color: var(--blue, #366B93)">{{p.doi}}</a> · <a href="#{{p.ref}}" style="color: var(--blue, #366B93)">{{p.ref}}</a></div>
+</div>
+<div>
+<sc-for list="{{p.champs}}" as="c" hint-placeholder-count="2">
+<div style="margin: {{champMargin}}">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mut, #59636F)">{{c.k}}</div>
+<p style="margin: 3px 0 0">{{c.v}}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{showLecture}}" hint-placeholder-val="{{ true }}">
+<div style="border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 14px">
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-style: italic; font-size: {{fsQ}}px; line-height: 1.15; margin: 0 0 10px">Face à quel concurrent ?</p>
+<sc-if value="{{showOpen}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; max-width: 720px; font-size: {{fs}}px; line-height: 1.55">En juin 2023, la question reste ouverte : l’expérience doit encore être confrontée à la meilleure méthode classique disponible. <span style="color: var(--mut, #59636F)">Avancez à janvier 2024.</span></p>
+</sc-if>
+<div style="display: grid; grid-template-rows: {{noteRows}}; transition: {{trNote}}">
+<div style="overflow: hidden; min-height: 0">
+<p style="margin: 0; max-width: 720px; font-size: {{fs}}px; line-height: 1.55; border-left: 3px solid var(--cu, #C68D5A); padding-left: 14px">Le seuil de comparaison s’est déplacé. Dépasser une simulation classique exhaustive et dépasser la meilleure méthode classique connue sont deux affirmations différentes. Une meilleure méthode classique change le diagnostic sans annuler l’intérêt scientifique de l’expérience : la leçon n’est pas que le quantique serait inutile, mais qu’un résultat doit résister à l’amélioration de son comparateur.</p>
+</div>
+</div>
+
+<div style="overflow-x: auto; margin-top: 22px">
+<div style="display: grid; grid-template-columns: {{diagCols}}; min-width: {{diagMin}}px; font-size: {{fs}}px; line-height: 1.45">
+<div style="padding: 0 16px 8px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mut, #59636F)">Niveau de preuve</div>
+<sc-for list="{{diagHead}}" as="h" hint-placeholder-count="1">
+<div style="padding: 0 16px 8px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mut, #59636F)">{{h}}</div>
+</sc-for>
+<sc-for list="{{diag}}" as="d" hint-placeholder-count="3">
+<div style="padding: 10px 16px 10px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-weight: 600">{{d.niveau}}</div>
+<sc-for list="{{d.cells}}" as="c" hint-placeholder-count="1">
+<div style="padding: 10px 16px 10px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))"><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; white-space: nowrap">{{c.mark}} {{c.etat}}</span><br>{{c.txt}}</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Sources : Kim et coauteurs, Nature 618, 2023 ; Tindall, Fishman, Stoudenmire et Sels, PRX Quantum 5, 2024. Les trois niveaux de preuve sont une grille de lecture proposée par le dossier, pas une norme ni une certification ; aucun score, aucun classement de machines. Aucun facteur d’accélération n’est fourni par cette paire de publications : aucune courbe de temps de calcul n’est donc tracée. Repères : ● établi · ◌ ouvert · ○ non établi · — non documenté.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"partie":{"editor":"enum","options":["tout","fiches","lecture"],"default":"tout"},"repere":{"editor":"text","default":"Module 2"},"$preview":{"width":1120,"height":1580}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: '2023', facet: 'resultat' };
+    this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Données : chapitre 7 du rapport enrichi, références S54 et S55, registre « classical_comparison ».
+    this.papers = [
+      {
+        id: 'kim', ref: 'S54', annee: '2023',
+        kicker: 'Passeport 1 · juin 2023',
+        statut: 'Article de revue',
+        titre: 'Evidence for the utility of quantum computing before fault tolerance',
+        doi: '10.1038/s41586-023-06096-3',
+        identite: [
+          { k: 'Date', v: '14 juin 2023' },
+          { k: 'Auteurs', v: 'Youngseok Kim et coauteurs' },
+          { k: 'Organisme', v: 'Processeur IBM ; affiliations des auteurs non détaillées dans le corpus' },
+          { k: 'Revue', v: 'Nature, 618, 500–505' },
+          { k: 'Technologie', v: 'Processeur IBM Eagle de 127 qubits, circuits supraconducteurs' },
+          { k: 'Problème', v: 'Dynamique d’un modèle physique (modèle d’Ising)' },
+        ],
+        champs: [
+          { id: 'methode', k: 'Méthodologie', v: 'Circuits allant jusqu’à 60 couches de portes à deux qubits, soit 2 880 opérations CNOT. Les résultats sont traités par atténuation des erreurs : des mesures supplémentaires et du calcul classique réduisent certains biais, sans corriger les erreurs pendant le calcul.' },
+          { id: 'resultat', k: 'Résultat observé', v: 'Une expérience de dynamique quantique est menée à l’échelle de 127 qubits sur un processeur bruité. L’article la présente, dans son titre, comme un indice d’utilité du calcul quantique avant la tolérance aux fautes.' },
+          { id: 'comparateur', k: 'Comparateur classique', v: 'Non détaillé dans le rapport. Celui-ci rappelle seulement que dépasser une simulation classique exhaustive n’équivaut pas à dépasser la meilleure méthode classique connue.' },
+          { id: 'limite', k: 'Limites', v: 'Résultat lié à un protocole et à une tâche donnés. L’atténuation des erreurs ne transforme pas une machine bruitée en ordinateur tolérant aux fautes. Le diagnostic dépend du comparateur classique disponible à la date de la comparaison.' },
+          { id: 'conclusion', k: 'Conclusion autorisée par la preuve', v: 'Une démonstration scientifique : l’expérience est réalisable à cette échelle, dans ce protocole. Elle n’établit pas, à elle seule, un avantage de calcul durable ni une utilité économique.' },
+        ],
+      },
+      {
+        id: 'tindall', ref: 'S55', annee: '2024',
+        kicker: 'Passeport 2 · janvier 2024',
+        statut: 'Article de revue',
+        titre: 'Efficient Tensor Network Simulation of IBM’s Eagle Kicked Ising Experiment',
+        doi: '10.1103/PRXQuantum.5.010308',
+        identite: [
+          { k: 'Date', v: '23 janvier 2024' },
+          { k: 'Auteurs', v: 'Joseph Tindall, Matthew Fishman, E. Miles Stoudenmire, Dries Sels' },
+          { k: 'Organisme', v: 'Affiliations des auteurs non détaillées dans le corpus' },
+          { k: 'Revue', v: 'PRX Quantum, 5, 010308' },
+          { k: 'Technologie', v: 'Calcul classique : réseaux de tenseurs' },
+          { k: 'Problème', v: 'La même expérience d’Ising, exécutée en 2023 sur IBM Eagle' },
+        ],
+        champs: [
+          { id: 'methode', k: 'Méthodologie', v: 'Simulation classique par réseaux de tenseurs adaptés à la géométrie du problème. Un réseau de tenseurs représente le problème de façon structurée, plutôt que de mémoriser naïvement tous les états possibles.' },
+          { id: 'resultat', k: 'Résultat observé', v: 'Des résultats plus exacts et plus précis que ceux de l’expérience quantique, pour l’expérience étudiée.' },
+          { id: 'comparateur', k: 'Comparateur', v: 'L’expérience quantique de 2023 elle-même : la méthode classique est confrontée au même problème.' },
+          { id: 'limite', k: 'Limites', v: 'Ce cas historique ne tranche pas la compétition sur les autres applications. Ni vitesse relative universelle ni facteur d’accélération ne sont fournis par cette paire de publications.' },
+          { id: 'conclusion', k: 'Conclusion autorisée par la preuve', v: 'Pour cette expérience précise, une méthode classique adaptée fait mieux. Cela ne montre pas que le quantique serait inutile : un résultat doit résister à l’amélioration de son comparateur.' },
+        ],
+      },
+    ];
+    this.facets = [
+      { id: 'methode', label: 'Méthode', show: ['methode'] },
+      { id: 'resultat', label: 'Résultat et comparateur', show: ['resultat', 'comparateur'] },
+      { id: 'limite', label: 'Limites', show: ['limite'] },
+      { id: 'conclusion', label: 'Conclusion autorisée', show: ['conclusion'] },
+      { id: 'fiche', label: 'Fiche complète', show: ['methode', 'resultat', 'comparateur', 'limite', 'conclusion'] },
+    ];
+    // Grille éditoriale du dossier (ch. 7) : trois niveaux de preuve, lus à deux dates.
+    this.diag = [
+      {
+        niveau: 'Démonstration scientifique',
+        a: { mark: '●', etat: 'Établie', txt: 'Une capacité est montrée dans un protocole donné.' },
+        b: { mark: '●', etat: 'Inchangée', txt: 'L’intérêt scientifique de l’expérience demeure.' },
+      },
+      {
+        niveau: 'Avantage de calcul',
+        a: { mark: '◌', etat: 'Ouvert', txt: 'Exige une comparaison avec une méthode classique pertinente, à qualité de résultat comparable.' },
+        b: { mark: '○', etat: 'Non établi', txt: 'Pour cette expérience, une méthode classique adaptée donne des résultats plus exacts et plus précis.' },
+      },
+      {
+        niveau: 'Utilité économique',
+        a: { mark: '—', etat: 'Non documentée', txt: 'Ni coûts, ni délais, ni usage ne sont documentés dans le dossier.' },
+        b: { mark: '—', etat: 'Non documentée', txt: 'Ni coûts, ni délais, ni usage ne sont documentés dans le dossier.' },
+      },
+    ];
+  }
+  renderVals() {
+    const statique = !!this.props.statique;
+    const { step, facet } = this.state;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const is24 = statique || step === '2024';
+    const curFacet = this.facets.find((f) => f.id === (statique ? 'fiche' : facet));
+    const btn = (on, pick) => ({ on, pick, bg: on ? INK : 'transparent', fg: on ? PAPER : INK });
+    const papers = this.papers.map((p) => {
+      const pending = !statique && p.annee === '2024' && step === '2023';
+      return {
+        ...p,
+        pending,
+        shown: !pending,
+        opacity: 1,
+        topStyle: pending ? 'dashed' : 'solid',
+        topCol: p.annee === '2024' && !pending ? 'var(--cu, #C68D5A)' : INK,
+        doiUrl: 'https://doi.org/' + p.doi,
+        champs: p.champs.filter((c) => curFacet.show.includes(c.id)),
+      };
+    });
+    const diag = this.diag.map((d) => ({
+      niveau: d.niveau,
+      cells: statique ? [d.a, d.b] : [is24 ? d.b : d.a],
+    }));
+    const partie = this.props.partie ?? 'tout';
+    return {
+      statique,
+      interactif: !statique,
+      showFiches: partie !== 'lecture',
+      showLecture: partie !== 'fiches',
+      repere: this.props.repere ?? 'Module 2',
+      s1: btn(step === '2023', () => this.setState({ step: '2023' })),
+      s2: btn(step === '2024', () => this.setState({ step: '2024' })),
+      railW: is24 ? 100 : 0,
+      facets: this.facets.map((f) => ({ label: f.label, ...btn(f.id === facet, () => this.setState({ facet: f.id })) })),
+      papers,
+      basis: statique ? 600 : 380,
+      panelDisplay: statique ? 'grid' : 'block',
+      champMargin: statique ? '0 0 10px' : '14px 0 0',
+      showLegende: partie !== 'lecture',
+      fs: statique ? 12 : 15.5,
+      fsTitle: statique ? 19 : 25,
+      fsQ: statique ? 22 : 30,
+      showOpen: !is24,
+      noteRows: is24 ? '1fr' : '0fr',
+      diag,
+      diagHead: statique ? ['Lecture en juin 2023', 'Lecture en janvier 2024'] : [is24 ? 'Lecture en janvier 2024' : 'Lecture en juin 2023'],
+      diagCols: statique ? 'minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1fr)' : 'minmax(0, 0.6fr) minmax(0, 1fr)',
+      diagMin: statique ? 520 : 0,
+      trRail: this.reduced ? 'none' : 'width .4s cubic-bezier(.2,.7,.2,1)',
+      trFade: this.reduced ? 'none' : 'opacity .3s ease-out',
+      trNote: this.reduced ? 'none' : 'grid-template-rows .4s cubic-bezier(.2,.7,.2,1)',
+    };
+  }
+}
+</script>
+</body>
+</html>

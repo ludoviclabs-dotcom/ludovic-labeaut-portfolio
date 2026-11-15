@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Sous nos pieds : relevé gravimétrique synthétique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div ref="{{hostRef}}" style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Sous nos pieds : d’un relevé de gravité à une position estimée</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◌ Illustration · données synthétiques</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">Un capteur mesure une variation physique en surface. L’emplacement du tunnel n’est pas vu : il est déduit d’un modèle, avec une incertitude. Relevez les points, changez le bruit, puis révélez la géométrie.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque point est une mesure prise en surface. Le creux de la courbe marque l’endroit où il manque de la masse sous le sol : c’est là que le modèle place le tunnel.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 28px 44px; align-items: flex-start">
+
+<div style="flex: 1.3 1 340px; min-width: 0">
+<canvas ref="{{cvRef}}" role="img" aria-label="{{cvAria}}" style="display: block; width: 100%; height: auto; background: var(--soft, #ECEFEA); border: 1px solid var(--rule, rgba(11,20,36,.16))"></canvas>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.6; color: var(--mut, #59636F); margin: 10px 0 0">Point : mesure synthétique, barre de ± 1 écart type. Courbe bleue : modèle ajusté. Bande : intervalle à 95 %. Tirets cuivre : courbe du modèle, si révélée. Coupe dessinée à l’échelle. E = 10⁻⁹ s⁻².</p>
+</div>
+
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<label style="display: block; font-size: 14.5px">
+<span style="display: flex; justify-content: space-between; gap: 12px"><span>Points relevés</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{nTxt}}</span></span>
+<input type="range" min="0" max="18" step="1" value="{{n}}" onChange="{{setN}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</label>
+<label style="display: block; font-size: 14.5px">
+<span style="display: flex; justify-content: space-between; gap: 12px"><span>Bruit de mesure, écart type</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{sigmaTxt}}</span></span>
+<input type="range" min="10" max="80" step="10" value="{{sigma}}" onChange="{{setSigma}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</label>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" aria-pressed="{{playing}}" onClick="{{play}}" style="min-height: 48px; padding: 0 16px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; font-weight: 600; border: 1px solid var(--ink, #0B1424); background: var(--ink, #0B1424); color: var(--paper, #F7F8F6)">{{playLabel}}</button>
+<button type="button" onClick="{{suivant}}" style="min-height: 48px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">Mesure suivante</button>
+<button type="button" onClick="{{recommencer}}" style="min-height: 48px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">Recommencer</button>
+</div>
+<button type="button" aria-pressed="{{reveal}}" onClick="{{toggleReveal}}" style="align-self: flex-start; min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{revBg}}; color: {{revFg}}">Révéler la géométrie du modèle</button>
+</div>
+</sc-if>
+<div aria-live="polite" style="border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">Centre horizontal estimé · {{nTxt2}}</div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 30px; font-weight: 500; line-height: 1.1; margin: 8px 0 10px">{{estimate}}</p>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55">{{msg}}</p>
+</div>
+<p style="margin: 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 12px; font-size: {{fsNote}}px; line-height: 1.55"><b style="font-weight: 600">● Résultat publié.</b> Stray et ses coauteurs estiment la position horizontale du tunnel qu’ils étudient avec une incertitude de ± 0,19 m, sur un profil de 8,5 m. <span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px"><a href="#S65" style="color: var(--blue, #366B93)">S65</a></span> Ce résultat de terrain et l’intervalle du scénario ne se comparent pas : ni le site, ni l’instrument, ni le traitement ne sont les mêmes.</p>
+</div>
+
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Effet du bruit sur l’intervalle, 18 points, résultats calculés par le modèle</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 90px 110px minmax(0, 1fr); gap: 4px 12px; padding: 6px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45; font-family: 'Geist Mono', ui-monospace, Menlo, monospace">
+<span>{{t.sigma}}</span><span>{{t.est}}</span><span>{{t.ic}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : illustration sur données synthétiques, ajoutée le 15 novembre 2026, hors corpus du rapport ; ce ne sont pas les données de Stray et coauteurs. Tunnel fictif de 2 × 2 m assimilé à une masse linéique de −7 200 kg/m, infiniment longue, à 3 m de profondeur, centre réel à 4,25 m, sans autre structure géologique. Modèle : Gzz(x) = 2Gλ[d² − (x − c)²] / [d² + (x − c)²]², G = 6,6743 × 10⁻¹¹ SI. Bruit : dix-huit tirages pseudo-aléatoires fixes, centrés et réduits ; la valeur par défaut de 20 E est arbitraire. Inférence : a priori uniforme sur c de 0 à 8,5 m par pas de 0,025 m, vraisemblance gaussienne, médiane a posteriori, intervalle crédible central à 95 %. Profondeur, masse et bruit sont supposés connus : l’intervalle ne couvre pas leur incertitude. Cas de terrain du chapitre 6 : <a href="#S65" style="color: var(--blue, #366B93)">S65</a>.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":1080}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { n: 18, sigma: 20, reveal: false, playing: false };
+    this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.cvRef = React.createRef(); this.hostRef = React.createRef();
+  }
+  // --- Modèle ---------------------------------------------------------------------------------
+  static gravity(x, centre = 4.25, depth = 3) { const u = x - centre; return 2 * 6.6743e-11 * (-7200) * (depth * depth - u * u) / Math.pow(depth * depth + u * u, 2) * 1e9; }
+  // Dix-huit tirages pseudo-aléatoires fixes, centrés et réduits : l'écart type affiché décrit le jeu complet.
+  static get bruit() {
+    if (!Component._z) {
+      const raw = Array.from({ length: 18 }, (_, i) => {
+        let a = (Math.sin((i + 1) * 127.1 + 17.7) * 43758.5453) % 1; if (a < 0) a += 1;
+        let b = (Math.sin((i + 1) * 311.7 + 43.3) * 22578.1459) % 1; if (b < 0) b += 1;
+        return Math.sqrt(-2 * Math.log(Math.max(a, 1e-6))) * Math.cos(2 * Math.PI * b);
+      });
+      const m = raw.reduce((a, b) => a + b, 0) / 18, sd = Math.sqrt(raw.reduce((a, b) => a + (b - m) * (b - m), 0) / 17);
+      Component._z = raw.map((v) => (v - m) / sd);
+    }
+    return Component._z;
+  }
+  static survey(n, sigma) {
+    const C = Component, points = Array.from({ length: n }, (_, i) => ({ x: i * 0.5, y: C.gravity(i * 0.5) + C.bruit[i] * sigma }));
+    if (n < 3) return { points, estimate: null };
+    const grid = Array.from({ length: 341 }, (_, i) => i * 0.025);
+    const ll = grid.map((c) => -points.reduce((s, p) => s + Math.pow((p.y - C.gravity(p.x, c)) / sigma, 2), 0) / 2);
+    const max = Math.max(...ll), w = ll.map((l) => Math.exp(l - max)), sum = w.reduce((a, b) => a + b, 0);
+    let acc = 0, lo = 0, hi = 8.5, got = false, median = null;
+    w.forEach((v, i) => { acc += v / sum; if (median === null && acc >= 0.5) median = grid[i]; if (!got && acc >= 0.025) { lo = grid[i]; got = true; } if (acc < 0.975) hi = grid[Math.min(i + 1, 340)]; });
+    return { points, estimate: median, lo, hi };
+  }
+  static fr(v, d) { return v.toFixed(d).replace('.', ','); }
+
+  componentDidMount() {
+    this.paint();
+    const scope = this.hostRef.current && this.hostRef.current.closest('.q');
+    if (scope) { this.mo = new MutationObserver(() => this.paint()); this.mo.observe(scope, { attributes: true, attributeFilter: ['class', 'style'] }); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.paint());
+  }
+  componentDidUpdate() { this.paint(); }
+  componentWillUnmount() { if (this.mo) this.mo.disconnect(); clearTimeout(this.timer); }
+
+  vue() { return this.props.statique ? { n: 18, sigma: 20, reveal: true } : this.state; }
+  palette() {
+    const light = { paper: '#F7F8F6', soft: '#ECEFEA', ink: '#0B1424', blue: '#366B93', cut: '#8A5526', mut: '#59636F' };
+    if (this.props.statique || !this.hostRef.current) return light;
+    const cs = getComputedStyle(this.hostRef.current), P = {};
+    Object.keys(light).forEach((k) => { P[k] = (cs.getPropertyValue('--' + k) || '').trim() || light[k]; });
+    return P;
+  }
+  paint() {
+    const c = this.cvRef.current; if (!c) return;
+    const C = Component, { n, sigma, reveal } = this.vue(), r = C.survey(n, sigma), P = this.palette(), W = 680, H = 640, k = 2;
+    if (c.width !== W * k) { c.width = W * k; c.height = H * k; }
+    const g = c.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); g.clearRect(0, 0, W, H); g.fillStyle = P.soft; g.fillRect(0, 0, W, H);
+    const F = { s: "Inter, 'Helvetica Neue', Arial, sans-serif", m: "'Geist Mono', ui-monospace, Menlo, monospace" };
+    const text = (x, y, s, size, col, align, font) => { g.font = '400 ' + size + 'px ' + F[font || 's']; g.fillStyle = col; g.textAlign = align || 'left'; g.fillText(s, x, y); };
+    const line = (x1, y1, x2, y2, col, w, dash, alpha) => { g.beginPath(); g.strokeStyle = col; g.lineWidth = w || 1; g.setLineDash(dash || []); g.globalAlpha = alpha === undefined ? 1 : alpha; g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke(); g.setLineDash([]); g.globalAlpha = 1; };
+    // Coupe à l'échelle : même échelle horizontale et verticale.
+    const S = 540 / 8.5, TOP = 105, BOT = TOP + 4.25 * S, sx = (x) => 70 + x * S, sd = (m) => TOP + m * S;
+    const max = Math.ceil(Math.max(180, ...r.points.map((p) => Math.abs(p.y) + sigma)) / 40) * 40, sy = (y) => 525 - y / max * 75;
+    g.fillStyle = P.paper; g.fillRect(70, TOP, 540, BOT - TOP); g.strokeStyle = P.mut; g.globalAlpha = 0.35; g.lineWidth = 1; g.strokeRect(70, TOP, 540, BOT - TOP); g.globalAlpha = 1;
+    line(70, TOP, 610, TOP, P.cut, 2);
+    if (r.estimate !== null) {
+      g.fillStyle = P.blue; g.globalAlpha = 0.16; g.fillRect(sx(r.lo), TOP + 1, Math.max(2, sx(r.hi) - sx(r.lo)), BOT - TOP - 2); g.globalAlpha = 1;
+      line(sx(r.estimate), TOP + 1, sx(r.estimate), BOT, P.blue, 1.2, [5, 5]);
+    }
+    if (reveal) {
+      g.fillStyle = P.soft; g.fillRect(sx(3.25), sd(2), 2 * S, 2 * S); g.strokeStyle = P.cut; g.lineWidth = 2; g.strokeRect(sx(3.25), sd(2), 2 * S, 2 * S);
+      text(sx(4.25), sd(3) - 2, 'Tunnel du modèle', 15, P.ink, 'center'); text(sx(4.25), sd(3) + 18, '2 × 2 m', 13, P.mut, 'center');
+    } else { text(86, sd(0.5), 'Le sous-sol n’est pas', 15, P.mut); text(86, sd(0.5) + 20, 'observé directement.', 15, P.mut); }
+    [2, 4].forEach((m) => { line(62, sd(m), 70, sd(m), P.mut, 1, [], 0.6); text(56, sd(m) + 5, m + ' m', 13, P.mut, 'right'); });
+    text(56, TOP + 5, '0', 13, P.mut, 'right');
+    const x = sx(n ? (n - 1) * 0.5 : 0);
+    g.fillStyle = P.paper; g.fillRect(x - 13, 48, 26, 30); g.strokeStyle = P.blue; g.lineWidth = 2; g.strokeRect(x - 13, 48, 26, 30);
+    line(x - 10, 78, x - 18, 105, P.blue, 1.2); line(x + 10, 78, x + 18, 105, P.blue, 1.2); line(x, 48, x, 38, P.blue, 1.2);
+    text(70, 25, '01 / Relevé en surface, coupe à l’échelle', 17, P.ink); text(610, 25, 'profil de 8,5 m', 14, P.ink, 'right', 'm');
+    for (let i = 0; i <= 8; i += 2) { line(sx(i), BOT, sx(i), BOT + 7, P.mut, 1, [], 0.6); text(sx(i), BOT + 27, i + ' m', 13, P.mut, 'center'); }
+    text(70, 440, '02 / Gradient vertical de gravité', 17, P.ink); text(610, 440, 'en E', 14, P.ink, 'right', 'm');
+    [-max, 0, max].forEach((y) => { line(70, sy(y), 610, sy(y), P.mut, 1, [], 0.35); text(58, sy(y) + 5, String(y), 13, P.mut, 'right'); });
+    const curve = (centre, col, w, dash) => { g.beginPath(); g.strokeStyle = col; g.lineWidth = w; g.setLineDash(dash || []); for (let i = 0; i <= 100; i++) { const xx = i * 0.085, px = sx(xx), py = sy(C.gravity(xx, centre)); if (i) g.lineTo(px, py); else g.moveTo(px, py); } g.stroke(); g.setLineDash([]); };
+    if (r.estimate !== null) curve(r.estimate, P.blue, 2);
+    if (reveal) curve(4.25, P.cut, 1.5, [5, 5]);
+    r.points.forEach((p) => { const px = sx(p.x); line(px, sy(p.y - sigma), px, sy(p.y + sigma), P.blue, 1.2); g.beginPath(); g.arc(px, sy(p.y), 4, 0, Math.PI * 2); g.fillStyle = P.blue; g.fill(); });
+  }
+  stop() { clearTimeout(this.timer); this.timer = null; }
+  tick() {
+    const n = this.state.n;
+    if (n >= 18) { this.stop(); this.setState({ playing: false }); return; }
+    this.setState({ n: n + 1 }); this.timer = setTimeout(() => this.tick(), 400);
+  }
+
+  renderVals() {
+    const statique = !!this.props.statique, C = Component, fr = C.fr, { n, sigma, reveal } = this.vue(), r = C.survey(n, sigma), playing = !statique && this.state.playing;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const ic = (q) => '[' + fr(q.lo, 2) + ' ; ' + fr(q.hi, 2) + '] m, soit ± ' + fr((q.hi - q.lo) / 2, 2) + ' m';
+    return {
+      statique, interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      cvRef: this.cvRef, hostRef: this.hostRef,
+      cvAria: 'Coupe du sous-sol et courbe du gradient de gravité. ' + n + ' points relevés sur 18. ' + (r.estimate === null ? 'Pas encore d’estimation.' : 'Centre estimé à ' + fr(r.estimate, 2) + ' mètre.'),
+      n, sigma, reveal, playing,
+      nTxt: n + ' / 18', nTxt2: n + (n > 1 ? ' points' : ' point'), sigmaTxt: sigma + ' E',
+      setN: (e) => { this.stop(); this.setState({ n: Math.min(18, Math.max(0, parseInt(e.target.value, 10) || 0)), playing: false }); },
+      setSigma: (e) => this.setState({ sigma: Math.min(80, Math.max(10, parseInt(e.target.value, 10) || 20)) }),
+      play: () => {
+        if (playing) { this.stop(); this.setState({ playing: false }); return; }
+        if (this.reduced) { this.setState({ n: 18 }); return; }      // moins d'animations : le relevé complet s'affiche d'un coup
+        this.setState({ n: n >= 18 ? 0 : n, playing: true }); this.timer = setTimeout(() => this.tick(), 400);
+      },
+      playLabel: playing ? 'Arrêter le relevé' : 'Lancer le relevé',
+      suivant: () => { this.stop(); this.setState({ n: Math.min(18, n + 1), playing: false }); },
+      recommencer: () => { this.stop(); this.setState({ n: 0, playing: false }); },
+      toggleReveal: () => this.setState({ reveal: !reveal }),
+      revBg: reveal ? INK : 'transparent', revFg: reveal ? PAPER : INK,
+      estimate: r.estimate === null ? 'À mesurer' : fr(r.estimate, 2) + ' m',
+      msg: r.estimate === null ? 'Effectuez au moins trois mesures pour lancer l’inférence. Aucune image directe du sous-sol n’est produite.'
+        : 'Intervalle à 95 %, conditionnel au modèle : ' + ic(r) + '. La profondeur, la masse et le bruit sont supposés connus.' + (reveal ? ' Centre réel du scénario : 4,25 m.' : ''),
+      tableau: statique ? [10, 20, 40, 80].map((s) => { const q = C.survey(18, s); return { sigma: 'bruit ' + s + ' E', est: 'centre ' + fr(q.estimate, 2) + ' m', ic: ic(q) }; }) : [],
+      fsNote: statique ? 12.5 : 14.5,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -43,6 +43,7 @@ const BLOCKS = [
   { id: "Defense-Tech", intro: "Munitions, achats d'armement, drones : l'industrie de défense en mutation." },
   { id: "IA & science", intro: "Modèles, laboratoires autonomes, souveraineté : comment l'IA transforme la production du savoir." },
   { id: "Robotique & marchés", intro: "Chaîne de valeur, volumes, valorisations : les données d'un marché en formation." },
+  { id: "Quantique & industrie", intro: "Calcul, capteurs, cryptographie post-quantique : ce qui est prouvé, ce qui est promis, et qui contrôle la filière." },
 ];
 
 // Séries d'articles : un dossier Dropbox par série, fichiers « Article N — Titre.md ».
@@ -88,6 +89,73 @@ const DOSSIERS = [
         { year: 2030, min: 15, max: 30 },
         { year: 2035, min: 38, max: 150 },
         { year: 2050, min: 4700, max: 5000 },
+      ],
+    },
+  },
+  {
+    // Publication Claude Design déballée par scripts/import-quantique.mjs (npm run quantique).
+    block: "Quantique & industrie",
+    href: "/dossiers/quantique",
+    title: "Le quantique devient une industrie",
+    standfirst:
+      "Principes, architectures, chaîne de valeur, preuves d'usage, sécurité post-quantique, économie et souveraineté : une publication interactive en quatorze chapitres, avec onze figures à manipuler, dont deux scènes 3D, et 69 références.",
+    meta: "État des connaissances au 10 novembre 2026 · 14 chapitres · 11 figures interactives",
+    kpis: [
+      { value: "869,9 M$", label: "de revenus mondiaux du calcul quantique prévus en 2026 par Gartner" },
+      { value: "12,6 Md$", label: "investis dans les jeunes entreprises quantiques en 2025, selon McKinsey" },
+      { value: "fin 2030", label: "pour protéger les usages à haut risque, selon la feuille de route européenne" },
+    ],
+    chapters: [
+      "Trois domaines",
+      "Principes",
+      "Histoire",
+      "Architectures",
+      "Chaîne de valeur",
+      "Usages & preuves",
+      "Avantage mesurable",
+      "Post-quantique",
+      "Économie",
+      "Compétition",
+      "Souveraineté",
+      "Métiers",
+      "Risques",
+      "Conditions",
+    ],
+    // Couverture dessinée en code : la frise post-quantique du dossier (fig. 7), mêmes dates et statuts.
+    // pos = années écoulées depuis le 1er janvier 2024 ; un objectif annuel est placé en fin d'année.
+    cover: {
+      kind: "timeline",
+      caption: "Calendriers post-quantiques publiés",
+      legend: ["■ Norme finale", "● Publication", "○ Jalon recommandé"],
+      label:
+        "Frise des calendriers de transition post-quantique : normes finales du NIST en août 2024, feuille de route européenne (début de transition fin 2026, usages à haut risque protégés d'ici fin 2030), jalons du NCSC britannique en 2028, 2031 et 2035",
+      highlight: "2035",
+      from: 2024,
+      years: 12,
+      lanes: [
+        {
+          name: "Royaume-Uni · NCSC",
+          events: [
+            { pos: 5, type: "jalon", label: "2028" },
+            { pos: 8, type: "jalon", label: "2031" },
+            { pos: 12, type: "jalon", label: "2035", highlight: true },
+          ],
+        },
+        {
+          name: "Union européenne",
+          events: [
+            { pos: 1.474, type: "publication", label: "juin 2025" },
+            { pos: 3, type: "jalon", label: "fin 2026" },
+            { pos: 7, type: "jalon", label: "fin 2030" },
+          ],
+        },
+        {
+          name: "États-Unis · NIST",
+          events: [
+            { pos: 0.616, type: "norme", label: "août 2024" },
+            { pos: 2.819, type: "publication", label: "oct. 2026" },
+          ],
+        },
       ],
     },
   },
@@ -411,11 +479,55 @@ function coverSvg({ caption, label, highlight, points }) {
             </svg>`;
 }
 
+/**
+ * Couverture d'un dossier : frise de jalons sur plusieurs lignes (une par institution), dessinée en SVG.
+ * Les années sont des bandes : un repère « fin 2030 » se place sur la limite entre 2030 et 2031.
+ */
+function timelineSvg({ caption, legend, label, highlight, from, years, lanes }) {
+  const [x0, x1] = [56, 556];
+  const laneY = (i) => 156 + i * 70;
+  const top = laneY(0) - 38;
+  const bottom = laneY(lanes.length - 1) + 30;
+  const X = (pos) => x0 + (pos / years) * (x1 - x0);
+  const f = (n) => n.toFixed(1);
+  const marker = (e, x, y) =>
+    e.type === "norme"
+      ? `<rect class="cover__mark" x="${f(x - 4.5)}" y="${f(y - 4.5)}" width="9" height="9"/>`
+      : `<circle class="${e.type === "publication" ? "cover__mark" : "cover__dot"}" cx="${f(x)}" cy="${f(y)}" r="4.5"/>`;
+  const hl = lanes.flatMap((l, i) => l.events.filter((e) => e.highlight).map((e) => ({ x: X(e.pos), y: laneY(i) })))[0];
+  const bands = Array.from({ length: years + 1 }, (_, i) => i);
+  return `<svg class="cover" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${escapeHtml(label)}">
+              <text class="cover__cap" x="${x0}" y="52">${escapeHtml(caption)}</text>
+              <text class="cover__legend" x="${x0}" y="74">${legend.map((l, i) => `<tspan${i ? ' dx="16"' : ""}>${escapeHtml(l)}</tspan>`).join("")}</text>
+              <g class="cover__grid">${bands.map((i) => `<line x1="${f(X(i))}" x2="${f(X(i))}" y1="${top}" y2="${bottom}"/>`).join("")}${lanes.map((_, i) => `<line x1="${x0}" x2="${x1}" y1="${laneY(i)}" y2="${laneY(i)}"/>`).join("")}</g>
+              <g class="cover__years">${bands
+                .slice(0, -1)
+                .filter((i) => i % 2 === 0)
+                .map((i) => `<text x="${f(X(i + 0.5))}" y="350" text-anchor="middle">${from + i}</text>`)
+                .join("")}</g>
+              ${lanes
+                .map((lane, i) => {
+                  const y = laneY(i);
+                  const xs = lane.events.map((e) => X(e.pos));
+                  return [
+                    `<text class="cover__lane" x="${x0}" y="${y - 16}">${escapeHtml(lane.name)}</text>`,
+                    `<path class="cover__line" d="M${f(Math.min(...xs))} ${y} H${f(Math.max(...xs))}" pathLength="1"/>`,
+                    ...lane.events.map((e) => marker(e, X(e.pos), y)),
+                    ...lane.events
+                      .filter((e) => !e.highlight)
+                      .map((e) => `<text class="cover__date" x="${f(X(e.pos))}" y="${y + 22}" text-anchor="middle">${escapeHtml(e.label)}</text>`),
+                  ].join("");
+                })
+                .join("\n              ")}
+              ${hl ? `<circle class="cover__pulse" cx="${f(hl.x)}" cy="${hl.y}" r="4.5"/>\n              <text class="cover__big" x="${x1}" y="${hl.y - 24}" text-anchor="end">${escapeHtml(highlight)}</text>` : ""}
+            </svg>`;
+}
+
 /** Carte vedette d'un dossier interactif (page autonome en français, d'où hreflang="fr"). */
 function dossierCard(d) {
   return `        <article class="dossier">
           <a class="dossier__media" href="${d.href}" hreflang="fr" tabindex="-1" aria-hidden="true">
-            ${coverSvg(d.cover)}
+            ${d.cover.kind === "timeline" ? timelineSvg(d.cover) : coverSvg(d.cover)}
           </a>
           <div class="dossier__body">
             <span class="note__format note__format--live">Dossier interactif</span>
@@ -440,7 +552,8 @@ function indexPage(notes) {
       series: SERIES.filter((s) => s.block === id),
     }))
     .filter((s) => s.notes.length || s.dossiers.length);
-  const dossierCount = DOSSIERS.length === 1 ? "un dossier interactif" : `${DOSSIERS.length} dossiers interactifs`;
+  const dossierWord = ["", "un", "deux", "trois", "quatre", "cinq"][DOSSIERS.length] ?? String(DOSSIERS.length);
+  const dossierCount = `${dossierWord} dossier${DOSSIERS.length > 1 ? "s" : ""} interactif${DOSSIERS.length > 1 ? "s" : ""}`;
 
   const cards = (list) =>
     list
@@ -483,7 +596,7 @@ function indexPage(notes) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publications — Ludovic Labeaut</title>
-  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, banques centrales, defense-tech, IA et robotique, sourcés et datés.">
+  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique et quantique, sourcés et datés.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   ${alternates("/publications").split("\n").join("\n  ")}
@@ -504,7 +617,7 @@ function indexPage(notes) {
     <section class="pub-hero">
       <p class="pub-hero__eyebrow">06 / 06 · Publications</p>
       <h1 class="pub-hero__title">Lignes de force</h1>
-      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, banques centrales, defense-tech, IA et robotique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
+      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique et quantique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
       <ul class="pub-hero__axes" aria-label="Thèmes">${sections.map((s) => `<li>${escapeHtml(s.id)}</li>`).join("")}</ul>
     </section>
 ${body}

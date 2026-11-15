@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Anatomie d’un système quantique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Anatomie d’un système quantique : dix couches, du support physique au service rendu</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◌ Illustration</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 720px; margin: 0 0 24px">Le processeur quantique n’est qu’une couche parmi dix. Les couches 01 à 05 changent avec l’architecture ; les couches 06 à 10 sont communes à toutes.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque couche est une brique sans laquelle la machine ne rend aucun service. Changer de technologie de qubit ne modifie que la moitié d’entre elles.</p>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">Architecture représentée</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px">
+<sc-for list="{{variants}}" as="v" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{v.bg}}; color: {{v.fg}}">{{v.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start">
+
+<div style="flex: 1 1 360px; min-width: 0">
+<div style="display: flex; flex-direction: column-reverse; gap: 7px; padding-right: 16px">
+<sc-for list="{{layers}}" as="l" hint-placeholder-count="10">
+<button type="button" aria-pressed="{{l.on}}" onClick="{{l.pick}}" style="display: flex; align-items: center; gap: 14px; width: 100%; min-height: 50px; padding: 6px 14px; text-align: left; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; line-height: 1.25; border: 1px solid var(--rule2, rgba(11,20,36,.55)); border-left: 5px {{l.bandLine}} {{l.bandCol}}; background: {{l.bg}}; color: {{l.fg}}; box-shadow: 0 5px 0 -1px var(--rule, rgba(11,20,36,.16)); transform: translateX({{l.dx}}px); transition: {{tr}}">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; opacity: .8">{{l.n}}</span>
+<span style="flex: 1 1 auto; font-weight: 500">{{l.label}}</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .03em; text-transform: uppercase; text-align: right">{{l.tag}}</span>
+</button>
+</sc-for>
+</div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.7; color: var(--mut, #59636F); margin: 18px 0 0">Lecture de bas en haut. Trait plein : matériel (01–05). Trait double : fiabilité et logiciel (06–07). Trait pointillé : calcul et service (08–10).</p>
+</div>
+
+<div aria-live="polite" style="flex: 1 1 340px; min-width: 0; border-top: 2px solid var(--cu, #C68D5A); padding-top: 16px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">Couche {{sel.n}} · {{sel.band}}</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 32px; line-height: 1.1; margin: 6px 0 18px">{{sel.label}}</p>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F)">Rôle</div>
+<p style="margin: 4px 0 16px; font-size: 15.5px; line-height: 1.55">{{sel.role}}</p>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F)">Contraintes techniques</div>
+<p style="margin: 4px 0 16px; font-size: 15.5px; line-height: 1.55">{{sel.contraintes}}</p>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F)">{{sel.archiTitre}}</div>
+<p style="margin: 4px 0 16px; font-size: 15.5px; line-height: 1.55">{{sel.archi}}</p>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F)">Exemple documenté</div>
+<p style="margin: 4px 0 16px; font-size: 15.5px; line-height: 1.55">{{sel.exemple}} <span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px"><sc-for list="{{sel.sources}}" as="s" hint-placeholder-count="1"><a href="#{{s}}" style="color: var(--blue, #366B93); margin-left: 4px">{{s}}</a></sc-for></span></p>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F)">Question de dépendance</div>
+<p style="margin: 4px 0 0; font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.3">{{sel.dep}}</p>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column-reverse">
+<sc-for list="{{layers}}" as="l" hint-placeholder-count="10">
+<div style="display: grid; grid-template-columns: 24px minmax(0, 0.8fr) minmax(0, 1.25fr) minmax(0, 1.15fr); gap: 4px 14px; padding: 8px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); border-left: 4px {{l.bandLine}} var(--ink, #0B1424); padding-left: 10px; font-size: 12px; line-height: 1.4">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{l.n}}</span>
+<span style="font-weight: 600">{{l.label}}</span>
+<span>{{l.court}}</span>
+<span><span style="font-style: italic">{{l.dep}}</span> <span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: var(--mut, #59636F)">{{l.srcTxt}}</span></span>
+</div>
+</sc-for>
+</div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.6; color: var(--mut, #59636F); margin: 10px 0 0">Colonnes : couche · rôle · question de dépendance et sources. Lecture de bas en haut. Trait plein : matériel. Trait double : fiabilité et logiciel. Trait pointillé : calcul et service.</p>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Carte conceptuelle des fonctions, établie d’après les chapitres 2, 4, 5 et 11 du rapport, état au 10 novembre 2026. Ce n’est pas un réseau de contrats entre les entreprises citées : aucun lien commercial, flux financier ni part de dépendance n’est représenté. « Non détaillé » signale une information absente du rapport, pas l’absence d’un équipement. Aucune architecture n’est classée.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Module 1"},"$preview":{"width":1120,"height":1020}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { variant: 'supra', layer: 'qpu' };
+    this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Données : textes repris du rapport enrichi (ch. 2, 4, 5, 11). Les identifiants S.. renvoient aux références.
+    this.variants = [
+      { id: 'supra', label: 'Supraconducteurs', nom: 'les circuits supraconducteurs' },
+      { id: 'ions', label: 'Ions piégés', nom: 'les ions piégés' },
+      { id: 'atomes', label: 'Atomes neutres', nom: 'les atomes neutres' },
+      { id: 'photons', label: 'Photons', nom: 'la photonique' },
+      { id: 'spins', label: 'Spins', nom: 'les spins dans des nanostructures' },
+    ];
+    const nonDetaille = 'Non détaillé par le rapport pour cette famille.';
+    this.layers = [
+      {
+        id: 'env', n: '01', band: 'Matériel', label: 'Environnement expérimental',
+        role: 'Isoler et stabiliser les qubits. Selon l’architecture : refroidissement, vide, optique ou lasers. Sans cette couche, l’interaction avec l’environnement altère l’information (décohérence).',
+        contraintes: 'Qualité, disponibilité et reproductibilité des équipements. Ces équipements restent exigeants et leur approvisionnement influence la montée en capacité.',
+        v: {
+          supra: 'Refroidissement extrême. Les réfrigérateurs à dilution décrits par Bluefors font circuler en boucle fermée un mélange d’hélium-3 et d’hélium-4.',
+          ions: 'Environnement non détaillé par le rapport pour cette famille. Les besoins de vide, d’optique et de contrôle varient selon l’architecture.',
+          atomes: 'Les atomes sont manipulés par lasers : refroidissement et piégeage optiques.',
+          photons: 'Des éléments optiques fonctionnent à température ambiante, mais certains détecteurs et certaines architectures nécessitent de la cryogénie.',
+          spins: nonDetaille,
+        },
+        exemple: 'Bluefors (réfrigérateurs à dilution) ; TOPTICA (lasers de refroidissement, de piégeage et de métrologie). Exemples de fonctions, pas de liens contractuels.',
+        sources: ['S60', 'S61', 'S16'],
+        dep: 'Peut-on maintenir ou remplacer l’équipement sans immobiliser le système ?',
+      },
+      {
+        id: 'support', n: '02', band: 'Matériel', label: 'Support physique du qubit',
+        role: 'Porter l’information quantique : c’est le système matériel utilisé comme qubit physique.',
+        contraintes: 'Un qubit physique est fragile. Chaque approche est un compromis entre qualité des opérations, vitesse, fabrication, interconnexion et contraintes d’exploitation.',
+        v: {
+          supra: 'Circuits supraconducteurs : opérations rapides et ingénierie microélectronique. Variante : les qubits de chat (Alice & Bob), protégés contre les inversions de bit mais pas contre toute erreur.',
+          ions: 'Ions piégés : qubits de grande qualité et contrôle précis.',
+          atomes: 'Réseaux d’atomes neutres. Ruby, de Pasqal, contrôle cent atomes de rubidium ; ce ne sont pas cent qubits logiques.',
+          photons: 'Photons guidés dans des circuits optiques, avec des perspectives d’interconnexion.',
+          spins: 'Spins dans des nanostructures, pour la miniaturisation : Quobly utilise le silicium, C12 des nanotubes de carbone.',
+        },
+        exemple: 'Cinq voies françaises réunies par PROQCIMA : Pasqal, Quandela, Alice & Bob, Quobly et C12.',
+        sources: ['S19', 'S15', 'S20'],
+        dep: 'Qui fabrique les composants, et avec quelle reproductibilité ?',
+      },
+      {
+        id: 'qpu', n: '03', band: 'Matériel', label: 'Processeur quantique (QPU)',
+        role: 'Exécuter les opérations quantiques programmées. C’est la couche la plus visible, mais une seule sur dix : le QPU intervient aux côtés des CPU et des GPU.',
+        contraintes: 'Conception, assemblage, calibration et maintenance. Le nombre de qubits ne suffit pas à comparer deux machines.',
+        v: {
+          supra: 'Difficultés citées : refroidissement extrême, câblage et réduction des erreurs. Acteurs représentatifs : IBM, Google, IQM, Rigetti.',
+          ions: 'Difficultés citées : vitesse des opérations et passage à des systèmes plus vastes. Acteurs représentatifs : IonQ, Quantinuum.',
+          atomes: 'Difficultés citées : contrôle des interactions, pertes d’atomes et répétition des cycles. Acteurs représentatifs : Pasqal, QuEra, Atom Computing.',
+          photons: 'Difficultés citées : pertes, sources et détection des photons. Acteurs représentatifs : Quandela, Xanadu, PsiQuantum.',
+          spins: 'Difficultés citées : fabrication homogène et contrôle d’objets très petits. Acteurs représentatifs : Quobly, C12.',
+        },
+        exemple: 'Au TGCC, Ruby (Pasqal, cent atomes) et Lucy (Quandela, jusqu’à douze qubits physiques) : ces nombres ne se comparent pas directement.',
+        sources: ['S20', 'S21'],
+        dep: 'Qui livre des machines exploitables, et qui en assure la calibration et la maintenance ?',
+      },
+      {
+        id: 'controle', n: '04', band: 'Matériel', label: 'Contrôle : électronique ou optique',
+        role: 'Piloter les qubits : une électronique ou une optique de contrôle applique les opérations au processeur.',
+        contraintes: 'Des erreurs apparaissent pendant les opérations et les déplacements ; la précision du pilotage conditionne la qualité du calcul.',
+        v: {
+          supra: 'Électronique de contrôle ; le câblage fait partie des difficultés citées.',
+          ions: 'Contrôle précis recherché ; moyens non détaillés par le rapport.',
+          atomes: 'Les atomes sont manipulés par lasers ; le contrôle des interactions est une difficulté citée.',
+          photons: 'Circuits optiques ; les sources de photons font partie des difficultés citées.',
+          spins: 'Contrôle d’objets très petits, cité comme difficulté.',
+        },
+        exemple: 'Qblox : électronique de contrôle et de lecture des processeurs.',
+        sources: ['S62'],
+        dep: 'Les interfaces, compétences et logiciels permettent-ils un changement de fournisseur ?',
+      },
+      {
+        id: 'mesure', n: '05', band: 'Matériel', label: 'Mesure et lecture',
+        role: 'Lire le résultat. Une mesure produit un résultat classique ; il faut souvent répéter l’exécution (les « shots ») pour estimer une grandeur avec une précision suffisante.',
+        contraintes: 'Erreurs de lecture ; chaque répétition allonge le temps total et, en accès cloud, s’ajoute à la facture.',
+        v: {
+          supra: 'Dispositif de lecture non détaillé par le rapport pour cette famille.',
+          ions: 'Dispositif de lecture non détaillé par le rapport pour cette famille.',
+          atomes: 'Dispositif de lecture non détaillé par le rapport pour cette famille.',
+          photons: 'La détection des photons est une difficulté citée ; certains détecteurs nécessitent de la cryogénie.',
+          spins: 'Dispositif de lecture non détaillé par le rapport pour cette famille.',
+        },
+        exemple: 'Qblox : électronique de contrôle et de lecture.',
+        sources: ['S62', 'S16'],
+        dep: 'Quels composants sont qualifiés pour la stabilité et le contrôle recherchés ?',
+      },
+      {
+        id: 'correction', n: '06', band: 'Fiabilité et logiciel', label: 'Correction et atténuation des erreurs',
+        role: 'Protéger l’information pendant le calcul. Un qubit logique encode une information dans plusieurs ressources physiques ; des mesures auxiliaires renseignent sur les erreurs sans lire l’information à préserver.',
+        contraintes: 'Matériel supplémentaire et traitement classique rapide. Il n’existe pas de conversion universelle entre qubits physiques et qubits logiques. L’atténuation réduit certains biais sans rendre la machine tolérante aux fautes.',
+        commun: 'Le rapport entre qubits physiques et logiques dépend de l’architecture, du code correcteur et de la qualité du matériel.',
+        exemple: 'Mémoire logique de Google Willow ; briques de calcul corrigé sur atomes neutres, jusqu’à 448 atomes ; mémoire et portes logiques de Quantinuum.',
+        sources: ['S09', 'S10', 'S12', 'S04'],
+        dep: 'Qui conçoit les décodeurs et fournit le traitement classique en temps utile ?',
+      },
+      {
+        id: 'logiciel', n: '07', band: 'Fiabilité et logiciel', label: 'Logiciels et compilateurs',
+        role: 'Traduire un problème en opérations exécutables : compilation, contrôle, correction d’erreurs et simulation.',
+        contraintes: 'Réduire les ressources nécessaires et faciliter la programmation. Les environnements créent des choix de dépendance : langage utilisé, compatibilité des programmes.',
+        commun: 'La possibilité de changer de matériel n’est pas acquise : elle dépend de la compatibilité des programmes.',
+        exemple: 'Outils d’émulation de la plateforme HQI ; environnements logiciels des plateformes d’accès.',
+        sources: ['S20', 'S22'],
+        dep: 'Qui contrôle le logiciel, et les programmes restent-ils compatibles si l’on change de matériel ?',
+      },
+      {
+        id: 'hpc', n: '08', band: 'Calcul et service', label: 'CPU, GPU et calcul intensif',
+        role: 'Préparer les données, choisir les opérations quantiques, analyser les mesures et, dans certaines méthodes, ajuster les paramètres puis relancer le processeur.',
+        contraintes: 'Le temps total compte davantage que la durée d’une opération isolée : chargement des données, répétitions, attente d’accès et analyse.',
+        commun: 'Le calcul classique reste indispensable au fonctionnement de toutes les machines.',
+        exemple: 'HQI associe plusieurs technologies quantiques au supercalculateur Joliot-Curie ; le calcul hybride sur les protéines mobilise des supercalculateurs.',
+        sources: ['S20', 'S23'],
+        dep: 'Qui exploite les installations et garantit l’accès au calcul classique associé ?',
+      },
+      {
+        id: 'cloud', n: '09', band: 'Calcul et service', label: 'Accès cloud',
+        role: 'Donner accès aux machines sans posséder l’installation : plateformes d’accès et services des constructeurs.',
+        contraintes: 'Conditions d’accès, localisation des traitements, facturation à la tâche et au shot. Un prix d’accès n’est pas un prix de solution.',
+        commun: 'Plusieurs technologies matérielles sont accessibles par ce canal ; les conditions diffèrent selon le fournisseur.',
+        exemple: 'Amazon Braket.',
+        sources: ['S22', 'S56'],
+        dep: 'Où sont localisés les traitements, et peut-on changer de matériel ou de plateforme ?',
+      },
+      {
+        id: 'appli', n: '10', band: 'Calcul et service', label: 'Applications et résultat métier',
+        role: 'Résoudre un problème utile et vérifier le gain obtenu : recherche appliquée, accompagnement métier, mesure des performances.',
+        contraintes: 'Le gain doit être prouvé sur un problème défini, face à un comparateur classique, dans des conditions reproductibles et à un coût acceptable.',
+        commun: 'L’avantage industriel reste à établir pour chaque usage, quelle que soit l’architecture.',
+        exemple: 'Calcul hybride sur des complexes protéine-ligand : IBM précise que la méthode ne surpasse pas encore les meilleures approches classiques.',
+        sources: ['S23', 'S24'],
+        dep: 'Qui transforme une avancée scientifique en valeur durable, et qui en supporte le risque ?',
+      },
+    ];
+  }
+  renderVals() {
+    const statique = !!this.props.statique;
+    const { variant, layer } = this.state;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const bandLine = { 'Matériel': 'solid', 'Fiabilité et logiciel': 'double', 'Calcul et service': 'dotted' };
+    const vCur = this.variants.find((v) => v.id === variant);
+    // Rôle en une phrase, pour la vue statique imprimable.
+    const court = {
+      env: 'Isoler et stabiliser les qubits : refroidissement, vide, optique ou lasers selon l’architecture.',
+      support: 'Porter l’information quantique : le système matériel utilisé comme qubit physique.',
+      qpu: 'Exécuter les opérations quantiques. Couche la plus visible, mais une seule sur dix.',
+      controle: 'Piloter les qubits par une électronique ou une optique de contrôle.',
+      mesure: 'Lire le résultat : chaque mesure est classique et souvent répétée.',
+      correction: 'Protéger l’information : qubits logiques, mesures auxiliaires, traitement classique rapide.',
+      logiciel: 'Traduire un problème en opérations : compilation, contrôle, correction, simulation.',
+      hpc: 'Préparer les données, analyser les mesures, ajuster les paramètres et relancer le processeur.',
+      cloud: 'Donner accès aux machines sans posséder l’installation.',
+      appli: 'Résoudre un problème utile et vérifier le gain obtenu.',
+    };
+    const layers = this.layers.map((l) => {
+      const on = l.id === layer;
+      return {
+        ...l,
+        court: court[l.id],
+        on,
+        tag: l.v ? 'selon l’architecture' : 'commun',
+        bandLine: bandLine[l.band],
+        bandCol: on ? 'var(--cu, #C68D5A)' : INK,
+        bg: on ? INK : 'transparent',
+        fg: on ? PAPER : INK,
+        dx: on ? 16 : 0,
+        srcTxt: l.sources.join(' · '),
+        pick: () => this.setState({ layer: l.id }),
+      };
+    });
+    const cur = this.layers.find((l) => l.id === layer);
+    return {
+      statique,
+      interactif: !statique,
+      repere: this.props.repere ?? 'Module 1',
+      tr: this.reduced ? 'none' : 'transform .28s cubic-bezier(.2,.7,.2,1), background-color .18s ease-out, color .18s ease-out',
+      variants: this.variants.map((v) => {
+        const on = v.id === variant;
+        return { label: v.label, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ variant: v.id }) };
+      }),
+      layers,
+      sel: {
+        n: cur.n,
+        band: cur.band,
+        label: cur.label,
+        role: cur.role,
+        contraintes: cur.contraintes,
+        archiTitre: cur.v ? 'Pour ' + vCur.nom : 'Commun à toutes les architectures',
+        archi: cur.v ? cur.v[variant] : cur.commun,
+        exemple: cur.exemple,
+        sources: cur.sources,
+        dep: cur.dep,
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

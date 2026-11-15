@@ -517,10 +517,15 @@ main { padding-bottom: 2rem; }
 .cover__dot { fill: var(--bg); stroke: var(--gold); stroke-width: 2; }
 .cover__pulse { fill: var(--gold); }
 .cover .cover__big { fill: var(--gold); font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: 0.01em; }
+/* Frise de jalons : une ligne par institution, repères pleins (normes, publications) ou creux (jalons). */
+.cover__mark { fill: var(--gold); }
+.cover .cover__legend { font-size: 10.5px; letter-spacing: 0.06em; }
+.cover .cover__lane { fill: var(--ink-dim); font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.cover .cover__date { font-size: 10.5px; }
 
 @media (prefers-reduced-motion: no-preference) {
   .cover__line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: cover-draw 2.4s var(--ease) 0.3s forwards; }
-  .cover__band, .cover__dot, .cover .cover__big { opacity: 0; animation: cover-in 0.9s var(--ease) 1.6s forwards; }
+  .cover__band, .cover__dot, .cover__mark, .cover .cover__date, .cover .cover__big { opacity: 0; animation: cover-in 0.9s var(--ease) 1.6s forwards; }
   .cover__pulse { transform-box: fill-box; transform-origin: center; animation: cover-pulse 2.6s ease-out 2.4s infinite; opacity: 0; }
 }
 
