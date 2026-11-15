@@ -1,0 +1,11 @@
+/*
+ * Atlas Nutraceutique : retouches propres au site. Écrit à la main ; npm run nutraceutique le conserve.
+ * L'Atlas garde sa charte (fond #0b0f10, Newsreader et IBM Plex), déjà sombre comme le portfolio.
+ */
+
+/* Parcours industriel : un mot long (« Approvisionnement ») débordait de son étape sur écran moyen. */
+body .stage span {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+}
