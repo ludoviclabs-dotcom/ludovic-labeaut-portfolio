@@ -35,6 +35,7 @@ scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
 scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
 scripts/import-quantique.mjs dossier quantique : déballe la publication Claude Design (npm run quantique)
+scripts/import-nutraceutique.mjs  Atlas Nutraceutique : copie corrigée de l'Atlas (npm run nutraceutique)
 scripts/build-en.mjs         génération des pages anglaises à partir de i18n/en/*.json
 i18n/en/                     traductions anglaises, page par page
 video/                       vidéo de présentation (Remotion), hors du site publié : voir video/README.md
@@ -129,6 +130,13 @@ La page `/publications` présente trois formats, signalés par un badge sur chaq
   `dossier.css`, écrit à la main et conservé d'un import à l'autre, redéfinit les couleurs. Après une
   nouvelle version de la publication : `npm run quantique` (ou `npm run quantique -- "D:\…\fichier.html"`),
   vérifier la page, puis committer. Ne pas modifier `index.html` ni `figures/` à la main.
+- **Atlas Nutraceutique** : `public/dossiers/nutraceutique/` (bloc « Nutraceutique & santé ») est une page
+  autonome conçue avec Claude (Dropbox `Articles/Nutraceutique/Atlas Nutraceutique.html`). `npm run
+  nutraceutique` la copie avec un en-tête propre au site, le lien « ← Publications » et les corrections
+  de la relecture du 15/11/2026 (liste `EDITS` de `scripts/import-nutraceutique.mjs` : clarté, provenance
+  des chiffres de Nutri&Co, état des points encore ouverts). Le fichier Dropbox n'est pas modifié : après
+  une nouvelle version de l'Atlas, relancer le script ; s'il s'arrête sur une correction dont le texte a
+  changé, relire le passage et adapter `EDITS`. `dossier.css` (à la main) porte les retouches de mise en page.
 
 ## Modifier un texte ou un lien
 

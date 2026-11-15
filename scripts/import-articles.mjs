@@ -44,6 +44,7 @@ const BLOCKS = [
   { id: "IA & science", intro: "Modèles, laboratoires autonomes, souveraineté : comment l'IA transforme la production du savoir." },
   { id: "Robotique & marchés", intro: "Chaîne de valeur, volumes, valorisations : les données d'un marché en formation." },
   { id: "Quantique & industrie", intro: "Calcul, capteurs, cryptographie post-quantique : ce qui est prouvé, ce qui est promis, et qui contrôle la filière." },
+  { id: "Nutraceutique & santé", intro: "Ingrédients, marges, preuves cliniques, règles européennes : une industrie de plus de 3 milliards d'euros, lue avec ses sources." },
 ];
 
 // Séries d'articles : un dossier Dropbox par série, fichiers « Article N — Titre.md ».
@@ -156,6 +157,40 @@ const DOSSIERS = [
             { pos: 2.819, type: "publication", label: "oct. 2026" },
           ],
         },
+      ],
+    },
+  },
+  {
+    // Atlas conçu avec Claude, publié par scripts/import-nutraceutique.mjs (npm run nutraceutique).
+    block: "Nutraceutique & santé",
+    href: "/dossiers/nutraceutique",
+    title: "Atlas Nutraceutique : la chaîne de valeur, les preuves et les dépendances d'une industrie",
+    standfirst:
+      "Où sont produits les ingrédients des compléments vendus en France, qui capte la marge, qui contrôle les entreprises, ce que démontrent les grands essais : un dossier interactif en huit chapitres, avec onze articles complets, une étude de cas Nutripure / Nutri&Co et un simulateur de marges.",
+    meta: "Corpus arrêté au 9 novembre 2026 · 8 chapitres · 11 articles",
+    kpis: [
+      { value: "> 3 Md€", label: "de ventes de compléments alimentaires en France en 2025, selon SYNADIET" },
+      { value: "55 %", label: "de ces ventes réalisées en pharmacie" },
+      { value: "100 %", label: "de dépendance de l'UE aux importations de vitamines C, B9 et K3 (FEFAC, 2023)" },
+    ],
+    chapters: ["Marché", "Origines", "Valeur", "Capital", "Preuves", "Vigilance", "Règles", "Horizon 2035"],
+    // Couverture dessinée en code : ventes par circuit, reprises du chapitre 01 de l'Atlas (SYNADIET, 2025).
+    cover: {
+      kind: "bars",
+      caption: "Compléments alimentaires en France, 2025",
+      legend: ["Part des ventes par circuit", "évolution sur un an"],
+      label:
+        "Ventes de compléments alimentaires en France en 2025 par circuit : pharmacie 55 %, en ligne 11 %, vente directe 10 %, magasins bio 8 %, grande distribution 6 %, nutrition spécialisée 6 %, parapharmacie 5 %",
+      highlight: "55 %",
+      note: "Parts arrondies, total 101 % · SYNADIET",
+      bars: [
+        { label: "Pharmacie", share: 55, evo: "+ 3,7 %", highlight: true },
+        { label: "En ligne", share: 11, evo: "+ 5 %" },
+        { label: "Vente directe", share: 10, evo: "n. c." },
+        { label: "Magasins bio", share: 8, evo: "− 3 %" },
+        { label: "Grande distribution", share: 6, evo: "− 3,9 %" },
+        { label: "Nutrition spécialisée", share: 6, evo: "+ 4 %" },
+        { label: "Parapharmacie", share: 5, evo: "n. c." },
       ],
     },
   },
@@ -523,11 +558,40 @@ function timelineSvg({ caption, legend, label, highlight, from, years, lanes }) 
             </svg>`;
 }
 
+/** Couverture d'un dossier : barres horizontales de parts (en %), la barre mise en avant en or. */
+function barsSvg({ caption, legend, label, highlight, note, bars }) {
+  // Colonnes : libellé (x0), barre (xBar), part au bout de la barre, évolution alignée à droite (xEnd).
+  const [x0, xBar, xEnd] = [56, 246, 556];
+  const max = Math.max(...bars.map((b) => b.share));
+  const width = (share) => (share / max) * (xEnd - 116 - xBar);
+  const rowY = (i) => 112 + i * 30;
+  const f = (n) => n.toFixed(1);
+  return `<svg class="cover" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${escapeHtml(label)}">
+              <text class="cover__cap" x="${x0}" y="52">${escapeHtml(caption)}</text>
+              <text class="cover__legend" x="${x0}" y="74">${legend.map((l, i) => `<tspan${i ? ' dx="16"' : ""}>${escapeHtml(l)}</tspan>`).join("")}</text>
+              <text class="cover__big" x="${xEnd}" y="70" text-anchor="end">${escapeHtml(highlight)}</text>
+              ${bars
+                .map((b, i) => {
+                  const y = rowY(i);
+                  return [
+                    `<text class="cover__lane" x="${x0}" y="${y + 4}">${escapeHtml(b.label)}</text>`,
+                    `<rect class="cover__bar${b.highlight ? " cover__bar--hl" : ""}" x="${xBar}" y="${y - 8}" width="${f(width(b.share))}" height="14"/>`,
+                    `<text class="cover__value" x="${f(xBar + width(b.share) + 8)}" y="${y + 4}">${b.share} %</text>`,
+                    `<text class="cover__date" x="${xEnd}" y="${y + 4}" text-anchor="end">${escapeHtml(b.evo)}</text>`,
+                  ].join("");
+                })
+                .join("\n              ")}
+              <text class="cover__note" x="${x0}" y="${rowY(bars.length) + 14}">${escapeHtml(note)}</text>
+            </svg>`;
+}
+
+const COVERS = { timeline: timelineSvg, bars: barsSvg, range: coverSvg };
+
 /** Carte vedette d'un dossier interactif (page autonome en français, d'où hreflang="fr"). */
 function dossierCard(d) {
   return `        <article class="dossier">
           <a class="dossier__media" href="${d.href}" hreflang="fr" tabindex="-1" aria-hidden="true">
-            ${d.cover.kind === "timeline" ? timelineSvg(d.cover) : coverSvg(d.cover)}
+            ${COVERS[d.cover.kind ?? "range"](d.cover)}
           </a>
           <div class="dossier__body">
             <span class="note__format note__format--live">Dossier interactif</span>
@@ -596,7 +660,7 @@ function indexPage(notes) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publications — Ludovic Labeaut</title>
-  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique et quantique, sourcés et datés.">
+  <meta name="description" content="Lignes de force : ${notes.length} notes d'analyse et ${dossierCount} de Ludovic Labeaut — géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique, quantique et nutraceutique, sourcés et datés.">
   <meta name="theme-color" content="#0b0c0e">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   ${alternates("/publications").split("\n").join("\n  ")}
@@ -617,7 +681,7 @@ function indexPage(notes) {
     <section class="pub-hero">
       <p class="pub-hero__eyebrow">06 / 06 · Publications</p>
       <h1 class="pub-hero__title">Lignes de force</h1>
-      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique et quantique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
+      <p class="pub-hero__lede">Notes d'analyse, séries de fond et dossiers interactifs : géopolitique, géoéconomie, banques centrales, defense-tech, IA, robotique, quantique et nutraceutique. Chaque publication est sourcée et datée ; les notes se téléchargent en PDF.</p>
       <ul class="pub-hero__axes" aria-label="Thèmes">${sections.map((s) => `<li>${escapeHtml(s.id)}</li>`).join("")}</ul>
     </section>
 ${body}

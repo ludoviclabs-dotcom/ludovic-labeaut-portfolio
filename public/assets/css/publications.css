@@ -522,15 +522,22 @@ main { padding-bottom: 2rem; }
 .cover .cover__legend { font-size: 10.5px; letter-spacing: 0.06em; }
 .cover .cover__lane { fill: var(--ink-dim); font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
 .cover .cover__date { font-size: 10.5px; }
+/* Barres de parts : la barre mise en avant en or, les autres en or atténué. */
+.cover__bar { fill: rgba(226, 194, 125, 0.32); }
+.cover__bar--hl { fill: var(--gold); }
+.cover .cover__value { fill: var(--ink-dim); font-size: 10.5px; font-weight: 600; }
+.cover .cover__note { font-size: 10px; }
 
 @media (prefers-reduced-motion: no-preference) {
   .cover__line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: cover-draw 2.4s var(--ease) 0.3s forwards; }
-  .cover__band, .cover__dot, .cover__mark, .cover .cover__date, .cover .cover__big { opacity: 0; animation: cover-in 0.9s var(--ease) 1.6s forwards; }
+  .cover__band, .cover__dot, .cover__mark, .cover .cover__date, .cover .cover__value, .cover .cover__big { opacity: 0; animation: cover-in 0.9s var(--ease) 1.6s forwards; }
+  .cover__bar { transform-box: fill-box; transform-origin: left center; transform: scaleX(0); animation: cover-grow 1.4s var(--ease) 0.3s forwards; }
   .cover__pulse { transform-box: fill-box; transform-origin: center; animation: cover-pulse 2.6s ease-out 2.4s infinite; opacity: 0; }
 }
 
 @keyframes cover-draw { to { stroke-dashoffset: 0; } }
 @keyframes cover-in { to { opacity: 1; } }
+@keyframes cover-grow { to { transform: scaleX(1); } }
 @keyframes cover-pulse {
   0% { opacity: 0.55; transform: scale(1); }
   100% { opacity: 0; transform: scale(4.5); }
