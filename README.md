@@ -28,11 +28,13 @@ public/                    site statique servi par Vercel
   images/<thème>/*.webp    photos optimisées (générées par le script)
   credits.html             crédits photo (généré par le script)
   publications/            page /publications et notes « Lignes de force » (générées)
-  dossiers/<nom>/          dossiers interactifs (page, moteur dash.js, styles, données JSON)
+  dossiers/<nom>/          dossiers interactifs (robotique : page, moteur dash.js, données JSON ;
+                           quantique : page, moteur/, figures/, générés par import-quantique.mjs)
   assets/css/publications.css  style de la page /publications
 scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
 scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
+scripts/import-quantique.mjs dossier quantique : déballe la publication Claude Design (npm run quantique)
 scripts/build-en.mjs         génération des pages anglaises à partir de i18n/en/*.json
 i18n/en/                     traductions anglaises, page par page
 video/                       vidéo de présentation (Remotion), hors du site publié : voir video/README.md
@@ -118,6 +120,15 @@ La page `/publications` présente trois formats, signalés par un badge sur chaq
   `donnees/`, calculs, redessin) ; `dossier.css` l'accorde à la charte du site. Pour mettre à jour
   les chiffres, remplacer les fichiers JSON de `donnees/` (mêmes colonnes). Le dossier existe en
   français seulement : depuis la version anglaise, le lien y mène avec la mention « in French ».
+- **Dossier quantique** : `public/dossiers/quantique/` (« Le quantique devient une industrie », bloc
+  « Quantique & industrie ») est une publication conçue dans Claude Design, téléchargée en un seul
+  fichier HTML empaqueté (Dropbox `Articles/Quantique/Le quantique devient une industrie – Publication
+  interactive.html`). `npm run quantique` la déballe : la page `index.html`, le moteur de rendu, Three.js
+  et React dans `moteur/` (servis par le site, sans CDN), les onze figures interactives dans `figures/`.
+  Le script reprend la charte du site (Inter, Cormorant Garamond, thème sombre par défaut, accent or) ;
+  `dossier.css`, écrit à la main et conservé d'un import à l'autre, redéfinit les couleurs. Après une
+  nouvelle version de la publication : `npm run quantique` (ou `npm run quantique -- "D:\…\fichier.html"`),
+  vérifier la page, puis committer. Ne pas modifier `index.html` ni `figures/` à la main.
 
 ## Modifier un texte ou un lien
 

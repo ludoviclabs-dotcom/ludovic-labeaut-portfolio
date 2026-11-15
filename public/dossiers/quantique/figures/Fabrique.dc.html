@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Du wafer au système livré : un lot fictif</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Du wafer au système livré : suivre un lot, pièce par pièce</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◇ Scénario · valeurs fictives</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">Le passage à l’industrie se joue aussi dans les tests, les reprises et la reproductibilité. Une machine livrée résulte d’une chaîne de qualification. Voie supraconductrice uniquement.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque case est une pièce du lot fictif. À chaque étape, certaines sont rejetées ou reprises : seules celles qui passent toutes les épreuves deviennent livrables.</p>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div role="group" aria-label="Scénario du lot fictif" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px">
+<sc-for list="{{cas}}" as="c" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{c.bg}}; color: {{c.fg}}">{{c.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 8px">
+<sc-for list="{{etapes}}" as="e" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{e.on}}" aria-label="{{e.aria}}" onClick="{{e.pick}}" style="display: block; text-align: left; min-height: 96px; padding: 10px 12px; cursor: {{curseur}}; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; background: {{e.bg}}; color: {{e.fg}}; border: {{e.bord}}; opacity: {{e.op}}">
+<span style="display: block; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; opacity: .8">{{e.n}} · {{e.etat}}</span>
+<span style="display: block; font-size: 16px; font-weight: 600; margin-top: 4px">{{e.nom}}</span>
+<span style="display: block; font-size: 13px; line-height: 1.4; margin-top: 4px; opacity: .9">{{e.evt}}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: flex-start; margin-top: 22px">
+<div style="flex: 1 1 300px; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 10px">Le lot fictif, à l’étape en cours</div>
+<div role="img" aria-label="{{lotAria}}" style="display: flex; flex-wrap: wrap; gap: 8px; max-width: 330px">
+<sc-for list="{{pieces}}" as="p" hint-placeholder-count="12">
+<span style="box-sizing: border-box; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 17px; border: {{p.bord}}; background: {{p.bg}}; color: {{p.fg}}">{{p.sym}}</span>
+</sc-for>
+</div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.7; color: var(--mut, #59636F); margin: 10px 0 0">Vide : en cours · ✓ plein : livrable · × : rejetée · … pointillés : en reprise</p>
+</div>
+<div aria-live="polite" style="flex: 1.2 1 320px; min-width: 0; border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{kicker}}</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 30px; line-height: 1.1; margin: 6px 0 10px">{{titre}}</p>
+<p style="margin: 0 0 12px; font-size: 15.5px; line-height: 1.55">{{texte}}</p>
+<p style="margin: 0; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px">{{compte}}</p>
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px">
+<button type="button" aria-disabled="{{prevOff}}" onClick="{{prev}}" style="min-height: 48px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424); opacity: {{prevOp}}">Étape précédente</button>
+<button type="button" aria-disabled="{{nextOff}}" onClick="{{next}}" style="min-height: 48px; padding: 0 16px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; font-weight: 600; border: 1px solid var(--ink, #0B1424); background: var(--ink, #0B1424); color: var(--paper, #F7F8F6); opacity: {{nextOp}}">Étape suivante</button>
+</div>
+</sc-if>
+</div>
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Les trois scénarios, à l’étape 5</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 0.7fr)); gap: 4px 12px; padding: 6px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45">
+<span style="font-weight: 600">{{t.cas}}</span><span>{{t.rej}}</span><span>{{t.rep}}</span><span>{{t.liv}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : scénario ajouté le 15 novembre 2026, hors corpus du rapport. Douze pièces, trois rejets ou deux reprises : quantités fictives, sans estimation d’un rendement réel. La séquence décrit des fonctions industrielles, pas le procédé exact d’un constructeur ; les étapes ne représentent ni des durées, ni des parts de coût. Le rapport range l’assemblage et la calibration dans l’étage « processeurs et systèmes » de la filière, figure 4. Contexte : <a href="#C4" style="color: var(--blue, #366B93)">C4</a>, page d’IQM décrivant salle blanche, tests cryogéniques des puces et calibration ; le lot représenté ne provient pas d’IQM.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":820}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cas: 'reference', step: 0 };
+    this.cas = [{ id: 'reference', label: 'Lot de référence' }, { id: 'defaut', label: 'Trois pièces rejetées aux tests' }, { id: 'calibration', label: 'Deux pièces en reprise de calibration' }];
+    this.steps = [
+      ['Fabriquer', 'Des motifs de circuits sont réalisés sur le wafer. La fabrication doit pouvoir être répétée sur plusieurs lots.'],
+      ['Tester au froid', 'Les composants sont caractérisés en conditions cryogéniques avant leur sélection. Un composant fabriqué n’est pas automatiquement qualifié.'],
+      ['Assembler', 'Les composants sélectionnés sont assemblés avec les interfaces de contrôle et l’environnement matériel.'],
+      ['Calibrer', 'Les paramètres de contrôle sont ajustés et vérifiés. Une reprise peut immobiliser une partie du lot.'],
+      ['Qualifier', 'Le système est évalué face à des critères annoncés avant sa livraison. Seules les pièces qualifiées deviennent livrables.'],
+    ];
+  }
+  // Lot fictif de douze pièces : rejets à l'étape 2 (scénario « defaut »), reprises à l'étape 4 (scénario « calibration »).
+  static factory(cas, step) {
+    const rejected = cas === 'defaut' && step >= 1 ? 3 : 0, pending = cas === 'calibration' && step >= 3 ? 2 : 0;
+    return { rejected, pending, delivered: step >= 4 ? 12 - rejected - pending : 0 };
+  }
+  renderVals() {
+    const statique = !!this.props.statique, C = Component;
+    const { cas, step } = statique ? { cas: 'calibration', step: 4 } : this.state, r = C.factory(cas, step);
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)', CUT = 'var(--cut, #8A5526)', BLUE = 'var(--blue, #366B93)';
+    const evt = (i) => (i === 1 && cas === 'defaut' ? '3 pièces rejetées ici' : i === 3 && cas === 'calibration' ? '2 pièces mises en reprise ici' : i === 4 ? 'Décompte des pièces livrables' : '');
+    const pieces = Array.from({ length: 12 }, (_, j) => {
+      if (j >= 12 - r.rejected) return { sym: '×', bord: '2px solid ' + CUT, bg: 'transparent', fg: CUT };
+      if (j >= 12 - r.rejected - r.pending) return { sym: '…', bord: '2px dashed ' + CUT, bg: 'transparent', fg: CUT };
+      if (step >= 4) return { sym: '✓', bord: '2px solid ' + BLUE, bg: BLUE, fg: PAPER };
+      return { sym: '', bord: '2px solid ' + BLUE, bg: 'transparent', fg: INK };
+    });
+    const compte = r.rejected + ' rejetée' + (r.rejected > 1 ? 's' : '') + ' · ' + r.pending + ' en reprise · ' + (step >= 4 ? r.delivered + ' livrables' : (12 - r.rejected - r.pending) + ' en cours');
+    return {
+      statique, interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      curseur: statique ? 'default' : 'pointer',
+      cas: this.cas.map((c) => { const on = c.id === cas; return { label: c.label, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ cas: c.id }) }; }),
+      etapes: this.steps.map((s, i) => {
+        const on = i === step, done = i < step;
+        return { n: '0' + (i + 1), nom: s[0], etat: on ? 'en cours' : done ? 'parcourue' : 'à venir', evt: evt(i), on, aria: 'Étape ' + (i + 1) + ' : ' + s[0],
+          bg: on ? INK : 'transparent', fg: on ? PAPER : INK, bord: on ? '1px solid ' + INK : '1px solid var(--rule2, rgba(11,20,36,.55))', op: i > step ? 0.6 : 1,
+          pick: () => { if (!statique) this.setState({ step: i }); } };
+      }),
+      pieces, lotAria: 'Douze pièces : ' + compte + '.',
+      kicker: 'Étape ' + (step + 1) + ' sur 5', titre: this.steps[step][0], texte: this.steps[step][1], compte,
+      prevOff: step === 0, prevOp: step === 0 ? 0.45 : 1, nextOff: step === 4, nextOp: step === 4 ? 0.45 : 1,
+      prev: () => this.setState({ step: Math.max(0, step - 1) }), next: () => this.setState({ step: Math.min(4, step + 1) }),
+      tableau: statique ? this.cas.map((c) => { const q = C.factory(c.id, 4); return { cas: c.label, rej: q.rejected + ' rejetées', rep: q.pending + ' en reprise', liv: q.delivered + ' livrables' }; }) : [],
+    };
+  }
+}
+</script>
+</body>
+</html>

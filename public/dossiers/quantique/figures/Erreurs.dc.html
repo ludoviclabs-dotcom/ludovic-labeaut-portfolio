@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le mur des erreurs : code de surface</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div ref="{{hostRef}}" style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Le mur des erreurs : neuf qubits pour protéger une information</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◌ Illustration · modèle pédagogique</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">Un qubit logique répartit une information sur plusieurs qubits physiques. Des contrôles signalent certaines erreurs sans lire l’information ; un décodeur propose une correction. Injectez des erreurs et observez ce que les contrôles voient, et ce qui leur échappe.</p>
+<p class="clair"><b>Ce que vous voyez</b>Les cercles sont les qubits qui portent l’information. Les carrés sont des alarmes : elles signalent qu’une erreur s’est produite près d’elles, sans dire directement où.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 28px 44px; align-items: flex-start">
+
+<div style="flex: 1.25 1 340px; min-width: 0">
+<canvas ref="{{cvRef}}" role="img" aria-label="{{cvAria}}" onClick="{{onCanvas}}" style="display: block; width: 100%; height: auto; background: var(--soft, #ECEFEA); border: 1px solid var(--rule, rgba(11,20,36,.16)); cursor: {{cvCursor}}"></canvas>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.6; color: var(--mut, #59636F); margin: 10px 0 0">Cercle : qubit de données. Carré : contrôle Z, relié aux qubits qu’il surveille ; plein quand il est déclenché. X en trait épais : erreur. X en pointillés : X restant sans effet. Anneau en pointillés : qubit retourné par le décodeur.</p>
+</div>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Scénarios</div>
+<div role="group" aria-label="Scénarios d’erreurs" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{presets}}" as="b" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="min-height: 44px; padding: 0 12px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{b.bg}}; color: {{b.fg}}">{{b.label}}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Inverser un qubit</div>
+<div role="group" aria-label="Injecter une erreur X sur un qubit" style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{qubits}}" as="k" hint-placeholder-count="9">
+<button type="button" aria-pressed="{{k.on}}" aria-label="{{k.aria}}" onClick="{{k.flip}}" style="width: 46px; height: 44px; padding: 0; cursor: pointer; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{k.bg}}; color: {{k.fg}}">{{k.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" aria-disabled="{{readOff}}" onClick="{{lire}}" style="min-height: 48px; padding: 0 16px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; font-weight: 600; border: 1px solid var(--ink, #0B1424); background: var(--ink, #0B1424); color: var(--paper, #F7F8F6); opacity: {{readOp}}">1. Lire les contrôles</button>
+<button type="button" aria-disabled="{{decOff}}" onClick="{{decoder}}" style="min-height: 48px; padding: 0 16px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15.5px; font-weight: 600; border: 1px solid var(--ink, #0B1424); background: transparent; color: var(--ink, #0B1424); opacity: {{decOp}}">2. Décoder et corriger</button>
+<button type="button" onClick="{{raz}}" style="min-height: 48px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: transparent; color: var(--ink, #0B1424)">Réinitialiser</button>
+</div>
+<div aria-live="polite" style="border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">Syndrome des contrôles Z1 à Z4 <span class="df">(déf. : relevé des quatre alarmes ; 1 = déclenchée, 0 = au repos)</span></div>
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 27px; font-weight: 500; line-height: 1.1; margin: 8px 0 12px">{{syndrome}}</p>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55; border-left: 3px solid {{msgBar}}; padding-left: 12px">{{msg}}</p>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Quatre scénarios, résultats calculés par le modèle</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: minmax(0, 0.9fr) 92px minmax(0, 2.2fr); gap: 4px 12px; padding: 7px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45">
+<span style="font-weight: 600">{{t.nom}}</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{t.syn}}</span>
+<span>{{t.issue}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="margin-top: 26px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 14px 32px; font-size: {{fsDef}}px; line-height: 1.5">
+<div><a href="#g-qubit-logique" style="color: var(--ink, #0B1424); font-weight: 600">Qubit logique</a><br>Information encodée et protégée par une organisation de ressources quantiques et de correction. Ici : neuf qubits de données.</div>
+<div><a href="#g-qec" style="color: var(--ink, #0B1424); font-weight: 600">Correction d’erreurs</a><br>Des mesures auxiliaires, les contrôles, renseignent sur les erreurs sans lire directement l’information protégée.</div>
+<div><b style="font-weight: 600">Une correction peut tomber ailleurs</b><br>Le décodeur choisit la correction la plus courte. Elle peut porter sur un autre qubit que celui touché et rester juste. {{pairesTxt}}</div>
+</div>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : illustration, modèle pédagogique ajouté le 15 novembre 2026, hors corpus du rapport. Code de surface tourné de distance 3 ; seuls les quatre contrôles Z sont dessinés et seules les erreurs X sont injectées. Préparation, mesures et décodage idéaux : ni bruit de mesure, ni erreurs Z, ni historique de syndromes. Le verdict final utilise les erreurs injectées, connues du modèle ; une machine ne dispose pas de cette information. Ce n’est ni une simulation de matériel, ni une conversion de qubits physiques en qubits logiques. Résultat publié sur un code de surface, que ce modèle ne reproduit pas : <a href="#S09" style="color: var(--blue, #366B93)">S09</a>.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":1010}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mask: 0, stage: 0 };
+    this.cvRef = React.createRef(); this.hostRef = React.createRef();
+    this.presets = [{ label: '1 erreur', mask: 16 }, { label: '2 erreurs, corrigées', mask: 257 }, { label: '2 erreurs, échec', mask: 3 }, { label: 'Chaîne indétectée', mask: 7 }];
+  }
+  // --- Modèle : code de surface tourné de distance 3, erreurs X seulement -----------------------
+  static get Z() { return [[1, 2, 4, 5], [3, 4, 6, 7], [0, 1], [7, 8]]; }
+  static parity(mask, set) { return set.reduce((p, i) => p ^ ((mask >> i) & 1), 0); }
+  static syndrome(mask) { return Component.Z.map((s) => Component.parity(mask, s)); }
+  static pop(n) { return n.toString(2).replace(/0/g, '').length; }
+  // Décodeur de poids minimal ; à poids égal, le plus petit masque l'emporte.
+  static decode(mask) {
+    const C = Component, s = C.syndrome(mask).join('');
+    let best = 0, w = 99;
+    for (let c = 0; c < 512; c++) if (C.syndrome(c).join('') === s && C.pop(c) < w) { best = c; w = C.pop(c); }
+    const residual = mask ^ best, logical = !!C.parity(residual, [0, 3, 6]);
+    return { syndrome: C.syndrome(mask), correction: best, residual, logical, harmless: residual !== 0 && !logical };
+  }
+  static paires() { let ok = 0; for (let a = 0; a < 9; a++) for (let b = a + 1; b < 9; b++) if (!Component.decode((1 << a) | (1 << b)).logical) ok++; return ok; }
+  static liste(mask) { const a = []; for (let i = 0; i < 9; i++) if ((mask >> i) & 1) a.push('Q' + (i + 1)); return a.length > 1 ? a.slice(0, -1).join(', ') + ' et ' + a[a.length - 1] : a.join(''); }
+  static message(mask, stage) {
+    const C = Component, d = C.decode(mask), n = C.pop(mask);
+    if (stage === 0) return [n ? n + (n > 1 ? ' erreurs X injectées' : ' erreur X injectée') + '. Lisez maintenant les contrôles.' : 'Injectez une erreur sur un qubit, puis lisez les contrôles.', false];
+    if (stage === 1) return [d.syndrome.some(Boolean) ? 'Les contrôles signalent une anomalie sans lire l’information protégée. Le décodeur va chercher la correction la plus courte compatible avec ces signaux.' : (n ? 'Syndrome nul alors que des erreurs sont présentes : cette combinaison échappe aux contrôles.' : 'Syndrome nul : aucune anomalie détectée.'), false];
+    if (d.logical) return ['Échec logique. Les contrôles sont revenus à zéro, mais la correction choisie, ajoutée aux erreurs, forme une chaîne qui traverse le code : l’information protégée est modifiée. Le modèle le sait parce qu’il connaît les erreurs injectées ; une machine ne dispose pas de cette information.', true];
+    if (d.harmless) return ['Correction réussie, bien que le décodeur ait agi sur un autre qubit que celui touché. Il reste des X sur ' + C.liste(d.residual) + ' : leur produit est un produit de contrôles X du code, sans effet sur l’information protégée.', false];
+    return [n ? 'Correction réussie : le décodeur a retourné ' + (n > 1 ? 'les qubits touchés' : 'le qubit touché') + '. L’information protégée est intacte.' : 'Rien à corriger : aucune erreur n’a été injectée.', false];
+  }
+
+  componentDidMount() {
+    this.paint();
+    const scope = this.hostRef.current && this.hostRef.current.closest('.q');
+    if (scope) { this.mo = new MutationObserver(() => this.paint()); this.mo.observe(scope, { attributes: true, attributeFilter: ['class', 'style'] }); }
+    if (this.cvRef.current && window.ResizeObserver) { this.ro = new ResizeObserver(() => this.paint()); this.ro.observe(this.cvRef.current.parentElement); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.paint());
+  }
+  componentDidUpdate() { this.paint(); }
+  componentWillUnmount() { if (this.mo) this.mo.disconnect(); if (this.ro) this.ro.disconnect(); }
+
+  vue() { return this.props.statique ? { mask: 16, stage: 1 } : this.state; }
+  // Sur écran étroit, le dessin est recadré sur le réseau de qubits pour rester lisible.
+  cadre() { const c = this.cvRef.current, narrow = !this.props.statique && c && c.parentElement.clientWidth < 460; return narrow ? { W: 400, dx: -100, narrow } : { W: 680, dx: 0, narrow: false }; }
+  palette() {
+    const light = { paper: '#F7F8F6', soft: '#ECEFEA', ink: '#0B1424', blue: '#366B93', cut: '#8A5526', mut: '#59636F' };
+    if (this.props.statique || !this.hostRef.current) return light;
+    const cs = getComputedStyle(this.hostRef.current), P = {};
+    Object.keys(light).forEach((k) => { P[k] = (cs.getPropertyValue('--' + k) || '').trim() || light[k]; });
+    return P;
+  }
+  paint() {
+    const c = this.cvRef.current; if (!c) return;
+    const C = Component, { mask, stage } = this.vue(), d = C.decode(mask), shown = stage === 2 ? d.residual : mask, P = this.palette();
+    const { W, dx, narrow } = this.cadre(), H = 455, k = 2;
+    if (c.width !== W * k || c.height !== H * k) { c.width = W * k; c.height = H * k; }
+    const g = c.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); g.clearRect(0, 0, W, H); g.fillStyle = P.soft; g.fillRect(0, 0, W, H); g.translate(dx, 0);
+    const F = { s: "Inter, 'Helvetica Neue', Arial, sans-serif", m: "'Geist Mono', ui-monospace, Menlo, monospace", f: "'Cormorant Garamond', Georgia, serif" };
+    const text = (x, y, s, size, col, align, font) => { g.font = '400 ' + size + 'px ' + F[font || 's']; g.fillStyle = col; g.textAlign = align || 'left'; g.fillText(s, x, y); };
+    const stroke = (col, w, dash, alpha) => { g.strokeStyle = col; g.lineWidth = w; g.setLineDash(dash || []); g.globalAlpha = alpha === undefined ? 1 : alpha; };
+    const xy = (i) => [190 + (i % 3) * 110, 125 + Math.floor(i / 3) * 110], centres = [[355, 180], [245, 290], [245, 69], [355, 401]];
+    C.Z.forEach((group, i) => {
+      const [x, y] = centres[i], on = stage === 1 && d.syndrome[i];
+      group.forEach((j) => { const p = xy(j); g.beginPath(); if (on) stroke(P.cut, 2.5); else stroke(P.mut, 1.2, [], 0.55); g.moveTo(x, y); g.lineTo(p[0], p[1]); g.stroke(); });
+    });
+    g.globalAlpha = 1; g.setLineDash([]);
+    C.Z.forEach((group, i) => {
+      const [x, y] = centres[i], on = stage === 1 ? d.syndrome[i] : 0;
+      g.fillStyle = on ? P.ink : P.paper; g.fillRect(x - 20, y - 20, 40, 40); stroke(on ? P.ink : P.cut, 1.2); g.strokeRect(x - 20, y - 20, 40, 40);
+      text(x, y + 6, stage ? String(on) : '?', 17, on ? P.paper : P.ink, 'center', 'm'); text(x + 29, y + 5, 'Z' + (i + 1), 13, P.mut);
+    });
+    for (let i = 0; i < 9; i++) {
+      const [x, y] = xy(i), err = !!((shown >> i) & 1), fixed = stage === 2 && ((d.correction >> i) & 1), equiv = err && stage === 2 && d.harmless;
+      if (fixed) { g.beginPath(); stroke(P.blue, 1.2, [4, 4]); g.arc(x, y, 34, 0, Math.PI * 2); g.stroke(); }
+      g.beginPath(); g.arc(x, y, 25, 0, Math.PI * 2); g.fillStyle = P.paper; g.fill();
+      if (equiv) stroke(P.cut, 2.5, [6, 4]); else if (err) stroke(P.cut, 3.5); else stroke(P.blue, 1.5);
+      g.stroke(); g.setLineDash([]);
+      text(x, y + 6, err ? 'X' : String(i + 1), 18, P.ink, 'center', 'm');
+    }
+    if (!narrow) {
+      text(570, 135, '09', 53, P.ink, 'center', 'f'); text(570, 160, 'qubits de données', 14, P.mut, 'center');
+      g.beginPath(); stroke(P.mut, 1, [], 0.4); g.moveTo(505, 185); g.lineTo(635, 185); g.stroke(); g.globalAlpha = 1;
+      text(570, 230, '04', 53, P.ink, 'center', 'f'); text(570, 256, 'contrôles Z affichés', 14, P.mut, 'center');
+      text(570, 320, 'Les contrôles X', 13, P.mut, 'center'); text(570, 341, 'du code complet', 13, P.mut, 'center'); text(570, 362, 'ne sont pas affichés.', 13, P.mut, 'center');
+    }
+  }
+  flip(i) { const s = this.state; this.setState({ mask: (s.stage === 2 ? Component.decode(s.mask).residual : s.mask) ^ (1 << i), stage: 0 }); }
+
+  renderVals() {
+    const statique = !!this.props.statique, C = Component, { mask, stage } = this.vue(), d = C.decode(mask);
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const [msg, danger] = C.message(mask, stage), ok = C.paires();
+    const syn = (m) => C.syndrome(m).join(' · ');
+    return {
+      statique, interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      cvRef: this.cvRef, hostRef: this.hostRef,
+      cvCursor: statique ? 'default' : 'pointer',
+      cvAria: 'Code de surface : neuf qubits de données et quatre contrôles Z. ' + (C.pop(mask) ? 'Erreurs X sur ' + C.liste(stage === 2 ? d.residual : mask) + '.' : 'Aucune erreur X.') + (statique ? '' : ' Les boutons Q1 à Q9 inversent chaque qubit.'),
+      onCanvas: (e) => {
+        if (statique) return;
+        const c = this.cvRef.current, r = c.getBoundingClientRect(), { W, dx } = this.cadre();
+        const x = (e.clientX - r.left) / r.width * W - dx, y = (e.clientY - r.top) / r.height * 455;
+        for (let i = 0; i < 9; i++) { const qx = 190 + (i % 3) * 110, qy = 125 + Math.floor(i / 3) * 110; if (Math.hypot(x - qx, y - qy) < 32) { this.flip(i); return; } }
+      },
+      presets: this.presets.map((p) => { const on = p.mask === mask; return { label: p.label, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ mask: p.mask, stage: 0 }) }; }),
+      qubits: Array.from({ length: 9 }, (_, i) => { const on = !!((mask >> i) & 1); return { label: 'Q' + (i + 1), on, aria: 'Inverser l’erreur X sur le qubit ' + (i + 1), bg: on ? INK : 'transparent', fg: on ? PAPER : INK, flip: () => this.flip(i) }; }),
+      readOff: stage === 2, readOp: stage === 2 ? 0.45 : 1, decOff: stage !== 1, decOp: stage !== 1 ? 0.45 : 1,
+      lire: () => { if (stage !== 2) this.setState({ stage: 1 }); },
+      decoder: () => { if (stage === 1) this.setState({ stage: 2 }); },
+      raz: () => this.setState({ mask: 0, stage: 0 }),
+      syndrome: stage ? syn(stage === 2 ? d.residual : mask) : '— · — · — · —',
+      msg, msgBar: danger ? 'var(--cut, #8A5526)' : 'var(--blue, #366B93)',
+      tableau: statique ? this.presets.map((p) => { const r = C.decode(p.mask); return { nom: p.label + ' (' + C.liste(p.mask) + ')', syn: syn(p.mask), issue: C.message(p.mask, C.syndrome(p.mask).some(Boolean) ? 2 : 1)[0] }; }) : [],
+      pairesTxt: 'Calcul dérivé du modèle : sur les 36 paires d’erreurs X possibles, ce décodeur en corrige ' + ok + ' et échoue sur ' + (36 - ok) + '.',
+      fsDef: statique ? 12.5 : 14.5,
+    };
+  }
+}
+</script>
+</body>
+</html>

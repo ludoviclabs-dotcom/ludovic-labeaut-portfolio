@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le temps d’une tâche hybride</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Une tâche ne fait pas un service : le temps d’un calcul hybride, de bout en bout</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◇ Scénario · durées fictives</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">Le simulateur ci-dessus chiffre l’accès au processeur. Ce scénario montre l’autre face : préparer, attendre, calibrer et valider occupent l’essentiel du temps. Aucun coût n’est chiffré ici.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque barre est une étape de la tâche. Dans ce scénario, le passage sur le processeur quantique est bref ; l’attente, la préparation et la validation prennent l’essentiel du temps.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: flex-start">
+
+<div style="flex: 1.35 1 340px; min-width: 0">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px">
+<span style="font-size: 17px; font-weight: 500">Temps complet du scénario</span>
+<span style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 34px; line-height: 1; white-space: nowrap">{{totalTxt}}</span>
+</div>
+<sc-for list="{{phases}}" as="p" hint-placeholder-count="6">
+<div style="padding: 7px 0 9px; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px"><span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: var(--mut, #59636F); margin-right: 8px">{{p.n}}</span>{{p.nom}}</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 13.5px; white-space: nowrap">{{p.duree}}</span></div>
+<div aria-hidden="true" style="position: relative; height: 20px; margin-top: 5px"><div style="position: absolute; top: 0; bottom: 0; left: {{p.left}}%; width: {{p.w}}%; min-width: 2px; background: {{p.bg}}; opacity: {{p.op}}"></div></div>
+</div>
+</sc-for>
+<p style="font-size: 16px; margin: 14px 0 0; border-top: 2px solid var(--cu, #C68D5A); padding-top: 12px">Le temps passé sur le processeur quantique représente <b style="font-weight: 600">{{partTxt}}</b> du parcours.</p>
+</div>
+
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Mêmes exemples que le simulateur</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{presets}}" as="b" hint-placeholder-count="2">
+<button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="min-height: 44px; padding: 0 12px; cursor: pointer; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{b.bg}}; color: {{b.fg}}">{{b.label}}</button>
+</sc-for>
+</div>
+</div>
+<label style="display: block; font-size: 14.5px"><span style="display: flex; justify-content: space-between; gap: 12px"><span>Nombre de tâches</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{tasksTxt}}</span></span>
+<input type="range" min="1" max="100" step="1" value="{{tasks}}" onChange="{{setTasks}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)"></label>
+<label style="display: block; font-size: 14.5px"><span style="display: flex; justify-content: space-between; gap: 12px"><span>Shots par tâche</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{shotsTxt}}</span></span>
+<input type="range" min="100" max="10000" step="100" value="{{shots}}" onChange="{{setShots}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)"></label>
+<label style="display: block; font-size: 14.5px"><span style="display: flex; justify-content: space-between; gap: 12px"><span>Attente avant accès</span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{queueTxt}}</span></span>
+<input type="range" min="0" max="60" step="1" value="{{queue}}" onChange="{{setQueue}}" style="width: 100%; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)"></label>
+</div>
+</sc-if>
+<div aria-live="polite" style="border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{resKicker}}</div>
+<p style="margin: 8px 0 0; font-size: 15.5px; line-height: 1.55">{{msg}}</p>
+</div>
+</div>
+
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Les deux exemples du simulateur, attente de 18 min</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="2">
+<div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 4px 12px; padding: 6px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45; font-family: 'Geist Mono', ui-monospace, Menlo, monospace">
+<span>{{t.cas}}</span><span>total {{t.total}}</span><span>QPU {{t.qpu}}</span><span>part {{t.part}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : scénario ajouté le 15 novembre 2026, hors corpus du rapport ; toutes les durées sont fictives. Préparation 12 min, compilation 3 min, calibration 6 min par lot, validation 8 min, exécution 2 ms par shot ; phases séquentielles. Ce ne sont ni des mesures de matériel, ni une comparaison entre calcul classique et calcul quantique. Aucun coût n’est chiffré : le seul tarif documenté figure dans le simulateur <a href="#S56" style="color: var(--blue, #366B93)">S56</a>, et les autres postes y restent « non chiffrés ». Précision : fréquence binaire théorique p = 0,5, écart type √(p(1 − p)/N), intervalle à 95 % de ± 1,96 écart type ; erreurs matérielles et biais non modélisés. Le cycle lui-même est décrit par la figure 2.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tasks: 1, shots: 10000, queue: 18 };
+    this.presets = [{ tasks: 1, shots: 10000 }, { tasks: 100, shots: 10000 }];
+  }
+  // Durées fictives du scénario, en minutes. Aucun montant n'est modélisé.
+  static operation(tasks, shots, queue) {
+    const minutes = [12, 3, queue, 6, tasks * shots * 0.002 / 60, 8], total = minutes.reduce((a, b) => a + b, 0), sigma = Math.sqrt(0.25 / shots) * 100;
+    return { minutes, total, part: minutes[4] / total * 100, sigma, ci: 1.96 * sigma };
+  }
+  static fr(v, d) { return v.toFixed(d).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  static min(v) { return Component.fr(v, v < 1 ? 2 : 1) + ' min'; }
+  renderVals() {
+    const statique = !!this.props.statique, C = Component, fr = C.fr;
+    const { tasks, shots, queue } = statique ? { tasks: 1, shots: 10000, queue: 18 } : this.state, r = C.operation(tasks, shots, queue);
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const noms = ['Préparer', 'Compiler', 'Attendre l’accès', 'Calibrer', 'Exécuter sur le QPU', 'Valider'];
+    let cum = 0;
+    const phases = r.minutes.map((v, i) => {
+      const p = { n: '0' + (i + 1), nom: noms[i], duree: C.min(v), left: (cum / r.total * 100).toFixed(3), w: (v / r.total * 100).toFixed(3),
+        bg: i === 4 ? 'var(--cut, #8A5526)' : i === 2 ? 'var(--mut, #59636F)' : 'var(--blue, #366B93)', op: i === 2 ? 0.45 : 1 };
+      cum += v; return p;
+    });
+    const int = (e, a, b) => Math.min(b, Math.max(a, parseInt(e.target.value, 10) || a));
+    return {
+      statique, interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      phases, totalTxt: C.min(r.total), partTxt: fr(r.part, 2) + ' %',
+      tasks, shots, queue, tasksTxt: String(tasks), shotsTxt: fr(shots, 0), queueTxt: queue + ' min',
+      setTasks: (e) => this.setState({ tasks: int(e, 1, 100) }), setShots: (e) => this.setState({ shots: int(e, 100, 10000) }), setQueue: (e) => this.setState({ queue: int(e, 0, 60) }),
+      presets: this.presets.map((p) => { const on = p.tasks === tasks && p.shots === shots; return { label: p.tasks + ' × ' + fr(p.shots, 0), on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ tasks: p.tasks, shots: p.shots }) }; }),
+      resKicker: fr(tasks * shots, 0) + ' shots au total · ' + C.min(r.minutes[4]) + ' sur le QPU',
+      msg: 'Pour chaque tâche de ' + fr(shots, 0) + ' shots : écart type de ± ' + fr(r.sigma, 1) + ' point' + (r.sigma >= 2 ? 's' : '') + ' sur une fréquence proche de 50 %, soit environ ± ' + fr(r.ci, 1) + ' point' + (r.ci >= 2 ? 's' : '') + ' à 95 %. Multiplier les tâches ne resserre pas l’incertitude de chacune, et cette incertitude ne mesure pas la qualité d’une application métier.',
+      tableau: statique ? this.presets.map((p) => { const q = C.operation(p.tasks, p.shots, 18); return { cas: p.tasks + ' × ' + fr(p.shots, 0) + ' shots', total: C.min(q.total), qpu: C.min(q.minutes[4]), part: fr(q.part, 2) + ' %' }; }) : [],
+    };
+  }
+}
+</script>
+</body>
+</html>

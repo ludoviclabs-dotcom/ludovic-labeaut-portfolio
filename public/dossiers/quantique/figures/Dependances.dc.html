@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Qui peut arrêter la machine ? Dépendances fonctionnelles</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Qui peut arrêter la machine ? Une panne, et ce qu’une voie locale rétablit</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">◇ Scénario · dépendances fonctionnelles</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 760px; margin: 0 0 22px">La souveraineté devient concrète lorsqu’une ressource manque. Simulez une indisponibilité et distinguez un matériel indispensable d’une voie d’accès remplaçable. Les couches sont celles de l’anatomie, figure 3b.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque bloc est une ressource dont dépend le service. Retirez-en une : le schéma montre si le service s’arrête ou s’il existe une voie de remplacement.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: flex-start">
+
+<div style="flex: 1.2 1 340px; min-width: 0">
+<sc-for list="{{rangs}}" as="r" hint-placeholder-count="5">
+<div>
+<div style="display: flex; gap: 10px">
+<sc-for list="{{r.boites}}" as="b" hint-placeholder-count="2">
+<div style="flex: 1 1 0; min-width: 0; box-sizing: border-box; padding: 10px 12px; background: var(--paper, #F7F8F6); border: {{b.bord}}">
+<div style="font-size: 15px; font-weight: 500; line-height: 1.3">{{b.nom}}</div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; margin-top: 3px; color: {{b.col}}">{{b.etat}}</div>
+</div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="height: 22px; width: 0; margin: 0 auto; border-left: {{r.lien}}; display: {{r.lienDisplay}}"></div>
+</div>
+</sc-for>
+</div>
+
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Architecture</div>
+<div role="group" aria-label="Architecture" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{archs}}" as="a" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{a.on}}" onClick="{{a.pick}}" style="min-height: 44px; padding: 0 12px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{a.bg}}; color: {{a.fg}}">{{a.label}}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Indisponibilité à simuler</div>
+<div role="group" aria-label="Indisponibilité à simuler" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{pannes}}" as="a" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{a.on}}" onClick="{{a.pick}}" style="min-height: 44px; padding: 0 12px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{a.bg}}; color: {{a.fg}}">{{a.label}}</button>
+</sc-for>
+</div>
+</div>
+<button type="button" aria-pressed="{{local}}" onClick="{{toggleLocal}}" style="align-self: flex-start; min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{locBg}}; color: {{locFg}}">Voie locale de secours, supposée qualifiée</button>
+</div>
+</sc-if>
+<div aria-live="polite" style="border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">État du service dans le scénario</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 34px; line-height: 1.1; margin: 6px 0 10px">{{resultat}}</p>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55">{{msg}}</p>
+</div>
+</div>
+
+</div>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px">
+<p style="font-size: 14px; font-weight: 600; margin: 0 0 6px">Tous les cas du scénario</p>
+<sc-for list="{{tableau}}" as="t" hint-placeholder-count="6">
+<div style="display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.8fr); gap: 4px 12px; padding: 6px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16)); font-size: 12.5px; line-height: 1.45">
+<span>{{t.panne}}</span><span>{{t.voie}}</span><span style="font-weight: 600">{{t.service}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Statut : scénario ajouté le 15 novembre 2026, hors corpus du rapport ; analyse conceptuelle fondée sur ses chapitres 4, 5 et 11. Les liens sont des relations fonctionnelles simplifiées : ni réseau de contrats, ni inventaire de fournisseurs, ni part de marché, ni durée de remplacement, ni probabilité de panne. La voie locale est une hypothèse ; elle ne remplace que l’accès cloud, si le matériel reste disponible. Les architectures ne sont pas classées et aucun fournisseur réel n’est désigné comme défaillant. Les besoins exacts varient selon les appareils ; la photonique peut imposer de la cryogénie pour certains détecteurs <a href="#S16" style="color: var(--blue, #366B93)">S16</a>.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { arch: 'sc', fault: 'none', local: false };
+    this.archs = [{ id: 'sc', label: 'Supraconducteurs', env: 'Cryogénie et blindage' }, { id: 'atoms', label: 'Atomes neutres', env: 'Lasers et vide' }, { id: 'photon', label: 'Photonique', env: 'Sources et détection' }];
+    this.pannes = [{ id: 'none', label: 'Aucune' }, { id: 'env', label: 'Environnement physique' }, { id: 'control', label: 'Électronique de contrôle' }, { id: 'cloud', label: 'Accès cloud' }];
+  }
+  // true = fonction indisponible ou impactée.
+  static dependencies(fault, local) {
+    const qpu = fault === 'env' || fault === 'control', execution = qpu || (fault === 'cloud' && !local);
+    return { env: fault === 'env', control: fault === 'control', qpu, cloud: fault === 'cloud', execution, service: execution };
+  }
+  static message(fault, local) {
+    const d = Component.dependencies(fault, local);
+    if (d.service) return fault === 'cloud' ? 'L’accès cloud est indisponible et aucune voie locale n’est activée : le service est interrompu.' : 'Le matériel requis est indisponible. Un autre chemin d’accès ne répare pas cette panne physique.';
+    return fault === 'cloud' ? 'Le service reste accessible par la voie locale du scénario. Cela suppose que cette voie existe et qu’elle soit qualifiée.' : 'Le chemin technique du scénario est disponible. Aucune disponibilité réelle de fournisseur n’est mesurée.';
+  }
+  renderVals() {
+    const statique = !!this.props.statique, C = Component;
+    const { arch, fault, local } = statique ? { arch: 'sc', fault: 'cloud', local: true } : this.state, d = C.dependencies(fault, local);
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)', CUT = 'var(--cut, #8A5526)', BLUE = 'var(--blue, #366B93)', MUT = 'var(--mut, #59636F)';
+    const env = this.archs.find((a) => a.id === arch).env;
+    const boite = (id, nom) => {
+      const off = d[id], source = id === fault;
+      return { nom, etat: source ? '× Indisponible' : off ? '┄ Impacté' : 'Disponible', col: off ? CUT : MUT, bord: source ? '3px solid ' + CUT : off ? '1.5px dashed ' + CUT : '1px solid ' + BLUE };
+    };
+    const localBox = { nom: 'Accès local', etat: local ? (fault === 'cloud' ? 'Prend le relais' : 'En réserve') : 'Non activé', col: MUT, bord: local ? '1.5px solid ' + CUT : '1px dashed var(--rule2, rgba(11,20,36,.55))' };
+    const lien = (off) => (off ? '2px dashed ' + CUT : '2px solid ' + BLUE);
+    const rangs = [
+      { boites: [boite('env', env), boite('control', 'Électronique de contrôle')], lien: lien(d.qpu), lienDisplay: 'block' },
+      { boites: [boite('qpu', 'Capacité du processeur quantique')], lien: lien(d.qpu), lienDisplay: 'block' },
+      { boites: [boite('cloud', 'Accès cloud'), localBox], lien: lien(d.execution), lienDisplay: 'block' },
+      { boites: [boite('execution', 'Exécution hybride')], lien: lien(d.service), lienDisplay: 'block' },
+      { boites: [boite('service', 'Service rendu')], lien: 'none', lienDisplay: 'none' },
+    ];
+    const btn = (on) => ({ on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK });
+    const cas = [['none', false], ['env', false], ['env', true], ['control', true], ['cloud', false], ['cloud', true]];
+    return {
+      statique, interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      rangs, local,
+      archs: this.archs.map((a) => Object.assign({ label: a.label, pick: () => this.setState({ arch: a.id }) }, btn(a.id === arch))),
+      pannes: this.pannes.map((a) => Object.assign({ label: a.label, pick: () => this.setState({ fault: a.id }) }, btn(a.id === fault))),
+      toggleLocal: () => this.setState({ local: !local }),
+      locBg: local ? INK : 'transparent', locFg: local ? PAPER : INK,
+      resultat: d.service ? 'Interrompu' : 'Disponible',
+      msg: C.message(fault, local),
+      tableau: statique ? cas.map(([f, l]) => ({ panne: 'Panne : ' + this.pannes.find((p) => p.id === f).label.toLowerCase(), voie: l ? 'voie locale activée' : 'sans voie locale', service: C.dependencies(f, l).service ? 'Service interrompu' : 'Service disponible' })) : [],
+    };
+  }
+}
+</script>
+</body>
+</html>

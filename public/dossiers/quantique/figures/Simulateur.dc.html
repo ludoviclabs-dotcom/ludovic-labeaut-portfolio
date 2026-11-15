@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Simulateur du coût d’accès au calcul quantique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Coût d’accès à un processeur quantique : ce que la facture couvre, et ce qu’elle ne couvre pas</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">■ Calcul dérivé</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 720px; margin: 0 0 22px">Tarif à la demande d’Amazon Braket pour le processeur Rigetti Cepheus, relevé le 10 novembre 2026. Une tâche regroupe des répétitions du même circuit ; un shot est une exécution suivie d’une mesure.</p>
+<p class="clair"><b>Ce que vous voyez</b>La facture calculée ne couvre que l’usage du processeur. Le reste d’un projet (données, développement, validation) n’y figure pas.</p>
+
+<p style="margin: 0 0 26px; padding: 10px 14px; border: 1px solid var(--ink, #0B1424); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 13px; letter-spacing: .03em; line-height: 1.5">Accès QPU uniquement — pas le prix d’une solution industrielle.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start">
+
+<div style="flex: 1 1 320px; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Tarif fournisseur · fixé à la source</div>
+<div style="display: grid; grid-template-columns: minmax(118px, 0.8fr) minmax(0, 1.2fr); border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); font-size: {{fs}}px">
+<div style="padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">Prix fixe par tâche</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right">0,30 USD</div>
+<div style="padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">Prix par shot</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right">0,000425 USD</div>
+<div style="padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">Service et matériel</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); text-align: right">Amazon Braket · Rigetti Cepheus</div>
+<div style="padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">Mode et région</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); text-align: right">À la demande · USA Ouest, Californie du Nord</div>
+</div>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 26px; display: flex; flex-direction: column; gap: 18px">
+<label style="display: block; font-size: 15px">
+<span style="display: block; font-weight: 500; margin-bottom: 6px">Nombre de tâches</span>
+<span style="display: flex; gap: 14px; align-items: center">
+<input type="text" inputMode="numeric" autoComplete="off" value="{{tasksRaw}}" onChange="{{setTasks}}" aria-invalid="{{tasksBad}}" style="width: 120px; height: 44px; padding: 0 12px; box-sizing: border-box; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 16px; color: var(--ink, #0B1424); background: transparent; border: 1px solid {{tasksBorder}}">
+<input type="range" min="0" max="1000" step="1" value="{{tasksRange}}" onChange="{{setTasks}}" aria-label="Nombre de tâches, curseur" style="flex: 1 1 auto; min-width: 0; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</span>
+<span role="alert" style="display: block; min-height: 20px; font-size: 13.5px; color: var(--cut, #8A5526); margin-top: 4px">{{tasksErr}}</span>
+</label>
+<label style="display: block; font-size: 15px">
+<span style="display: block; font-weight: 500; margin-bottom: 6px">Shots par tâche</span>
+<span style="display: flex; gap: 14px; align-items: center">
+<input type="text" inputMode="numeric" autoComplete="off" value="{{shotsRaw}}" onChange="{{setShots}}" aria-invalid="{{shotsBad}}" style="width: 120px; height: 44px; padding: 0 12px; box-sizing: border-box; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 16px; color: var(--ink, #0B1424); background: transparent; border: 1px solid {{shotsBorder}}">
+<input type="range" min="0" max="100000" step="100" value="{{shotsRange}}" onChange="{{setShots}}" aria-label="Shots par tâche, curseur" style="flex: 1 1 auto; min-width: 0; height: 44px; margin: 0; accent-color: var(--cut, #8A5526)">
+</span>
+<span role="alert" style="display: block; min-height: 20px; font-size: 13.5px; color: var(--cut, #8A5526); margin-top: 4px">{{shotsErr}}</span>
+</label>
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut, #59636F); margin-bottom: 8px">Exemples du rapport</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{presets}}" as="b" hint-placeholder-count="2">
+<button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="flex: 1 1 200px; min-height: 56px; padding: 8px 14px; text-align: left; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{b.bg}}; color: {{b.fg}}"><span style="display: block; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-weight: 500">{{b.label}}</span><span style="display: block; font-size: 13px; opacity: .85">{{b.statut}}</span></button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div aria-live="polite" style="flex: 1 1 380px; min-width: 0; border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">Coût d’accès QPU estimé · {{statutCourant}}</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: clamp(44px, 7vw, 72px); line-height: 1; margin: 10px 0 6px; overflow-wrap: anywhere">{{total}}</p>
+<p style="margin: 0 0 20px; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 13px; line-height: 1.7; color: var(--mut, #59636F); overflow-wrap: anywhere">Coût = (tâches × prix par tâche) + (tâches × shots par tâche × prix par shot)<br>{{equation}}</p>
+
+<div aria-hidden="true" style="display: flex; height: 22px; border: 1px solid var(--ink, #0B1424)">
+<div style="background: var(--ink, #0B1424); width: {{fixedW}}%; transition: {{tr}}"></div>
+<div style="flex: 1 1 auto; background: repeating-linear-gradient(135deg, var(--blue, #366B93) 0 2px, transparent 2px 7px)"></div>
+</div>
+<div style="display: grid; grid-template-columns: 18px minmax(0, 1fr) auto auto; gap: 8px 14px; align-items: center; margin-top: 14px; font-size: 15px">
+<span aria-hidden="true" style="width: 14px; height: 14px; background: var(--ink, #0B1424)"></span>
+<span>Coût fixe : {{tasksTxt}} × 0,30</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right">{{fixed}}</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right; color: var(--mut, #59636F)">{{fixedPct}}</span>
+<span aria-hidden="true" style="width: 14px; height: 14px; box-sizing: border-box; border: 1px solid var(--blue, #366B93); background: repeating-linear-gradient(135deg, var(--blue, #366B93) 0 2px, transparent 2px 5px)"></span>
+<span>Coût variable : {{shotsTotalTxt}} × 0,000425</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right">{{variable}}</span>
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right; color: var(--mut, #59636F)">{{variablePct}}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{statique}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1 1 100%; min-width: 0">
+<p style="margin: 0 0 12px; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12.5px; line-height: 1.6">Coût = (tâches × prix par tâche) + (tâches × shots par tâche × prix par shot)</p>
+<div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) auto auto auto; column-gap: 14px; font-size: 12px; line-height: 1.4; border-top: 1px solid var(--rule2, rgba(11,20,36,.55))">
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--mut, #59636F)">Périmètre</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--mut, #59636F)">Calcul en USD</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--mut, #59636F); text-align: right">Fixe</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--mut, #59636F); text-align: right">Variable</div>
+<div style="padding: 6px 0; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .04em; color: var(--mut, #59636F); text-align: right">Montant</div>
+<sc-for list="{{exemples}}" as="x" hint-placeholder-count="2">
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))"><b style="font-weight: 600">{{x.label}}</b><br>{{x.statut}}</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; overflow-wrap: anywhere">{{x.equation}}</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right; white-space: nowrap">{{x.fixed}}</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right; white-space: nowrap">{{x.variable}}</div>
+<div style="padding: 8px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); font-family: 'Geist Mono', ui-monospace, Menlo, monospace; text-align: right; white-space: nowrap; font-weight: 500">{{x.total}}</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="margin-top: 30px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 12px">
+<p style="margin: 0; font-size: {{fsH}}px; font-weight: 600">Non inclus dans ce montant</p>
+<span style="font-size: {{fs}}px; color: var(--mut, #59636F)">Postes non chiffrés par le rapport : ils ne valent pas zéro.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 8px">
+<sc-for list="{{exclus}}" as="e" hint-placeholder-count="8">
+<div style="border: 1px dashed var(--rule2, rgba(11,20,36,.55)); padding: 8px 10px; font-size: {{fs}}px; line-height: 1.35">{{e}}<br><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: var(--mut, #59636F)">non chiffré</span></div>
+</sc-for>
+</div>
+<p style="margin: 14px 0 0; font-size: {{fs}}px; line-height: 1.5; max-width: 760px">Coût total d’un projet industriel : <b style="font-weight: 600">non documenté</b>. Pour budgéter un pilote, le rapport propose de suivre séparément le coût de l’expérience, le coût d’un résultat acceptable et la valeur créée.</p>
+</div>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Source : Amazon Web Services, tarification d’Amazon Braket, grille consultée le 10 novembre 2026 <a href="#S56" style="color: var(--blue, #366B93)">S56</a>. Unité : dollar américain. Les autres services AWS sont facturés séparément. Un prix de shot n’est pas un prix par solution utile et ne suffit pas à comparer deux architectures. Plafonds de saisie (1 000 tâches, 100 000 shots) propres à cette démonstration : les quotas et contraintes réels du service ne sont pas modélisés, et toute combinaison n’est pas nécessairement exécutable. Arithmétique en millionièmes de dollar, sans arrondi binaire.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Module 3"},"$preview":{"width":1120,"height":1250}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tasksRaw: '1', shotsRaw: '10000' };
+    this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  // Tarif Amazon Braket / Rigetti Cepheus, à la demande, relevé le 10 novembre 2026 (S56).
+  // Montants en millionièmes de dollar pour une arithmétique entière exacte.
+  static get TARIF() { return { tacheMicro: 300000, shotMicro: 425, maxTaches: 1000, maxShots: 100000 }; }
+  static cout(taches, shots) {
+    const t = Component.TARIF;
+    const fixe = taches * t.tacheMicro;
+    const variable = taches * shots * t.shotMicro;
+    return { fixe, variable, total: fixe + variable, shotsTotal: taches * shots };
+  }
+  static entier(n) {
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+  static usd(micro) {
+    const ent = Math.floor(micro / 1000000);
+    let dec = String(micro % 1000000).padStart(6, '0').replace(/0+$/, '');
+    if (dec.length < 2) dec = dec.padEnd(2, '0');
+    return Component.entier(ent) + ',' + dec;
+  }
+  static lire(raw, max) {
+    const s = String(raw).replace(/[\s  ]/g, '');
+    if (!/^\d{1,7}$/.test(s)) return { ok: false, err: 'Saisissez un nombre entier, sans décimale.' };
+    const n = parseInt(s, 10);
+    if (n > max) return { ok: false, err: 'Plafond de la démonstration : ' + Component.entier(max) + '.' };
+    return { ok: true, n, err: '' };
+  }
+  static equation(taches, shots) {
+    const c = Component.cout(taches, shots), e = Component.entier, u = Component.usd;
+    return '(' + e(taches) + ' × 0,30) + (' + e(taches) + ' × ' + e(shots) + ' × 0,000425) = ' + u(c.fixe) + ' + ' + u(c.variable) + ' = ' + u(c.total) + ' USD';
+  }
+  renderVals() {
+    const statique = !!this.props.statique;
+    const C = Component, T = C.TARIF;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const { tasksRaw, shotsRaw } = this.state;
+    const t = C.lire(tasksRaw, T.maxTaches), s = C.lire(shotsRaw, T.maxShots);
+    const ok = t.ok && s.ok;
+    const c = ok ? C.cout(t.n, s.n) : null;
+    const pct = (part, tot) => (tot > 0 ? (Math.round((part / tot) * 1000) / 10).toFixed(1).replace('.', ',') + ' %' : '—');
+    const presetDefs = [
+      { taches: 1, shots: 10000, label: '1 tâche × 10 000 shots', statut: 'Exemple tarifaire AWS' },
+      { taches: 100, shots: 10000, label: '100 tâches × 10 000 shots', statut: 'Calcul illustratif du dossier' },
+    ];
+    const courant = ok ? presetDefs.find((p) => p.taches === t.n && p.shots === s.n) : null;
+    const bad = 'var(--cut, #8A5526)', normal = 'var(--rule2, rgba(11,20,36,.55))';
+    return {
+      statique,
+      interactif: !statique,
+      repere: this.props.repere ?? 'Module 3',
+      fs: statique ? 12 : 15,
+      fsH: statique ? 13 : 16,
+      tasksRaw, shotsRaw,
+      tasksRange: t.ok ? t.n : 0,
+      shotsRange: s.ok ? s.n : 0,
+      tasksBad: !t.ok, shotsBad: !s.ok,
+      tasksErr: t.err, shotsErr: s.err,
+      tasksBorder: t.ok ? normal : bad,
+      shotsBorder: s.ok ? normal : bad,
+      setTasks: (e) => this.setState({ tasksRaw: e.target.value }),
+      setShots: (e) => this.setState({ shotsRaw: e.target.value }),
+      presets: presetDefs.map((p) => {
+        const on = !!courant && courant === p;
+        return { label: p.label, statut: p.statut, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ tasksRaw: String(p.taches), shotsRaw: String(p.shots) }) };
+      }),
+      statutCourant: courant ? courant.statut.toLowerCase() : 'calcul dérivé',
+      total: ok ? C.usd(c.total) + ' USD' : '—',
+      equation: ok ? C.equation(t.n, s.n) : 'Corrigez la saisie pour afficher le calcul.',
+      tasksTxt: ok ? C.entier(t.n) : '—',
+      shotsTotalTxt: ok ? C.entier(c.shotsTotal) + (c.shotsTotal > 1 ? ' shots' : ' shot') : '—',
+      fixed: ok ? C.usd(c.fixe) + ' USD' : '—',
+      variable: ok ? C.usd(c.variable) + ' USD' : '—',
+      fixedPct: ok ? pct(c.fixe, c.total) : '—',
+      variablePct: ok ? pct(c.variable, c.total) : '—',
+      fixedW: ok && c.total > 0 ? ((c.fixe / c.total) * 100).toFixed(2) : 0,
+      tr: this.reduced ? 'none' : 'width .25s ease-out',
+      exemples: presetDefs.map((p) => {
+        const x = C.cout(p.taches, p.shots);
+        return { label: p.label, statut: p.statut, equation: C.equation(p.taches, p.shots), fixed: C.usd(x.fixe), variable: C.usd(x.variable), total: C.usd(x.total) + ' USD' };
+      }),
+      exclus: ['Calcul classique', 'Stockage', 'Personnel', 'Préparation des données', 'Développement', 'Intégration', 'Validation', 'Autres frais éventuellement applicables'],
+    };
+  }
+}
+</script>
+</body>
+</html>

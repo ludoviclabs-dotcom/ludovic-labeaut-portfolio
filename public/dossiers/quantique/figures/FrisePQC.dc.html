@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Frise des calendriers post-quantiques</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.df,.clair{display:none}
+</style>
+</helmet>
+<div style="box-sizing: border-box; padding: var(--modpad, 32px); background: var(--paper, #F7F8F6); color: var(--ink, #0B1424); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5">
+
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 12px; margin-bottom: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cut, #8A5526)">{{repere}}</span>
+<p style="font-size: 19px; font-weight: 600; line-height: 1.3; margin: 0">Trois calendriers post-quantiques, trois statuts différents</p>
+<span style="display: inline-flex; align-items: center; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--rule2, rgba(11,20,36,.55)); padding: 2px 8px; white-space: nowrap">● Publications · ○ Objectifs</span>
+</div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--mut, #59636F); max-width: 720px; margin: 0 0 22px">Une ligne par cadre. Les textes déjà parus sont des marques pleines ; les jalons recommandés, des marques évidées. Aucune de ces dates n’est une échéance mondiale ni une prévision de rupture cryptographique.</p>
+<p class="clair"><b>Ce que vous voyez</b>Chaque ligne correspond à une autorité : Union européenne, Royaume-Uni, États-Unis. Une marque pleine signale un texte déjà publié ; une marque vide, un jalon recommandé.</p>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="min-height: 44px; padding: 0 14px; cursor: pointer; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 500; border: 1px solid var(--rule2, rgba(11,20,36,.55)); background: {{f.bg}}; color: {{f.fg}}">{{f.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="overflow-x: auto; padding-bottom: 6px">
+<div style="min-width: 760px; display: grid; grid-template-columns: 132px minmax(0, 1fr); column-gap: 28px; padding-right: 24px">
+
+<div></div>
+<div style="position: relative; height: 34px; border-bottom: 1px solid var(--rule2, rgba(11,20,36,.55))">
+<sc-for list="{{years}}" as="y" hint-placeholder-count="13">
+<div style="position: absolute; bottom: 0; left: {{y.left}}%; height: 8px; border-left: 1px solid var(--rule2, rgba(11,20,36,.55))"></div>
+<div style="position: absolute; bottom: 10px; left: {{y.left}}%; padding-left: 3px; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--mut, #59636F)">{{y.label}}</div>
+</sc-for>
+</div>
+
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+<div style="padding: 18px 0; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16)); display: flex; flex-direction: column; justify-content: center">
+<div style="font-weight: 600; font-size: 15.5px; line-height: 1.25">{{r.nom}}</div>
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--mut, #59636F); margin-top: 3px">{{r.organe}}</div>
+</div>
+<div style="position: relative; height: 96px; border-bottom: 1px solid var(--rule, rgba(11,20,36,.16))">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 38px; border-top: 1px solid var(--rule2, rgba(11,20,36,.55))"></div>
+<div aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 21.98%; border-left: 1px dashed var(--cut, #8A5526)"></div>
+<sc-for list="{{r.events}}" as="e" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{e.on}}" aria-label="{{e.aria}}" onClick="{{e.pick}}" style="position: absolute; left: {{e.left}}%; top: 38px; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: none; background: transparent; cursor: pointer; display: {{e.display}}; align-items: center; justify-content: center">
+<span style="display: block; box-sizing: border-box; width: 16px; height: 16px; border: 2.5px solid var(--ink, #0B1424); border-radius: {{e.radius}}; background: {{e.fill}}; box-shadow: {{e.ring}}"></span>
+</button>
+<div aria-hidden="true" style="position: absolute; left: {{e.left}}%; top: 58px; transform: translateX(-50%); white-space: nowrap; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: {{e.weight}}; display: {{e.displayLabel}}">{{e.court}}</div>
+</sc-for>
+</div>
+</sc-for>
+
+<div></div>
+<div style="position: relative; height: 26px">
+<div style="position: absolute; left: 21.98%; top: 6px; padding-left: 6px; white-space: nowrap; font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--cut, #8A5526)">↑ 10 novembre 2026 : état des connaissances du rapport</div>
+</div>
+
+</div>
+</div>
+
+<sc-if value="{{interactif}}" hint-placeholder-val="{{ true }}">
+<div aria-live="polite" style="margin-top: 18px; border-top: 2px solid var(--cu, #C68D5A); padding-top: 14px; max-width: 760px">
+<div style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--cut, #8A5526)">{{sel.juridiction}} · {{sel.date}} · {{sel.typeTxt}}</div>
+<p style="font-family: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif; font-size: 28px; line-height: 1.15; margin: 6px 0 10px">{{sel.label}}</p>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55">{{sel.portee}} <span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 11.5px"><sc-for list="{{sel.sources}}" as="s" hint-placeholder-count="1"><a href="#{{s}}" style="color: var(--blue, #366B93); margin-left: 4px">{{s}}</a></sc-for></span></p>
+</div>
+</sc-if>
+
+<div style="margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 18px 32px">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+<div style="border-top: 1px solid var(--rule2, rgba(11,20,36,.55)); padding-top: 10px; font-size: {{fs}}px; line-height: 1.45">
+<div style="font-weight: 600; margin-bottom: 6px">{{r.nom}}</div>
+<sc-for list="{{r.liste}}" as="e" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 0 6px; padding: 5px 0; border-top: 1px solid var(--rule, rgba(11,20,36,.16))"><span aria-hidden="true" style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace">{{e.glyph}}</span><span><span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px">{{e.date}}</span> · {{e.label}} <span style="color: var(--mut, #59636F)">({{e.typeMin}})</span> <span style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: var(--mut, #59636F)">{{e.srcTxt}}</span></span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<p style="font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 12px; line-height: 1.65; color: var(--mut, #59636F); border-top: 1px solid var(--rule, rgba(11,20,36,.16)); padding-top: 10px; margin: 22px 0 0">Légende : ■ norme finale · ● publication d’un cadre ou d’une feuille de route · ○ jalon recommandé, non encore échu. Aucune obligation juridique applicable n’est recensée dans le corpus : ces calendriers ne sont ni interchangeables ni une échéance uniforme pour les entreprises françaises. Les objectifs annuels britanniques sont placés en fin d’année ; seule l’année fait foi. Sources : NIST <a href="#S30" style="color: var(--blue, #366B93)">S30</a> <a href="#S31" style="color: var(--blue, #366B93)">S31</a> <a href="#S32" style="color: var(--blue, #366B93)">S32</a> <a href="#S66" style="color: var(--blue, #366B93)">S66</a>, NCSC <a href="#S67" style="color: var(--blue, #366B93)">S67</a>, Groupe de coopération NIS <a href="#S68" style="color: var(--blue, #366B93)">S68</a>.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"statique":{"editor":"boolean","default":false},"repere":{"editor":"text","default":"Figure"},"$preview":{"width":1120,"height":1160}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'tout', sel: 'eu_start' };
+    // Données : registre « pqc_events » et chapitre 8 du rapport. Axe du 1er janvier 2024 au 1er janvier 2037.
+    // pos = fraction d'année écoulée depuis 2024 ; les objectifs annuels sont placés en fin d'année.
+    this.rows = [
+      {
+        id: 'ue', nom: 'Union européenne', organe: 'Groupe de coopération NIS',
+        events: [
+          { id: 'eu_roadmap', pos: 1.474, date: '23 juin 2025', court: 'juin 2025', type: 'publication', label: 'Publication de la feuille de route coordonnée', portee: 'Feuille de route de coordination destinée aux États membres.', sources: ['S68'] },
+          { id: 'eu_start', pos: 3, date: 'd’ici fin 2026', court: 'fin 2026', type: 'jalon', label: 'Début de transition pour les États membres', portee: 'Repère de la feuille de route européenne. Il ne constitue pas une échéance juridique uniforme pour toutes les entreprises.', sources: ['S68'] },
+          { id: 'eu_highrisk', pos: 7, date: 'd’ici fin 2030', court: 'fin 2030', type: 'jalon', label: 'Protection post-quantique des usages à haut risque', portee: 'Repère de la feuille de route européenne pour les usages à haut risque.', sources: ['S68'] },
+        ],
+      },
+      {
+        id: 'uk', nom: 'Royaume-Uni', organe: 'NCSC',
+        events: [
+          { id: 'uk_plan', pos: 5, date: '2028', court: '2028', type: 'jalon', label: 'Inventaire et plan initial', portee: 'Jalon recommandé par le NCSC, à adapter au périmètre et aux contraintes des organisations.', sources: ['S67'] },
+          { id: 'uk_priority', pos: 8, date: '2031', court: '2031', type: 'jalon', label: 'Premières migrations prioritaires', portee: 'Jalon recommandé par le NCSC, à adapter au périmètre et aux contraintes des organisations.', sources: ['S67'] },
+          { id: 'uk_complete', pos: 12, date: '2035', court: '2035', type: 'jalon', label: 'Achèvement de migration visé', portee: 'Jalon recommandé par le NCSC ; achèvement visé, non garanti.', sources: ['S67'] },
+        ],
+      },
+      {
+        id: 'us', nom: 'États-Unis', organe: 'NIST',
+        events: [
+          { id: 'nist_fips', pos: 0.616, date: '13 août 2024', court: 'août 2024', type: 'norme', label: 'Normes finales FIPS 203, 204 et 205', portee: 'Trois premières normes finales majeures : ML-KEM pour l’établissement de clé, ML-DSA et SLH-DSA pour les signatures. Repère issu du chapitre 8 du rapport.', sources: ['S30', 'S31', 'S32'] },
+          { id: 'nist_final', pos: 2.819, date: '27 octobre 2026', court: 'oct. 2026', type: 'publication', label: 'Publication de NIST IR 8547 final', portee: 'Cadre de transition vers les standards post-quantiques ; les obligations précises doivent être examinées dans les textes applicables. Ce texte ne fixe pas la date d’apparition d’un ordinateur capable de compromettre les systèmes actuels.', sources: ['S66'] },
+        ],
+      },
+    ];
+    this.types = {
+      norme: { txt: 'Norme finale', min: 'norme finale', glyph: '■', radius: '0', plein: true },
+      publication: { txt: 'Publication', min: 'publication', glyph: '●', radius: '50%', plein: true },
+      jalon: { txt: 'Jalon recommandé', min: 'jalon recommandé', glyph: '○', radius: '50%', plein: false },
+    };
+  }
+  renderVals() {
+    const statique = !!this.props.statique;
+    const { filter, sel } = this.state;
+    const INK = 'var(--ink, #0B1424)', PAPER = 'var(--paper, #F7F8F6)';
+    const visible = (e) => statique || filter === 'tout' || e.type === filter;
+    let selEvent = null, selRow = null;
+    const rows = this.rows.map((r) => {
+      const events = r.events.map((e) => {
+        const t = this.types[e.type];
+        const on = !statique && e.id === sel;
+        if (e.id === sel) { selEvent = e; selRow = r; }
+        const vis = visible(e);
+        return {
+          ...e,
+          on,
+          left: ((e.pos / 13) * 100).toFixed(2),
+          radius: t.radius,
+          fill: t.plein ? INK : PAPER,
+          ring: on ? '0 0 0 3px ' + PAPER + ', 0 0 0 5px var(--cu, #C68D5A)' : 'none',
+          weight: on ? 500 : 400,
+          display: vis ? 'flex' : 'none',
+          displayLabel: vis ? 'block' : 'none',
+          aria: r.nom + ', ' + e.date + ' : ' + e.label + ' (' + t.min + ')',
+          glyph: t.glyph,
+          typeMin: t.min,
+          srcTxt: e.sources.join(' · '),
+          pick: () => this.setState({ sel: e.id }),
+        };
+      });
+      return { ...r, events, liste: events.filter((e) => visible(e)) };
+    });
+    const filters = [
+      { id: 'tout', label: 'Tout afficher' },
+      { id: 'norme', label: 'Normes finales' },
+      { id: 'publication', label: 'Publications' },
+      { id: 'jalon', label: 'Jalons recommandés' },
+    ].map((f) => {
+      const on = f.id === filter;
+      return { label: f.label, on, bg: on ? INK : 'transparent', fg: on ? PAPER : INK, pick: () => this.setState({ filter: f.id }) };
+    });
+    const years = [];
+    for (let y = 2024; y <= 2036; y++) years.push({ label: String(y), left: (((y - 2024) / 13) * 100).toFixed(2) });
+    return {
+      statique,
+      interactif: !statique,
+      repere: this.props.repere ?? 'Figure',
+      fs: statique ? 12 : 14.5,
+      rows,
+      filters,
+      years,
+      sel: selEvent
+        ? { juridiction: selRow.nom, date: selEvent.date, typeTxt: this.types[selEvent.type].txt, label: selEvent.label, portee: selEvent.portee, sources: selEvent.sources }
+        : { juridiction: '', date: '', typeTxt: '', label: '', portee: '', sources: [] },
+    };
+  }
+}
+</script>
+</body>
+</html>
