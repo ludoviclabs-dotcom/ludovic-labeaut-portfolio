@@ -113,8 +113,16 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - Constat **antérieur au projet**, non corrigé : SEO à 90 sur toutes les pages, car les liens `<link rel="alternate" hreflang>` utilisent des adresses relatives (`/projets/probant`) alors que Google attend des adresses complètes (`https://…/projets/probant`). La correction demande de connaître le domaine de production ; elle touche toutes les pages.
 - Mesures faites sur un serveur local sans compression : à refaire sur la prévisualisation Vercel à l'étape 8.
 
-### Étape 7 — Version anglaise
-- [ ] Lancer `npm run en`.
+### Étape 7 — Version anglaise ✅
+- [x] Relecture de tous les textes anglais du JSON (23 corrections), en anglais britannique comme le reste du site :
+  - « Master's » pour le diplôme (« Link to the Master's », « the Master's subjects ») ;
+  - familles : « Core expertise » et « Topical field » ;
+  - accroche : « A figure is only worth something if it can be proven. » ;
+  - vocabulaire déjà employé sur le site repris : « FEC general-ledger file », « audit-ready evidence file » ;
+  - intitulés de matières : « Advanced financial analysis », « Lectures and methodology ».
+- [x] `npm run en` : 33 pages anglaises, aucune traduction manquante.
+- [x] Contrôle automatique : aucun texte français dans les blocs « fil rouge » des pages anglaises (accueil, `/en/fil-rouge`, six pages projet) ; `lang="en"`, liens vers `/en/…`.
+- [x] Mise en page contrôlée avec les textes anglais (plus longs) : aucun débordement, de 360 à 1440 px.
 - **Fini quand** : `/en/` affiche les trois niveaux sans texte français oublié.
 
 ### Étape 8 — Tests et mise en ligne
