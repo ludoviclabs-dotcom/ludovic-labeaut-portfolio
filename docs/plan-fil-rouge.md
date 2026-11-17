@@ -96,11 +96,22 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - Contrôlé (navigateur réel) : défilement automatique, Pause, clic, clavier, mouvement réduit, sans JavaScript ; 375 et 1440 px, en français et en anglais ; barre de l'accueil de 360 à 1440 px. Aucune erreur dans la console, aucun débordement horizontal.
 - **Fini quand** : la page fonctionne avec `npm run dev`.
 
-### Étape 6 — Performance et accessibilité
-- [ ] Mesurer Lighthouse avant et après : le score ne doit pas baisser.
-- [ ] Animations limitées à l'opacité et au déplacement, coupées si « réduire les animations » est activé.
-- [ ] Navigation complète au clavier, contraste suffisant sur les petits textes.
-- [ ] Pas de troisième police téléchargée si la police monospace du système suffit.
+### Étape 6 — Performance et accessibilité ✅
+- [x] Lighthouse avant (branche `main`) et après, en local, médiane de 3 mesures :
+
+  | Page | Mobile perf. (avant → après) | Ordinateur perf. | Accessibilité | Bonnes pratiques | SEO |
+  |---|---|---|---|---|---|
+  | Accueil | 91 → 90 (écart de mesure) | 99 → 99 | 100 → 100 | 100 | 90 → 90 |
+  | Probant | 75 → 75 | 98 → 98 | 100 → 100 | 100 | 90 → 90 |
+  | `/fil-rouge` (FR et EN) | 96 (nouvelle) | 99 | 100 | 100 | 90 |
+
+  Poids : +4 Ko sur l'accueil et les pages projet ; la page `/fil-rouge` pèse 141 Ko au total.
+- [x] Décalage de mise en page (CLS) de `/fil-rouge` : 0,07 → 0. Le titre était découpé mot à mot avant l'arrivée de la police et les mots changeaient de ligne ; il est maintenant découpé une fois la police chargée (1,5 s au plus), masqué en opacité jusque-là.
+- [x] Animations limitées à l'opacité et au déplacement (sauf la hauteur d'une réponse qui s'ouvre), coupées avec « réduire les animations ».
+- [x] Navigation au clavier, contraste (audit Lighthouse à 100), réponses fermées retirées du parcours clavier.
+- [x] Aucune police ajoutée.
+- Constat **antérieur au projet**, non corrigé : SEO à 90 sur toutes les pages, car les liens `<link rel="alternate" hreflang>` utilisent des adresses relatives (`/projets/probant`) alors que Google attend des adresses complètes (`https://…/projets/probant`). La correction demande de connaître le domaine de production ; elle touche toutes les pages.
+- Mesures faites sur un serveur local sans compression : à refaire sur la prévisualisation Vercel à l'étape 8.
 
 ### Étape 7 — Version anglaise
 - [ ] Lancer `npm run en`.

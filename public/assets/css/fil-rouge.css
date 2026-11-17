@@ -634,7 +634,9 @@
 
   .js .fr-families__grid.is-in::after { transform: scaleY(1); }
 
-  /* Titre révélé mot à mot (mots découpés par fil-rouge.js). */
+  /* Titre révélé mot à mot (mots découpés par fil-rouge.js, une fois la police chargée). */
+  .js .fr-hero__title[data-split]:not(.is-split) { opacity: 0; }
+
   .fr-w {
     display: inline-block;
     overflow: hidden;

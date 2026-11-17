@@ -18,7 +18,11 @@
   /* ---------- Titre mot à mot ---------- */
 
   const title = document.querySelector("[data-split]");
-  if (title && !reduce) {
+  // Découpé une fois la police du titre chargée (1,5 s au plus) : découpés avant, les mots
+  // changeraient de ligne à l'arrivée de la police et la page « sauterait » (CLS).
+  // En attendant, le titre est masqué par fil-rouge.css (opacité seulement, sans décalage).
+  function splitTitle() {
+    if (title.classList.contains("is-split")) return;
     const text = title.textContent.trim();
     const words = text.split(/ +/);
     title.textContent = "";
@@ -39,6 +43,11 @@
       title.append(outer);
       if (i < words.length - 1) title.append(" ");
     });
+    title.classList.add("is-split");
+  }
+  if (title && !reduce) {
+    (document.fonts?.ready ?? Promise.resolve()).then(splitTitle);
+    setTimeout(splitTitle, 1500);
   }
 
   /* ---------- Entrées au défilement ---------- */
