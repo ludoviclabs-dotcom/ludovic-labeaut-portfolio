@@ -47,27 +47,31 @@ Traduction dans la maquette :
 
 Chaque étape se termine par une vérification. On ne passe à la suivante que si elle est validée.
 
-### Étape 0 — Valider les textes
-- [ ] L'accroche et la phrase d'introduction.
-- [ ] Les six questions, les six réponses, le lien avec le master.
-- [ ] Les trois règles de méthode (sourcé, reproductible, explicable).
-- [ ] Le message « maîtrise + agilité » et les deux familles de projets.
+### Étape 0 — Valider les textes ✅ (17 nov. 2026)
+- [x] L'accroche et la phrase d'introduction.
+- [x] Les six questions, les six réponses, le lien avec le master.
+- [x] Les trois règles de méthode (sourcé, reproductible, explicable).
+- [x] Le message « maîtrise + agilité » et les deux familles de projets.
+- Décisions : Carbon&Co reste dans « Cœur de métier » (4 + 2). Sous-titre des questions : « Chaque question mobilise une compétence du master… ». Lien master de Panoplie : « …hors des secteurs classiques : la même méthode d'analyse des coûts, appliquée à l'industrie de défense. »
 - **Fini quand** : les textes français sont figés.
 
-### Étape 1 — Figer la maquette
-- [ ] Ajuster les trois planches selon les retours.
-- [ ] Choisir le nom et l'adresse de la page (proposition : `/fil-rouge`).
+### Étape 1 — Figer la maquette ✅
+- [x] Tags de droite alignés (colonnes fixes), plus de mot ou de `?` isolé à la ligne, micro-labels remontés à `#a8a399` (WCAG AA).
+- [x] Section « Maîtriser un métier… » et les trois règles de méthode sous les six questions.
+- [x] Adresse de la page : `/fil-rouge`.
 - **Fini quand** : les trois planches sont validées.
 
-### Étape 2 — Une seule source pour les textes
-- [ ] Créer `public/data/fil-rouge.json` : six entrées (question, réponse, lien, matières, couleur).
-- [ ] Ajouter la traduction dans `i18n/en/`.
+### Étape 2 — Une seule source pour les textes ✅
+- [x] `public/data/fil-rouge.json` : tous les textes, en français et en anglais (accroche, trois C, six projets, deux familles, trois règles).
+- [x] `scripts/build-fil-rouge.mjs` (`npm run fil-rouge`) écrit les textes dans les pages et leurs traductions dans `i18n/en/`. `npm run fil-rouge -- --check` vérifie que rien n'a divergé.
+- À relire à l'étape 4 : le champ `montre` (« ce que le projet montre ») des cinq projets autres que Probant a été rédigé après la maquette.
 - **Fini quand** : un même texte n'est écrit qu'à un seul endroit.
 
-### Étape 3 — Niveau 1 : l'accueil
-- [ ] Ajouter la question dans chaque panneau de `public/index.html`, en HTML simple.
-- [ ] Ajouter le lien « Pourquoi ces projets ? » dans l'en-tête.
-- [ ] Vérifier que l'alignement sur les diagonales et les diaporamas ne bougent pas.
+### Étape 3 — Niveau 1 : l'accueil ✅ (sauf le lien d'en-tête)
+- [x] La question de chaque projet est ajoutée à son panneau de `public/index.html`, en HTML simple (visible sans JavaScript).
+- [ ] Lien « Pourquoi ces projets ? » dans l'en-tête : **reporté à l'étape 5**, une fois la page `/fil-rouge` créée (sinon le lien mènerait à une erreur 404). Le texte est déjà dans le JSON (`lien_page`).
+- [x] L'alignement sur les diagonales, le survol et les diaporamas fonctionnent (contrôlés à 1100, 1280, 1366 et 1440 px de large, en français et en anglais).
+- [x] Mobile : la hauteur minimale des panneaux passe de 460 à 640 px. Avec la question ajoutée, le panneau Publications a besoin d'environ 625 px ; en dessous, sa description était rognée sur les écrans courts (375×667).
 - **Fini quand** : l'accueil s'affiche correctement sur ordinateur et à 375 px de large.
 
 ### Étape 4 — Niveau 2 : les pages projet
@@ -94,6 +98,17 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - [ ] Test Playwright : les questions s'ouvrent, les liens mènent au bon projet, aucune erreur dans la console, en FR et en EN, sur ordinateur et sur mobile.
 - [ ] Branche `claude/laughing-dirac-uoxti8`, prévisualisation Vercel à relire.
 - [ ] Pull request uniquement sur demande.
+
+## Commandes
+
+| Commande | Rôle |
+|---|---|
+| `npm run fil-rouge` | écrit les textes de `public/data/fil-rouge.json` dans les pages et dans `i18n/en/` |
+| `npm run fil-rouge -- --check` | vérifie que les pages sont à jour (code 1 sinon) |
+| `npm run en` | régénère `public/en/` |
+| `npm run dev` | sert le site sur http://localhost:3000 |
+
+Ordre à suivre après une modification de texte : modifier le JSON, `npm run fil-rouge`, `npm run en`.
 
 ## Ordre conseillé
 
