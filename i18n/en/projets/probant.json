@@ -11,5 +11,13 @@
   "Doublons, hors période, séquence rompue": "Duplicates, out-of-period entries, broken sequences",
   "Un dossier opposable, scellé et horodaté": "An audit-ready file, sealed and time-stamped",
   "Le rapport prêt pour l'audit": "The report, ready for the audit",
-  "Ouvrir l'application<span class=\"visually-hidden\"> Probant (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> Probant (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+  "Ouvrir l'application<span class=\"visually-hidden\"> Probant (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> Probant (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>",
+  "Pourquoi ce projet": "Why this project",
+  "Cœur de métier": "Core profession",
+  "La question": "The question",
+  "Peut-on prouver qu’une comptabilité est fiable ?": "Can an accounting record be proven reliable?",
+  "Le lien avec le master": "The link with the master",
+  "L’audit, cœur du master : ne rien affirmer sans élément de preuve.": "Audit, the core of the master: assert nothing without evidence.",
+  "Ce que le projet montre": "What the project shows",
+  "Une méthode d’audit transformée en outil que l’on peut utiliser.": "An audit method turned into a tool that can actually be used."
 }

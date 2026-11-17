@@ -30,6 +30,12 @@
     }
   },
 
+  "projet_page": {
+    "titre": { "fr": "Pourquoi ce projet", "en": "Why this project" },
+    "label_lien": { "fr": "Le lien avec le master", "en": "The link with the master" },
+    "label_montre": { "fr": "Ce que le projet montre", "en": "What the project shows" }
+  },
+
   "familles": {
     "titre": { "fr": "Maîtriser un métier, et savoir apprendre un sujet neuf.", "en": "Mastering a profession, and learning a new subject." },
     "coeur": {

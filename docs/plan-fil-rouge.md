@@ -74,8 +74,13 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - [x] Mobile : la hauteur minimale des panneaux passe de 460 à 640 px. Avec la question ajoutée, le panneau Publications a besoin d'environ 625 px ; en dessous, sa description était rognée sur les écrans courts (375×667).
 - **Fini quand** : l'accueil s'affiche correctement sur ordinateur et à 375 px de large.
 
-### Étape 4 — Niveau 2 : les pages projet
-- [ ] Ajouter le bloc « Pourquoi ce projet » dans les six fichiers de `public/projets/`.
+### Étape 4 — Niveau 2 : les pages projet ✅
+- [x] Bloc « Pourquoi ce projet » dans les six fichiers de `public/projets/` (et leurs versions anglaises), écrit par `npm run fil-rouge`.
+- Contenu : l'étiquette de famille (Cœur de métier / Terrain d'actualité), la question, le lien avec le master, ce que le projet montre.
+- Emplacement : après la démonstration (et après les planches de Panoplie), juste avant « Ouvrir l'application ». La vidéo reste ainsi visible dès l'arrivée sur la page.
+- Style dans `public/assets/css/project.css` : filet et titre dans la couleur du projet, trois colonnes sur ordinateur, une seule sur mobile.
+- Contrôlé à 390 et 1440 px de large, en français et en anglais : aucun débordement, aucune erreur dans la console.
+- [ ] Lien « Lire le fil rouge » vers `/fil-rouge` : à ajouter à l'étape 5, avec la page.
 - **Fini quand** : les six pages affichent le bloc, avec la couleur du projet.
 
 ### Étape 5 — Niveau 3 : la page « Le fil rouge »

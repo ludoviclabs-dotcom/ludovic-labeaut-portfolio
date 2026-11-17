@@ -11,5 +11,13 @@
   "Signaler": "Flag",
   "Signaux de vigilance expliqués, jamais une qualification de fraude": "Explained risk signals, never a finding of fraud",
   "Journal chaîné par empreinte SHA-256, export PDF, JSON et pack ZIP": "SHA-256 hash-chained log, PDF, JSON and ZIP pack export",
-  "Ouvrir l'application<span class=\"visually-hidden\"> KYB Graph (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> KYB Graph (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+  "Ouvrir l'application<span class=\"visually-hidden\"> KYB Graph (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> KYB Graph (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>",
+  "Pourquoi ce projet": "Why this project",
+  "Cœur de métier": "Core profession",
+  "La question": "The question",
+  "Qui se trouve vraiment derrière une société ?": "Who is really behind a company?",
+  "Le lien avec le master": "The link with the master",
+  "Le droit des sociétés et l’audit : savoir à qui l’on a affaire avant de s’engager.": "Company law and audit: knowing who you are dealing with before committing.",
+  "Ce que le projet montre": "What the project shows",
+  "Chaque lien annoncé est accompagné de sa preuve et de son niveau de confiance.": "Every link comes with its evidence and its confidence level."
 }
