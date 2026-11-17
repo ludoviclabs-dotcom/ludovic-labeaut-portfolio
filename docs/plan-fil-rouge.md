@@ -126,9 +126,15 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - **Fini quand** : `/en/` affiche les trois niveaux sans texte français oublié.
 
 ### Étape 8 — Tests et mise en ligne
-- [ ] Test Playwright : les questions s'ouvrent, les liens mènent au bon projet, aucune erreur dans la console, en FR et en EN, sur ordinateur et sur mobile.
-- [ ] Branche `claude/laughing-dirac-uoxti8`, prévisualisation Vercel à relire.
+- [x] `npm test` (`scripts/test-fil-rouge.mjs`), sans nouvelle dépendance : 63 contrôles en FR et EN, environ 1 min 30.
+  - Fichiers : pages à jour par rapport au JSON, pages anglaises régénérées, liens internes valides.
+  - Navigateur (si Playwright est installé ; sinon ces contrôles sont ignorés et le message le dit) : enchaînement des questions, Pause, clic, Entrée, réponses fermées hors du parcours clavier, contenu apparu au défilement, « réduire les animations », sans JavaScript, décalage de mise en page, débordements (375 à 1440 px), descriptions mobiles non rognées, bloc et lien sur les six pages projet, erreurs de console.
+  - Vérifié : une modification du JSON non régénérée fait bien échouer les tests.
+- [x] README : section « Le fil rouge » (comment modifier un texte) et fichiers ajoutés.
+- [x] Branche `claude/laughing-dirac-uoxti8` poussée.
+- [ ] Prévisualisation Vercel à relire **par toi** : les adresses `*.vercel.app` sont bloquées par le réseau de la session de travail, elle n'a pas pu l'ouvrir. À vérifier : l'adresse `/fil-rouge` (sans `.html`), les animations, le lien de l'accueil, et un Lighthouse sur la prévisualisation.
 - [ ] Pull request uniquement sur demande.
+- [ ] Hors projet, à décider : adresses complètes dans les liens `hreflang` (SEO 90 → 100 sur tout le site) ; il faut le domaine de production.
 
 ## Commandes
 

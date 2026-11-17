@@ -15,6 +15,23 @@ et un bouton **Voir le projet** qui ouvre la version en ligne dans un nouvel ong
 | KYB GRAPH — Cartographie de conformité | LCB-FT & AMLR / Niveaux de preuve / Sources publiques | https://kyb-graph.vercel.app |
 | PUBLICATIONS — Recherche & articles | Géopolitique / Géoéconomie / Defense-Tech | `/publications` (sur ce site) |
 
+## Le fil rouge : pourquoi ces projets
+
+Le portfolio relie chaque projet au Master Comptabilité, Contrôle, Audit (NEOMA BS) par une question,
+sur trois niveaux de lecture : la question sur chaque panneau de l'accueil, le bloc « Pourquoi ce
+projet » sur chaque page projet, et la page `/fil-rouge` (lien « Pourquoi ces projets ? » dans la barre).
+
+Tous ces textes, en français et en anglais, viennent d'un seul fichier : `public/data/fil-rouge.json`.
+Pour en changer un :
+
+1. modifier `public/data/fil-rouge.json` ;
+2. `npm run fil-rouge` (écrit les blocs dans les pages, régénère `public/fil-rouge.html` et les traductions) ;
+3. `npm run en` (régénère `public/en/`) ;
+4. `npm test` (vérifie les fichiers, puis le comportement dans un navigateur si Playwright est installé).
+
+Ne pas modifier à la main `public/fil-rouge.html` ni les blocs entre `<!-- fil-rouge:… -->` et
+`<!-- /fil-rouge:… -->` : ils seraient écrasés. Plan et historique : `docs/plan-fil-rouge.md`.
+
 ## Structure
 
 ```
@@ -31,6 +48,11 @@ public/                    site statique servi par Vercel
   dossiers/<nom>/          dossiers interactifs (robotique : page, moteur dash.js, données JSON ;
                            quantique : page, moteur/, figures/, générés par import-quantique.mjs)
   assets/css/publications.css  style de la page /publications
+  data/fil-rouge.json      textes du fil rouge (FR et EN), source unique
+  fil-rouge.html           page /fil-rouge (générée par scripts/build-fil-rouge.mjs)
+  assets/css/fil-rouge.css, assets/js/fil-rouge.js  style et animations de la page /fil-rouge
+scripts/build-fil-rouge.mjs  écrit les textes du fil rouge dans les pages (npm run fil-rouge)
+scripts/test-fil-rouge.mjs   tests du fil rouge, fichiers et navigateur (npm test)
 scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence
 scripts/import-articles.mjs  publication des notes depuis Dropbox « Articles rédigés »
