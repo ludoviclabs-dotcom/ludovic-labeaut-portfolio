@@ -134,6 +134,18 @@ if (!playwright) {
   const overflowX = (p) => p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
 
   try {
+    // Langue retenue : la redirection reste sur le site consulté, même si les liens hreflang
+    // pointent vers le domaine de production.
+    {
+      const context = await browser.newContext();
+      await context.addInitScript(() => localStorage.setItem("ll-lang", "en"));
+      const p = await context.newPage();
+      await p.goto(`${origin}/fil-rouge`);
+      await p.waitForLoadState("load");
+      check(p.url() === `${origin}/en/fil-rouge`, "langue anglaise retenue : redirection vers /en/fil-rouge sur le même site", p.url());
+      await context.close();
+    }
+
     for (const lang of ["", "/en"]) {
       const L = lang ? "EN" : "FR";
       console.log(`\nNavigateur — /fil-rouge (${L})`);

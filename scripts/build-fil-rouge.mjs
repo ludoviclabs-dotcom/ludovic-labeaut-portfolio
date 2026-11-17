@@ -21,6 +21,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE_URL } from "./site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = path.join(ROOT, "public", "data", "fil-rouge.json");
@@ -337,9 +338,9 @@ function filRougePage() {
     `  <meta property="og:title" content="${escAttr(P.titre.fr)}">`,
     `  <meta property="og:description" content="${escAttr(P.og_description.fr)}">`,
     `  <link rel="icon" href="/favicon.svg" type="image/svg+xml">`,
-    `  <link rel="alternate" hreflang="fr" href="/fil-rouge">`,
-    `  <link rel="alternate" hreflang="en" href="/en/fil-rouge">`,
-    `  <link rel="alternate" hreflang="x-default" href="/fil-rouge">`,
+    `  <link rel="alternate" hreflang="fr" href="${SITE_URL}/fil-rouge">`,
+    `  <link rel="alternate" hreflang="en" href="${SITE_URL}/en/fil-rouge">`,
+    `  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/fil-rouge">`,
     `  <script src="/assets/js/lang.js"></script>`,
     `  <link rel="preconnect" href="https://fonts.googleapis.com">`,
     `  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`,

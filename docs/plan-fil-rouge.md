@@ -134,7 +134,10 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - [x] Branche `claude/laughing-dirac-uoxti8` poussée.
 - [ ] Prévisualisation Vercel à relire **par toi** : les adresses `*.vercel.app` sont bloquées par le réseau de la session de travail, elle n'a pas pu l'ouvrir. À vérifier : l'adresse `/fil-rouge` (sans `.html`), les animations, le lien de l'accueil, et un Lighthouse sur la prévisualisation.
 - [ ] Pull request uniquement sur demande.
-- [ ] Hors projet, à décider : adresses complètes dans les liens `hreflang` (SEO 90 → 100 sur tout le site) ; il faut le domaine de production.
+- [x] Hors projet, demandé ensuite : liens `hreflang` en adresses complètes sur le domaine de production `https://l-labs-portfolio.vercel.app` (défini une seule fois dans `scripts/site.mjs`).
+  - 32 pages françaises (96 liens) et leurs versions anglaises ; générateurs mis à jour (`import-articles.mjs`, `import-photos.mjs`, `build-fil-rouge.mjs`) pour qu'une régénération garde la correction.
+  - `lang.js` ne garde que le chemin de ces liens : la langue retenue redirige toujours sur le site consulté (prévisualisation, local), jamais vers la production. Contrôle ajouté à `npm test` (64 contrôles).
+  - Lighthouse SEO : 90 → 100 (accueil, `/fil-rouge`, Probant, publications, en français et en anglais).
 
 ## Commandes
 
