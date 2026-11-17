@@ -10,6 +10,20 @@ Le visiteur doit comprendre en quelques secondes pourquoi ces six projets existe
 - **Une question par projet** : chaque projet répond à une question que pose le master.
 - **Aucun détail de cursus** : pas de liste de cours, pas de codes UE. Au plus deux matières citées par projet, sur la page « Le fil rouge » uniquement.
 
+## Deux façons de le prouver
+
+Panoplie et Publications font partie du fil rouge : ils portent des sujets d'actualité, nouveaux et porteurs (défense, géopolitique, quantique, robotique, nutraceutique). Ils montrent la polyvalence et la capacité à apprendre un domaine neuf avec la même exigence.
+
+| Famille | Projets | Ce qu'elle montre |
+|---|---|---|
+| Cœur de métier | Probant, FinValStudio, Carbon&Co, KYB Graph | La maîtrise : les matières du master transformées en outils |
+| Terrains d'actualité | Panoplie, Publications | L'agilité : « le master apprend une méthode, pas un secteur » |
+
+Traduction dans la maquette :
+- un repère « Cœur de métier » ou « Terrain d'actualité » sur chacune des six questions ;
+- une étiquette « Terrain d'actualité » sur les panneaux Panoplie et Publications de l'accueil ;
+- une section « Maîtriser un métier, et savoir apprendre un sujet neuf » sur la page « Le fil rouge ».
+
 ## Trois niveaux de lecture
 
 | Niveau | Où | Temps de lecture | Contenu |
@@ -26,8 +40,8 @@ Le visiteur doit comprendre en quelques secondes pourquoi ces six projets existe
 | FinValStudio | Combien vaut une entreprise, et avec quelle marge d'erreur ? | Finance d'entreprise |
 | Carbon&Co | Comment rendre compte de ce qui ne se compte pas en euros ? | Reporting de durabilité |
 | KYB Graph | Qui se trouve vraiment derrière une société ? | Droit des sociétés et audit |
-| Panoplie | Que coûte réellement un système de défense ? | Contrôle de gestion et stratégie |
-| Publications | Dans quel monde ces entreprises évoluent-elles ? | Méthode du mémoire |
+| Panoplie | Que coûte réellement un système de défense ? | Contrôle de gestion, appliqué à un secteur d'actualité |
+| Publications | Dans quel monde ces entreprises évoluent-elles ? | Méthode du mémoire, appliquée à des sujets neufs |
 
 ## Étapes
 
@@ -37,6 +51,7 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - [ ] L'accroche et la phrase d'introduction.
 - [ ] Les six questions, les six réponses, le lien avec le master.
 - [ ] Les trois règles de méthode (sourcé, reproductible, explicable).
+- [ ] Le message « maîtrise + agilité » et les deux familles de projets.
 - **Fini quand** : les textes français sont figés.
 
 ### Étape 1 — Figer la maquette
