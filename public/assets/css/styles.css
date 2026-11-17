@@ -507,6 +507,43 @@ body {
   font-weight: 500;
 }
 
+/* Question du projet (« fil rouge ») : toujours visible, entre les axes et la description. */
+.panel__question {
+  max-width: 100%;
+  margin-top: 1.4rem;
+  animation: rise 0.9s var(--ease) calc(1.9s + var(--i) * 0.12s) both;
+}
+
+.panel__question-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.panel__question-label::before {
+  content: "";
+  display: block;
+  width: 1.6rem;
+  height: 1px;
+  margin: 0 auto 0.6rem;
+  background: var(--accent);
+}
+
+.panel__question-text {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1rem, 8.4cqi, 1.3rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--ink);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+}
+
 .panel__desc {
   max-width: 32ch;
   max-height: 0;
@@ -759,7 +796,9 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
 
   .panel {
     flex: none;
-    height: clamp(460px, 74svh, 680px);
+    /* 640 px au minimum : le panneau le plus chargé (Publications) a besoin de ~625 px
+       avec la question du projet, sinon sa description est rognée sur les écrans courts. */
+    height: clamp(640px, 74svh, 680px);
     transform: skewY(calc(var(--angle-y) * -1));
   }
 
@@ -812,6 +851,8 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
 
   .panel__axes { font-size: 0.66rem; }
 
+  .panel__question-text { font-size: 1.2rem; }
+
   .panel__desc {
     max-height: none;
     margin-top: 1rem;
@@ -823,6 +864,7 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
   .panel__title,
   .panel__subtitle,
   .panel__axes li,
+  .panel__question,
   .panel__cta,
   .panel__more,
   .panel__foot,
@@ -972,6 +1014,57 @@ a.panel__cta:hover .panel__arrow { transform: translate(2px, -2px); }
 .intro-open:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
+}
+
+/* « Pourquoi ces projets ? » : même pastille que Présentation, en plein, pour être vue en premier. */
+.topbar__why {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 600 0.64rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.topbar__why:hover {
+  background: rgba(11, 12, 14, 0.55);
+  color: var(--ink);
+}
+
+.topbar__why:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Écrans moyens : la pastille prend la place du compteur décoratif « 06 projets »,
+   le nom passe au-dessus du métier (comme sur mobile) et les boutons vont à la ligne
+   plutôt que de déborder (sinon la barre dépasse entre 821 et ~930 px de large). */
+@media (min-width: 821px) and (max-width: 1180px) {
+  .topbar { align-items: flex-start; }
+
+  .topbar__count { display: none; }
+
+  .brand {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .brand__name,
+  .brand__role,
+  .topbar__link { white-space: nowrap; }
+
+  .topbar__right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.6rem 0.9rem;
+  }
 }
 
 .intro-open__icon {

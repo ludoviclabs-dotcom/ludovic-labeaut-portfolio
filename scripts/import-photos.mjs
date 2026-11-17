@@ -23,6 +23,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import { SITE_URL } from "./site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_IMAGES = path.join(ROOT, "public", "images");
@@ -183,9 +184,9 @@ function creditsPage(rows) {
   <title>Crédits photo — Ludovic Labeaut</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="alternate" hreflang="fr" href="/credits">
-  <link rel="alternate" hreflang="en" href="/en/credits">
-  <link rel="alternate" hreflang="x-default" href="/credits">
+  <link rel="alternate" hreflang="fr" href="${SITE_URL}/credits">
+  <link rel="alternate" hreflang="en" href="${SITE_URL}/en/credits">
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/credits">
   <script src="/assets/js/lang.js"></script>
   <style>
     :root { color-scheme: dark; --ink: #f4f1ea; --dim: rgba(244, 241, 234, 0.62); --line: rgba(244, 241, 234, 0.14); }

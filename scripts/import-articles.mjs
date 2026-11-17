@@ -25,6 +25,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
+import { SITE_URL } from "./site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "public", "publications");
@@ -241,9 +242,9 @@ const BAR_STYLE = `<style id="lf-bar">
 </style>`;
 // Versions française et anglaise d'une page (l'anglaise est générée par npm run en).
 const alternates = (fr) =>
-  `<link rel="alternate" hreflang="fr" href="${fr}">
-<link rel="alternate" hreflang="en" href="/en${fr}">
-<link rel="alternate" hreflang="x-default" href="${fr}">
+  `<link rel="alternate" hreflang="fr" href="${SITE_URL}${fr}">
+<link rel="alternate" hreflang="en" href="${SITE_URL}/en${fr}">
+<link rel="alternate" hreflang="x-default" href="${SITE_URL}${fr}">
 <script src="/assets/js/lang.js"></script>`;
 
 const langSwitch = (fr, indent = "") =>

@@ -14,5 +14,14 @@
   "Monte Carlo : 5 000 tirages, P10, médiane et P90": "Monte Carlo: 5,000 draws, P10, median and P90",
   "Conclure": "Conclude",
   "LBO : désendettement, TRI et multiple du sponsor": "LBO: deleveraging, IRR and sponsor money multiple",
-  "Ouvrir l'application<span class=\"visually-hidden\"> FinValStudio (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> FinValStudio (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>"
+  "Ouvrir l'application<span class=\"visually-hidden\"> FinValStudio (nouvel onglet)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>": "Open the app<span class=\"visually-hidden\"> FinValStudio (new tab)</span> <svg class=\"pj-cta__arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 12 12 4M6 4h6v6\"/></svg>",
+  "Pourquoi ce projet": "Why this project",
+  "Cœur de métier": "Core expertise",
+  "La question": "The question",
+  "Combien vaut une entreprise, et avec quelle marge d’erreur ?": "What is a company worth, and with what margin of error?",
+  "Le lien avec le master": "Link to the Master's",
+  "La finance d’entreprise : une valeur est une hypothèse qu’il faut savoir défendre.": "Corporate finance: a valuation is an assumption you must be able to defend.",
+  "Ce que le projet montre": "What the project shows",
+  "Une valeur présentée avec ses hypothèses et sa marge d’erreur, pas un chiffre isolé.": "A valuation shown with its assumptions and margin of error, not an isolated figure.",
+  "Lire le fil rouge": "Read the common thread"
 }

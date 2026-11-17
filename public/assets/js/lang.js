@@ -21,9 +21,12 @@
   }
 
   if ((wanted === "fr" || wanted === "en") && wanted !== current) {
-    const target = document.querySelector(`link[rel="alternate"][hreflang="${wanted}"]`)?.getAttribute("href");
+    const href = document.querySelector(`link[rel="alternate"][hreflang="${wanted}"]`)?.getAttribute("href");
+    // Les liens hreflang sont des adresses complètes (domaine de production) : on n'en garde que
+    // le chemin, pour rester sur le site consulté (prévisualisation Vercel, local…).
+    const target = href ? new URL(href, location.href).pathname : null;
     if (target && target !== location.pathname) {
-      location.replace(target + location.hash);
+      location.replace(target + location.search + location.hash);
       return;
     }
   }

@@ -1,0 +1,219 @@
+{
+  "_note": "Source unique des textes « fil rouge » (justification du portfolio par le Master CCA). Textes validés à l'étape 0. Les pages en sont générées : npm run fil-rouge, puis npm run en. Ne pas modifier les textes ailleurs.",
+  "version": 1,
+
+  "accroche": {
+    "fr": "Un chiffre ne vaut que s’il peut être prouvé.",
+    "en": "A figure is only worth something if it can be proven."
+  },
+  "intro": {
+    "fr": "C’est l’exigence du Master Comptabilité, Contrôle, Audit. Ce portfolio l’applique à six terrains, des plus classiques aux plus nouveaux : la méthode est celle du master, les sujets sont ceux d’aujourd’hui.",
+    "en": "That is the standard of the Master's in Accounting, Control and Audit. This portfolio applies it to six fields, from the most established to the newest: the method comes from the Master's, the subjects from today's world."
+  },
+  "lien_page": {
+    "fr": "Pourquoi ces projets ?",
+    "en": "Why these projects?"
+  },
+
+  "page": {
+    "titre": { "fr": "Le fil rouge — Ludovic Labeaut", "en": "The common thread — Ludovic Labeaut" },
+    "description": {
+      "fr": "Pourquoi ces six projets : la méthode du Master Comptabilité, Contrôle, Audit, appliquée du cœur de métier aux sujets d’actualité.",
+      "en": "Why these six projects: the method of the Master's in Accounting, Control and Audit, applied from core expertise to topical subjects."
+    },
+    "og_description": {
+      "fr": "Un chiffre ne vaut que s’il peut être prouvé : six projets, une seule méthode.",
+      "en": "A figure is only worth something if it can be proven: six projects, one method."
+    },
+    "kicker": { "fr": "Pourquoi ce portfolio", "en": "Why this portfolio" },
+    "questions_kicker": { "fr": "Le fil rouge", "en": "The common thread" },
+    "pause": { "fr": "Pause", "en": "Pause" },
+    "reprendre": { "fr": "Reprendre", "en": "Resume" },
+    "reponse_label": { "fr": "La réponse", "en": "The answer" },
+    "matieres_label": { "fr": "Matières du master", "en": "Master's courses" },
+    "voir_projet": { "fr": "Voir le projet", "en": "View project" },
+    "familles_kicker": { "fr": "Deux façons de le prouver", "en": "Two ways to prove it" },
+    "projets_mot": { "fr": "projets", "en": "projects" },
+    "methode_kicker": { "fr": "La méthode", "en": "The method" },
+    "mention": {
+      "fr": "Master CCA · NEOMA Business School · parcours préparant au DSCG",
+      "en": "Master CCA · NEOMA Business School · DSCG preparation track"
+    },
+    "cta": { "fr": "Voir les six projets", "en": "View all six projects" }
+  },
+
+  "trois_c": [
+    { "id": "comptabilite", "lettre": "C", "label": { "fr": "Comptabilité", "en": "Accounting" }, "verbe": { "fr": "Compter", "en": "Count" }, "phrase": { "fr": "Mesurer juste.", "en": "Measure accurately." } },
+    { "id": "controle", "lettre": "C", "label": { "fr": "Contrôle", "en": "Control" }, "verbe": { "fr": "Contrôler", "en": "Control" }, "phrase": { "fr": "Décider sur des chiffres fiables.", "en": "Base decisions on reliable figures." } },
+    { "id": "audit", "lettre": "A", "label": { "fr": "Audit", "en": "Audit" }, "verbe": { "fr": "Auditer", "en": "Audit" }, "phrase": { "fr": "Prouver ce que l’on avance.", "en": "Prove what you claim." } }
+  ],
+
+  "questions": {
+    "ordre": ["probant", "finvalstudio", "carbon-co", "kyb-graph", "panoplie", "publications"],
+    "label": { "fr": "La question", "en": "The question" },
+    "titre": { "fr": "Six questions, six projets", "en": "Six questions, six projects" },
+    "sous_titre": {
+      "fr": "Chaque question mobilise une compétence du master. Ouvrez-en une pour voir le projet qui y répond.",
+      "en": "Each question draws on a skill from the Master's. Open one to see the project that answers it."
+    }
+  },
+
+  "projet_page": {
+    "titre": { "fr": "Pourquoi ce projet", "en": "Why this project" },
+    "label_lien": { "fr": "Le lien avec le master", "en": "Link to the Master's" },
+    "label_montre": { "fr": "Ce que le projet montre", "en": "What the project shows" },
+    "lien_fil": { "fr": "Lire le fil rouge", "en": "Read the common thread" }
+  },
+
+  "familles": {
+    "titre": { "fr": "Maîtriser un métier, et savoir apprendre un sujet neuf.", "en": "Mastering a profession, and knowing how to learn a new subject." },
+    "coeur": {
+      "label": { "fr": "Cœur de métier", "en": "Core expertise" },
+      "titre": { "fr": "La maîtrise", "en": "Mastery" },
+      "texte": {
+        "fr": "Audit, valorisation, reporting de durabilité, conformité : les matières du master, transformées en outils que l’on peut utiliser dès le premier jour.",
+        "en": "Audit, valuation, sustainability reporting, compliance: the Master's subjects, turned into tools that can be used from day one."
+      }
+    },
+    "actualite": {
+      "label": { "fr": "Terrain d’actualité", "en": "Topical field" },
+      "titre": { "fr": "L’agilité", "en": "Agility" },
+      "texte": {
+        "fr": "Défense, géopolitique, quantique, robotique, nutraceutique : des domaines neufs et porteurs, abordés avec la même exigence. Le master apprend une méthode, pas un secteur.",
+        "en": "Defence, geopolitics, quantum, robotics, nutraceuticals: new and promising fields, approached with the same rigour. The Master's teaches a method, not a sector."
+      }
+    }
+  },
+
+  "methode": {
+    "titre": { "fr": "Six terrains, une seule méthode", "en": "Six fields, one method" },
+    "regles": [
+      { "id": "source", "titre": { "fr": "Sourcé", "en": "Sourced" }, "texte": { "fr": "Chaque donnée renvoie à son origine.", "en": "Every figure points back to its origin." } },
+      { "id": "reproductible", "titre": { "fr": "Reproductible", "en": "Reproducible" }, "texte": { "fr": "Chaque résultat peut être recalculé.", "en": "Every result can be recalculated." } },
+      { "id": "explicable", "titre": { "fr": "Explicable", "en": "Explainable" }, "texte": { "fr": "Chaque conclusion se justifie.", "en": "Every conclusion can be justified." } }
+    ]
+  },
+
+  "projets": [
+    {
+      "id": "carbon-co",
+      "nom": "Carbon&Co",
+      "famille": "coeur",
+      "accent": "#84c89a",
+      "question": { "fr": "Comment rendre compte de ce qui ne se compte pas en euros ?", "en": "How do you report on what cannot be counted in euros?" },
+      "reponse": {
+        "fr": "Carbon&Co collecte les données ESG, calcule l’empreinte carbone et produit les rapports exigés par la réglementation européenne.",
+        "en": "Carbon&Co collects ESG data, calculates the carbon footprint and produces the reports required by European regulation."
+      },
+      "lien_master": {
+        "fr": "Le reporting de durabilité : la rigueur des comptes, appliquée au carbone.",
+        "en": "Sustainability reporting: the rigour of financial accounts, applied to carbon."
+      },
+      "matieres": { "fr": ["Sustainable Reporting", "Governance and CSR"], "en": ["Sustainable Reporting", "Governance and CSR"] },
+      "montre": {
+        "fr": "Des données non financières traitées avec la rigueur d’une comptabilité.",
+        "en": "Non-financial data handled with the rigour of an accounting system."
+      }
+    },
+    {
+      "id": "probant",
+      "nom": "Probant",
+      "famille": "coeur",
+      "accent": "#829bed",
+      "question": { "fr": "Peut-on prouver qu’une comptabilité est fiable ?", "en": "Can a set of accounts be proven reliable?" },
+      "reponse": {
+        "fr": "Probant analyse le fichier des écritures comptables d’une entreprise, repère les anomalies et assemble un dossier de preuve que l’on peut présenter à un tiers.",
+        "en": "Probant analyses a company's FEC general-ledger file, flags anomalies and assembles an audit-ready evidence file that can be presented to a third party."
+      },
+      "lien_master": {
+        "fr": "L’audit, cœur du master : ne rien affirmer sans élément de preuve.",
+        "en": "Audit, the heart of the Master's: assert nothing without evidence."
+      },
+      "matieres": { "fr": ["Audit financier", "Accounting under IFRS"], "en": ["Financial audit", "Accounting under IFRS"] },
+      "montre": {
+        "fr": "Une méthode d’audit transformée en outil que l’on peut utiliser.",
+        "en": "An audit method turned into a tool that can actually be used."
+      }
+    },
+    {
+      "id": "panoplie",
+      "nom": "Panoplie",
+      "famille": "actualite",
+      "accent": "#7fb0dc",
+      "question": { "fr": "Que coûte réellement un système de défense ?", "en": "What does a defence system really cost?" },
+      "reponse": {
+        "fr": "Panoplie rassemble, à partir de sources ouvertes, le coût réel, la chaîne industrielle et les dépendances des grands programmes de défense : un secteur en pleine accélération.",
+        "en": "Panoplie gathers, from open sources, the real cost, industrial chain and dependencies of major defence programmes: a sector that is rapidly accelerating."
+      },
+      "lien_master": {
+        "fr": "Le contrôle de gestion hors des secteurs classiques : la même méthode d’analyse des coûts, appliquée à l’industrie de défense.",
+        "en": "Management control beyond traditional sectors: the same cost-analysis method, applied to the defence industry."
+      },
+      "matieres": { "fr": ["Stratégie et contrôle de gestion", "Diagnostic financier approfondi"], "en": ["Strategy and management control", "Advanced financial analysis"] },
+      "montre": {
+        "fr": "Une méthode de coûts qui tient hors de la finance, sur un sujet d’actualité.",
+        "en": "A cost method that holds up outside finance, on a topical subject."
+      }
+    },
+    {
+      "id": "finvalstudio",
+      "nom": "FinValStudio",
+      "famille": "coeur",
+      "accent": "#e2c27d",
+      "question": { "fr": "Combien vaut une entreprise, et avec quelle marge d’erreur ?", "en": "What is a company worth, and with what margin of error?" },
+      "reponse": {
+        "fr": "FinValStudio construit des modèles financiers complets, valorise l’entreprise selon plusieurs méthodes et teste des milliers de scénarios.",
+        "en": "FinValStudio builds complete financial models, values the company using several methods and tests thousands of scenarios."
+      },
+      "lien_master": {
+        "fr": "La finance d’entreprise : une valeur est une hypothèse qu’il faut savoir défendre.",
+        "en": "Corporate finance: a valuation is an assumption you must be able to defend."
+      },
+      "matieres": { "fr": ["Évaluation d’entreprises", "Ingénierie financière"], "en": ["Business valuation", "Financial engineering"] },
+      "montre": {
+        "fr": "Une valeur présentée avec ses hypothèses et sa marge d’erreur, pas un chiffre isolé.",
+        "en": "A valuation shown with its assumptions and margin of error, not an isolated figure."
+      }
+    },
+    {
+      "id": "kyb-graph",
+      "nom": "KYB Graph",
+      "famille": "coeur",
+      "accent": "#6ccad0",
+      "question": { "fr": "Qui se trouve vraiment derrière une société ?", "en": "Who is really behind a company?" },
+      "reponse": {
+        "fr": "KYB Graph cartographie les liens entre sociétés, dirigeants, adresses et sanctions, et indique pour chaque lien son niveau de preuve.",
+        "en": "KYB Graph maps the links between companies, directors, addresses and sanctions, and shows the level of evidence behind each link."
+      },
+      "lien_master": {
+        "fr": "Le droit des sociétés et l’audit : savoir à qui l’on a affaire avant de s’engager.",
+        "en": "Company law and audit: knowing who you are dealing with before committing."
+      },
+      "matieres": { "fr": ["Droit de l’ingénierie sociétaire", "Audit financier"], "en": ["Corporate structuring law", "Financial audit"] },
+      "montre": {
+        "fr": "Chaque lien annoncé est accompagné de sa preuve et de son niveau de confiance.",
+        "en": "Every link comes with its evidence and its confidence level."
+      }
+    },
+    {
+      "id": "publications",
+      "nom": "Publications",
+      "famille": "actualite",
+      "accent": "#d97a5e",
+      "question": { "fr": "Dans quel monde ces entreprises évoluent-elles ?", "en": "What world do these companies operate in?" },
+      "reponse": {
+        "fr": "Lignes de force réunit vingt-trois notes d’analyse et trois dossiers interactifs sur la géopolitique, la géoéconomie, la robotique, le quantique et la nutraceutique.",
+        "en": "Lignes de force brings together twenty-three analysis notes and three interactive dossiers on geopolitics, geoeconomics, robotics, quantum and nutraceuticals."
+      },
+      "lien_master": {
+        "fr": "La méthode du mémoire, appliquée à des sujets neufs : apprendre vite, sourcer, dater, argumenter.",
+        "en": "The dissertation method, applied to new subjects: learn quickly, source, date and argue."
+      },
+      "matieres": { "fr": ["Mémoire", "Conférences et méthodologie"], "en": ["Dissertation", "Lectures and methodology"] },
+      "montre": {
+        "fr": "La capacité à comprendre vite un sujet neuf et à le rendre lisible.",
+        "en": "The ability to grasp a new subject quickly and make it readable."
+      }
+    }
+  ]
+}
