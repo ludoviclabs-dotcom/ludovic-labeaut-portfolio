@@ -535,6 +535,35 @@ body {
   text-wrap: pretty;
 }
 
+.pj-why__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  margin-top: 1.75rem;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.6em;
+}
+
+.pj-why__more::after {
+  content: "→";
+  color: var(--accent);
+  transition: translate 0.3s var(--ease);
+}
+
+.pj-why__more:hover::after { translate: 4px 0; }
+
+.pj-why__more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 @media (max-width: 900px) {
   .pj-why__grid { grid-template-columns: minmax(0, 1fr); }
 

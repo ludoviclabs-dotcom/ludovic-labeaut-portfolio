@@ -15,13 +15,41 @@
     "en": "Why these projects?"
   },
 
+  "page": {
+    "titre": { "fr": "Le fil rouge — Ludovic Labeaut", "en": "The common thread — Ludovic Labeaut" },
+    "description": {
+      "fr": "Pourquoi ces six projets : la méthode du Master Comptabilité, Contrôle, Audit, appliquée du cœur de métier aux sujets d’actualité.",
+      "en": "Why these six projects: the method of the Master in Accounting, Control and Audit, applied from the core profession to current topics."
+    },
+    "og_description": {
+      "fr": "Un chiffre ne vaut que s’il peut être prouvé : six projets, une seule méthode.",
+      "en": "A figure is only worth what can be proven: six projects, one method."
+    },
+    "kicker": { "fr": "Pourquoi ce portfolio", "en": "Why this portfolio" },
+    "questions_kicker": { "fr": "Le fil rouge", "en": "The common thread" },
+    "pause": { "fr": "Pause", "en": "Pause" },
+    "reprendre": { "fr": "Reprendre", "en": "Resume" },
+    "reponse_label": { "fr": "La réponse", "en": "The answer" },
+    "matieres_label": { "fr": "Matières du master", "en": "Master's courses" },
+    "voir_projet": { "fr": "Voir le projet", "en": "View project" },
+    "familles_kicker": { "fr": "Deux façons de le prouver", "en": "Two ways to prove it" },
+    "projets_mot": { "fr": "projets", "en": "projects" },
+    "methode_kicker": { "fr": "La méthode", "en": "The method" },
+    "mention": {
+      "fr": "Master CCA · NEOMA Business School · parcours préparant au DSCG",
+      "en": "Master CCA · NEOMA Business School · track preparing for the DSCG"
+    },
+    "cta": { "fr": "Voir les six projets", "en": "See the six projects" }
+  },
+
   "trois_c": [
-    { "id": "comptabilite", "label": { "fr": "Comptabilité", "en": "Accounting" }, "verbe": { "fr": "Compter", "en": "Count" }, "phrase": { "fr": "Mesurer juste.", "en": "Measure accurately." } },
-    { "id": "controle", "label": { "fr": "Contrôle", "en": "Control" }, "verbe": { "fr": "Contrôler", "en": "Control" }, "phrase": { "fr": "Décider sur des chiffres fiables.", "en": "Decide on reliable figures." } },
-    { "id": "audit", "label": { "fr": "Audit", "en": "Audit" }, "verbe": { "fr": "Auditer", "en": "Audit" }, "phrase": { "fr": "Prouver ce que l’on avance.", "en": "Prove what you claim." } }
+    { "id": "comptabilite", "lettre": "C", "label": { "fr": "Comptabilité", "en": "Accounting" }, "verbe": { "fr": "Compter", "en": "Count" }, "phrase": { "fr": "Mesurer juste.", "en": "Measure accurately." } },
+    { "id": "controle", "lettre": "C", "label": { "fr": "Contrôle", "en": "Control" }, "verbe": { "fr": "Contrôler", "en": "Control" }, "phrase": { "fr": "Décider sur des chiffres fiables.", "en": "Decide on reliable figures." } },
+    { "id": "audit", "lettre": "A", "label": { "fr": "Audit", "en": "Audit" }, "verbe": { "fr": "Auditer", "en": "Audit" }, "phrase": { "fr": "Prouver ce que l’on avance.", "en": "Prove what you claim." } }
   ],
 
   "questions": {
+    "ordre": ["probant", "finvalstudio", "carbon-co", "kyb-graph", "panoplie", "publications"],
     "label": { "fr": "La question", "en": "The question" },
     "titre": { "fr": "Six questions, six projets", "en": "Six questions, six projects" },
     "sous_titre": {
@@ -33,7 +61,8 @@
   "projet_page": {
     "titre": { "fr": "Pourquoi ce projet", "en": "Why this project" },
     "label_lien": { "fr": "Le lien avec le master", "en": "The link with the master" },
-    "label_montre": { "fr": "Ce que le projet montre", "en": "What the project shows" }
+    "label_montre": { "fr": "Ce que le projet montre", "en": "What the project shows" },
+    "lien_fil": { "fr": "Lire le fil rouge", "en": "Read the common thread" }
   },
 
   "familles": {

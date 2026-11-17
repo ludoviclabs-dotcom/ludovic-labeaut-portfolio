@@ -69,7 +69,7 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 
 ### Étape 3 — Niveau 1 : l'accueil ✅ (sauf le lien d'en-tête)
 - [x] La question de chaque projet est ajoutée à son panneau de `public/index.html`, en HTML simple (visible sans JavaScript).
-- [ ] Lien « Pourquoi ces projets ? » dans l'en-tête : **reporté à l'étape 5**, une fois la page `/fil-rouge` créée (sinon le lien mènerait à une erreur 404). Le texte est déjà dans le JSON (`lien_page`).
+- [x] Lien « Pourquoi ces projets ? » dans l'en-tête : ajouté à l'étape 5, avec la page `/fil-rouge`.
 - [x] L'alignement sur les diagonales, le survol et les diaporamas fonctionnent (contrôlés à 1100, 1280, 1366 et 1440 px de large, en français et en anglais).
 - [x] Mobile : la hauteur minimale des panneaux passe de 460 à 640 px. Avec la question ajoutée, le panneau Publications a besoin d'environ 625 px ; en dessous, sa description était rognée sur les écrans courts (375×667).
 - **Fini quand** : l'accueil s'affiche correctement sur ordinateur et à 375 px de large.
@@ -80,13 +80,20 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - Emplacement : après la démonstration (et après les planches de Panoplie), juste avant « Ouvrir l'application ». La vidéo reste ainsi visible dès l'arrivée sur la page.
 - Style dans `public/assets/css/project.css` : filet et titre dans la couleur du projet, trois colonnes sur ordinateur, une seule sur mobile.
 - Contrôlé à 390 et 1440 px de large, en français et en anglais : aucun débordement, aucune erreur dans la console.
-- [ ] Lien « Lire le fil rouge » vers `/fil-rouge` : à ajouter à l'étape 5, avec la page.
+- [x] Lien « Lire le fil rouge » vers `/fil-rouge` : ajouté à l'étape 5.
 - **Fini quand** : les six pages affichent le bloc, avec la couleur du projet.
 
-### Étape 5 — Niveau 3 : la page « Le fil rouge »
-- [ ] Construire la page en HTML, CSS et JavaScript simples (aucune nouvelle dépendance).
-- [ ] Animations : apparition du titre, trait qui se dessine, questions qui s'ouvrent, défilement automatique qui s'arrête au premier clic.
-- [ ] Les animations se déclenchent quand la section entre à l'écran.
+### Étape 5 — Niveau 3 : la page « Le fil rouge » ✅
+- [x] `public/fil-rouge.html` (adresse `/fil-rouge`, et `/en/fil-rouge`), **entièrement générée** par `npm run fil-rouge` : ne pas la modifier à la main. Style dans `public/assets/css/fil-rouge.css`, comportement dans `public/assets/js/fil-rouge.js`. Aucune nouvelle dépendance, aucune police en plus.
+- [x] Contenu : accroche et Compter / Contrôler / Auditer ; les six questions (ordre : `questions.ordre` du JSON) ; les deux familles avec leurs projets ; les trois règles de méthode ; retour aux six projets.
+- [x] Animations : titre révélé mot à mot, filet qui se trace, sections qui entrent au défilement, séparateur des familles qui se trace.
+- [x] Questions : une seule ouverte à la fois ; elles s'ouvrent l'une après l'autre (7 s, barre de progression dans la couleur du projet). Le défilement s'arrête au premier clic ou dès que le clavier entre dans la liste, se met en pause hors écran et au survol, et un bouton Pause / Reprendre le contrôle (critère WCAG 2.2.2).
+- [x] Une réponse fermée est retirée du parcours clavier et des lecteurs d'écran. Exception assumée à la règle « opacité et déplacement seulement » : la hauteur de la réponse s'anime à l'ouverture.
+- [x] Sans JavaScript : tout est visible, toutes les réponses sont ouvertes. Si `fil-rouge.js` ne démarre pas dans les 2,5 s, les animations sont annulées et tout s'affiche.
+- [x] « Réduire les animations » : ni entrée animée, ni défilement automatique (le bouton Pause est alors masqué).
+- [x] Accueil : pastille « Pourquoi ces projets ? » dans la barre du haut. Entre 821 et 1180 px de large, le compteur décoratif « 06 projets » est masqué, le nom passe au-dessus du métier et les boutons vont à la ligne, sinon la barre débordait.
+- [x] Pages projet : lien « Lire le fil rouge » sous le bloc « Pourquoi ce projet ».
+- Contrôlé (navigateur réel) : défilement automatique, Pause, clic, clavier, mouvement réduit, sans JavaScript ; 375 et 1440 px, en français et en anglais ; barre de l'accueil de 360 à 1440 px. Aucune erreur dans la console, aucun débordement horizontal.
 - **Fini quand** : la page fonctionne avec `npm run dev`.
 
 ### Étape 6 — Performance et accessibilité

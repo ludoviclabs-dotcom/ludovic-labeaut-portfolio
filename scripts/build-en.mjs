@@ -68,6 +68,7 @@ async function listPages() {
   const pages = [
     { file: "index.html", url: "/" },
     { file: "credits.html", url: "/credits" },
+    { file: "fil-rouge.html", url: "/fil-rouge" },
     { file: "publications/index.html", url: "/publications/" },
   ];
   for (const dir of ["projets", "publications"]) {
