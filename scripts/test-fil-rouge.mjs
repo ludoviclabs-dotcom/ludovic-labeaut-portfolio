@@ -9,7 +9,7 @@
  *    - les pages anglaises contiennent bien les textes anglais du JSON (npm run en a été relancé) ;
  *    - chaque lien interne des blocs « fil rouge » mène à une page qui existe.
  * 2. Contrôles dans un navigateur (si Playwright est disponible) : polices et thème clair de
- *    /fil-rouge, absence d'animation et de script de page, fiches et colophon, débordements,
+ *    /fil-rouge, vue partagée (onglets, clavier, filtre), accordéon mobile, sans JavaScript, colophon, débordements,
  *    décalage de mise en page, erreurs dans la console, accueil et pages projet restés sombres.
  *    Sans Playwright : npm i -D playwright && npx playwright install chromium
  *    (ou PLAYWRIGHT_CHROMIUM=/chemin/vers/chrome pour un Chromium déjà installé).
@@ -166,7 +166,6 @@ if (!playwright) {
         check((await p.evaluate(() => window.__cls)) < 0.01, `${L} : pas de décalage de mise en page à l'arrivée`);
         const r = await p.evaluate(() => {
           const css = (el, prop) => getComputedStyle(el).getPropertyValue(prop);
-          const main = document.querySelector("main");
           const fonts = [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) => l.href).join(" ");
           return {
             fontsOk: /Newsreader/.test(fonts) && /Source\+Sans\+3/.test(fonts) && !/Cormorant|Inter|JetBrains/.test(fonts),
@@ -177,35 +176,125 @@ if (!playwright) {
             gradients: [...document.querySelectorAll("body *")].filter((e) => /gradient/.test(css(e, "background-image"))).length,
             h1Em: document.querySelectorAll("h1 em").length,
             h2Em: Math.max(...[...document.querySelectorAll("h2")].map((h) => h.querySelectorAll("em").length)),
-            scripts: [...document.scripts].map((s) => s.getAttribute("src") || "inline"),
-            buttons: main.querySelectorAll("button").length,
+            scripts: [...document.scripts].map((s) => (s.getAttribute("src") || "inline").split("/").pop()),
             reveal: document.querySelectorAll("[data-reveal], [data-split], .fr-autoplay").length,
             chain: document.querySelectorAll(".fr-chain__step").length,
-            fiches: [...document.querySelectorAll(".fr-fiche")].map((f) => ({
-              fields: f.querySelectorAll(".fr-fiche__fields > .fr-field").length,
-              io: f.querySelectorAll(".fr-io > div").length,
-              ue: f.querySelectorAll(".fr-ue li").length,
-              visible: f.getBoundingClientRect().height > 50,
-            })),
-            asterisk: /\*/.test(main.innerText),
+            asterisk: /\*/.test(document.querySelector("main").innerText),
             colophon: document.querySelector(".fr-refs").innerText,
           };
         });
         check(r.fontsOk && /Newsreader/.test(r.h1Font) && /Source Sans 3/.test(r.bodyFont), `${L} : Newsreader et Source Sans 3 seulement (ni Cormorant, ni Inter, ni JetBrains Mono)`, `${r.h1Font} / ${r.bodyFont}`);
         check(r.bg === "rgb(246, 247, 249)" && r.shadows === 0 && r.gradients === 0, `${L} : fond #F6F7F9, aucune ombre, aucun dégradé`, `${r.bg}, ${r.shadows} ombre(s), ${r.gradients} dégradé(s)`);
         check(r.h1Em === 1 && r.h2Em <= 1 && !r.asterisk, `${L} : un seul mot en italique par grand titre`);
-        check(r.scripts.length === 1 && /lang\.js$/.test(r.scripts[0]) && r.buttons === 0 && r.reveal === 0, `${L} : ni défilement automatique, ni animation, aucun script de page`, r.scripts.join(", "));
-        const fichesOk = r.fiches.length === data.projets.length && r.fiches.every((f) => f.fields === 3 && f.io === 3 && f.ue >= 1 && f.visible);
-        check(r.chain === 3 && fichesOk, `${L} : chaîne en 3 étapes, ${data.projets.length} fiches à 3 champs (outil, exigence, UE)`);
+        check(r.scripts.join(",") === "lang.js,fil-rouge.js" && r.reveal === 0 && r.chain === 3, `${L} : scripts lang.js et fil-rouge.js seulement, aucun défilement automatique, chaîne en 3 étapes`, r.scripts.join(", "));
         check(!/IFRS|AMF/.test(r.colophon), `${L} : colophon sans IFRS ni AMF`);
+
+        // Vue partagée (1440 px)
+        const state = () =>
+          p.evaluate(() => {
+            const visible = [...document.querySelectorAll(".fr-fiche")].filter((f) => !f.hidden && f.getBoundingClientRect().height > 0);
+            const selected = [...document.querySelectorAll('[role="tab"][aria-selected="true"]')];
+            return {
+              visible: visible.map((f) => f.id.replace("fiche-", "")),
+              selected: selected.map((t) => t.getAttribute("data-project")),
+              focused: document.activeElement?.getAttribute("data-project") ?? null,
+              tabsShown: [...document.querySelectorAll('[role="tab"]')].filter((t) => !t.hidden).length,
+            };
+          });
+        const ids = data.questions.ordre;
+        const layout = await p.evaluate(() => {
+          const d = document.querySelector("[data-dossier]");
+          const nav = d.querySelector(".fr-dossier__nav").getBoundingClientRect();
+          const panel = d.querySelector(".fr-fiches__list");
+          const active = d.querySelector('[role="tab"][aria-selected="true"]');
+          const fiche = d.querySelector(".fr-fiche:not([hidden])");
+          return {
+            split: d.classList.contains("is-split"),
+            ratio: nav.width / d.getBoundingClientRect().width,
+            sticky: getComputedStyle(panel).position,
+            border: getComputedStyle(active).borderLeftColor,
+            activeBg: getComputedStyle(active).backgroundColor,
+            blueprint: Math.round(fiche.querySelector(".fr-blueprint").getBoundingClientRect().height),
+            tabpanel: fiche.getAttribute("role") === "tabpanel" && fiche.getAttribute("aria-labelledby") === active.id,
+          };
+        });
+        let s = await state();
+        check(layout.split && layout.ratio > 0.36 && layout.ratio < 0.44 && layout.sticky === "sticky", `${L} : vue partagée 42 / 58 avec panneau collant`, JSON.stringify(layout));
+        check(s.tabsShown === 6 && s.visible.length === 1 && s.visible[0] === ids[0] && s.selected.join() === ids[0] && layout.tabpanel, `${L} : une seule fiche affichée, liée à son onglet (aria-selected, tabpanel)`, JSON.stringify(s));
+        check(layout.border === "rgb(22, 50, 79)" && layout.activeBg === "rgb(255, 255, 255)" && layout.blueprint === 240, `${L} : onglet actif sur fond blanc, filet de famille, zone de schéma de 240 px`, JSON.stringify(layout));
+        await p.locator('[role="tab"]').nth(2).click();
+        await p.waitForTimeout(300);
+        s = await state();
+        const opacity = await p.evaluate(() => getComputedStyle(document.querySelector(".fr-fiche:not([hidden])")).opacity);
+        check(s.visible.join() === ids[2] && s.selected.join() === ids[2] && opacity === "1", `${L} : un clic affiche la fiche choisie (fondu terminé)`, JSON.stringify(s));
+        await p.keyboard.press("ArrowDown");
+        s = await state();
+        const afterDown = s.selected.join() === ids[3] && s.focused === ids[3] && s.visible.join() === ids[3];
+        await p.keyboard.press("End");
+        const afterEnd = (await state()).selected.join() === ids[5];
+        await p.keyboard.press("ArrowDown");
+        const wrapped = (await state()).selected.join() === ids[0];
+        await p.keyboard.press("ArrowUp");
+        const up = (await state()).selected.join() === ids[5];
+        check(afterDown && afterEnd && wrapped && up, `${L} : clavier (flèches haut et bas, Fin, retour au début)`);
+        await p.locator('[data-filter="actualite"]').click();
+        await p.waitForTimeout(300); // fin de la transition (220 ms)
+        s = await state();
+        const pressed = await p.locator('[data-filter="actualite"]').getAttribute("aria-pressed");
+        const actualite = data.projets.filter((x) => x.famille === "actualite").map((x) => x.id);
+        check(s.tabsShown === actualite.length && actualite.includes(s.selected[0]) && pressed === "true", `${L} : filtre « ${lang ? data.familles.actualite.label.en : data.familles.actualite.label.fr} » (${actualite.length} questions)`, JSON.stringify(s));
+        const ochre = await p.evaluate(() => getComputedStyle(document.querySelector('[role="tab"][aria-selected="true"]')).borderLeftColor);
+        check(ochre === "rgb(168, 75, 32)", `${L} : filet ocre pour un terrain d'actualité`, ochre);
+        await p.locator('[data-filter="tous"]').click();
+        await p.locator('.fr-family__projects a[href="#fiche-kyb-graph"]').click();
+        await p.waitForTimeout(400);
+        check((await state()).selected.join() === "kyb-graph", `${L} : un lien #fiche-… de la page ouvre la fiche dans le panneau`);
         check(!(await overflowX(p)), `${L} : pas de débordement horizontal (1440 px)`);
         check(p.errors.length === 0, `${L} : aucune erreur dans la console`, p.errors.join(" | "));
         await p.context().close();
       }
       {
-        const p = await page(`${lang}/fil-rouge`, { viewport: { width: 375, height: 667 } });
+        // Accordéon (375 px)
+        const p = await page(`${lang}/fil-rouge`, { viewport: { width: 375, height: 812 } });
         await p.waitForTimeout(800);
-        check(!(await overflowX(p)), `${L} : pas de débordement horizontal (375 px)`);
+        const acc = () =>
+          p.evaluate(() => ({
+            accordion: document.querySelector("[data-dossier]").classList.contains("is-accordion"),
+            nav: !document.querySelector(".fr-dossier__nav").hidden,
+            open: [...document.querySelectorAll(".fr-fiche__toggle")].map((b) => b.getAttribute("aria-expanded") === "true"),
+            bodies: [...document.querySelectorAll(".fr-fiche__body")].map((b) => !b.hidden && b.getBoundingClientRect().height > 0),
+            blueprint2: Math.round(document.querySelectorAll(".fr-blueprint")[1].getBoundingClientRect().height),
+          }));
+        let a = await acc();
+        check(a.accordion && !a.nav && a.open.filter(Boolean).length === 1 && a.open[0] && a.bodies[0] && !a.bodies[1], `${L} 375 px : accordéon, première fiche ouverte`, JSON.stringify(a));
+        await p.locator(".fr-fiche__toggle").nth(1).click();
+        a = await acc();
+        check(a.open[1] && a.bodies[1] && a.blueprint2 === 240, `${L} 375 px : un clic ouvre la fiche et sa zone de schéma`, JSON.stringify(a));
+        await p.locator(".fr-fiche__toggle").nth(1).click();
+        check(!(await acc()).open[1], `${L} 375 px : un second clic la referme`);
+        check(!(await overflowX(p)) && p.errors.length === 0, `${L} 375 px : ni débordement, ni erreur`, p.errors.join(" | "));
+        await p.context().close();
+      }
+      {
+        // Sans JavaScript : les six fiches ouvertes, pas de navigation
+        const p = await page(`${lang}/fil-rouge`, { javaScriptEnabled: false });
+        const r = await p.evaluate(() => ({
+          nav: document.querySelector(".fr-dossier__nav").getBoundingClientRect().height,
+          fiches: [...document.querySelectorAll(".fr-fiche")].filter((f) => f.getBoundingClientRect().height > 100).length,
+        }));
+        check(r.nav === 0 && r.fiches === data.projets.length, `${L} : sans JavaScript, les ${data.projets.length} fiches sont ouvertes`, JSON.stringify(r));
+        await p.context().close();
+      }
+      {
+        // « Réduire les animations » : pas de fondu
+        const p = await page(`${lang}/fil-rouge`, { reducedMotion: "reduce" });
+        await p.waitForTimeout(500);
+        await p.locator('[role="tab"]').nth(1).click();
+        const r = await p.evaluate(() => {
+          const f = document.querySelector(".fr-fiche:not([hidden])");
+          return { duration: getComputedStyle(f).transitionDuration, opacity: getComputedStyle(f).opacity };
+        });
+        check(/^0s/.test(r.duration) && r.opacity === "1", `${L} : « réduire les animations » coupe le fondu`, JSON.stringify(r));
         await p.context().close();
       }
       {

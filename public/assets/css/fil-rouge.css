@@ -224,30 +224,49 @@ html.fr-page body {
   color: var(--fr-body);
 }
 
-/* ---------- Six fiches ---------- */
+/* ---------- Six fiches : dossier de preuve ---------- */
+/*
+ * Trois présentations, de la même structure HTML :
+ * - sans JavaScript : les six fiches ouvertes l'une sous l'autre ;
+ * - .is-split (≥ 1024 px, fil-rouge.js) : liste des questions à gauche (42 %), panneau collant à droite (58 %) ;
+ * - .is-accordion (< 1024 px, fil-rouge.js) : la question replie ou ouvre sa fiche.
+ */
+
+html.fr-page {
+  --fr-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fr-dur: 220ms;
+}
+
+.fr-page [hidden] { display: none !important; }
+
+.fr-fiche--coeur,
+.fr-tab--coeur { --fam: var(--fr-prussian); }
+
+.fr-fiche--actualite,
+.fr-tab--actualite { --fam: var(--fr-ochre); }
+
+.fr-dossier { margin-top: 2.5rem; }
 
 .fr-fiches__list {
-  margin: 2.5rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   background: var(--fr-surface);
   border: 1px solid var(--fr-rule);
 }
 
-.fr-fiche--coeur { --fam: var(--fr-prussian); }
-
-.fr-fiche--actualite { --fam: var(--fr-ochre); }
-
 .fr-fiche {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   column-gap: clamp(1.5rem, 4vw, 3.5rem);
-  row-gap: 1.5rem;
+  row-gap: 1.25rem;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   scroll-margin-top: 1.5rem;
 }
 
 .fr-fiche + .fr-fiche { border-top: 1px solid var(--fr-rule); }
+
+.fr-fiche__body { min-width: 0; }
 
 .fr-fiche__meta {
   display: flex;
@@ -277,27 +296,44 @@ html.fr-page body {
   font-weight: 400;
   line-height: 1.15;
   color: var(--fr-ink);
+}
+
+/* Le bouton de la question n'agit qu'en accordéon ; sinon il se lit comme un titre. */
+.fr-fiche__toggle {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
   text-wrap: balance;
+  cursor: default;
 }
 
-.fr-fiche__link {
-  display: inline-flex;
+/* Zone réservée au schéma du projet (étape 3). */
+.fr-blueprint {
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  min-height: 44px;
-  margin-top: 0.75rem;
-  font-family: var(--fr-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--fam);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.3em;
+  justify-content: center;
+  height: 240px;
+  margin: 0 0 1.5rem;
+  background: var(--fr-paper);
+  border: 1px solid var(--fr-rule);
 }
 
-.fr-fiche__link::after { content: "→"; }
-
-.fr-fiche__link:hover { color: var(--fr-ink); }
+.fr-blueprint__label {
+  margin: 0;
+  font-family: var(--fr-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fr-meta);
+}
 
 .fr-fiche__fields { margin: 0; }
 
@@ -347,6 +383,7 @@ html.fr-page body {
   color: var(--fr-body);
 }
 
+/* UE du DSCG : simples renvois. */
 .fr-ue {
   display: flex;
   flex-wrap: wrap;
@@ -363,6 +400,211 @@ html.fr-page body {
 }
 
 .fr-ue__code { color: var(--fr-ink); }
+
+.fr-fiche__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin-top: 1.25rem;
+  font-family: var(--fr-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fam);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+.fr-fiche__link::after {
+  content: "→";
+  display: inline-block;
+  transition: transform var(--fr-dur) var(--fr-ease);
+}
+
+.fr-fiche__link:hover { color: var(--fr-ink); }
+
+.fr-fiche__link:hover::after,
+.fr-fiche__link:focus-visible::after { transform: translateX(3px); }
+
+/* ---------- Accordéon (< 1024 px, avec JavaScript) ---------- */
+
+.fr-dossier.is-accordion .fr-fiche { grid-template-columns: minmax(0, 1fr); }
+
+.fr-dossier.is-accordion .fr-fiche__toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 1rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.fr-dossier.is-accordion .fr-fiche__toggle::after {
+  content: "+";
+  font-family: var(--fr-sans);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--fam);
+}
+
+.fr-dossier.is-accordion .fr-fiche__toggle[aria-expanded="true"]::after { content: "−"; }
+
+.fr-dossier.is-accordion .fr-fiche__toggle:focus-visible {
+  outline: 2px solid var(--fr-prussian);
+  outline-offset: 4px;
+}
+
+/* ---------- Vue partagée (≥ 1024 px, avec JavaScript) ---------- */
+
+.fr-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  border-bottom: 1px solid var(--fr-rule);
+}
+
+.fr-filter__btn {
+  min-height: 44px;
+  margin: 0 0 -1px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--fr-body);
+  font-family: var(--fr-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--fr-dur) var(--fr-ease), border-color var(--fr-dur) var(--fr-ease);
+}
+
+.fr-filter__btn .fr-num {
+  font-size: inherit;
+  color: inherit;
+}
+
+.fr-filter__btn:hover { color: var(--fr-ink); }
+
+.fr-filter__btn[aria-pressed="true"] {
+  color: var(--fr-ink);
+  border-bottom-color: var(--fr-prussian);
+}
+
+.fr-filter__btn:focus-visible {
+  outline: 2px solid var(--fr-prussian);
+  outline-offset: 2px;
+}
+
+.fr-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.fr-tab {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  width: 100%;
+  margin: 0;
+  padding: 1.1rem 1rem 1.1rem 0.9rem;
+  border: 0;
+  border-bottom: 1px solid var(--fr-rule);
+  border-left: 2px solid transparent;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--fr-dur) var(--fr-ease), border-color var(--fr-dur) var(--fr-ease);
+}
+
+.fr-tab .fr-num { padding-top: 0.3rem; }
+
+.fr-tab__question {
+  display: block;
+  font-family: var(--fr-serif);
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: var(--fr-body);
+  text-wrap: balance;
+  transition: color var(--fr-dur) var(--fr-ease);
+}
+
+.fr-tab__meta {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--fr-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fr-meta);
+}
+
+.fr-tab:hover .fr-tab__question { color: var(--fr-ink); }
+
+.fr-tab[aria-selected="true"] {
+  background: var(--fr-surface);
+  border-left-color: var(--fam);
+}
+
+.fr-tab[aria-selected="true"] .fr-tab__question { color: var(--fr-ink); }
+
+.fr-tab:focus-visible {
+  outline: 2px solid var(--fr-prussian);
+  outline-offset: -2px;
+}
+
+@media (min-width: 1024px) {
+  .fr-dossier.is-split {
+    display: grid;
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    column-gap: clamp(2rem, 3.5vw, 3rem);
+    align-items: start;
+  }
+
+  .fr-dossier.is-split .fr-fiches__list {
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .fr-dossier.is-split .fr-fiche {
+    display: block;
+    transition: opacity var(--fr-dur) var(--fr-ease), transform var(--fr-dur) var(--fr-ease);
+  }
+
+  /* État de départ du fondu (fil-rouge.js le pose puis le retire). */
+  .fr-dossier.is-split .fr-fiche.is-entering {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: none;
+  }
+
+  /* La question est dans la liste ; le panneau garde numéro, nom et catégorie. */
+  .fr-dossier.is-split .fr-fiche__question { display: none; }
+
+  .fr-dossier.is-split .fr-fiche__head {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--fr-rule);
+  }
+
+  .fr-dossier.is-split .fr-fiche__name {
+    font-family: var(--fr-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-fiche,
+  .fr-tab,
+  .fr-tab__question,
+  .fr-filter__btn,
+  .fr-fiche__link::after { transition: none !important; }
+}
 
 /* ---------- Deux familles ---------- */
 

@@ -191,7 +191,29 @@ Objectif : retirer tout effet « IA générative » et atteindre une rigueur éd
   accessibilité, bonnes pratiques et SEO 100 ; CLS 0,001 même avec polices retardées de 1,5 s ;
   poids total 124 Ko (ancienne page 141 Ko). `npm test` : 63 contrôles.
 
-## Étape 2 — Vue partagée interactive (à venir)
+## Étape 2 — Vue partagée « Dossier de preuve » ✅
 
-- Section des fiches en vue partagée (liste des six questions + fiche active), navigation au clavier,
-  script vanilla léger `fil-rouge.js` ; sans JavaScript, les fiches restent toutes ouvertes.
+- **Une seule structure HTML, trois présentations** (`public/assets/js/fil-rouge.js`, vanilla, `// @ts-check`) :
+  - ≥ 1024 px : vue partagée 42 % / 58 %. À gauche, filtre segmenté (`Tous (6)` · `Cœur de métier (4)` ·
+    `Terrain d'actualité (2)`, filet actif Prusse) et liste des six questions en onglets (`role="tablist"`,
+    `aria-selected`, onglet actif sur fond blanc avec filet gauche de 2 px Prusse ou Ocre). À droite, panneau
+    collant (`position: sticky`, 1,5 rem du haut), fond blanc, filet 1 px, sans ombre : numéro, nom, catégorie,
+    zone du schéma, trois champs, lien vers le projet (flèche décalée de 3 px au survol) ;
+  - < 1024 px : accordéon manuel, première fiche ouverte, sans défilement automatique ;
+  - sans JavaScript : les six fiches ouvertes l'une sous l'autre.
+- **Clavier** : flèches haut et bas (en boucle), Début, Fin ; anneau de focus Prusse. Les liens `#fiche-…`
+  de la page (familles) ouvrent la fiche dans le panneau.
+- **Transition** : fondu (opacité + 6 px) en 220 ms, courbe `cubic-bezier(0.22, 1, 0.36, 1)` ; coupée avec
+  « réduire les animations ».
+- **Zone du schéma** : `<div class="fr-blueprint" data-blueprint="<id>">` (240 px, fond papier, filet),
+  libellé « Schéma du pipeline en préparation ». C'est le point de montage du composant de l'étape 3.
+- Fiches en `<div>` (et non `<li>`) : `role="tabpanel"` n'est pas permis sur un élément de liste.
+- Typographie : traits d'union insécables dans les références (A‑1, L.561‑5, BOI‑CF‑IOR‑60‑40, SHA‑256),
+  appliqués au texte seulement, pas aux balises.
+- **Vérifications** : `npm run typecheck` (TypeScript 5.6, `--strict --checkJs`) : 0 erreur ; `npm test` :
+  87 contrôles ; Lighthouse ordinateur 99 et mobile 92 à 100 selon les mesures, accessibilité, bonnes
+  pratiques et SEO 100, CLS 0,001.
+
+## Étape 3 — Schémas des projets (à venir)
+
+- Remplir chaque zone `data-blueprint` avec le schéma du pipeline du projet.

@@ -29,6 +29,8 @@ Pour en changer un :
 3. `npm run en` (régénère `public/en/`) ;
 4. `npm test` (vérifie les fichiers, puis le comportement dans un navigateur si Playwright est installé).
 
+Après une modification de `public/assets/js/fil-rouge.js` : `npm run typecheck` (TypeScript en mode `checkJs`, sans compilation ; zéro erreur attendue).
+
 Ne pas modifier à la main `public/fil-rouge.html` ni les blocs entre `<!-- fil-rouge:… -->` et
 `<!-- /fil-rouge:… -->` : ils seraient écrasés. Plan et historique : `docs/plan-fil-rouge.md`.
 
@@ -50,7 +52,8 @@ public/                    site statique servi par Vercel
   assets/css/publications.css  style de la page /publications
   data/fil-rouge.json      textes du fil rouge (FR et EN), source unique
   fil-rouge.html           page /fil-rouge (générée par scripts/build-fil-rouge.mjs)
-  assets/css/fil-rouge.css style de la page /fil-rouge (cahier clair, sans JavaScript)
+  assets/css/fil-rouge.css style de la page /fil-rouge (cahier clair)
+  assets/js/fil-rouge.js   vue partagée et accordéon des six fiches (vanilla, vérifié par npm run typecheck)
 scripts/site.mjs             domaine de production (liens hreflang des pages, en adresses complètes)
 scripts/build-fil-rouge.mjs  écrit les textes du fil rouge dans les pages (npm run fil-rouge)
 scripts/test-fil-rouge.mjs   tests du fil rouge, fichiers et navigateur (npm test)

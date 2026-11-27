@@ -206,12 +206,19 @@ function ueLabel(n) {
 function fiche(project, i) {
   const famille = data.familles[project.famille].label;
   const o = project.outil;
+  // Une fiche = un panneau « dossier de preuve » : en-tête, zone du schéma (étape 3), champs, lien.
+  // Élément <div> (et non <li>) : il peut recevoir role="tabpanel" dans la vue partagée.
+  // Sans JavaScript, les six fiches sont ouvertes ; fil-rouge.js en fait une vue partagée (≥ 1024 px)
+  // ou un accordéon (en dessous), le bouton de la question servant alors à replier la fiche.
   return [
-    `<li class="fr-fiche fr-fiche--${project.famille}" id="fiche-${project.id}">`,
+    `<div class="fr-fiche fr-fiche--${project.famille}" id="fiche-${project.id}" data-famille="${project.famille}">`,
     `  <div class="fr-fiche__head">`,
     `    <p class="fr-fiche__meta"><span class="fr-num">${pad2(i + 1)}</span><span class="fr-fiche__name" translate="no">${esc(project.nom)}</span><span class="fr-fiche__family">${esc(famille.fr)}</span></p>`,
-    `    <h3 class="fr-fiche__question">${esc(project.question.fr)}</h3>`,
-    `    <a class="fr-fiche__link" href="/projets/${project.id}">${voirProjet(project).fr}</a>`,
+    `    <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-${project.id}-q" aria-expanded="true" aria-controls="fiche-${project.id}-body">${esc(project.question.fr)}</button></h3>`,
+    `  </div>`,
+    `  <div class="fr-fiche__body" id="fiche-${project.id}-body">`,
+    `  <div class="fr-blueprint" data-blueprint="${project.id}">`,
+    `    <p class="fr-blueprint__label">${esc(P.blueprint.fr)}</p>`,
     `  </div>`,
     `  <dl class="fr-fiche__fields">`,
     `    <div class="fr-field">`,
@@ -237,7 +244,41 @@ function fiche(project, i) {
     `      </dd>`,
     `    </div>`,
     `  </dl>`,
-    `</li>`,
+    `  <a class="fr-fiche__link" href="/projets/${project.id}">${voirProjet(project).fr}</a>`,
+    `  </div>`,
+    `</div>`,
+  ];
+}
+
+/** Libellé d'un filtre : « Tous (6) », « Cœur de métier (4) »… (le nombre est un segment à part). */
+function filterLabel(key) {
+  const n = key === "tous" ? data.projets.length : data.projets.filter((p) => p.famille === key).length;
+  const label = key === "tous" ? P.filtre_tous : data.familles[key].label;
+  return { label, n };
+}
+
+/** Navigation de la vue partagée : filtre par famille et liste des questions (onglets). */
+function dossierNav(ordered) {
+  return [
+    `<div class="fr-dossier__nav" hidden>`,
+    `  <div class="fr-filter" role="group" aria-label="${escAttr(P.filtre_label.fr)}">`,
+    ...["tous", "coeur", "actualite"].map((key) => {
+      const { label, n } = filterLabel(key);
+      return `    <button class="fr-filter__btn" type="button" data-filter="${key}" aria-pressed="${key === "tous"}"><span>${esc(label.fr)}</span> <span class="fr-num">(${n})</span></button>`;
+    }),
+    `  </div>`,
+    `  <div class="fr-tabs" role="tablist" aria-orientation="vertical" aria-label="${escAttr(P.liste_label.fr)}">`,
+    ...ordered.map((p, i) => {
+      const fam = data.familles[p.famille].label;
+      return [
+        `    <button class="fr-tab fr-tab--${p.famille}" type="button" role="tab" id="tab-${p.id}" data-project="${p.id}" data-famille="${p.famille}" aria-controls="fiche-${p.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">`,
+        `      <span class="fr-num">${pad2(i + 1)}</span>`,
+        `      <span class="fr-tab__text"><span class="fr-tab__question">${esc(p.question.fr)}</span><span class="fr-tab__meta"><span translate="no">${esc(p.nom)}</span> · <span>${esc(fam.fr)}</span></span></span>`,
+        `    </button>`,
+      ].join("\n");
+    }),
+    `  </div>`,
+    `</div>`,
   ];
 }
 
@@ -269,6 +310,13 @@ function refLine(line) {
     `</div>`,
   ];
 }
+
+/** Références en capitales et chiffres (A-1, L.561-5, BOI-CF-IOR-60-40, SHA-256) : traits d'union insécables. */
+const REF_TOKEN = /\b[A-Z0-9][A-Z0-9.]*(?:-[A-Z0-9.]+)+\b/g;
+const keepRef = (token) => token.replace(/-/g, "\u2011");
+/** Applique keepRef au texte seulement, jamais dans les balises ni les attributs (tracés SVG, identifiants). */
+const keepRefsInText = (html) => html.replace(/(^|>)([^<]+)/g, (_, open, text) => open + text.replace(REF_TOKEN, keepRef));
+const keepRefs = (pairs) => pairs.map(([fr, en]) => [keepRefsInText(fr), keepRefsInText(en)]);
 
 function filRougePage() {
   const ordered = data.questions.ordre.map((id) => {
@@ -317,9 +365,12 @@ function filRougePage() {
     `      <h2 id="fr-fiches-title" class="fr-h2">${title(data.questions.titre.fr)}</h2>`,
     `      <p class="fr-section__sub">${esc(data.questions.sous_titre.fr)}</p>`,
     `    </div>`,
-    `    <ol class="fr-fiches__list">`,
-    ...ordered.flatMap((p, i) => fiche(p, i).map((l) => `      ${l}`)),
-    `    </ol>`,
+    `    <div class="fr-dossier" data-dossier>`,
+    ...dossierNav(ordered).map((l) => `      ${l}`),
+    `      <div class="fr-fiches__list">`,
+    ...ordered.flatMap((p, i) => fiche(p, i).map((l) => `        ${l}`)),
+    `      </div>`,
+    `    </div>`,
     `  </section>`,
     ``,
     `  <section class="fr-section fr-families fr-wrap" aria-labelledby="fr-families-title">`,
@@ -344,6 +395,8 @@ function filRougePage() {
     `    <a class="pj-cta" href="/">${esc(P.cta.fr)} ${ARROW}</a>`,
     `  </section>`,
     `</main>`,
+    ``,
+    `<script src="/assets/js/fil-rouge.js" defer></script>`,
   ];
 
   return [
@@ -379,7 +432,8 @@ function filRougePage() {
   ]
     .join("\n")
     // Typographie française : espace insécable avant : ; ? ! (jamais de ponctuation seule en début de ligne).
-    .replace(/ ([:;?!])(?=[\s<"])/g, " $1");
+    .replace(/ ([:;?!])(?=[\s<"])/g, "\u00a0$1")
+    .replace(/[\s\S]*/, keepRefsInText);
 }
 
 {
@@ -387,7 +441,7 @@ function filRougePage() {
   page.after = filRougePage();
   const ordered = data.questions.ordre.map((id) => byId.get(id));
   const C = data.colophon;
-  await translate(path.join(ROOT, "i18n", "en", "fil-rouge.json"), [
+  await translate(path.join(ROOT, "i18n", "en", "fil-rouge.json"), keepRefs([
     textPair(P.titre),
     attrPair(P.description),
     attrPair(P.titre),
@@ -406,6 +460,12 @@ function filRougePage() {
     textPair(P.label_sorties),
     textPair(P.label_exigence),
     textPair(P.label_ue),
+    textPair(P.blueprint),
+    attrPair(P.filtre_label),
+    attrPair(P.liste_label),
+    textPair(P.filtre_tous),
+    textPair(data.familles.coeur.label),
+    textPair(data.familles.actualite.label),
     ...ordered.flatMap((p) => [
       textPair(data.familles[p.famille].label),
       textPair(p.question),
@@ -429,7 +489,7 @@ function filRougePage() {
     ...C.lignes.flatMap((l) => [textPair(l.nom), textPair(l.ref)]),
     textPair(P.mention),
     [normalize(`${esc(P.cta.fr)} ${ARROW}`), `${esc(P.cta.en)} ${ARROW}`],
-  ]);
+  ]));
 }
 
 /* ---------- Écriture ou vérification ----------------------------------- */

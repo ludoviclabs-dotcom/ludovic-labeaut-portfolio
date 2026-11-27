@@ -69,198 +69,263 @@
         <h2 id="fr-fiches-title" class="fr-h2">Six questions, six projects</h2>
         <p class="fr-section__sub">Each question draws on a skill from the Master's. Under each one, the project that answers it.</p>
       </div>
-      <ol class="fr-fiches__list">
-        <li class="fr-fiche fr-fiche--coeur" id="fiche-probant">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">01</span><span class="fr-fiche__name" translate="no">Probant</span><span class="fr-fiche__family">Core expertise</span></p>
-            <h3 class="fr-fiche__question">Can a set of accounts be proven reliable?</h3>
+      <div class="fr-dossier" data-dossier>
+        <div class="fr-dossier__nav" hidden>
+          <div class="fr-filter" role="group" aria-label="Filter by project family">
+            <button class="fr-filter__btn" type="button" data-filter="tous" aria-pressed="true"><span>All</span> <span class="fr-num">(6)</span></button>
+            <button class="fr-filter__btn" type="button" data-filter="coeur" aria-pressed="false"><span>Core expertise</span> <span class="fr-num">(4)</span></button>
+            <button class="fr-filter__btn" type="button" data-filter="actualite" aria-pressed="false"><span>Topical field</span> <span class="fr-num">(2)</span></button>
+          </div>
+          <div class="fr-tabs" role="tablist" aria-orientation="vertical" aria-label="The six questions">
+            <button class="fr-tab fr-tab--coeur" type="button" role="tab" id="tab-probant" data-project="probant" data-famille="coeur" aria-controls="fiche-probant" aria-selected="true" tabindex="0">
+      <span class="fr-num">01</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">Can a set of accounts be proven reliable?</span><span class="fr-tab__meta"><span translate="no">Probant</span> · <span>Core expertise</span></span></span>
+    </button>
+            <button class="fr-tab fr-tab--coeur" type="button" role="tab" id="tab-finvalstudio" data-project="finvalstudio" data-famille="coeur" aria-controls="fiche-finvalstudio" aria-selected="false" tabindex="-1">
+      <span class="fr-num">02</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">What is a company worth, and with what margin of error?</span><span class="fr-tab__meta"><span translate="no">FinValStudio</span> · <span>Core expertise</span></span></span>
+    </button>
+            <button class="fr-tab fr-tab--coeur" type="button" role="tab" id="tab-carbon-co" data-project="carbon-co" data-famille="coeur" aria-controls="fiche-carbon-co" aria-selected="false" tabindex="-1">
+      <span class="fr-num">03</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">How do you report on what cannot be counted in euros?</span><span class="fr-tab__meta"><span translate="no">Carbon&amp;Co</span> · <span>Core expertise</span></span></span>
+    </button>
+            <button class="fr-tab fr-tab--coeur" type="button" role="tab" id="tab-kyb-graph" data-project="kyb-graph" data-famille="coeur" aria-controls="fiche-kyb-graph" aria-selected="false" tabindex="-1">
+      <span class="fr-num">04</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">Who is really behind a company?</span><span class="fr-tab__meta"><span translate="no">KYB Graph</span> · <span>Core expertise</span></span></span>
+    </button>
+            <button class="fr-tab fr-tab--actualite" type="button" role="tab" id="tab-panoplie" data-project="panoplie" data-famille="actualite" aria-controls="fiche-panoplie" aria-selected="false" tabindex="-1">
+      <span class="fr-num">05</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">What does a defence system really cost?</span><span class="fr-tab__meta"><span translate="no">Panoplie</span> · <span>Topical field</span></span></span>
+    </button>
+            <button class="fr-tab fr-tab--actualite" type="button" role="tab" id="tab-publications" data-project="publications" data-famille="actualite" aria-controls="fiche-publications" aria-selected="false" tabindex="-1">
+      <span class="fr-num">06</span>
+      <span class="fr-tab__text"><span class="fr-tab__question">What world do these companies operate in?</span><span class="fr-tab__meta"><span translate="no">Publications</span> · <span>Topical field</span></span></span>
+    </button>
+          </div>
+        </div>
+        <div class="fr-fiches__list">
+          <div class="fr-fiche fr-fiche--coeur" id="fiche-probant" data-famille="coeur">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">01</span><span class="fr-fiche__name" translate="no">Probant</span><span class="fr-fiche__family">Core expertise</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-probant-q" aria-expanded="true" aria-controls="fiche-probant-body">Can a set of accounts be proven reliable?</button></h3>
+            </div>
+            <div class="fr-fiche__body" id="fiche-probant-body">
+            <div class="fr-blueprint" data-blueprint="probant">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
+            </div>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>The FEC general-ledger file, imported in a single drag and drop.</dd></div>
+                    <div><dt>Checks</dt><dd>Every journal entry checked: duplicates, out-of-period entries, broken sequences.</dd></div>
+                    <div><dt>Outputs</dt><dd>An audit-ready evidence file, sealed and time-stamped; the report, ready for the audit.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>Sufficient, appropriate audit evidence (NEP 500); completeness and cut-off; a compliant FEC (LPF, art. A47 A‑1) for accounts kept under French GAAP (PCG).</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
+                    <li><span class="fr-ue__code fr-num" translate="no">UE5</span><span>Information systems management</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/probant">View project <span class="visually-hidden">Probant</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>The FEC general-ledger file, imported in a single drag and drop.</dd></div>
-                  <div><dt>Checks</dt><dd>Every journal entry checked: duplicates, out-of-period entries, broken sequences.</dd></div>
-                  <div><dt>Outputs</dt><dd>An audit-ready evidence file, sealed and time-stamped; the report, ready for the audit.</dd></div>
-                </dl>
-              </dd>
+          <div class="fr-fiche fr-fiche--coeur" id="fiche-finvalstudio" data-famille="coeur">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">02</span><span class="fr-fiche__name" translate="no">FinValStudio</span><span class="fr-fiche__family">Core expertise</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-finvalstudio-q" aria-expanded="true" aria-controls="fiche-finvalstudio-body">What is a company worth, and with what margin of error?</button></h3>
             </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>Sufficient, appropriate audit evidence (NEP 500); completeness and cut-off; a compliant FEC (LPF, art. A47 A-1) for accounts kept under French GAAP (PCG).</dd>
+            <div class="fr-fiche__body" id="fiche-finvalstudio-body">
+            <div class="fr-blueprint" data-blueprint="finvalstudio">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
             </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
-                  <li><span class="fr-ue__code fr-num" translate="no">UE5</span><span>Information systems management</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="fr-fiche fr-fiche--coeur" id="fiche-finvalstudio">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">02</span><span class="fr-fiche__name" translate="no">FinValStudio</span><span class="fr-fiche__family">Core expertise</span></p>
-            <h3 class="fr-fiche__question">What is a company worth, and with what margin of error?</h3>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>Guided assumptions: cost of capital and computed WACC.</dd></div>
+                    <div><dt>Checks</dt><dd>DCF (discounted cash flows, terminal value, bridge to equity value); peer multiples and median; Monte Carlo over 5,000 draws (P10, median, P90).</dd></div>
+                    <div><dt>Outputs</dt><dd>Implied value per share; LBO: deleveraging, IRR and sponsor money multiple.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>Multi-criteria valuation (DCF, comparables) and sensitivity analysis of the assumptions.</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/finvalstudio">View project <span class="visually-hidden">FinValStudio</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>Guided assumptions: cost of capital and computed WACC.</dd></div>
-                  <div><dt>Checks</dt><dd>DCF (discounted cash flows, terminal value, bridge to equity value); peer multiples and median; Monte Carlo over 5,000 draws (P10, median, P90).</dd></div>
-                  <div><dt>Outputs</dt><dd>Implied value per share; LBO: deleveraging, IRR and sponsor money multiple.</dd></div>
-                </dl>
-              </dd>
+          <div class="fr-fiche fr-fiche--coeur" id="fiche-carbon-co" data-famille="coeur">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">03</span><span class="fr-fiche__name" translate="no">Carbon&amp;Co</span><span class="fr-fiche__family">Core expertise</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-carbon-co-q" aria-expanded="true" aria-controls="fiche-carbon-co-body">How do you report on what cannot be counted in euros?</button></h3>
             </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>Multi-criteria valuation (DCF, comparables) and sensitivity analysis of the assumptions.</dd>
+            <div class="fr-fiche__body" id="fiche-carbon-co-body">
+            <div class="fr-blueprint" data-blueprint="carbon-co">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
             </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="fr-fiche fr-fiche--coeur" id="fiche-carbon-co">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">03</span><span class="fr-fiche__name" translate="no">Carbon&amp;Co</span><span class="fr-fiche__family">Core expertise</span></p>
-            <h3 class="fr-fiche__question">How do you report on what cannot be counted in euros?</h3>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>Template workbook of activity data: energy, transport, purchasing, waste.</dd></div>
+                    <div><dt>Checks</dt><dd>Scopes 1, 2 and 3 in tCO₂e (GHG Protocol method); double materiality of ESRS topics.</dd></div>
+                    <div><dt>Outputs</dt><dd>CSRD report (ESRS 2, E1, G1) with audit trail; dashboard, alerts and projected trajectory.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>GHG inventory (GHG Protocol), double materiality (ESRS 1), sustainability information ready for limited assurance.</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
+                    <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management and management control</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/carbon-co">View project <span class="visually-hidden">Carbon&amp;Co</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>Template workbook of activity data: energy, transport, purchasing, waste.</dd></div>
-                  <div><dt>Checks</dt><dd>Scopes 1, 2 and 3 in tCO₂e (GHG Protocol method); double materiality of ESRS topics.</dd></div>
-                  <div><dt>Outputs</dt><dd>CSRD report (ESRS 2, E1, G1) with audit trail; dashboard, alerts and projected trajectory.</dd></div>
-                </dl>
-              </dd>
+          <div class="fr-fiche fr-fiche--coeur" id="fiche-kyb-graph" data-famille="coeur">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">04</span><span class="fr-fiche__name" translate="no">KYB Graph</span><span class="fr-fiche__family">Core expertise</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-kyb-graph-q" aria-expanded="true" aria-controls="fiche-kyb-graph-body">Who is really behind a company?</button></h3>
             </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>GHG inventory (GHG Protocol), double materiality (ESRS 1), sustainability information ready for limited assurance.</dd>
+            <div class="fr-fiche__body" id="fiche-kyb-graph-body">
+            <div class="fr-blueprint" data-blueprint="kyb-graph">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
             </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
-                  <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management and management control</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="fr-fiche fr-fiche--coeur" id="fiche-kyb-graph">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">04</span><span class="fr-fiche__name" translate="no">KYB Graph</span><span class="fr-fiche__family">Core expertise</span></p>
-            <h3 class="fr-fiche__question">Who is really behind a company?</h3>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>26 public sources, via API or open data, never scraping.</dd></div>
+                    <div><dt>Checks</dt><dd>Evidence quality of each link: confirmed, declared, inferred, simulated; explained risk signals, never a finding of fraud.</dd></div>
+                    <div><dt>Outputs</dt><dd>SHA‑256 hash-chained log; PDF, JSON and ZIP pack export.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>AML/CFT due diligence: identifying the customer and the beneficial owner (French Monetary and Financial Code, art. L.561‑5 et seq.; Regulation (EU) 2024/1624, AMLR).</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE1</span><span>Legal, tax and social management</span></li>
+                    <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/kyb-graph">View project <span class="visually-hidden">KYB Graph</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>26 public sources, via API or open data, never scraping.</dd></div>
-                  <div><dt>Checks</dt><dd>Evidence quality of each link: confirmed, declared, inferred, simulated; explained risk signals, never a finding of fraud.</dd></div>
-                  <div><dt>Outputs</dt><dd>SHA-256 hash-chained log; PDF, JSON and ZIP pack export.</dd></div>
-                </dl>
-              </dd>
+          <div class="fr-fiche fr-fiche--actualite" id="fiche-panoplie" data-famille="actualite">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">05</span><span class="fr-fiche__name" translate="no">Panoplie</span><span class="fr-fiche__family">Topical field</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-panoplie-q" aria-expanded="true" aria-controls="fiche-panoplie-body">What does a defence system really cost?</button></h3>
             </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>AML/CFT due diligence: identifying the customer and the beneficial owner (French Monetary and Financial Code, art. L.561-5 et seq.; Regulation (EU) 2024/1624, AMLR).</dd>
+            <div class="fr-fiche__body" id="fiche-panoplie-body">
+            <div class="fr-blueprint" data-blueprint="panoplie">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
             </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE1</span><span>Legal, tax and social management</span></li>
-                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Accounting and audit</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="fr-fiche fr-fiche--actualite" id="fiche-panoplie">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">05</span><span class="fr-fiche__name" translate="no">Panoplie</span><span class="fr-fiche__family">Topical field</span></p>
-            <h3 class="fr-fiche__question">What does a defence system really cost?</h3>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>Filterable catalogue of systems; industrial graph: countries, systems, manufacturers.</dd></div>
+                    <div><dt>Checks</dt><dd>Register of public costs: scope, year, uncertainty and sources; six grades from A to E, each one argued.</dd></div>
+                    <div><dt>Outputs</dt><dd>System X-Ray and Evidence Pack in Markdown, per system.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>Full cost and traceability of every amount: scope, year, uncertainty.</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management and management control</span></li>
+                    <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/panoplie">View project <span class="visually-hidden">Panoplie</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>Filterable catalogue of systems; industrial graph: countries, systems, manufacturers.</dd></div>
-                  <div><dt>Checks</dt><dd>Register of public costs: scope, year, uncertainty and sources; six grades from A to E, each one argued.</dd></div>
-                  <div><dt>Outputs</dt><dd>System X-Ray and Evidence Pack in Markdown, per system.</dd></div>
-                </dl>
-              </dd>
+          <div class="fr-fiche fr-fiche--actualite" id="fiche-publications" data-famille="actualite">
+            <div class="fr-fiche__head">
+              <p class="fr-fiche__meta"><span class="fr-num">06</span><span class="fr-fiche__name" translate="no">Publications</span><span class="fr-fiche__family">Topical field</span></p>
+              <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-publications-q" aria-expanded="true" aria-controls="fiche-publications-body">What world do these companies operate in?</button></h3>
             </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>Full cost and traceability of every amount: scope, year, uncertainty.</dd>
+            <div class="fr-fiche__body" id="fiche-publications-body">
+            <div class="fr-blueprint" data-blueprint="publications">
+              <p class="fr-blueprint__label">Pipeline diagram in preparation</p>
             </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management and management control</span></li>
-                  <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="fr-fiche fr-fiche--actualite" id="fiche-publications">
-          <div class="fr-fiche__head">
-            <p class="fr-fiche__meta"><span class="fr-num">06</span><span class="fr-fiche__name" translate="no">Publications</span><span class="fr-fiche__family">Topical field</span></p>
-            <h3 class="fr-fiche__question">What world do these companies operate in?</h3>
+            <dl class="fr-fiche__fields">
+              <div class="fr-field">
+                <dt>What the tool does</dt>
+                <dd>
+                  <dl class="fr-io">
+                    <div><dt>Inputs</dt><dd>A topic chosen from the series plan; dated, cross-checked sources.</dd></div>
+                    <div><dt>Checks</dt><dd>Single sources flagged; map of the actors, their levers and who is exposed.</dd></div>
+                    <div><dt>Outputs</dt><dd>A dated note: key points in four bullets, a six-section outline, published online.</dd></div>
+                  </dl>
+                </dd>
+              </div>
+              <div class="fr-field">
+                <dt>CCA requirement applied</dt>
+                <dd>Dissertation method: primary sources, cross-checking, dating.</dd>
+              </div>
+              <div class="fr-field">
+                <dt>Master's DSCG units</dt>
+                <dd>
+                  <ul class="fr-ue">
+                    <li><span class="fr-ue__code fr-num" translate="no">UE7</span><span>Dissertation</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
             <a class="fr-fiche__link" href="/en/projets/publications">View project <span class="visually-hidden">Publications</span></a>
+            </div>
           </div>
-          <dl class="fr-fiche__fields">
-            <div class="fr-field">
-              <dt>What the tool does</dt>
-              <dd>
-                <dl class="fr-io">
-                  <div><dt>Inputs</dt><dd>A topic chosen from the series plan; dated, cross-checked sources.</dd></div>
-                  <div><dt>Checks</dt><dd>Single sources flagged; map of the actors, their levers and who is exposed.</dd></div>
-                  <div><dt>Outputs</dt><dd>A dated note: key points in four bullets, a six-section outline, published online.</dd></div>
-                </dl>
-              </dd>
-            </div>
-            <div class="fr-field">
-              <dt>CCA requirement applied</dt>
-              <dd>Dissertation method: primary sources, cross-checking, dating.</dd>
-            </div>
-            <div class="fr-field">
-              <dt>Master's DSCG units</dt>
-              <dd>
-                <ul class="fr-ue">
-                  <li><span class="fr-ue__code fr-num" translate="no">UE7</span><span>Dissertation</span></li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </li>
-      </ol>
+        </div>
+      </div>
     </section>
 
     <section class="fr-section fr-families fr-wrap" aria-labelledby="fr-families-title">
@@ -297,12 +362,12 @@
       <dl class="fr-refs">
         <div class="fr-ref">
           <dt class="fr-ref__name">French GAAP (PCG)</dt>
-          <dd class="fr-ref__ref">ANC Regulation No. 2014-03</dd>
+          <dd class="fr-ref__ref">ANC Regulation No. 2014‑03</dd>
           <dd class="fr-ref__projects" translate="no">Probant</dd>
         </div>
         <div class="fr-ref">
           <dt class="fr-ref__name">General-ledger file (FEC)</dt>
-          <dd class="fr-ref__ref">French tax procedure code (LPF), art. A47 A-1; BOFiP, BOI-CF-IOR-60-40</dd>
+          <dd class="fr-ref__ref">French tax procedure code (LPF), art. A47 A‑1; BOFiP, BOI‑CF‑IOR‑60‑40</dd>
           <dd class="fr-ref__projects" translate="no">Probant</dd>
         </div>
         <div class="fr-ref">
@@ -322,7 +387,7 @@
         </div>
         <div class="fr-ref">
           <dt class="fr-ref__name">AML/CFT</dt>
-          <dd class="fr-ref__ref">French Monetary and Financial Code, art. L.561-5 et seq.; Regulation (EU) 2024/1624 (AMLR)</dd>
+          <dd class="fr-ref__ref">French Monetary and Financial Code, art. L.561‑5 et seq.; Regulation (EU) 2024/1624 (AMLR)</dd>
           <dd class="fr-ref__projects" translate="no">KYB Graph</dd>
         </div>
         <div class="fr-ref">
@@ -338,5 +403,7 @@
       <a class="pj-cta" href="/en/">View all six projects <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
     </section>
   </main>
+
+  <script src="/assets/js/fil-rouge.js" defer></script>
 </body>
 </html>

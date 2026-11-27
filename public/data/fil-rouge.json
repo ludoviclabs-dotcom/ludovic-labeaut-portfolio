@@ -35,6 +35,10 @@
     "label_exigence": { "fr": "Exigence CCA mobilisée", "en": "CCA requirement applied" },
     "label_ue": { "fr": "UE du Master", "en": "Master's DSCG units" },
     "voir_projet": { "fr": "Voir le projet", "en": "View project" },
+    "filtre_label": { "fr": "Filtrer par famille de projets", "en": "Filter by project family" },
+    "filtre_tous": { "fr": "Tous", "en": "All" },
+    "liste_label": { "fr": "Les six questions", "en": "The six questions" },
+    "blueprint": { "fr": "Schéma du pipeline en préparation", "en": "Pipeline diagram in preparation" },
     "familles_kicker": { "fr": "Deux façons de le prouver", "en": "Two ways to prove it" },
     "projets_mot": { "fr": "projets", "en": "projects" },
     "mention": {
