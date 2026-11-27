@@ -50,7 +50,7 @@ public/                    site statique servi par Vercel
   assets/css/publications.css  style de la page /publications
   data/fil-rouge.json      textes du fil rouge (FR et EN), source unique
   fil-rouge.html           page /fil-rouge (générée par scripts/build-fil-rouge.mjs)
-  assets/css/fil-rouge.css, assets/js/fil-rouge.js  style et animations de la page /fil-rouge
+  assets/css/fil-rouge.css style de la page /fil-rouge (cahier clair, sans JavaScript)
 scripts/site.mjs             domaine de production (liens hreflang des pages, en adresses complètes)
 scripts/build-fil-rouge.mjs  écrit les textes du fil rouge dans les pages (npm run fil-rouge)
 scripts/test-fil-rouge.mjs   tests du fil rouge, fichiers et navigateur (npm test)

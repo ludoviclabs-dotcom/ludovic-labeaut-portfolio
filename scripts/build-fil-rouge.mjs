@@ -9,7 +9,7 @@
  * Après une mise à jour, relancer « npm run en » pour régénérer public/en/.
  *
  * Ce que le script écrit :
- *   - public/fil-rouge.html, en entier (page « Le fil rouge », adresse /fil-rouge) ;
+ *   - public/fil-rouge.html, en entier (page « Le fil rouge », adresse /fil-rouge : cahier clair, sans JavaScript) ;
  *   - accueil (public/index.html) : le lien « Pourquoi ces projets ? » dans la barre du haut,
  *     et la question de chaque projet après la liste des axes de son panneau ;
  *   - pages projet (public/projets/<id>.html) : le bloc « Pourquoi ce projet », avant la ligne
@@ -169,45 +169,21 @@ for (const project of data.projets) {
 }
 
 /* ---------- Page « Le fil rouge » -------------------------------------- */
+// Cahier éditorial clair, sans animation ni JavaScript (étape 1 de la refonte).
+// Polices de la page seulement : Newsreader (titres) et Source Sans 3 (texte, interface, chiffres).
+// Newsreader en taille optique fixe (36) : 46 Ko pour le romain et l'italique, contre 117 Ko pour l'axe complet.
 
-function questionItem(project, i) {
-  const n = String(i + 1).padStart(2, "0");
-  const famille = data.familles[project.famille].label;
-  return [
-    `<li class="fr-q" data-reveal style="--n: ${i}; --q-accent: ${project.accent}">`,
-    `  <h3 class="fr-q__heading">`,
-    `    <button class="fr-q__toggle" type="button" id="fr-q-${project.id}" aria-expanded="true" aria-controls="fr-q-${project.id}-panel">`,
-    `      <span class="fr-q__num">${n}</span>`,
-    `      <span class="fr-q__question">${esc(project.question.fr)}</span>`,
-    `      <span class="fr-q__meta">`,
-    `        <span class="fr-q__dot" aria-hidden="true"></span>`,
-    `        <span class="fr-q__name" translate="no">${esc(project.nom)}</span>`,
-    `        <span class="fr-q__family">${esc(famille.fr)}</span>`,
-    `      </span>`,
-    `      <span class="fr-q__sign" aria-hidden="true"></span>`,
-    `    </button>`,
-    `  </h3>`,
-    `  <div class="fr-q__panel" id="fr-q-${project.id}-panel" role="region" aria-labelledby="fr-q-${project.id}">`,
-    `    <div class="fr-q__panel-inner">`,
-    `      <div class="fr-q__body">`,
-    `        <div class="fr-q__answer">`,
-    `          <p class="fr-q__label">${esc(P.reponse_label.fr)}</p>`,
-    `          <p class="fr-q__text">${esc(project.reponse.fr)}</p>`,
-    `          <a class="fr-q__link" href="/projets/${project.id}">${voirProjet(project).fr}</a>`,
-    `        </div>`,
-    `        <div class="fr-q__master">`,
-    `          <p class="fr-q__label">${esc(data.projet_page.label_lien.fr)}</p>`,
-    `          <p class="fr-q__lien">${esc(project.lien_master.fr)}</p>`,
-    `          <p class="fr-q__label fr-q__label--courses">${esc(P.matieres_label.fr)}</p>`,
-    `          <p class="fr-q__courses">${esc(project.matieres.fr.join(" · "))}</p>`,
-    `        </div>`,
-    `      </div>`,
-    `    </div>`,
-    `  </div>`,
-    `  <span class="fr-q__progress" aria-hidden="true"></span>`,
-    `</li>`,
-  ];
+const FONTS =
+  "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,36,400;1,36,400&family=Source+Sans+3:wght@400;600&display=swap";
+
+/** Titre : texte échappé, *mot* → <em>mot</em> ; un seul mot en italique par titre. */
+function title(text) {
+  const marks = text.match(/\*[^*]+\*/g) ?? [];
+  if (marks.length > 1) throw new Error(`Un seul mot en italique par titre : « ${text} »`);
+  return esc(text).replace(/\*([^*]+)\*/, "<em>$1</em>");
 }
+const titlePair = (o) => [normalize(title(o.fr)), title(o.en)];
+const pad2 = (n) => String(n).padStart(2, "0");
 
 /** « Voir le projet » suivi du nom du projet pour les lecteurs d'écran. */
 function voirProjet(project) {
@@ -221,18 +197,76 @@ function familyCount(key) {
   return { fr: `${label.fr} · ${n} ${P.projets_mot.fr}`, en: `${label.en} · ${n} ${P.projets_mot.en}` };
 }
 
-function familyBlock(key, i) {
+function ueLabel(n) {
+  const ue = data.ue[String(n)];
+  if (!ue) throw new Error(`UE ${n} inconnue (attendu : 1 à 7).`);
+  return ue;
+}
+
+function fiche(project, i) {
+  const famille = data.familles[project.famille].label;
+  const o = project.outil;
+  return [
+    `<li class="fr-fiche fr-fiche--${project.famille}" id="fiche-${project.id}">`,
+    `  <div class="fr-fiche__head">`,
+    `    <p class="fr-fiche__meta"><span class="fr-num">${pad2(i + 1)}</span><span class="fr-fiche__name" translate="no">${esc(project.nom)}</span><span class="fr-fiche__family">${esc(famille.fr)}</span></p>`,
+    `    <h3 class="fr-fiche__question">${esc(project.question.fr)}</h3>`,
+    `    <a class="fr-fiche__link" href="/projets/${project.id}">${voirProjet(project).fr}</a>`,
+    `  </div>`,
+    `  <dl class="fr-fiche__fields">`,
+    `    <div class="fr-field">`,
+    `      <dt>${esc(P.label_outil.fr)}</dt>`,
+    `      <dd>`,
+    `        <dl class="fr-io">`,
+    `          <div><dt>${esc(P.label_entrees.fr)}</dt><dd>${esc(o.entrees.fr)}</dd></div>`,
+    `          <div><dt>${esc(P.label_controles.fr)}</dt><dd>${esc(o.controles.fr)}</dd></div>`,
+    `          <div><dt>${esc(P.label_sorties.fr)}</dt><dd>${esc(o.sorties.fr)}</dd></div>`,
+    `        </dl>`,
+    `      </dd>`,
+    `    </div>`,
+    `    <div class="fr-field">`,
+    `      <dt>${esc(P.label_exigence.fr)}</dt>`,
+    `      <dd>${esc(project.exigence.fr)}</dd>`,
+    `    </div>`,
+    `    <div class="fr-field">`,
+    `      <dt>${esc(P.label_ue.fr)}</dt>`,
+    `      <dd>`,
+    `        <ul class="fr-ue">`,
+    ...project.ue.map((n) => `          <li><span class="fr-ue__code fr-num" translate="no">UE${n}</span><span>${esc(ueLabel(n).fr)}</span></li>`),
+    `        </ul>`,
+    `      </dd>`,
+    `    </div>`,
+    `  </dl>`,
+    `</li>`,
+  ];
+}
+
+function familyBlock(key) {
   const f = data.familles[key];
   const projects = data.questions.ordre.map((id) => byId.get(id)).filter((p) => p.famille === key);
   return [
-    `<article class="fr-family" data-reveal style="--n: ${i}">`,
+    `<article class="fr-family fr-family--${key}">`,
     `  <p class="fr-family__label">${esc(familyCount(key).fr)}</p>`,
     `  <h3 class="fr-family__title">${esc(f.titre.fr)}</h3>`,
     `  <p class="fr-family__text">${esc(f.texte.fr)}</p>`,
     `  <ul class="fr-family__projects">`,
-    ...projects.map((p) => `    <li><a href="/projets/${p.id}" translate="no" style="--p-accent: ${p.accent}">${esc(p.nom)}</a></li>`),
+    ...projects.map((p) => `    <li><a href="#fiche-${p.id}" translate="no">${esc(p.nom)}</a></li>`),
     `  </ul>`,
     `</article>`,
+  ];
+}
+
+function refLine(line) {
+  const names = line.projets.map((id) => {
+    if (!byId.has(id)) throw new Error(`colophon : projet « ${id} » inconnu.`);
+    return esc(byId.get(id).nom);
+  });
+  return [
+    `<div class="fr-ref">`,
+    `  <dt class="fr-ref__name">${esc(line.nom.fr)}</dt>`,
+    `  <dd class="fr-ref__ref">${esc(line.ref.fr)}</dd>`,
+    `  <dd class="fr-ref__projects" translate="no">${names.join(" · ")}</dd>`,
+    `</div>`,
   ];
 }
 
@@ -242,6 +276,7 @@ function filRougePage() {
     return byId.get(id);
   });
   if (ordered.length !== data.projets.length) throw new Error("questions.ordre doit citer chaque projet une fois.");
+  const C = data.colophon;
 
   const body = [
     `<header class="pj-top">`,
@@ -258,81 +293,68 @@ function filRougePage() {
     ``,
     `<main class="fr-main">`,
     `  <section class="fr-hero fr-wrap" aria-labelledby="fr-title">`,
-    `    <p class="fr-kicker" data-reveal>${esc(P.kicker.fr)}</p>`,
-    `    <h1 id="fr-title" class="fr-hero__title" data-split>${esc(data.accroche.fr)}</h1>`,
-    `    <p class="fr-hero__intro" data-reveal style="--n: 4">${esc(data.intro.fr)}</p>`,
-    `    <div class="fr-hero__rule" data-reveal style="--n: 6" aria-hidden="true"></div>`,
-    `    <ol class="fr-cs">`,
-    ...data.trois_c.flatMap((c, i) => [
-      `      <li class="fr-c" data-reveal style="--n: ${7 + i}">`,
-      `        <p class="fr-c__label"><span class="fr-c__letter" translate="no" aria-hidden="true">${esc(c.lettre)}</span><span>${esc(c.label.fr)}</span></p>`,
-      `        <p class="fr-c__verb">${esc(c.verbe.fr)}</p>`,
-      `        <p class="fr-c__phrase">${esc(c.phrase.fr)}</p>`,
+    `    <p class="fr-kicker">${esc(P.kicker.fr)}</p>`,
+    `    <h1 id="fr-title" class="fr-hero__title">${title(data.accroche.fr)}</h1>`,
+    `    <p class="fr-hero__intro">${esc(data.intro.fr)}</p>`,
+    `  </section>`,
+    ``,
+    `  <section class="fr-chain fr-wrap" aria-labelledby="fr-chain-title">`,
+    `    <h2 id="fr-chain-title" class="fr-kicker">${esc(P.chaine_label.fr)}</h2>`,
+    `    <ol class="fr-chain__steps">`,
+    ...data.chaine.flatMap((step, i) => [
+      `      <li class="fr-chain__step">`,
+      `        <span class="fr-num">${pad2(i + 1)}</span>`,
+      `        <p class="fr-chain__label">${esc(step.label.fr)}</p>`,
+      `        <p class="fr-chain__text">${esc(step.texte.fr)}</p>`,
       `      </li>`,
     ]),
     `    </ol>`,
     `  </section>`,
     ``,
-    `  <section class="fr-section fr-questions fr-wrap" aria-labelledby="fr-questions-title">`,
+    `  <section class="fr-section fr-fiches fr-wrap" aria-labelledby="fr-fiches-title">`,
     `    <div class="fr-section__head">`,
-    `      <div>`,
-    `        <p class="fr-kicker" data-reveal>${esc(P.questions_kicker.fr)}</p>`,
-    `        <h2 id="fr-questions-title" class="fr-h2" data-reveal style="--n: 1">${esc(data.questions.titre.fr)}</h2>`,
-    `      </div>`,
-    `      <div class="fr-section__aside" data-reveal style="--n: 2">`,
-    `        <p class="fr-section__sub">${esc(data.questions.sous_titre.fr)}</p>`,
-    `        <button class="fr-autoplay" type="button" hidden>`,
-    `          <span class="fr-autoplay__icon" aria-hidden="true"></span>`,
-    `          <span class="fr-autoplay__pause">${esc(P.pause.fr)}</span>`,
-    `          <span class="fr-autoplay__play">${esc(P.reprendre.fr)}</span>`,
-    `        </button>`,
-    `      </div>`,
+    `      <p class="fr-kicker">${esc(P.questions_kicker.fr)}</p>`,
+    `      <h2 id="fr-fiches-title" class="fr-h2">${title(data.questions.titre.fr)}</h2>`,
+    `      <p class="fr-section__sub">${esc(data.questions.sous_titre.fr)}</p>`,
     `    </div>`,
-    `    <ol class="fr-list">`,
-    ...ordered.flatMap((p, i) => questionItem(p, i).map((l) => `      ${l}`)),
+    `    <ol class="fr-fiches__list">`,
+    ...ordered.flatMap((p, i) => fiche(p, i).map((l) => `      ${l}`)),
     `    </ol>`,
     `  </section>`,
     ``,
     `  <section class="fr-section fr-families fr-wrap" aria-labelledby="fr-families-title">`,
-    `    <p class="fr-kicker" data-reveal>${esc(P.familles_kicker.fr)}</p>`,
-    `    <h2 id="fr-families-title" class="fr-h2" data-reveal style="--n: 1">${esc(data.familles.titre.fr)}</h2>`,
-    `    <div class="fr-families__grid" data-reveal style="--n: 2">`,
-    ...["coeur", "actualite"].flatMap((key, i) => familyBlock(key, i).map((l) => `      ${l}`)),
+    `    <p class="fr-kicker">${esc(P.familles_kicker.fr)}</p>`,
+    `    <h2 id="fr-families-title" class="fr-h2">${title(data.familles.titre.fr)}</h2>`,
+    `    <div class="fr-families__grid">`,
+    ...["coeur", "actualite"].flatMap((key) => familyBlock(key).map((l) => `      ${l}`)),
     `    </div>`,
     `  </section>`,
     ``,
-    `  <section class="fr-section fr-method fr-wrap" aria-labelledby="fr-method-title">`,
-    `    <p class="fr-kicker" data-reveal>${esc(P.methode_kicker.fr)}</p>`,
-    `    <h2 id="fr-method-title" class="fr-h2" data-reveal style="--n: 1">${esc(data.methode.titre.fr)}</h2>`,
-    `    <ol class="fr-rules">`,
-    ...data.methode.regles.flatMap((r, i) => [
-      `      <li class="fr-rule" data-reveal style="--n: ${i + 2}">`,
-      `        <span class="fr-rule__num">${String(i + 1).padStart(2, "0")}</span>`,
-      `        <h3 class="fr-rule__title">${esc(r.titre.fr)}</h3>`,
-      `        <p class="fr-rule__text">${esc(r.texte.fr)}</p>`,
-      `      </li>`,
-    ]),
-    `    </ol>`,
+    `  <section class="fr-section fr-colophon fr-wrap" aria-labelledby="fr-colophon-title">`,
+    `    <p class="fr-kicker">${esc(C.kicker.fr)}</p>`,
+    `    <h2 id="fr-colophon-title" class="fr-h2">${title(C.titre.fr)}</h2>`,
+    `    <p class="fr-section__sub">${esc(C.note.fr)}</p>`,
+    `    <dl class="fr-refs">`,
+    ...C.lignes.flatMap((line) => refLine(line).map((l) => `      ${l}`)),
+    `    </dl>`,
     `  </section>`,
     ``,
-    `  <section class="fr-outro fr-wrap" data-reveal>`,
+    `  <section class="fr-outro fr-wrap">`,
     `    <p class="fr-outro__mention">${esc(P.mention.fr)}</p>`,
     `    <a class="pj-cta" href="/">${esc(P.cta.fr)} ${ARROW}</a>`,
     `  </section>`,
     `</main>`,
-    ``,
-    `<script src="/assets/js/fil-rouge.js" defer></script>`,
   ];
 
   return [
     `<!doctype html>`,
-    `<html lang="fr">`,
+    `<html lang="fr" class="fr-page">`,
     `<head>`,
     `  <meta charset="utf-8">`,
     `  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">`,
     `  <title>${esc(P.titre.fr)}</title>`,
     `  <meta name="description" content="${escAttr(P.description.fr)}">`,
-    `  <meta name="theme-color" content="#0b0c0e">`,
+    `  <meta name="theme-color" content="#F6F7F9">`,
     `  <meta property="og:type" content="website">`,
     `  <meta property="og:locale" content="fr_FR">`,
     `  <meta property="og:title" content="${escAttr(P.titre.fr)}">`,
@@ -344,11 +366,9 @@ function filRougePage() {
     `  <script src="/assets/js/lang.js"></script>`,
     `  <link rel="preconnect" href="https://fonts.googleapis.com">`,
     `  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`,
-    `  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">`,
+    `  <link rel="stylesheet" href="${FONTS}">`,
     `  <link rel="stylesheet" href="/assets/css/project.css">`,
     `  <link rel="stylesheet" href="/assets/css/fil-rouge.css">`,
-    `  <!-- Animations d'entrée : actives seulement si fil-rouge.js démarre (sinon tout reste visible). -->`,
-    `  <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.filRougeReady)document.documentElement.classList.remove("js")},2500);</script>`,
     `</head>`,
     `<body class="fil-rouge">`,
     `  <!-- Page générée par scripts/build-fil-rouge.mjs à partir de public/data/fil-rouge.json : ne pas la modifier à la main. -->`,
@@ -356,48 +376,57 @@ function filRougePage() {
     `</body>`,
     `</html>`,
     ``,
-  ].join("\n");
+  ]
+    .join("\n")
+    // Typographie française : espace insécable avant : ; ? ! (jamais de ponctuation seule en début de ligne).
+    .replace(/ ([:;?!])(?=[\s<"])/g, " $1");
 }
 
 {
   const page = await open(path.join(ROOT, "public", "fil-rouge.html"));
   page.after = filRougePage();
   const ordered = data.questions.ordre.map((id) => byId.get(id));
+  const C = data.colophon;
   await translate(path.join(ROOT, "i18n", "en", "fil-rouge.json"), [
     textPair(P.titre),
     attrPair(P.description),
     attrPair(P.titre),
     attrPair(P.og_description),
     textPair(P.kicker),
-    textPair(data.accroche),
+    titlePair(data.accroche),
     textPair(data.intro),
-    ...data.trois_c.flatMap((c) => [textPair(c.label), textPair(c.verbe), textPair(c.phrase)]),
+    textPair(P.chaine_label),
+    ...data.chaine.flatMap((s) => [textPair(s.label), textPair(s.texte)]),
     textPair(P.questions_kicker),
-    textPair(data.questions.titre),
+    titlePair(data.questions.titre),
     textPair(data.questions.sous_titre),
-    textPair(P.pause),
-    textPair(P.reprendre),
-    textPair(P.reponse_label),
-    textPair(data.projet_page.label_lien),
-    textPair(P.matieres_label),
+    textPair(P.label_outil),
+    textPair(P.label_entrees),
+    textPair(P.label_controles),
+    textPair(P.label_sorties),
+    textPair(P.label_exigence),
+    textPair(P.label_ue),
     ...ordered.flatMap((p) => [
-      textPair(p.question),
       textPair(data.familles[p.famille].label),
-      textPair(p.reponse),
+      textPair(p.question),
       [normalize(voirProjet(p).fr), voirProjet(p).en],
-      textPair(p.lien_master),
-      textPair({ fr: p.matieres.fr.join(" · "), en: p.matieres.en.join(" · ") }),
+      textPair(p.outil.entrees),
+      textPair(p.outil.controles),
+      textPair(p.outil.sorties),
+      textPair(p.exigence),
+      ...p.ue.map((n) => textPair(ueLabel(n))),
     ]),
     textPair(P.familles_kicker),
-    textPair(data.familles.titre),
+    titlePair(data.familles.titre),
     ...["coeur", "actualite"].flatMap((key) => [
       textPair(familyCount(key)),
       textPair(data.familles[key].titre),
       textPair(data.familles[key].texte),
     ]),
-    textPair(P.methode_kicker),
-    textPair(data.methode.titre),
-    ...data.methode.regles.flatMap((r) => [textPair(r.titre), textPair(r.texte)]),
+    textPair(C.kicker),
+    titlePair(C.titre),
+    textPair(C.note),
+    ...C.lignes.flatMap((l) => [textPair(l.nom), textPair(l.ref)]),
     textPair(P.mention),
     [normalize(`${esc(P.cta.fr)} ${ARROW}`), `${esc(P.cta.en)} ${ARROW}`],
   ]);

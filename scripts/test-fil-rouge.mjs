@@ -8,9 +8,9 @@
  *    - les pages correspondent à public/data/fil-rouge.json (npm run fil-rouge -- --check) ;
  *    - les pages anglaises contiennent bien les textes anglais du JSON (npm run en a été relancé) ;
  *    - chaque lien interne des blocs « fil rouge » mène à une page qui existe.
- * 2. Contrôles dans un navigateur (si Playwright est disponible) : questions repliables et
- *    défilement automatique, bouton Pause, clavier, « réduire les animations », sans JavaScript,
- *    débordements, décalage de mise en page, erreurs dans la console.
+ * 2. Contrôles dans un navigateur (si Playwright est disponible) : polices et thème clair de
+ *    /fil-rouge, absence d'animation et de script de page, fiches et colophon, débordements,
+ *    décalage de mise en page, erreurs dans la console, accueil et pages projet restés sombres.
  *    Sans Playwright : npm i -D playwright && npx playwright install chromium
  *    (ou PLAYWRIGHT_CHROMIUM=/chemin/vers/chrome pour un Chromium déjà installé).
  *
@@ -57,7 +57,19 @@ for (const p of data.projets) {
   if (!enPage.includes(esc(p.question.en))) missingEn.push(`en/fil-rouge.html : ${p.question.en}`);
   if (!enProject.includes(esc(p.montre.en))) missingEn.push(`en/projets/${p.id}.html : ${p.montre.en}`);
 }
-if (!enPage.includes(esc(data.accroche.en))) missingEn.push("en/fil-rouge.html : accroche");
+if (!enPage.includes(esc(data.accroche.en).replace(/\*([^*]+)\*/, "<em>$1</em>"))) missingEn.push("en/fil-rouge.html : accroche");
+const unpaired = [];
+(function walk(node, at) {
+  if (Array.isArray(node)) return node.forEach((v, i) => walk(v, `${at}[${i}]`));
+  if (!node || typeof node !== "object") return;
+  if ("fr" in node || "en" in node) {
+    const ok = (v) => (Array.isArray(v) ? v.length > 0 : typeof v === "string" && v.trim() !== "");
+    if (!ok(node.fr) || !ok(node.en)) unpaired.push(at);
+    return;
+  }
+  for (const [k, v] of Object.entries(node)) walk(v, at ? `${at}.${k}` : k);
+})(data, "");
+check(unpaired.length === 0, "parité FR / EN : chaque texte du JSON existe dans les deux langues", unpaired.join(", "));
 check(missingEn.length === 0, "pages anglaises à jour (textes anglais du JSON présents)", `${missingEn[0]} … relancez « npm run en »`);
 
 /** Fichier servi pour une adresse du site (comme Vercel avec cleanUrls). */
@@ -130,7 +142,6 @@ if (!playwright) {
     await p.goto(origin + url, { waitUntil: "load" });
     return p;
   }
-  const openIndex = (p) => p.evaluate(() => [...document.querySelectorAll(".fr-q")].findIndex((q) => q.classList.contains("is-open")));
   const overflowX = (p) => p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
 
   try {
@@ -151,65 +162,61 @@ if (!playwright) {
       console.log(`\nNavigateur — /fil-rouge (${L})`);
       {
         const p = await page(`${lang}/fil-rouge`);
-        await p.waitForTimeout(2500);
+        await p.waitForTimeout(1500);
         check((await p.evaluate(() => window.__cls)) < 0.01, `${L} : pas de décalage de mise en page à l'arrivée`);
-        await p.locator(".fr-questions").scrollIntoViewIfNeeded();
-        await p.mouse.move(2, 2);
-        const first = await openIndex(p);
-        await p.waitForTimeout(7800);
-        check(first === 0 && (await openIndex(p)) === 1, `${L} : les questions s'ouvrent l'une après l'autre`);
-        await p.locator(".fr-autoplay").click();
-        const paused = await openIndex(p);
-        await p.waitForTimeout(7800);
-        check((await openIndex(p)) === paused, `${L} : le bouton Pause arrête le défilement`);
-        await p.locator(".fr-q__toggle").nth(3).click();
-        await p.waitForTimeout(800);
-        check((await openIndex(p)) === 3 && (await p.locator(".fr-q__toggle").nth(3).getAttribute("aria-expanded")) === "true", `${L} : un clic ouvre la question choisie`);
-        const reachable = await p.evaluate(() => [...document.querySelectorAll(".fr-q:not(.is-open) .fr-q__link")].filter((a) => getComputedStyle(a).visibility !== "hidden").length);
-        check(reachable === 0, `${L} : les réponses fermées sont hors du parcours clavier`);
-        await p.locator(".fr-q__toggle").nth(0).focus();
-        await p.keyboard.press("Enter");
-        await p.waitForTimeout(700);
-        check((await openIndex(p)) === 0, `${L} : la touche Entrée ouvre une question`);
-        // Défilement progressif, comme un visiteur : les sections apparaissent en entrant à l'écran.
-        await p.evaluate(() => window.scrollTo(0, 0));
-        for (let y = 0; y < 12; y += 1) {
-          await p.mouse.wheel(0, 600);
-          await p.waitForTimeout(200);
-        }
-        await p.waitForTimeout(1800);
-        const hidden = await p.evaluate(() => [...document.querySelectorAll("[data-reveal]")].filter((e) => getComputedStyle(e).opacity < 0.99).length);
-        check(hidden === 0, `${L} : tout le contenu est apparu après défilement`);
+        const r = await p.evaluate(() => {
+          const css = (el, prop) => getComputedStyle(el).getPropertyValue(prop);
+          const main = document.querySelector("main");
+          const fonts = [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) => l.href).join(" ");
+          return {
+            fontsOk: /Newsreader/.test(fonts) && /Source\+Sans\+3/.test(fonts) && !/Cormorant|Inter|JetBrains/.test(fonts),
+            h1Font: css(document.querySelector("h1"), "font-family"),
+            bodyFont: css(document.body, "font-family"),
+            bg: css(document.documentElement, "background-color"),
+            shadows: [...document.querySelectorAll("body *")].filter((e) => css(e, "box-shadow") !== "none").length,
+            gradients: [...document.querySelectorAll("body *")].filter((e) => /gradient/.test(css(e, "background-image"))).length,
+            h1Em: document.querySelectorAll("h1 em").length,
+            h2Em: Math.max(...[...document.querySelectorAll("h2")].map((h) => h.querySelectorAll("em").length)),
+            scripts: [...document.scripts].map((s) => s.getAttribute("src") || "inline"),
+            buttons: main.querySelectorAll("button").length,
+            reveal: document.querySelectorAll("[data-reveal], [data-split], .fr-autoplay").length,
+            chain: document.querySelectorAll(".fr-chain__step").length,
+            fiches: [...document.querySelectorAll(".fr-fiche")].map((f) => ({
+              fields: f.querySelectorAll(".fr-fiche__fields > .fr-field").length,
+              io: f.querySelectorAll(".fr-io > div").length,
+              ue: f.querySelectorAll(".fr-ue li").length,
+              visible: f.getBoundingClientRect().height > 50,
+            })),
+            asterisk: /\*/.test(main.innerText),
+            colophon: document.querySelector(".fr-refs").innerText,
+          };
+        });
+        check(r.fontsOk && /Newsreader/.test(r.h1Font) && /Source Sans 3/.test(r.bodyFont), `${L} : Newsreader et Source Sans 3 seulement (ni Cormorant, ni Inter, ni JetBrains Mono)`, `${r.h1Font} / ${r.bodyFont}`);
+        check(r.bg === "rgb(246, 247, 249)" && r.shadows === 0 && r.gradients === 0, `${L} : fond #F6F7F9, aucune ombre, aucun dégradé`, `${r.bg}, ${r.shadows} ombre(s), ${r.gradients} dégradé(s)`);
+        check(r.h1Em === 1 && r.h2Em <= 1 && !r.asterisk, `${L} : un seul mot en italique par grand titre`);
+        check(r.scripts.length === 1 && /lang\.js$/.test(r.scripts[0]) && r.buttons === 0 && r.reveal === 0, `${L} : ni défilement automatique, ni animation, aucun script de page`, r.scripts.join(", "));
+        const fichesOk = r.fiches.length === data.projets.length && r.fiches.every((f) => f.fields === 3 && f.io === 3 && f.ue >= 1 && f.visible);
+        check(r.chain === 3 && fichesOk, `${L} : chaîne en 3 étapes, ${data.projets.length} fiches à 3 champs (outil, exigence, UE)`);
+        check(!/IFRS|AMF/.test(r.colophon), `${L} : colophon sans IFRS ni AMF`);
         check(!(await overflowX(p)), `${L} : pas de débordement horizontal (1440 px)`);
         check(p.errors.length === 0, `${L} : aucune erreur dans la console`, p.errors.join(" | "));
         await p.context().close();
       }
       {
-        const p = await page(`${lang}/fil-rouge`, { reducedMotion: "reduce" });
-        await p.waitForTimeout(800);
-        const r = await p.evaluate(() => ({
-          hidden: [...document.querySelectorAll("[data-reveal]")].filter((e) => getComputedStyle(e).opacity < 0.99).length,
-          pause: !document.querySelector(".fr-autoplay").hidden,
-        }));
-        await p.locator(".fr-questions").scrollIntoViewIfNeeded();
-        await p.waitForTimeout(7800);
-        check(r.hidden === 0 && !r.pause && (await openIndex(p)) === 0, `${L} : « réduire les animations » : rien de masqué, pas de défilement automatique`);
-        await p.context().close();
-      }
-      {
-        const p = await page(`${lang}/fil-rouge`, { javaScriptEnabled: false });
-        const r = await p.evaluate(() => ({
-          hidden: [...document.querySelectorAll("[data-reveal]")].filter((e) => getComputedStyle(e).opacity < 0.99).length,
-          open: [...document.querySelectorAll(".fr-q__panel-inner")].filter((e) => e.getBoundingClientRect().height > 20).length,
-        }));
-        check(r.hidden === 0 && r.open === data.projets.length, `${L} : sans JavaScript, tout est visible et ouvert`);
-        await p.context().close();
-      }
-      {
         const p = await page(`${lang}/fil-rouge`, { viewport: { width: 375, height: 667 } });
-        await p.waitForTimeout(1000);
+        await p.waitForTimeout(800);
         check(!(await overflowX(p)), `${L} : pas de débordement horizontal (375 px)`);
         await p.context().close();
+      }
+      {
+        // Le thème clair ne doit pas déborder sur les autres pages.
+        const home = await page(`${lang}/`);
+        const project = await page(`${lang}/projets/probant`);
+        const bg = (p) => p.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
+        const [b1, b2] = [await bg(home), await bg(project)];
+        check(b1 === "rgb(11, 12, 14)" && b2 === "rgb(11, 12, 14)", `${L} : l'accueil et les pages projet restent sombres`, `${b1} / ${b2}`);
+        await home.context().close();
+        await project.context().close();
       }
 
       console.log(`\nNavigateur — accueil et pages projet (${L})`);

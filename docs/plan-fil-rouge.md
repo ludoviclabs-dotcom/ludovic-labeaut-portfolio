@@ -132,8 +132,8 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
   - Vérifié : une modification du JSON non régénérée fait bien échouer les tests.
 - [x] README : section « Le fil rouge » (comment modifier un texte) et fichiers ajoutés.
 - [x] Branche `claude/laughing-dirac-uoxti8` poussée.
-- [ ] Prévisualisation Vercel à relire **par toi** : les adresses `*.vercel.app` sont bloquées par le réseau de la session de travail, elle n'a pas pu l'ouvrir. À vérifier : l'adresse `/fil-rouge` (sans `.html`), les animations, le lien de l'accueil, et un Lighthouse sur la prévisualisation.
-- [ ] Pull request uniquement sur demande.
+- [x] Prévisualisation remplacée par un contrôle en production après fusion (PR #18) ; ancien point : : les adresses `*.vercel.app` sont bloquées par le réseau de la session de travail, elle n'a pas pu l'ouvrir. À vérifier : l'adresse `/fil-rouge` (sans `.html`), les animations, le lien de l'accueil, et un Lighthouse sur la prévisualisation.
+- [x] Pull request ludoviclabs-dotcom/ludovic-labeaut-portfolio#18, fusionnée.
 - [x] Hors projet, demandé ensuite : liens `hreflang` en adresses complètes sur le domaine de production `https://l-labs-portfolio.vercel.app` (défini une seule fois dans `scripts/site.mjs`).
   - 32 pages françaises (96 liens) et leurs versions anglaises ; générateurs mis à jour (`import-articles.mjs`, `import-photos.mjs`, `build-fil-rouge.mjs`) pour qu'une régénération garde la correction.
   - `lang.js` ne garde que le chemin de ces liens : la langue retenue redirige toujours sur le site consulté (prévisualisation, local), jamais vers la production. Contrôle ajouté à `npm test` (64 contrôles).
@@ -155,3 +155,43 @@ Ordre à suivre après une modification de texte : modifier le JSON, `npm run fi
 0 → 1 → 2 → 3 (mise en ligne possible dès cette étape) → 4 → 5 → 6 → 7 → 8.
 
 L'étape 3 est la plus petite et la plus visible : elle répond déjà à « on ne comprend pas pourquoi ».
+
+---
+
+# Refonte éditoriale de /fil-rouge
+
+Objectif : retirer tout effet « IA générative » et atteindre une rigueur éditoriale-financière
+(références : Financial Times, Stripe Press, Linear).
+
+## Étape 1 — Direction artistique et nettoyage éditorial ✅
+
+- **Thème clair limité à la page** : `html.fr-page` (posé par le générateur) porte les variables
+  (papier `#F6F7F9`, surface `#FFFFFF`, filet `#E2E6EC`, encre `#111418`, corps `#4A5568`,
+  métadonnées `#6B7280`, Prusse `#16324F` pour le cœur de métier, Ocre `#A84B20` pour les terrains
+  d'actualité et le fil rouge) et redéfinit celles de `project.css` : barre du haut et bouton final
+  passent en clair sans modifier `project.css`. Accueil et pages projet inchangés (contrôlé par `npm test`).
+- **Polices** : Newsreader (titres, taille optique fixe 36 ; italique sur un seul mot par grand titre,
+  noté `*mot*` dans le JSON) et Source Sans 3 (texte, interface, chiffres tabulaires). Plus de
+  Cormorant Garamond ni d'Inter sur cette page. Polices de secours calées (`size-adjust`) et largeurs
+  en em : aucun décalage à l'arrivée des polices.
+- **Contenu** :
+  - triptyque C/C/A remplacé par la chaîne `Question métier / Norme` → `Pipeline de traitement` → `Livrable opposable` ;
+  - six fiches ouvertes à trois champs : *Ce que fait l'outil* (entrées, contrôles, sorties, repris des
+    étapes publiées sur chaque page projet), *Exigence CCA mobilisée*, *UE du Master* (UE1 à UE7 du DSCG) ;
+  - règles « Sourcé / Reproductible / Explicable » remplacées par un colophon des référentiels.
+- **Colophon, zéro hallucination** : IFRS retiré (IFRS 16 n'apparaît dans aucune page de Probant) ;
+  AMF retiré (non documenté pour FinValStudio) ; aucune source nommée de KYB Graph ou de Panoplie dans
+  le dépôt, d'où la formule « registres publics d'entreprises, listes de sanctions et sources ouvertes
+  documentées ». Les identifiants de textes (ANC 2014-03, NEP 500, LPF art. A47 A-1, BOI-CF-IOR-60-40,
+  règlement délégué (UE) 2023/2772, CMF art. L.561-5, règlement (UE) 2024/1624) ne figurent pas sur les
+  pages projet : à garder sous relecture.
+- **Supprimés** : défilement automatique, Pause / Reprendre, accordéon, titre mot à mot, apparitions au
+  défilement, `public/assets/js/fil-rouge.js` (un script léger reviendra à l'étape 2).
+- **Mesures** (local, médiane de 3) : Lighthouse mobile 92 (ancienne page 96), ordinateur 99,
+  accessibilité, bonnes pratiques et SEO 100 ; CLS 0,001 même avec polices retardées de 1,5 s ;
+  poids total 124 Ko (ancienne page 141 Ko). `npm test` : 63 contrôles.
+
+## Étape 2 — Vue partagée interactive (à venir)
+
+- Section des fiches en vue partagée (liste des six questions + fiche active), navigation au clavier,
+  script vanilla léger `fil-rouge.js` ; sans JavaScript, les fiches restent toutes ouvertes.

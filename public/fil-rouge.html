@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="fr-page">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Le fil rouge — Ludovic Labeaut</title>
-  <meta name="description" content="Pourquoi ces six projets : la méthode du Master Comptabilité, Contrôle, Audit, appliquée du cœur de métier aux sujets d’actualité.">
-  <meta name="theme-color" content="#0b0c0e">
+  <meta name="description" content="Pourquoi ces six projets : la méthode du Master Comptabilité, Contrôle, Audit, appliquée du cœur de métier aux sujets d’actualité.">
+  <meta name="theme-color" content="#F6F7F9">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:title" content="Le fil rouge — Ludovic Labeaut">
-  <meta property="og:description" content="Un chiffre ne vaut que s’il peut être prouvé : six projets, une seule méthode.">
+  <meta property="og:description" content="Un chiffre ne vaut que s’il peut être prouvé : six projets, une seule méthode.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="fr" href="https://l-labs-portfolio.vercel.app/fil-rouge">
   <link rel="alternate" hreflang="en" href="https://l-labs-portfolio.vercel.app/en/fil-rouge">
@@ -17,14 +17,12 @@
   <script src="/assets/js/lang.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,36,400;1,36,400&family=Source+Sans+3:wght@400;600&display=swap">
   <link rel="stylesheet" href="/assets/css/project.css">
   <link rel="stylesheet" href="/assets/css/fil-rouge.css">
-  <!-- Animations d'entrée : actives seulement si fil-rouge.js démarre (sinon tout reste visible). -->
-  <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.filRougeReady)document.documentElement.classList.remove("js")},2500);</script>
 </head>
 <body class="fil-rouge">
-  <!-- Page générée par scripts/build-fil-rouge.mjs à partir de public/data/fil-rouge.json : ne pas la modifier à la main. -->
+  <!-- Page générée par scripts/build-fil-rouge.mjs à partir de public/data/fil-rouge.json : ne pas la modifier à la main. -->
   <header class="pj-top">
     <a class="pj-back" href="/">← Projets</a>
     <div class="pj-top__right">
@@ -39,295 +37,306 @@
 
   <main class="fr-main">
     <section class="fr-hero fr-wrap" aria-labelledby="fr-title">
-      <p class="fr-kicker" data-reveal>Pourquoi ce portfolio</p>
-      <h1 id="fr-title" class="fr-hero__title" data-split>Un chiffre ne vaut que s’il peut être prouvé.</h1>
-      <p class="fr-hero__intro" data-reveal style="--n: 4">C’est l’exigence du Master Comptabilité, Contrôle, Audit. Ce portfolio l’applique à six terrains, des plus classiques aux plus nouveaux : la méthode est celle du master, les sujets sont ceux d’aujourd’hui.</p>
-      <div class="fr-hero__rule" data-reveal style="--n: 6" aria-hidden="true"></div>
-      <ol class="fr-cs">
-        <li class="fr-c" data-reveal style="--n: 7">
-          <p class="fr-c__label"><span class="fr-c__letter" translate="no" aria-hidden="true">C</span><span>Comptabilité</span></p>
-          <p class="fr-c__verb">Compter</p>
-          <p class="fr-c__phrase">Mesurer juste.</p>
+      <p class="fr-kicker">Pourquoi ce portfolio</p>
+      <h1 id="fr-title" class="fr-hero__title">Un chiffre ne vaut que s’il peut être <em>prouvé</em>.</h1>
+      <p class="fr-hero__intro">C’est l’exigence du Master Comptabilité, Contrôle, Audit. Ce portfolio l’applique à six terrains, des plus classiques aux plus nouveaux : la méthode est celle du master, les sujets sont ceux d’aujourd’hui.</p>
+    </section>
+
+    <section class="fr-chain fr-wrap" aria-labelledby="fr-chain-title">
+      <h2 id="fr-chain-title" class="fr-kicker">De la question au livrable</h2>
+      <ol class="fr-chain__steps">
+        <li class="fr-chain__step">
+          <span class="fr-num">01</span>
+          <p class="fr-chain__label">Question métier / Norme</p>
+          <p class="fr-chain__text">Une exigence posée par un référentiel ou un métier.</p>
         </li>
-        <li class="fr-c" data-reveal style="--n: 8">
-          <p class="fr-c__label"><span class="fr-c__letter" translate="no" aria-hidden="true">C</span><span>Contrôle</span></p>
-          <p class="fr-c__verb">Contrôler</p>
-          <p class="fr-c__phrase">Décider sur des chiffres fiables.</p>
+        <li class="fr-chain__step">
+          <span class="fr-num">02</span>
+          <p class="fr-chain__label">Pipeline de traitement</p>
+          <p class="fr-chain__text">Des données sourcées, des contrôles rejouables.</p>
         </li>
-        <li class="fr-c" data-reveal style="--n: 9">
-          <p class="fr-c__label"><span class="fr-c__letter" translate="no" aria-hidden="true">A</span><span>Audit</span></p>
-          <p class="fr-c__verb">Auditer</p>
-          <p class="fr-c__phrase">Prouver ce que l’on avance.</p>
+        <li class="fr-chain__step">
+          <span class="fr-num">03</span>
+          <p class="fr-chain__label">Livrable opposable</p>
+          <p class="fr-chain__text">Un document qu’un tiers peut vérifier.</p>
         </li>
       </ol>
     </section>
 
-    <section class="fr-section fr-questions fr-wrap" aria-labelledby="fr-questions-title">
+    <section class="fr-section fr-fiches fr-wrap" aria-labelledby="fr-fiches-title">
       <div class="fr-section__head">
-        <div>
-          <p class="fr-kicker" data-reveal>Le fil rouge</p>
-          <h2 id="fr-questions-title" class="fr-h2" data-reveal style="--n: 1">Six questions, six projets</h2>
-        </div>
-        <div class="fr-section__aside" data-reveal style="--n: 2">
-          <p class="fr-section__sub">Chaque question mobilise une compétence du master. Ouvrez-en une pour voir le projet qui y répond.</p>
-          <button class="fr-autoplay" type="button" hidden>
-            <span class="fr-autoplay__icon" aria-hidden="true"></span>
-            <span class="fr-autoplay__pause">Pause</span>
-            <span class="fr-autoplay__play">Reprendre</span>
-          </button>
-        </div>
+        <p class="fr-kicker">Le fil rouge</p>
+        <h2 id="fr-fiches-title" class="fr-h2">Six questions, six projets</h2>
+        <p class="fr-section__sub">Chaque question mobilise une compétence du master. Sous chacune, le projet qui y répond.</p>
       </div>
-      <ol class="fr-list">
-        <li class="fr-q" data-reveal style="--n: 0; --q-accent: #829bed">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-probant" aria-expanded="true" aria-controls="fr-q-probant-panel">
-              <span class="fr-q__num">01</span>
-              <span class="fr-q__question">Peut-on prouver qu’une comptabilité est fiable ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">Probant</span>
-                <span class="fr-q__family">Cœur de métier</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-probant-panel" role="region" aria-labelledby="fr-q-probant">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">Probant analyse le fichier des écritures comptables d’une entreprise, repère les anomalies et assemble un dossier de preuve que l’on peut présenter à un tiers.</p>
-                  <a class="fr-q__link" href="/projets/probant">Voir le projet <span class="visually-hidden">Probant</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">L’audit, cœur du master : ne rien affirmer sans élément de preuve.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Audit financier · Accounting under IFRS</p>
-                </div>
-              </div>
-            </div>
+      <ol class="fr-fiches__list">
+        <li class="fr-fiche fr-fiche--coeur" id="fiche-probant">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">01</span><span class="fr-fiche__name" translate="no">Probant</span><span class="fr-fiche__family">Cœur de métier</span></p>
+            <h3 class="fr-fiche__question">Peut-on prouver qu’une comptabilité est fiable ?</h3>
+            <a class="fr-fiche__link" href="/projets/probant">Voir le projet <span class="visually-hidden">Probant</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>Le fichier des écritures comptables (FEC), importé en un glisser-déposer.</dd></div>
+                  <div><dt>Contrôles</dt><dd>Chaque écriture contrôlée : doublons, écritures hors période, séquences rompues.</dd></div>
+                  <div><dt>Sorties</dt><dd>Un dossier de preuve opposable, scellé et horodaté ; le rapport prêt pour l’audit.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Caractère probant des éléments collectés (NEP 500) ; exhaustivité et séparation des exercices ; FEC conforme (LPF, art. A47 A-1) pour des comptes tenus selon le PCG.</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Comptabilité et audit</span></li>
+                  <li><span class="fr-ue__code fr-num" translate="no">UE5</span><span>Management des systèmes d’information</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
-        <li class="fr-q" data-reveal style="--n: 1; --q-accent: #e2c27d">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-finvalstudio" aria-expanded="true" aria-controls="fr-q-finvalstudio-panel">
-              <span class="fr-q__num">02</span>
-              <span class="fr-q__question">Combien vaut une entreprise, et avec quelle marge d’erreur ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">FinValStudio</span>
-                <span class="fr-q__family">Cœur de métier</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-finvalstudio-panel" role="region" aria-labelledby="fr-q-finvalstudio">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">FinValStudio construit des modèles financiers complets, valorise l’entreprise selon plusieurs méthodes et teste des milliers de scénarios.</p>
-                  <a class="fr-q__link" href="/projets/finvalstudio">Voir le projet <span class="visually-hidden">FinValStudio</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">La finance d’entreprise : une valeur est une hypothèse qu’il faut savoir défendre.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Évaluation d’entreprises · Ingénierie financière</p>
-                </div>
-              </div>
-            </div>
+        <li class="fr-fiche fr-fiche--coeur" id="fiche-finvalstudio">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">02</span><span class="fr-fiche__name" translate="no">FinValStudio</span><span class="fr-fiche__family">Cœur de métier</span></p>
+            <h3 class="fr-fiche__question">Combien vaut une entreprise, et avec quelle marge d’erreur ?</h3>
+            <a class="fr-fiche__link" href="/projets/finvalstudio">Voir le projet <span class="visually-hidden">FinValStudio</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>Hypothèses guidées : coût du capital et WACC calculé.</dd></div>
+                  <div><dt>Contrôles</dt><dd>DCF (flux actualisés, valeur terminale, pont vers les fonds propres) ; multiples des pairs et médiane ; Monte Carlo sur 5 000 tirages (P10, médiane, P90).</dd></div>
+                  <div><dt>Sorties</dt><dd>Valeur implicite par action ; LBO : désendettement, TRI et multiple du sponsor.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Évaluation multicritère (DCF, comparables) et analyse de sensibilité des hypothèses.</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
-        <li class="fr-q" data-reveal style="--n: 2; --q-accent: #84c89a">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-carbon-co" aria-expanded="true" aria-controls="fr-q-carbon-co-panel">
-              <span class="fr-q__num">03</span>
-              <span class="fr-q__question">Comment rendre compte de ce qui ne se compte pas en euros ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">Carbon&amp;Co</span>
-                <span class="fr-q__family">Cœur de métier</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-carbon-co-panel" role="region" aria-labelledby="fr-q-carbon-co">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">Carbon&amp;Co collecte les données ESG, calcule l’empreinte carbone et produit les rapports exigés par la réglementation européenne.</p>
-                  <a class="fr-q__link" href="/projets/carbon-co">Voir le projet <span class="visually-hidden">Carbon&amp;Co</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">Le reporting de durabilité : la rigueur des comptes, appliquée au carbone.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Sustainable Reporting · Governance and CSR</p>
-                </div>
-              </div>
-            </div>
+        <li class="fr-fiche fr-fiche--coeur" id="fiche-carbon-co">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">03</span><span class="fr-fiche__name" translate="no">Carbon&amp;Co</span><span class="fr-fiche__family">Cœur de métier</span></p>
+            <h3 class="fr-fiche__question">Comment rendre compte de ce qui ne se compte pas en euros ?</h3>
+            <a class="fr-fiche__link" href="/projets/carbon-co">Voir le projet <span class="visually-hidden">Carbon&amp;Co</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>Classeur modèle des données d’activité : énergie, transport, achats, déchets.</dd></div>
+                  <div><dt>Contrôles</dt><dd>Scopes 1, 2 et 3 en tCO₂e (méthode GHG Protocol) ; double matérialité des thèmes ESRS.</dd></div>
+                  <div><dt>Sorties</dt><dd>Rapport CSRD (ESRS 2, E1, G1) avec piste d’audit ; cockpit, alertes et trajectoire projetée.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Bilan GES (GHG Protocol), double matérialité (ESRS 1), informations de durabilité prêtes pour l’assurance limitée.</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Comptabilité et audit</span></li>
+                  <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management et contrôle de gestion</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
-        <li class="fr-q" data-reveal style="--n: 3; --q-accent: #6ccad0">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-kyb-graph" aria-expanded="true" aria-controls="fr-q-kyb-graph-panel">
-              <span class="fr-q__num">04</span>
-              <span class="fr-q__question">Qui se trouve vraiment derrière une société ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">KYB Graph</span>
-                <span class="fr-q__family">Cœur de métier</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-kyb-graph-panel" role="region" aria-labelledby="fr-q-kyb-graph">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">KYB Graph cartographie les liens entre sociétés, dirigeants, adresses et sanctions, et indique pour chaque lien son niveau de preuve.</p>
-                  <a class="fr-q__link" href="/projets/kyb-graph">Voir le projet <span class="visually-hidden">KYB Graph</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">Le droit des sociétés et l’audit : savoir à qui l’on a affaire avant de s’engager.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Droit de l’ingénierie sociétaire · Audit financier</p>
-                </div>
-              </div>
-            </div>
+        <li class="fr-fiche fr-fiche--coeur" id="fiche-kyb-graph">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">04</span><span class="fr-fiche__name" translate="no">KYB Graph</span><span class="fr-fiche__family">Cœur de métier</span></p>
+            <h3 class="fr-fiche__question">Qui se trouve vraiment derrière une société ?</h3>
+            <a class="fr-fiche__link" href="/projets/kyb-graph">Voir le projet <span class="visually-hidden">KYB Graph</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>26 sources publiques, par API ou jeux ouverts, jamais de scraping.</dd></div>
+                  <div><dt>Contrôles</dt><dd>Qualité de preuve de chaque lien : confirmé, déclaré, inféré, simulé ; signaux de vigilance expliqués, jamais une qualification de fraude.</dd></div>
+                  <div><dt>Sorties</dt><dd>Journal chaîné par empreinte SHA-256 ; export PDF, JSON et pack ZIP.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Vigilance LCB-FT : identification du client et du bénéficiaire effectif (CMF, art. L.561-5 et s. ; règlement (UE) 2024/1624, AMLR).</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE1</span><span>Gestion juridique, fiscale et sociale</span></li>
+                  <li><span class="fr-ue__code fr-num" translate="no">UE4</span><span>Comptabilité et audit</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
-        <li class="fr-q" data-reveal style="--n: 4; --q-accent: #7fb0dc">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-panoplie" aria-expanded="true" aria-controls="fr-q-panoplie-panel">
-              <span class="fr-q__num">05</span>
-              <span class="fr-q__question">Que coûte réellement un système de défense ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">Panoplie</span>
-                <span class="fr-q__family">Terrain d’actualité</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-panoplie-panel" role="region" aria-labelledby="fr-q-panoplie">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">Panoplie rassemble, à partir de sources ouvertes, le coût réel, la chaîne industrielle et les dépendances des grands programmes de défense : un secteur en pleine accélération.</p>
-                  <a class="fr-q__link" href="/projets/panoplie">Voir le projet <span class="visually-hidden">Panoplie</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">Le contrôle de gestion hors des secteurs classiques : la même méthode d’analyse des coûts, appliquée à l’industrie de défense.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Stratégie et contrôle de gestion · Diagnostic financier approfondi</p>
-                </div>
-              </div>
-            </div>
+        <li class="fr-fiche fr-fiche--actualite" id="fiche-panoplie">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">05</span><span class="fr-fiche__name" translate="no">Panoplie</span><span class="fr-fiche__family">Terrain d’actualité</span></p>
+            <h3 class="fr-fiche__question">Que coûte réellement un système de défense ?</h3>
+            <a class="fr-fiche__link" href="/projets/panoplie">Voir le projet <span class="visually-hidden">Panoplie</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>Catalogue filtrable des systèmes ; graphe industriel : pays, systèmes, industriels.</dd></div>
+                  <div><dt>Contrôles</dt><dd>Registre des coûts publics : périmètre, année, incertitude et sources ; six paliers notés de A à E, chacun argumenté.</dd></div>
+                  <div><dt>Sorties</dt><dd>System X-Ray et Evidence Pack en Markdown, par système.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Coût complet et traçabilité de chaque montant : périmètre, millésime, incertitude.</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE3</span><span>Management et contrôle de gestion</span></li>
+                  <li><span class="fr-ue__code fr-num" translate="no">UE2</span><span>Finance</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
-        <li class="fr-q" data-reveal style="--n: 5; --q-accent: #d97a5e">
-          <h3 class="fr-q__heading">
-            <button class="fr-q__toggle" type="button" id="fr-q-publications" aria-expanded="true" aria-controls="fr-q-publications-panel">
-              <span class="fr-q__num">06</span>
-              <span class="fr-q__question">Dans quel monde ces entreprises évoluent-elles ?</span>
-              <span class="fr-q__meta">
-                <span class="fr-q__dot" aria-hidden="true"></span>
-                <span class="fr-q__name" translate="no">Publications</span>
-                <span class="fr-q__family">Terrain d’actualité</span>
-              </span>
-              <span class="fr-q__sign" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="fr-q__panel" id="fr-q-publications-panel" role="region" aria-labelledby="fr-q-publications">
-            <div class="fr-q__panel-inner">
-              <div class="fr-q__body">
-                <div class="fr-q__answer">
-                  <p class="fr-q__label">La réponse</p>
-                  <p class="fr-q__text">Lignes de force réunit vingt-trois notes d’analyse et trois dossiers interactifs sur la géopolitique, la géoéconomie, la robotique, le quantique et la nutraceutique.</p>
-                  <a class="fr-q__link" href="/projets/publications">Voir le projet <span class="visually-hidden">Publications</span></a>
-                </div>
-                <div class="fr-q__master">
-                  <p class="fr-q__label">Le lien avec le master</p>
-                  <p class="fr-q__lien">La méthode du mémoire, appliquée à des sujets neufs : apprendre vite, sourcer, dater, argumenter.</p>
-                  <p class="fr-q__label fr-q__label--courses">Matières du master</p>
-                  <p class="fr-q__courses">Mémoire · Conférences et méthodologie</p>
-                </div>
-              </div>
-            </div>
+        <li class="fr-fiche fr-fiche--actualite" id="fiche-publications">
+          <div class="fr-fiche__head">
+            <p class="fr-fiche__meta"><span class="fr-num">06</span><span class="fr-fiche__name" translate="no">Publications</span><span class="fr-fiche__family">Terrain d’actualité</span></p>
+            <h3 class="fr-fiche__question">Dans quel monde ces entreprises évoluent-elles ?</h3>
+            <a class="fr-fiche__link" href="/projets/publications">Voir le projet <span class="visually-hidden">Publications</span></a>
           </div>
-          <span class="fr-q__progress" aria-hidden="true"></span>
+          <dl class="fr-fiche__fields">
+            <div class="fr-field">
+              <dt>Ce que fait l’outil</dt>
+              <dd>
+                <dl class="fr-io">
+                  <div><dt>Entrées</dt><dd>Un sujet retenu dans le plan de la série ; des sources datées et recoupées.</dd></div>
+                  <div><dt>Contrôles</dt><dd>Source unique signalée ; schéma des acteurs, de leurs leviers et des exposés.</dd></div>
+                  <div><dt>Sorties</dt><dd>Une note datée : l’essentiel en quatre points, plan en six sections, mise en ligne.</dd></div>
+                </dl>
+              </dd>
+            </div>
+            <div class="fr-field">
+              <dt>Exigence CCA mobilisée</dt>
+              <dd>Méthode du mémoire : sources primaires, recoupement, datation.</dd>
+            </div>
+            <div class="fr-field">
+              <dt>UE du Master</dt>
+              <dd>
+                <ul class="fr-ue">
+                  <li><span class="fr-ue__code fr-num" translate="no">UE7</span><span>Mémoire</span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </li>
       </ol>
     </section>
 
     <section class="fr-section fr-families fr-wrap" aria-labelledby="fr-families-title">
-      <p class="fr-kicker" data-reveal>Deux façons de le prouver</p>
-      <h2 id="fr-families-title" class="fr-h2" data-reveal style="--n: 1">Maîtriser un métier, et savoir apprendre un sujet neuf.</h2>
-      <div class="fr-families__grid" data-reveal style="--n: 2">
-        <article class="fr-family" data-reveal style="--n: 0">
+      <p class="fr-kicker">Deux façons de le prouver</p>
+      <h2 id="fr-families-title" class="fr-h2">Maîtriser un métier, et savoir <em>apprendre</em> un sujet neuf.</h2>
+      <div class="fr-families__grid">
+        <article class="fr-family fr-family--coeur">
           <p class="fr-family__label">Cœur de métier · 4 projets</p>
           <h3 class="fr-family__title">La maîtrise</h3>
-          <p class="fr-family__text">Audit, valorisation, reporting de durabilité, conformité : les matières du master, transformées en outils que l’on peut utiliser dès le premier jour.</p>
+          <p class="fr-family__text">Audit, valorisation, reporting de durabilité, conformité : les matières du master, transformées en outils que l’on peut utiliser dès le premier jour.</p>
           <ul class="fr-family__projects">
-            <li><a href="/projets/probant" translate="no" style="--p-accent: #829bed">Probant</a></li>
-            <li><a href="/projets/finvalstudio" translate="no" style="--p-accent: #e2c27d">FinValStudio</a></li>
-            <li><a href="/projets/carbon-co" translate="no" style="--p-accent: #84c89a">Carbon&amp;Co</a></li>
-            <li><a href="/projets/kyb-graph" translate="no" style="--p-accent: #6ccad0">KYB Graph</a></li>
+            <li><a href="#fiche-probant" translate="no">Probant</a></li>
+            <li><a href="#fiche-finvalstudio" translate="no">FinValStudio</a></li>
+            <li><a href="#fiche-carbon-co" translate="no">Carbon&amp;Co</a></li>
+            <li><a href="#fiche-kyb-graph" translate="no">KYB Graph</a></li>
           </ul>
         </article>
-        <article class="fr-family" data-reveal style="--n: 1">
+        <article class="fr-family fr-family--actualite">
           <p class="fr-family__label">Terrain d’actualité · 2 projets</p>
           <h3 class="fr-family__title">L’agilité</h3>
-          <p class="fr-family__text">Défense, géopolitique, quantique, robotique, nutraceutique : des domaines neufs et porteurs, abordés avec la même exigence. Le master apprend une méthode, pas un secteur.</p>
+          <p class="fr-family__text">Défense, géopolitique, quantique, robotique, nutraceutique : des domaines neufs et porteurs, abordés avec la même exigence. Le master apprend une méthode, pas un secteur.</p>
           <ul class="fr-family__projects">
-            <li><a href="/projets/panoplie" translate="no" style="--p-accent: #7fb0dc">Panoplie</a></li>
-            <li><a href="/projets/publications" translate="no" style="--p-accent: #d97a5e">Publications</a></li>
+            <li><a href="#fiche-panoplie" translate="no">Panoplie</a></li>
+            <li><a href="#fiche-publications" translate="no">Publications</a></li>
           </ul>
         </article>
       </div>
     </section>
 
-    <section class="fr-section fr-method fr-wrap" aria-labelledby="fr-method-title">
-      <p class="fr-kicker" data-reveal>La méthode</p>
-      <h2 id="fr-method-title" class="fr-h2" data-reveal style="--n: 1">Six terrains, une seule méthode</h2>
-      <ol class="fr-rules">
-        <li class="fr-rule" data-reveal style="--n: 2">
-          <span class="fr-rule__num">01</span>
-          <h3 class="fr-rule__title">Sourcé</h3>
-          <p class="fr-rule__text">Chaque donnée renvoie à son origine.</p>
-        </li>
-        <li class="fr-rule" data-reveal style="--n: 3">
-          <span class="fr-rule__num">02</span>
-          <h3 class="fr-rule__title">Reproductible</h3>
-          <p class="fr-rule__text">Chaque résultat peut être recalculé.</p>
-        </li>
-        <li class="fr-rule" data-reveal style="--n: 4">
-          <span class="fr-rule__num">03</span>
-          <h3 class="fr-rule__title">Explicable</h3>
-          <p class="fr-rule__text">Chaque conclusion se justifie.</p>
-        </li>
-      </ol>
+    <section class="fr-section fr-colophon fr-wrap" aria-labelledby="fr-colophon-title">
+      <p class="fr-kicker">Colophon de méthode</p>
+      <h2 id="fr-colophon-title" class="fr-h2">Les référentiels mobilisés</h2>
+      <p class="fr-section__sub">Chaque référentiel renvoie à une exigence citée dans la fiche du projet concerné.</p>
+      <dl class="fr-refs">
+        <div class="fr-ref">
+          <dt class="fr-ref__name">Plan comptable général (PCG)</dt>
+          <dd class="fr-ref__ref">Règlement ANC n° 2014-03</dd>
+          <dd class="fr-ref__projects" translate="no">Probant</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">Fichier des écritures comptables (FEC)</dt>
+          <dd class="fr-ref__ref">LPF, art. A47 A-1 ; BOFiP, BOI-CF-IOR-60-40</dd>
+          <dd class="fr-ref__projects" translate="no">Probant</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">Normes d’exercice professionnel</dt>
+          <dd class="fr-ref__ref">NEP 500, caractère probant des éléments collectés</dd>
+          <dd class="fr-ref__projects" translate="no">Probant</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">ESRS (EFRAG)</dt>
+          <dd class="fr-ref__ref">Règlement délégué (UE) 2023/2772 : ESRS 1, ESRS 2, E1, G1</dd>
+          <dd class="fr-ref__projects" translate="no">Carbon&amp;Co</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">GHG Protocol</dt>
+          <dd class="fr-ref__ref">Scopes 1, 2 et 3</dd>
+          <dd class="fr-ref__projects" translate="no">Carbon&amp;Co</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">LCB-FT</dt>
+          <dd class="fr-ref__ref">CMF, art. L.561-5 et s. ; règlement (UE) 2024/1624 (AMLR)</dd>
+          <dd class="fr-ref__projects" translate="no">KYB Graph</dd>
+        </div>
+        <div class="fr-ref">
+          <dt class="fr-ref__name">Sources ouvertes</dt>
+          <dd class="fr-ref__ref">Registres publics d’entreprises, listes de sanctions et sources ouvertes documentées</dd>
+          <dd class="fr-ref__projects" translate="no">KYB Graph · Panoplie</dd>
+        </div>
+      </dl>
     </section>
 
-    <section class="fr-outro fr-wrap" data-reveal>
+    <section class="fr-outro fr-wrap">
       <p class="fr-outro__mention">Master CCA · NEOMA Business School · parcours préparant au DSCG</p>
       <a class="pj-cta" href="/">Voir les six projets <svg class="pj-cta__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
     </section>
   </main>
-
-  <script src="/assets/js/fil-rouge.js" defer></script>
 </body>
 </html>

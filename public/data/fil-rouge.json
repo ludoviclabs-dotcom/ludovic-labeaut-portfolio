@@ -1,10 +1,10 @@
 {
-  "_note": "Source unique des textes « fil rouge » (justification du portfolio par le Master CCA). Textes validés à l'étape 0. Les pages en sont générées : npm run fil-rouge, puis npm run en. Ne pas modifier les textes ailleurs.",
-  "version": 1,
+  "_note": "Source unique des textes « fil rouge » (justification du portfolio par le Master CCA), en français et en anglais. Les pages en sont générées : npm run fil-rouge, puis npm run en. Ne pas modifier les textes ailleurs. Dans un titre, *mot* met un seul mot en italique.",
+  "version": 2,
 
   "accroche": {
-    "fr": "Un chiffre ne vaut que s’il peut être prouvé.",
-    "en": "A figure is only worth something if it can be proven."
+    "fr": "Un chiffre ne vaut que s’il peut être *prouvé*.",
+    "en": "A figure is only worth something if it can be *proven*."
   },
   "intro": {
     "fr": "C’est l’exigence du Master Comptabilité, Contrôle, Audit. Ce portfolio l’applique à six terrains, des plus classiques aux plus nouveaux : la méthode est celle du master, les sujets sont ceux d’aujourd’hui.",
@@ -26,15 +26,17 @@
       "en": "A figure is only worth something if it can be proven: six projects, one method."
     },
     "kicker": { "fr": "Pourquoi ce portfolio", "en": "Why this portfolio" },
+    "chaine_label": { "fr": "De la question au livrable", "en": "From question to deliverable" },
     "questions_kicker": { "fr": "Le fil rouge", "en": "The common thread" },
-    "pause": { "fr": "Pause", "en": "Pause" },
-    "reprendre": { "fr": "Reprendre", "en": "Resume" },
-    "reponse_label": { "fr": "La réponse", "en": "The answer" },
-    "matieres_label": { "fr": "Matières du master", "en": "Master's courses" },
+    "label_outil": { "fr": "Ce que fait l’outil", "en": "What the tool does" },
+    "label_entrees": { "fr": "Entrées", "en": "Inputs" },
+    "label_controles": { "fr": "Contrôles", "en": "Checks" },
+    "label_sorties": { "fr": "Sorties", "en": "Outputs" },
+    "label_exigence": { "fr": "Exigence CCA mobilisée", "en": "CCA requirement applied" },
+    "label_ue": { "fr": "UE du Master", "en": "Master's DSCG units" },
     "voir_projet": { "fr": "Voir le projet", "en": "View project" },
     "familles_kicker": { "fr": "Deux façons de le prouver", "en": "Two ways to prove it" },
     "projets_mot": { "fr": "projets", "en": "projects" },
-    "methode_kicker": { "fr": "La méthode", "en": "The method" },
     "mention": {
       "fr": "Master CCA · NEOMA Business School · parcours préparant au DSCG",
       "en": "Master CCA · NEOMA Business School · DSCG preparation track"
@@ -42,19 +44,38 @@
     "cta": { "fr": "Voir les six projets", "en": "View all six projects" }
   },
 
-  "trois_c": [
-    { "id": "comptabilite", "lettre": "C", "label": { "fr": "Comptabilité", "en": "Accounting" }, "verbe": { "fr": "Compter", "en": "Count" }, "phrase": { "fr": "Mesurer juste.", "en": "Measure accurately." } },
-    { "id": "controle", "lettre": "C", "label": { "fr": "Contrôle", "en": "Control" }, "verbe": { "fr": "Contrôler", "en": "Control" }, "phrase": { "fr": "Décider sur des chiffres fiables.", "en": "Base decisions on reliable figures." } },
-    { "id": "audit", "lettre": "A", "label": { "fr": "Audit", "en": "Audit" }, "verbe": { "fr": "Auditer", "en": "Audit" }, "phrase": { "fr": "Prouver ce que l’on avance.", "en": "Prove what you claim." } }
+  "chaine": [
+    {
+      "label": { "fr": "Question métier / Norme", "en": "Business question / Standard" },
+      "texte": { "fr": "Une exigence posée par un référentiel ou un métier.", "en": "A requirement set by a standard or a profession." }
+    },
+    {
+      "label": { "fr": "Pipeline de traitement", "en": "Processing pipeline" },
+      "texte": { "fr": "Des données sourcées, des contrôles rejouables.", "en": "Sourced data, replayable checks." }
+    },
+    {
+      "label": { "fr": "Livrable opposable", "en": "Audit-ready deliverable" },
+      "texte": { "fr": "Un document qu’un tiers peut vérifier.", "en": "A document a third party can verify." }
+    }
   ],
+
+  "ue": {
+    "1": { "fr": "Gestion juridique, fiscale et sociale", "en": "Legal, tax and social management" },
+    "2": { "fr": "Finance", "en": "Finance" },
+    "3": { "fr": "Management et contrôle de gestion", "en": "Management and management control" },
+    "4": { "fr": "Comptabilité et audit", "en": "Accounting and audit" },
+    "5": { "fr": "Management des systèmes d’information", "en": "Information systems management" },
+    "6": { "fr": "Anglais des affaires", "en": "Business English" },
+    "7": { "fr": "Mémoire", "en": "Dissertation" }
+  },
 
   "questions": {
     "ordre": ["probant", "finvalstudio", "carbon-co", "kyb-graph", "panoplie", "publications"],
     "label": { "fr": "La question", "en": "The question" },
     "titre": { "fr": "Six questions, six projets", "en": "Six questions, six projects" },
     "sous_titre": {
-      "fr": "Chaque question mobilise une compétence du master. Ouvrez-en une pour voir le projet qui y répond.",
-      "en": "Each question draws on a skill from the Master's. Open one to see the project that answers it."
+      "fr": "Chaque question mobilise une compétence du master. Sous chacune, le projet qui y répond.",
+      "en": "Each question draws on a skill from the Master's. Under each one, the project that answers it."
     }
   },
 
@@ -66,7 +87,7 @@
   },
 
   "familles": {
-    "titre": { "fr": "Maîtriser un métier, et savoir apprendre un sujet neuf.", "en": "Mastering a profession, and knowing how to learn a new subject." },
+    "titre": { "fr": "Maîtriser un métier, et savoir *apprendre* un sujet neuf.", "en": "Mastering a profession, and knowing how to *learn* a new subject." },
     "coeur": {
       "label": { "fr": "Cœur de métier", "en": "Core expertise" },
       "titre": { "fr": "La maîtrise", "en": "Mastery" },
@@ -85,12 +106,49 @@
     }
   },
 
-  "methode": {
-    "titre": { "fr": "Six terrains, une seule méthode", "en": "Six fields, one method" },
-    "regles": [
-      { "id": "source", "titre": { "fr": "Sourcé", "en": "Sourced" }, "texte": { "fr": "Chaque donnée renvoie à son origine.", "en": "Every figure points back to its origin." } },
-      { "id": "reproductible", "titre": { "fr": "Reproductible", "en": "Reproducible" }, "texte": { "fr": "Chaque résultat peut être recalculé.", "en": "Every result can be recalculated." } },
-      { "id": "explicable", "titre": { "fr": "Explicable", "en": "Explainable" }, "texte": { "fr": "Chaque conclusion se justifie.", "en": "Every conclusion can be justified." } }
+  "colophon": {
+    "kicker": { "fr": "Colophon de méthode", "en": "Method colophon" },
+    "titre": { "fr": "Les référentiels mobilisés", "en": "The standards applied" },
+    "note": {
+      "fr": "Chaque référentiel renvoie à une exigence citée dans la fiche du projet concerné.",
+      "en": "Each standard refers to a requirement cited in the entry of the project concerned."
+    },
+    "lignes": [
+      {
+        "nom": { "fr": "Plan comptable général (PCG)", "en": "French GAAP (PCG)" },
+        "ref": { "fr": "Règlement ANC n° 2014-03", "en": "ANC Regulation No. 2014-03" },
+        "projets": ["probant"]
+      },
+      {
+        "nom": { "fr": "Fichier des écritures comptables (FEC)", "en": "General-ledger file (FEC)" },
+        "ref": { "fr": "LPF, art. A47 A-1 ; BOFiP, BOI-CF-IOR-60-40", "en": "French tax procedure code (LPF), art. A47 A-1; BOFiP, BOI-CF-IOR-60-40" },
+        "projets": ["probant"]
+      },
+      {
+        "nom": { "fr": "Normes d’exercice professionnel", "en": "French auditing standards (NEP)" },
+        "ref": { "fr": "NEP 500, caractère probant des éléments collectés", "en": "NEP 500, audit evidence" },
+        "projets": ["probant"]
+      },
+      {
+        "nom": { "fr": "ESRS (EFRAG)", "en": "ESRS (EFRAG)" },
+        "ref": { "fr": "Règlement délégué (UE) 2023/2772 : ESRS 1, ESRS 2, E1, G1", "en": "Delegated Regulation (EU) 2023/2772: ESRS 1, ESRS 2, E1, G1" },
+        "projets": ["carbon-co"]
+      },
+      {
+        "nom": { "fr": "GHG Protocol", "en": "GHG Protocol" },
+        "ref": { "fr": "Scopes 1, 2 et 3", "en": "Scopes 1, 2 and 3" },
+        "projets": ["carbon-co"]
+      },
+      {
+        "nom": { "fr": "LCB-FT", "en": "AML/CFT" },
+        "ref": { "fr": "CMF, art. L.561-5 et s. ; règlement (UE) 2024/1624 (AMLR)", "en": "French Monetary and Financial Code, art. L.561-5 et seq.; Regulation (EU) 2024/1624 (AMLR)" },
+        "projets": ["kyb-graph"]
+      },
+      {
+        "nom": { "fr": "Sources ouvertes", "en": "Open sources" },
+        "ref": { "fr": "Registres publics d’entreprises, listes de sanctions et sources ouvertes documentées", "en": "Public company registers, sanctions lists and documented open sources" },
+        "projets": ["kyb-graph", "panoplie"]
+      }
     ]
   },
 
@@ -99,17 +157,21 @@
       "id": "carbon-co",
       "nom": "Carbon&Co",
       "famille": "coeur",
-      "accent": "#84c89a",
       "question": { "fr": "Comment rendre compte de ce qui ne se compte pas en euros ?", "en": "How do you report on what cannot be counted in euros?" },
-      "reponse": {
-        "fr": "Carbon&Co collecte les données ESG, calcule l’empreinte carbone et produit les rapports exigés par la réglementation européenne.",
-        "en": "Carbon&Co collects ESG data, calculates the carbon footprint and produces the reports required by European regulation."
+      "outil": {
+        "entrees": { "fr": "Classeur modèle des données d’activité : énergie, transport, achats, déchets.", "en": "Template workbook of activity data: energy, transport, purchasing, waste." },
+        "controles": { "fr": "Scopes 1, 2 et 3 en tCO₂e (méthode GHG Protocol) ; double matérialité des thèmes ESRS.", "en": "Scopes 1, 2 and 3 in tCO₂e (GHG Protocol method); double materiality of ESRS topics." },
+        "sorties": { "fr": "Rapport CSRD (ESRS 2, E1, G1) avec piste d’audit ; cockpit, alertes et trajectoire projetée.", "en": "CSRD report (ESRS 2, E1, G1) with audit trail; dashboard, alerts and projected trajectory." }
       },
+      "exigence": {
+        "fr": "Bilan GES (GHG Protocol), double matérialité (ESRS 1), informations de durabilité prêtes pour l’assurance limitée.",
+        "en": "GHG inventory (GHG Protocol), double materiality (ESRS 1), sustainability information ready for limited assurance."
+      },
+      "ue": [4, 3],
       "lien_master": {
         "fr": "Le reporting de durabilité : la rigueur des comptes, appliquée au carbone.",
         "en": "Sustainability reporting: the rigour of financial accounts, applied to carbon."
       },
-      "matieres": { "fr": ["Sustainable Reporting", "Governance and CSR"], "en": ["Sustainable Reporting", "Governance and CSR"] },
       "montre": {
         "fr": "Des données non financières traitées avec la rigueur d’une comptabilité.",
         "en": "Non-financial data handled with the rigour of an accounting system."
@@ -119,17 +181,21 @@
       "id": "probant",
       "nom": "Probant",
       "famille": "coeur",
-      "accent": "#829bed",
       "question": { "fr": "Peut-on prouver qu’une comptabilité est fiable ?", "en": "Can a set of accounts be proven reliable?" },
-      "reponse": {
-        "fr": "Probant analyse le fichier des écritures comptables d’une entreprise, repère les anomalies et assemble un dossier de preuve que l’on peut présenter à un tiers.",
-        "en": "Probant analyses a company's FEC general-ledger file, flags anomalies and assembles an audit-ready evidence file that can be presented to a third party."
+      "outil": {
+        "entrees": { "fr": "Le fichier des écritures comptables (FEC), importé en un glisser-déposer.", "en": "The FEC general-ledger file, imported in a single drag and drop." },
+        "controles": { "fr": "Chaque écriture contrôlée : doublons, écritures hors période, séquences rompues.", "en": "Every journal entry checked: duplicates, out-of-period entries, broken sequences." },
+        "sorties": { "fr": "Un dossier de preuve opposable, scellé et horodaté ; le rapport prêt pour l’audit.", "en": "An audit-ready evidence file, sealed and time-stamped; the report, ready for the audit." }
       },
+      "exigence": {
+        "fr": "Caractère probant des éléments collectés (NEP 500) ; exhaustivité et séparation des exercices ; FEC conforme (LPF, art. A47 A-1) pour des comptes tenus selon le PCG.",
+        "en": "Sufficient, appropriate audit evidence (NEP 500); completeness and cut-off; a compliant FEC (LPF, art. A47 A-1) for accounts kept under French GAAP (PCG)."
+      },
+      "ue": [4, 5],
       "lien_master": {
         "fr": "L’audit, cœur du master : ne rien affirmer sans élément de preuve.",
         "en": "Audit, the heart of the Master's: assert nothing without evidence."
       },
-      "matieres": { "fr": ["Audit financier", "Accounting under IFRS"], "en": ["Financial audit", "Accounting under IFRS"] },
       "montre": {
         "fr": "Une méthode d’audit transformée en outil que l’on peut utiliser.",
         "en": "An audit method turned into a tool that can actually be used."
@@ -139,17 +205,21 @@
       "id": "panoplie",
       "nom": "Panoplie",
       "famille": "actualite",
-      "accent": "#7fb0dc",
       "question": { "fr": "Que coûte réellement un système de défense ?", "en": "What does a defence system really cost?" },
-      "reponse": {
-        "fr": "Panoplie rassemble, à partir de sources ouvertes, le coût réel, la chaîne industrielle et les dépendances des grands programmes de défense : un secteur en pleine accélération.",
-        "en": "Panoplie gathers, from open sources, the real cost, industrial chain and dependencies of major defence programmes: a sector that is rapidly accelerating."
+      "outil": {
+        "entrees": { "fr": "Catalogue filtrable des systèmes ; graphe industriel : pays, systèmes, industriels.", "en": "Filterable catalogue of systems; industrial graph: countries, systems, manufacturers." },
+        "controles": { "fr": "Registre des coûts publics : périmètre, année, incertitude et sources ; six paliers notés de A à E, chacun argumenté.", "en": "Register of public costs: scope, year, uncertainty and sources; six grades from A to E, each one argued." },
+        "sorties": { "fr": "System X-Ray et Evidence Pack en Markdown, par système.", "en": "System X-Ray and Evidence Pack in Markdown, per system." }
       },
+      "exigence": {
+        "fr": "Coût complet et traçabilité de chaque montant : périmètre, millésime, incertitude.",
+        "en": "Full cost and traceability of every amount: scope, year, uncertainty."
+      },
+      "ue": [3, 2],
       "lien_master": {
         "fr": "Le contrôle de gestion hors des secteurs classiques : la même méthode d’analyse des coûts, appliquée à l’industrie de défense.",
         "en": "Management control beyond traditional sectors: the same cost-analysis method, applied to the defence industry."
       },
-      "matieres": { "fr": ["Stratégie et contrôle de gestion", "Diagnostic financier approfondi"], "en": ["Strategy and management control", "Advanced financial analysis"] },
       "montre": {
         "fr": "Une méthode de coûts qui tient hors de la finance, sur un sujet d’actualité.",
         "en": "A cost method that holds up outside finance, on a topical subject."
@@ -159,17 +229,21 @@
       "id": "finvalstudio",
       "nom": "FinValStudio",
       "famille": "coeur",
-      "accent": "#e2c27d",
       "question": { "fr": "Combien vaut une entreprise, et avec quelle marge d’erreur ?", "en": "What is a company worth, and with what margin of error?" },
-      "reponse": {
-        "fr": "FinValStudio construit des modèles financiers complets, valorise l’entreprise selon plusieurs méthodes et teste des milliers de scénarios.",
-        "en": "FinValStudio builds complete financial models, values the company using several methods and tests thousands of scenarios."
+      "outil": {
+        "entrees": { "fr": "Hypothèses guidées : coût du capital et WACC calculé.", "en": "Guided assumptions: cost of capital and computed WACC." },
+        "controles": { "fr": "DCF (flux actualisés, valeur terminale, pont vers les fonds propres) ; multiples des pairs et médiane ; Monte Carlo sur 5 000 tirages (P10, médiane, P90).", "en": "DCF (discounted cash flows, terminal value, bridge to equity value); peer multiples and median; Monte Carlo over 5,000 draws (P10, median, P90)." },
+        "sorties": { "fr": "Valeur implicite par action ; LBO : désendettement, TRI et multiple du sponsor.", "en": "Implied value per share; LBO: deleveraging, IRR and sponsor money multiple." }
       },
+      "exigence": {
+        "fr": "Évaluation multicritère (DCF, comparables) et analyse de sensibilité des hypothèses.",
+        "en": "Multi-criteria valuation (DCF, comparables) and sensitivity analysis of the assumptions."
+      },
+      "ue": [2],
       "lien_master": {
         "fr": "La finance d’entreprise : une valeur est une hypothèse qu’il faut savoir défendre.",
         "en": "Corporate finance: a valuation is an assumption you must be able to defend."
       },
-      "matieres": { "fr": ["Évaluation d’entreprises", "Ingénierie financière"], "en": ["Business valuation", "Financial engineering"] },
       "montre": {
         "fr": "Une valeur présentée avec ses hypothèses et sa marge d’erreur, pas un chiffre isolé.",
         "en": "A valuation shown with its assumptions and margin of error, not an isolated figure."
@@ -179,17 +253,21 @@
       "id": "kyb-graph",
       "nom": "KYB Graph",
       "famille": "coeur",
-      "accent": "#6ccad0",
       "question": { "fr": "Qui se trouve vraiment derrière une société ?", "en": "Who is really behind a company?" },
-      "reponse": {
-        "fr": "KYB Graph cartographie les liens entre sociétés, dirigeants, adresses et sanctions, et indique pour chaque lien son niveau de preuve.",
-        "en": "KYB Graph maps the links between companies, directors, addresses and sanctions, and shows the level of evidence behind each link."
+      "outil": {
+        "entrees": { "fr": "26 sources publiques, par API ou jeux ouverts, jamais de scraping.", "en": "26 public sources, via API or open data, never scraping." },
+        "controles": { "fr": "Qualité de preuve de chaque lien : confirmé, déclaré, inféré, simulé ; signaux de vigilance expliqués, jamais une qualification de fraude.", "en": "Evidence quality of each link: confirmed, declared, inferred, simulated; explained risk signals, never a finding of fraud." },
+        "sorties": { "fr": "Journal chaîné par empreinte SHA-256 ; export PDF, JSON et pack ZIP.", "en": "SHA-256 hash-chained log; PDF, JSON and ZIP pack export." }
       },
+      "exigence": {
+        "fr": "Vigilance LCB-FT : identification du client et du bénéficiaire effectif (CMF, art. L.561-5 et s. ; règlement (UE) 2024/1624, AMLR).",
+        "en": "AML/CFT due diligence: identifying the customer and the beneficial owner (French Monetary and Financial Code, art. L.561-5 et seq.; Regulation (EU) 2024/1624, AMLR)."
+      },
+      "ue": [1, 4],
       "lien_master": {
         "fr": "Le droit des sociétés et l’audit : savoir à qui l’on a affaire avant de s’engager.",
         "en": "Company law and audit: knowing who you are dealing with before committing."
       },
-      "matieres": { "fr": ["Droit de l’ingénierie sociétaire", "Audit financier"], "en": ["Corporate structuring law", "Financial audit"] },
       "montre": {
         "fr": "Chaque lien annoncé est accompagné de sa preuve et de son niveau de confiance.",
         "en": "Every link comes with its evidence and its confidence level."
@@ -199,17 +277,21 @@
       "id": "publications",
       "nom": "Publications",
       "famille": "actualite",
-      "accent": "#d97a5e",
       "question": { "fr": "Dans quel monde ces entreprises évoluent-elles ?", "en": "What world do these companies operate in?" },
-      "reponse": {
-        "fr": "Lignes de force réunit vingt-trois notes d’analyse et trois dossiers interactifs sur la géopolitique, la géoéconomie, la robotique, le quantique et la nutraceutique.",
-        "en": "Lignes de force brings together twenty-three analysis notes and three interactive dossiers on geopolitics, geoeconomics, robotics, quantum and nutraceuticals."
+      "outil": {
+        "entrees": { "fr": "Un sujet retenu dans le plan de la série ; des sources datées et recoupées.", "en": "A topic chosen from the series plan; dated, cross-checked sources." },
+        "controles": { "fr": "Source unique signalée ; schéma des acteurs, de leurs leviers et des exposés.", "en": "Single sources flagged; map of the actors, their levers and who is exposed." },
+        "sorties": { "fr": "Une note datée : l’essentiel en quatre points, plan en six sections, mise en ligne.", "en": "A dated note: key points in four bullets, a six-section outline, published online." }
       },
+      "exigence": {
+        "fr": "Méthode du mémoire : sources primaires, recoupement, datation.",
+        "en": "Dissertation method: primary sources, cross-checking, dating."
+      },
+      "ue": [7],
       "lien_master": {
         "fr": "La méthode du mémoire, appliquée à des sujets neufs : apprendre vite, sourcer, dater, argumenter.",
         "en": "The dissertation method, applied to new subjects: learn quickly, source, date and argue."
       },
-      "matieres": { "fr": ["Mémoire", "Conférences et méthodologie"], "en": ["Dissertation", "Lectures and methodology"] },
       "montre": {
         "fr": "La capacité à comprendre vite un sujet neuf et à le rendre lisible.",
         "en": "The ability to grasp a new subject quickly and make it readable."
