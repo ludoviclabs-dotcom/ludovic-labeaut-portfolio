@@ -9,7 +9,8 @@
  *    - les pages anglaises contiennent bien les textes anglais du JSON (npm run en a été relancé) ;
  *    - chaque lien interne des blocs « fil rouge » mène à une page qui existe.
  * 2. Contrôles dans un navigateur (si Playwright est disponible) : polices et thème clair de
- *    /fil-rouge, vue partagée (onglets, clavier, filtre), accordéon mobile, sans JavaScript, colophon, débordements,
+ *    /fil-rouge, vue partagée (onglets, clavier, filtre), schémas, fil rouge au défilement, matrice UE × projets,
+ *    filets de section, accordéon mobile, sans JavaScript, « réduire les animations », colophon, débordements,
  *    décalage de mise en page, erreurs dans la console, accueil et pages projet restés sombres.
  *    Sans Playwright : npm i -D playwright && npx playwright install chromium
  *    (ou PLAYWRIGHT_CHROMIUM=/chemin/vers/chrome pour un Chromium déjà installé).
@@ -272,6 +273,70 @@ if (!playwright) {
         await p.locator(".fr-fiche:not([hidden]) .bp-hot.k1").focus();
         await p.waitForTimeout(350);
         check((await visibleTip(1)) === "1", `${L} : Probant, la règle de contrôle s'affiche au focus clavier sur l'anomalie`);
+
+        // Fil rouge : tracé synchronisé au défilement
+        const thread = () =>
+          p.evaluate(() => {
+            const svg = document.querySelector(".fr-thread");
+            const cs = getComputedStyle(svg.querySelector(".fr-thread__line"));
+            return { shown: getComputedStyle(svg).display !== "none", stroke: cs.stroke, width: cs.strokeWidth, total: parseFloat(cs.strokeDasharray), offset: parseFloat(cs.strokeDashoffset), reached: svg.querySelectorAll(".fr-thread__node.is-reached").length };
+          });
+        await p.evaluate(() => window.scrollTo(0, 0));
+        await p.waitForTimeout(250);
+        const t0 = await thread();
+        await p.evaluate(() => window.scrollTo(0, 900));
+        await p.waitForTimeout(250);
+        const t1 = await thread();
+        check(t0.shown && t0.stroke === "rgb(168, 75, 32)" && t0.width === "1.5px" && t0.offset > 0 && t0.offset < t0.total && Math.round(t0.offset - t1.offset) === 900, `${L} : fil rouge ocre de 1,5 px, dessiné au rythme exact du défilement`, JSON.stringify({ t0, t1 }));
+
+        // Filets de section : tracés une fois, à l'entrée à l'écran
+        const rule = (sel) => p.evaluate((sel) => getComputedStyle(document.querySelector(sel), "::before").transform, sel);
+        const ruleBefore = await rule(".fr-colophon");
+        await p.locator(".fr-colophon").scrollIntoViewIfNeeded();
+        await p.waitForTimeout(700);
+        const ruleDuration = await p.evaluate(() => getComputedStyle(document.querySelector(".fr-colophon"), "::before").transitionDuration);
+        check(/^matrix\(0,/.test(ruleBefore) && (await rule(".fr-colophon")) === "matrix(1, 0, 0, 1, 0, 0)" && ruleDuration === "0.35s", `${L} : filets de section tracés en 350 ms à l'entrée à l'écran`, `${ruleBefore} → ${await rule(".fr-colophon")} (${ruleDuration})`);
+
+        // Matrice UE × projets
+        const mx = () =>
+          p.evaluate(() => {
+            const m = document.querySelector("[data-matrix]");
+            const dim = [...m.querySelectorAll(".is-dim")];
+            return {
+              rows: m.querySelectorAll("tbody tr").length,
+              cols: m.querySelectorAll("thead [data-col]").length,
+              marks: m.querySelectorAll(".fr-mx__cell").length,
+              dim: dim.length,
+              dimOpacity: dim[0] ? getComputedStyle(dim[0]).opacity : null,
+              proofs: [...m.querySelectorAll(".fr-mx__proof")].filter((li) => !li.hidden).map((li) => li.id.replace("mx-", "")),
+              hint: !m.querySelector(".fr-mx__hint").hidden,
+              clipped: [...m.querySelectorAll("th a, th button, .fr-mx__proof span")].filter((e) => e.scrollWidth > e.clientWidth + 1).length,
+            };
+          });
+        await p.locator(".fr-matrix").scrollIntoViewIfNeeded();
+        await p.mouse.move(2, 2);
+        let m = await mx();
+        const marks = data.matrice.poles.reduce((n, pole) => n + Object.keys(pole.cellules).length, 0);
+        check(m.rows === 6 && m.cols === 6 && m.marks === marks && m.dim === 0 && m.proofs.length === 0 && m.hint && m.clipped === 0, `${L} : matrice 6 × 6, ${marks} marqueurs, aucun texte coupé`, JSON.stringify(m));
+        const firstPole = data.matrice.poles[0];
+        await p.locator(".fr-mx__pole").first().hover();
+        await p.waitForTimeout(350);
+        m = await mx();
+        check(m.dimOpacity === "0.35" && m.proofs.length === Object.keys(firstPole.cellules).length && m.proofs.every((id) => id.startsWith(firstPole.id)) && !m.hint, `${L} : survol d'une ligne, le reste s'estompe à 0,35 et ses preuves s'affichent`, JSON.stringify(m));
+        await p.locator('thead [data-col="carbon-co"] a').focus();
+        m = await mx();
+        check(m.proofs.length === 3 && m.proofs.every((id) => id.endsWith("carbon-co")), `${L} : focus sur une colonne, les preuves du projet s'affichent`, JSON.stringify(m.proofs));
+        await p.locator('td[data-row="droit"][data-col="kyb-graph"] .fr-mx__cell').focus();
+        m = await mx();
+        check(m.proofs.join() === "droit-kyb-graph", `${L} : focus sur un marqueur, la preuve du croisement s'affiche`, JSON.stringify(m.proofs));
+        await p.locator('thead [data-col="panoplie"] a').click();
+        await p.waitForTimeout(900);
+        const opened = await p.evaluate(() => ({ selected: document.querySelector('[role="tab"][aria-selected="true"]').dataset.project, top: Math.round(document.querySelector("[data-dossier]").getBoundingClientRect().top) }));
+        check(opened.selected === "panoplie" && opened.top >= -4 && opened.top < 300, `${L} : un clic sur un projet de la matrice ouvre sa fiche dans la vue partagée`, JSON.stringify(opened));
+        await p.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+        await p.waitForTimeout(350);
+        const t2 = await thread();
+        check(t2.offset === 0 && t2.reached === 2, `${L} : en bas de page, le fil est entièrement tracé jusqu'au colophon`, JSON.stringify(t2));
         check(!(await overflowX(p)), `${L} : pas de débordement horizontal (1440 px)`);
         check(p.errors.length === 0, `${L} : aucune erreur dans la console`, p.errors.join(" | "));
         await p.context().close();
@@ -295,6 +360,8 @@ if (!playwright) {
         check(a.open[1] && a.bodies[1] && a.blueprint2 === 240, `${L} 375 px : un clic ouvre la fiche et sa zone de schéma`, JSON.stringify(a));
         await p.locator(".fr-fiche__toggle").nth(1).click();
         check(!(await acc()).open[1], `${L} 375 px : un second clic la referme`);
+        const threadMobile = await p.evaluate(() => getComputedStyle(document.querySelector(".fr-thread")).display);
+        check(threadMobile === "none", `${L} 375 px : le fil rouge est masqué`, threadMobile);
         check(!(await overflowX(p)) && p.errors.length === 0, `${L} 375 px : ni débordement, ni erreur`, p.errors.join(" | "));
         await p.context().close();
       }
@@ -306,6 +373,13 @@ if (!playwright) {
           fiches: [...document.querySelectorAll(".fr-fiche")].filter((f) => f.getBoundingClientRect().height > 100).length,
         }));
         check(r.nav === 0 && r.fiches === data.projets.length, `${L} : sans JavaScript, les ${data.projets.length} fiches sont ouvertes`, JSON.stringify(r));
+        const plain = await p.evaluate(() => ({
+          proofs: [...document.querySelectorAll(".fr-mx__proof")].filter((li) => li.getBoundingClientRect().height > 0).length,
+          hint: document.querySelector(".fr-mx__hint").getBoundingClientRect().height,
+          rule: getComputedStyle(document.querySelector(".fr-colophon"), "::before").transform,
+          thread: getComputedStyle(document.querySelector(".fr-thread")).display,
+        }));
+        check(plain.proofs === 12 && plain.hint === 0 && plain.rule === "none" && plain.thread === "none", `${L} : sans JavaScript, les preuves de la matrice sont toutes listées et les filets visibles`, JSON.stringify(plain));
         await p.evaluate(() => document.fonts.ready);
         const bp = await p.evaluate(() => {
           const PALETTE = ["rgb(203, 213, 225)", "rgb(17, 20, 24)", "rgb(74, 85, 104)", "rgb(22, 50, 79)", "rgb(168, 75, 32)", "rgb(255, 255, 255)", "rgb(246, 247, 249)", "none"];
@@ -362,6 +436,15 @@ if (!playwright) {
           return { name: cs.animationName, dash: cs.strokeDasharray };
         });
         check(/^0s/.test(r.duration) && r.opacity === "1" && draw.name === "none" && draw.dash === "none", `${L} : « réduire les animations » coupe le fondu et le tracé des schémas`, JSON.stringify({ ...r, ...draw }));
+        await p.evaluate(() => window.scrollTo(0, 0));
+        await p.waitForTimeout(250);
+        const still = await p.evaluate(() => ({
+          offset: parseFloat(getComputedStyle(document.querySelector(".fr-thread__line")).strokeDashoffset),
+          reached: document.querySelectorAll(".fr-thread__node.is-reached").length,
+          rule: getComputedStyle(document.querySelector(".fr-colophon"), "::before").transform,
+          nodeDuration: getComputedStyle(document.querySelector(".fr-thread__node")).transitionDuration,
+        }));
+        check(still.offset === 0 && still.reached === 2 && still.rule === "none" && /^0s/.test(still.nodeDuration), `${L} : « réduire les animations » affiche fil et filets dans leur état final`, JSON.stringify(still));
         await p.context().close();
       }
       {

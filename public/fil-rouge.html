@@ -36,6 +36,8 @@
   </header>
 
   <main class="fr-main">
+    <!-- Fil rouge : tracé dessiné au défilement par fil-rouge.js (≥ 1024 px), décoratif. -->
+    <svg class="fr-thread" aria-hidden="true" focusable="false"><path class="fr-thread__line" d=""/><circle class="fr-thread__node" r="3.5"/><circle class="fr-thread__node" r="3.5"/></svg>
     <section class="fr-hero fr-wrap" aria-labelledby="fr-title">
       <p class="fr-kicker">Pourquoi ce portfolio</p>
       <h1 id="fr-title" class="fr-hero__title">Un chiffre ne vaut que s’il peut être <em>prouvé</em>.</h1>
@@ -488,6 +490,103 @@
             <li><a href="#fiche-publications" translate="no">Publications</a></li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="fr-section fr-matrix fr-wrap" aria-labelledby="fr-matrix-title">
+      <p class="fr-kicker">Matrice de traçabilité</p>
+      <h2 id="fr-matrix-title" class="fr-h2">UE du Master CCA × projets</h2>
+      <p class="fr-section__sub">Six pôles d’enseignement en lignes, six projets en colonnes. Chaque marqueur renvoie à une preuve concrète dans le projet.</p>
+      <div class="fr-mx" data-matrix>
+        <div class="fr-mx__scroll">
+          <table class="fr-mx__table">
+            <thead>
+              <tr>
+                <th scope="col" class="fr-mx__corner"><span class="visually-hidden">Pôle d’UE</span></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="probant"><a href="#fiche-probant" translate="no">Probant</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="finvalstudio"><a href="#fiche-finvalstudio" translate="no">FinValStudio</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="carbon-co"><a href="#fiche-carbon-co" translate="no">Carbon&amp;Co</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="kyb-graph"><a href="#fiche-kyb-graph" translate="no">KYB Graph</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--actualite" data-col="panoplie"><a href="#fiche-panoplie" translate="no">Panoplie</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--actualite" data-col="publications"><a href="#fiche-publications" translate="no">Publications</a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-row="audit"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Audit financier &amp; IFRS</span><span class="fr-num" translate="no">UE4</span></button></th>
+                <td data-row="audit" data-col="probant"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-audit-probant"><span class="visually-hidden">Compétence principale</span></button></td>
+                <td data-row="audit" data-col="finvalstudio"></td>
+                <td data-row="audit" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-audit-carbon-co"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="audit" data-col="kyb-graph"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-audit-kyb-graph"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="audit" data-col="panoplie"></td>
+                <td data-row="audit" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="evaluation"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Évaluation &amp; Ingénierie financière</span><span class="fr-num" translate="no">UE2</span></button></th>
+                <td data-row="evaluation" data-col="probant"></td>
+                <td data-row="evaluation" data-col="finvalstudio"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-evaluation-finvalstudio"><span class="visually-hidden">Compétence principale</span></button></td>
+                <td data-row="evaluation" data-col="carbon-co"></td>
+                <td data-row="evaluation" data-col="kyb-graph"></td>
+                <td data-row="evaluation" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-evaluation-panoplie"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="evaluation" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="durable"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Reporting durable &amp; CSRD</span><span class="fr-num" translate="no">UE4 · UE6</span></button></th>
+                <td data-row="durable" data-col="probant"></td>
+                <td data-row="durable" data-col="finvalstudio"></td>
+                <td data-row="durable" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-durable-carbon-co"><span class="visually-hidden">Compétence principale</span></button></td>
+                <td data-row="durable" data-col="kyb-graph"></td>
+                <td data-row="durable" data-col="panoplie"></td>
+                <td data-row="durable" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="droit"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Droit sociétaire &amp; Conformité</span><span class="fr-num" translate="no">UE1</span></button></th>
+                <td data-row="droit" data-col="probant"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-droit-probant"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="droit" data-col="finvalstudio"></td>
+                <td data-row="droit" data-col="carbon-co"></td>
+                <td data-row="droit" data-col="kyb-graph"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-droit-kyb-graph"><span class="visually-hidden">Compétence principale</span></button></td>
+                <td data-row="droit" data-col="panoplie"></td>
+                <td data-row="droit" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="gestion"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Contrôle de gestion &amp; Stratégie</span><span class="fr-num" translate="no">UE3</span></button></th>
+                <td data-row="gestion" data-col="probant"></td>
+                <td data-row="gestion" data-col="finvalstudio"></td>
+                <td data-row="gestion" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-gestion-carbon-co"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="gestion" data-col="kyb-graph"></td>
+                <td data-row="gestion" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-gestion-panoplie"><span class="visually-hidden">Compétence principale</span></button></td>
+                <td data-row="gestion" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="memoire"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Mémoire &amp; Méthodologie</span><span class="fr-num" translate="no">UE7</span></button></th>
+                <td data-row="memoire" data-col="probant"></td>
+                <td data-row="memoire" data-col="finvalstudio"></td>
+                <td data-row="memoire" data-col="carbon-co"></td>
+                <td data-row="memoire" data-col="kyb-graph"></td>
+                <td data-row="memoire" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-memoire-panoplie"><span class="visually-hidden">Compétence transversale</span></button></td>
+                <td data-row="memoire" data-col="publications"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-memoire-publications"><span class="visually-hidden">Compétence principale</span></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fr-mx__legend"><span class="fr-mx__key fr-mx__key--principale">Compétence principale</span><span class="fr-mx__key fr-mx__key--transversale">Compétence transversale</span></p>
+        <div class="fr-mx__banner" aria-live="polite">
+          <p class="fr-mx__hint" hidden>Survolez ou sélectionnez une ligne, une colonne ou un marqueur pour afficher la preuve. Un clic sur un projet ouvre sa fiche.</p>
+          <ul class="fr-mx__proofs">
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-audit-probant" data-row="audit" data-col="probant"><span class="fr-mx__proof-who"><span translate="no">Probant</span> × <span>Audit financier &amp; IFRS</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">Chaque écriture contrôlée ; dossier de preuve scellé et horodaté (NEP 500).</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-audit-carbon-co" data-row="audit" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Audit financier &amp; IFRS</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">Rapport CSRD (ESRS 2, E1, G1) livré avec sa piste d’audit.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-audit-kyb-graph" data-row="audit" data-col="kyb-graph"><span class="fr-mx__proof-who"><span translate="no">KYB Graph</span> × <span>Audit financier &amp; IFRS</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">Chaque lien qualifié : confirmé, déclaré, inféré ou simulé ; journal chaîné SHA‑256.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-evaluation-finvalstudio" data-row="evaluation" data-col="finvalstudio"><span class="fr-mx__proof-who"><span translate="no">FinValStudio</span> × <span>Évaluation &amp; Ingénierie financière</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">DCF, multiples des pairs et Monte Carlo sur 5 000 tirages ; LBO.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-evaluation-panoplie" data-row="evaluation" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Évaluation &amp; Ingénierie financière</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">Coûts et financement des programmes : chaque montant avec son périmètre, son année et son incertitude.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-durable-carbon-co" data-row="durable" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Reporting durable &amp; CSRD</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">Scopes 1, 2 et 3 en tCO₂e ; double matérialité des thèmes ESRS.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-droit-probant" data-row="droit" data-col="probant"><span class="fr-mx__proof-who"><span translate="no">Probant</span> × <span>Droit sociétaire &amp; Conformité</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">FEC conforme au format légal (LPF, art. A47 A‑1).</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-droit-kyb-graph" data-row="droit" data-col="kyb-graph"><span class="fr-mx__proof-who"><span translate="no">KYB Graph</span> × <span>Droit sociétaire &amp; Conformité</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">Liens entre sociétés, dirigeants, adresses et sanctions ; vigilance LCB‑FT.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-gestion-carbon-co" data-row="gestion" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Contrôle de gestion &amp; Stratégie</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">Cockpit, alertes et trajectoire projetée.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-gestion-panoplie" data-row="gestion" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Contrôle de gestion &amp; Stratégie</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">Registre des coûts publics ; six paliers notés de A à E, chacun argumenté.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-memoire-panoplie" data-row="memoire" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Mémoire &amp; Méthodologie</span></span><span class="fr-mx__proof-type">Compétence transversale</span><span class="fr-mx__proof-text">Sources ouvertes et datées ; Evidence Pack exporté par système.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-memoire-publications" data-row="memoire" data-col="publications"><span class="fr-mx__proof-who"><span translate="no">Publications</span> × <span>Mémoire &amp; Méthodologie</span></span><span class="fr-mx__proof-type">Compétence principale</span><span class="fr-mx__proof-text">Vingt-trois notes et trois dossiers : sources datées et recoupées, source unique signalée.</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 

@@ -10,6 +10,7 @@
     "en": "node scripts/build-en.mjs",
     "fil-rouge": "node scripts/build-fil-rouge.mjs",
     "test": "node scripts/test-fil-rouge.mjs",
+    "check": "node scripts/build-fil-rouge.mjs --check && npm run typecheck && npm test",
     "typecheck": "npx --yes -p typescript@5.6.3 tsc --noEmit --allowJs --checkJs --strict --target es2022 --lib es2022,dom,dom.iterable --skipLibCheck public/assets/js/fil-rouge.js",
     "quantique": "node scripts/import-quantique.mjs",
     "nutraceutique": "node scripts/import-nutraceutique.mjs",

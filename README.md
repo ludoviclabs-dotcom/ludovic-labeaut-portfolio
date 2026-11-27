@@ -29,6 +29,8 @@ Pour en changer un :
 3. `npm run en` (régénère `public/en/`) ;
 4. `npm test` (vérifie les fichiers, puis le comportement dans un navigateur si Playwright est installé).
 
+Pour tout vérifier d'un coup : `npm run check` (pages à jour, types, tests). Il n'y a pas de `npm run build` : le site est statique, et Vercel lancerait automatiquement un script de ce nom.
+
 Après une modification de `public/assets/js/fil-rouge.js` : `npm run typecheck` (TypeScript en mode `checkJs`, sans compilation ; zéro erreur attendue).
 
 Ne pas modifier à la main `public/fil-rouge.html` ni les blocs entre `<!-- fil-rouge:… -->` et

@@ -67,7 +67,7 @@ Chaque étape se termine par une vérification. On ne passe à la suivante que s
 - À relire à l'étape 4 : le champ `montre` (« ce que le projet montre ») des cinq projets autres que Probant a été rédigé après la maquette.
 - **Fini quand** : un même texte n'est écrit qu'à un seul endroit.
 
-### Étape 3 — Niveau 1 : l'accueil ✅ (sauf le lien d'en-tête)
+### Étape 3 — Niveau 1 : l'accueil ✅
 - [x] La question de chaque projet est ajoutée à son panneau de `public/index.html`, en HTML simple (visible sans JavaScript).
 - [x] Lien « Pourquoi ces projets ? » dans l'en-tête : ajouté à l'étape 5, avec la page `/fil-rouge`.
 - [x] L'alignement sur les diagonales, le survol et les diaporamas fonctionnent (contrôlés à 1100, 1280, 1366 et 1440 px de large, en français et en anglais).
@@ -246,3 +246,30 @@ Objectif : retirer tout effet « IA générative » et atteindre une rigueur éd
 - **Vérifications** : `npm test` 95 contrôles (dont, en FR et en EN : aucun texte hors cadre, hors de sa boîte
   ou de son infobulle, aucun chevauchement, palette et épaisseurs conformes, animation, survols) ;
   `npm run typecheck` 0 erreur ; Lighthouse ordinateur 99, mobile 90, accessibilité 100, CLS 0,001.
+
+## Étape 4 — Signatures de la page et recette finale ✅
+
+- **Le fil rouge au défilement** (≥ 1024 px, masqué en dessous) : tracé ocre de 1,5 px dans la marge gauche.
+  Il part de l'accroche, passe par un repère à la section des fiches puis à celle des familles, et
+  s'accroche au colophon. `fil-rouge.js` règle `stroke-dashoffset` d'après la position de défilement :
+  la pointe du fil reste à 60 % de la hauteur de l'écran, avec une écriture de style au plus par image
+  (`requestAnimationFrame`, écouteur passif). Le tracé est recalculé quand la page change de hauteur.
+- **Matrice de traçabilité UE × projets**, au-dessus du colophon : six pôles d'enseignement en lignes,
+  six projets en colonnes, disque plein Prusse (compétence principale) ou anneau ocre (transversale).
+  Survol ou focus d'une ligne, d'une colonne ou d'un marqueur : le reste s'estompe à 0,35 et les preuves
+  correspondantes s'affichent sous le tableau. Un clic sur un projet ouvre sa fiche dans la vue partagée.
+  Sans JavaScript, les douze preuves sont listées. Données : clé `matrice` de `fil-rouge.json`.
+  Les six marqueurs principaux reprennent les matières validées à l'étape 0 ; les six transversaux sont
+  une **proposition à valider**, chacun appuyé sur un élément de la fiche du projet.
+- **Filets de section** : un filet de 1 px ouvre chaque section, tracé de gauche à droite en 350 ms à son
+  entrée à l'écran, une seule fois.
+- **Mouvement réduit** : fil entièrement tracé, filets et schémas affichés dans leur état final, aucune
+  transition (contrôlé par `npm test`).
+- **Parité FR / EN** : `npm run en` ne signale aucun segment sans traduction ; le test de parité du JSON et
+  le contrôle des textes coupés (matrice, schémas) passent dans les deux langues.
+- **Défaut corrigé pendant la recette** : sur mobile, les libellés masqués des cases de la matrice
+  élargissaient la page (696 px au lieu de 375) ; le cadre du tableau est maintenant leur bloc de référence.
+- **Commande de vérification** : `npm run check` (pages à jour, types, tests). Le dépôt n'a ni Next.js, ni
+  ESLint, ni `npm run build` ; un script nommé `build` serait lancé par Vercel à chaque déploiement.
+- **Résultat** : `npm run check` réussi ; `npm run typecheck` 0 erreur ; `npm test` 117 contrôles ;
+  Lighthouse ordinateur 99, mobile 90 à 93, accessibilité, bonnes pratiques et SEO 100, CLS 0,001.

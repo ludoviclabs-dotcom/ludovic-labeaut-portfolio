@@ -36,6 +36,8 @@
   </header>
 
   <main class="fr-main">
+    <!-- Fil rouge : tracé dessiné au défilement par fil-rouge.js (≥ 1024 px), décoratif. -->
+    <svg class="fr-thread" aria-hidden="true" focusable="false"><path class="fr-thread__line" d=""/><circle class="fr-thread__node" r="3.5"/><circle class="fr-thread__node" r="3.5"/></svg>
     <section class="fr-hero fr-wrap" aria-labelledby="fr-title">
       <p class="fr-kicker">Why this portfolio</p>
       <h1 id="fr-title" class="fr-hero__title">A figure is only worth something if it can be <em>proven</em>.</h1>
@@ -488,6 +490,103 @@
             <li><a href="#fiche-publications" translate="no">Publications</a></li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="fr-section fr-matrix fr-wrap" aria-labelledby="fr-matrix-title">
+      <p class="fr-kicker">Traceability matrix</p>
+      <h2 id="fr-matrix-title" class="fr-h2">Master CCA units × projects</h2>
+      <p class="fr-section__sub">Six teaching areas in rows, six projects in columns. Each marker points to concrete evidence in the project.</p>
+      <div class="fr-mx" data-matrix>
+        <div class="fr-mx__scroll">
+          <table class="fr-mx__table">
+            <thead>
+              <tr>
+                <th scope="col" class="fr-mx__corner"><span class="visually-hidden">Teaching area</span></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="probant"><a href="#fiche-probant" translate="no">Probant</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="finvalstudio"><a href="#fiche-finvalstudio" translate="no">FinValStudio</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="carbon-co"><a href="#fiche-carbon-co" translate="no">Carbon&amp;Co</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--coeur" data-col="kyb-graph"><a href="#fiche-kyb-graph" translate="no">KYB Graph</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--actualite" data-col="panoplie"><a href="#fiche-panoplie" translate="no">Panoplie</a></th>
+                <th scope="col" class="fr-mx__col fr-mx__col--actualite" data-col="publications"><a href="#fiche-publications" translate="no">Publications</a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-row="audit"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Financial audit &amp; IFRS</span><span class="fr-num" translate="no">UE4</span></button></th>
+                <td data-row="audit" data-col="probant"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-audit-probant"><span class="visually-hidden">Core skill</span></button></td>
+                <td data-row="audit" data-col="finvalstudio"></td>
+                <td data-row="audit" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-audit-carbon-co"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="audit" data-col="kyb-graph"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-audit-kyb-graph"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="audit" data-col="panoplie"></td>
+                <td data-row="audit" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="evaluation"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Valuation &amp; financial engineering</span><span class="fr-num" translate="no">UE2</span></button></th>
+                <td data-row="evaluation" data-col="probant"></td>
+                <td data-row="evaluation" data-col="finvalstudio"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-evaluation-finvalstudio"><span class="visually-hidden">Core skill</span></button></td>
+                <td data-row="evaluation" data-col="carbon-co"></td>
+                <td data-row="evaluation" data-col="kyb-graph"></td>
+                <td data-row="evaluation" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-evaluation-panoplie"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="evaluation" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="durable"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Sustainability reporting &amp; CSRD</span><span class="fr-num" translate="no">UE4 · UE6</span></button></th>
+                <td data-row="durable" data-col="probant"></td>
+                <td data-row="durable" data-col="finvalstudio"></td>
+                <td data-row="durable" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-durable-carbon-co"><span class="visually-hidden">Core skill</span></button></td>
+                <td data-row="durable" data-col="kyb-graph"></td>
+                <td data-row="durable" data-col="panoplie"></td>
+                <td data-row="durable" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="droit"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Company law &amp; compliance</span><span class="fr-num" translate="no">UE1</span></button></th>
+                <td data-row="droit" data-col="probant"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-droit-probant"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="droit" data-col="finvalstudio"></td>
+                <td data-row="droit" data-col="carbon-co"></td>
+                <td data-row="droit" data-col="kyb-graph"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-droit-kyb-graph"><span class="visually-hidden">Core skill</span></button></td>
+                <td data-row="droit" data-col="panoplie"></td>
+                <td data-row="droit" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="gestion"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Management control &amp; strategy</span><span class="fr-num" translate="no">UE3</span></button></th>
+                <td data-row="gestion" data-col="probant"></td>
+                <td data-row="gestion" data-col="finvalstudio"></td>
+                <td data-row="gestion" data-col="carbon-co"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-gestion-carbon-co"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="gestion" data-col="kyb-graph"></td>
+                <td data-row="gestion" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-gestion-panoplie"><span class="visually-hidden">Core skill</span></button></td>
+                <td data-row="gestion" data-col="publications"></td>
+              </tr>
+              <tr>
+                <th scope="row" data-row="memoire"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">Dissertation &amp; methodology</span><span class="fr-num" translate="no">UE7</span></button></th>
+                <td data-row="memoire" data-col="probant"></td>
+                <td data-row="memoire" data-col="finvalstudio"></td>
+                <td data-row="memoire" data-col="carbon-co"></td>
+                <td data-row="memoire" data-col="kyb-graph"></td>
+                <td data-row="memoire" data-col="panoplie"><button class="fr-mx__cell fr-mx__cell--transversale" type="button" aria-describedby="mx-memoire-panoplie"><span class="visually-hidden">Cross-cutting skill</span></button></td>
+                <td data-row="memoire" data-col="publications"><button class="fr-mx__cell fr-mx__cell--principale" type="button" aria-describedby="mx-memoire-publications"><span class="visually-hidden">Core skill</span></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fr-mx__legend"><span class="fr-mx__key fr-mx__key--principale">Core skill</span><span class="fr-mx__key fr-mx__key--transversale">Cross-cutting skill</span></p>
+        <div class="fr-mx__banner" aria-live="polite">
+          <p class="fr-mx__hint" hidden>Hover over or select a row, a column or a marker to display the evidence. Clicking a project opens its entry.</p>
+          <ul class="fr-mx__proofs">
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-audit-probant" data-row="audit" data-col="probant"><span class="fr-mx__proof-who"><span translate="no">Probant</span> × <span>Financial audit &amp; IFRS</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">Every journal entry checked; evidence file sealed and time-stamped (NEP 500).</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-audit-carbon-co" data-row="audit" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Financial audit &amp; IFRS</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">CSRD report (ESRS 2, E1, G1) delivered with its audit trail.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-audit-kyb-graph" data-row="audit" data-col="kyb-graph"><span class="fr-mx__proof-who"><span translate="no">KYB Graph</span> × <span>Financial audit &amp; IFRS</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">Every link graded: confirmed, declared, inferred or simulated; SHA‑256 hash-chained log.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-evaluation-finvalstudio" data-row="evaluation" data-col="finvalstudio"><span class="fr-mx__proof-who"><span translate="no">FinValStudio</span> × <span>Valuation &amp; financial engineering</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">DCF, peer multiples and Monte Carlo over 5,000 draws; LBO.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-evaluation-panoplie" data-row="evaluation" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Valuation &amp; financial engineering</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">Programme costs and funding: every amount with its scope, year and uncertainty.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-durable-carbon-co" data-row="durable" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Sustainability reporting &amp; CSRD</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">Scopes 1, 2 and 3 in tCO₂e; double materiality of ESRS topics.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-droit-probant" data-row="droit" data-col="probant"><span class="fr-mx__proof-who"><span translate="no">Probant</span> × <span>Company law &amp; compliance</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">FEC compliant with the statutory format (LPF, art. A47 A‑1).</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-droit-kyb-graph" data-row="droit" data-col="kyb-graph"><span class="fr-mx__proof-who"><span translate="no">KYB Graph</span> × <span>Company law &amp; compliance</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">Links between companies, directors, addresses and sanctions; AML/CFT due diligence.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-gestion-carbon-co" data-row="gestion" data-col="carbon-co"><span class="fr-mx__proof-who"><span translate="no">Carbon&amp;Co</span> × <span>Management control &amp; strategy</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">Dashboard, alerts and projected trajectory.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-gestion-panoplie" data-row="gestion" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Management control &amp; strategy</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">Register of public costs; six grades from A to E, each one argued.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--transversale" id="mx-memoire-panoplie" data-row="memoire" data-col="panoplie"><span class="fr-mx__proof-who"><span translate="no">Panoplie</span> × <span>Dissertation &amp; methodology</span></span><span class="fr-mx__proof-type">Cross-cutting skill</span><span class="fr-mx__proof-text">Dated open sources; Evidence Pack exported per system.</span></li>
+            <li class="fr-mx__proof fr-mx__proof--principale" id="mx-memoire-publications" data-row="memoire" data-col="publications"><span class="fr-mx__proof-who"><span translate="no">Publications</span> × <span>Dissertation &amp; methodology</span></span><span class="fr-mx__proof-type">Core skill</span><span class="fr-mx__proof-text">Twenty-three notes and three dossiers: dated, cross-checked sources; single sources flagged.</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 

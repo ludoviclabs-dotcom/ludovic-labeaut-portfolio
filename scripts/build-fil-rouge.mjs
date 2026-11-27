@@ -9,7 +9,7 @@
  * Après une mise à jour, relancer « npm run en » pour régénérer public/en/.
  *
  * Ce que le script écrit :
- *   - public/fil-rouge.html, en entier (page « Le fil rouge », adresse /fil-rouge : cahier clair, sans JavaScript) ;
+ *   - public/fil-rouge.html, en entier (page « Le fil rouge », adresse /fil-rouge) ;
  *   - accueil (public/index.html) : le lien « Pourquoi ces projets ? » dans la barre du haut,
  *     et la question de chaque projet après la liste des axes de son panneau ;
  *   - pages projet (public/projets/<id>.html) : le bloc « Pourquoi ce projet », avant la ligne
@@ -299,6 +299,79 @@ function familyBlock(key) {
   ];
 }
 
+/** Types de compétence d'une case de la matrice. */
+const MATRIX_TYPES = ["principale", "transversale"];
+
+/**
+ * Matrice de traçabilité « UE du master × projets ».
+ * Tableau : un lien par projet (ouvre sa fiche), un bouton par pôle d'UE et par case marquée.
+ * Sous le tableau, les preuves : toutes listées sans JavaScript ; avec fil-rouge.js, seules
+ * celles de la ligne, de la colonne ou de la case survolée ou sélectionnée sont affichées.
+ */
+function matrixSection(ordered) {
+  const M = data.matrice;
+  const cols = ordered.map((p) => p.id);
+  for (const pole of M.poles) {
+    for (const [id, cell] of Object.entries(pole.cellules)) {
+      if (!byId.has(id)) throw new Error(`matrice.${pole.id} : projet « ${id} » inconnu.`);
+      if (!MATRIX_TYPES.includes(cell.type)) throw new Error(`matrice.${pole.id}.${id} : type « ${cell.type} » inconnu.`);
+    }
+  }
+  const ueCodes = (pole) => pole.ue.map((n) => (ueLabel(n), `UE${n}`)).join(" · ");
+  const row = (pole) => [
+    `<tr>`,
+    `  <th scope="row" data-row="${pole.id}"><button class="fr-mx__pole" type="button"><span class="fr-mx__pole-label">${esc(pole.label.fr)}</span><span class="fr-num" translate="no">${ueCodes(pole)}</span></button></th>`,
+    ...cols.map((id) => {
+      const cell = pole.cellules[id];
+      if (!cell) return `  <td data-row="${pole.id}" data-col="${id}"></td>`;
+      return `  <td data-row="${pole.id}" data-col="${id}"><button class="fr-mx__cell fr-mx__cell--${cell.type}" type="button" aria-describedby="mx-${pole.id}-${id}"><span class="visually-hidden">${esc(M[cell.type].fr)}</span></button></td>`;
+    }),
+    `</tr>`,
+  ];
+  const proofs = M.poles.flatMap((pole) =>
+    cols
+      .filter((id) => pole.cellules[id])
+      .map((id) => {
+        const cell = pole.cellules[id];
+        return (
+          `<li class="fr-mx__proof fr-mx__proof--${cell.type}" id="mx-${pole.id}-${id}" data-row="${pole.id}" data-col="${id}">` +
+          `<span class="fr-mx__proof-who"><span translate="no">${esc(byId.get(id).nom)}</span> × <span>${esc(pole.label.fr)}</span></span>` +
+          `<span class="fr-mx__proof-type">${esc(M[cell.type].fr)}</span>` +
+          `<span class="fr-mx__proof-text">${esc(cell.preuve.fr)}</span></li>`
+        );
+      }),
+  );
+  return [
+    `<section class="fr-section fr-matrix fr-wrap" aria-labelledby="fr-matrix-title">`,
+    `  <p class="fr-kicker">${esc(M.kicker.fr)}</p>`,
+    `  <h2 id="fr-matrix-title" class="fr-h2">${title(M.titre.fr)}</h2>`,
+    `  <p class="fr-section__sub">${esc(M.intro.fr)}</p>`,
+    `  <div class="fr-mx" data-matrix>`,
+    `    <div class="fr-mx__scroll">`,
+    `      <table class="fr-mx__table">`,
+    `        <thead>`,
+    `          <tr>`,
+    `            <th scope="col" class="fr-mx__corner"><span class="visually-hidden">${esc(M.coin.fr)}</span></th>`,
+    ...ordered.map((p) => `            <th scope="col" class="fr-mx__col fr-mx__col--${p.famille}" data-col="${p.id}"><a href="#fiche-${p.id}" translate="no">${esc(p.nom)}</a></th>`),
+    `          </tr>`,
+    `        </thead>`,
+    `        <tbody>`,
+    ...M.poles.flatMap((pole) => row(pole).map((l) => `          ${l}`)),
+    `        </tbody>`,
+    `      </table>`,
+    `    </div>`,
+    `    <p class="fr-mx__legend"><span class="fr-mx__key fr-mx__key--principale">${esc(M.principale.fr)}</span><span class="fr-mx__key fr-mx__key--transversale">${esc(M.transversale.fr)}</span></p>`,
+    `    <div class="fr-mx__banner" aria-live="polite">`,
+    `      <p class="fr-mx__hint" hidden>${esc(M.aide.fr)}</p>`,
+    `      <ul class="fr-mx__proofs">`,
+    ...proofs.map((l) => `        ${l}`),
+    `      </ul>`,
+    `    </div>`,
+    `  </div>`,
+    `</section>`,
+  ];
+}
+
 function refLine(line) {
   const names = line.projets.map((id) => {
     if (!byId.has(id)) throw new Error(`colophon : projet « ${id} » inconnu.`);
@@ -342,6 +415,8 @@ function filRougePage() {
     `</header>`,
     ``,
     `<main class="fr-main">`,
+    `  <!-- Fil rouge : tracé dessiné au défilement par fil-rouge.js (≥ 1024 px), décoratif. -->`,
+    `  <svg class="fr-thread" aria-hidden="true" focusable="false"><path class="fr-thread__line" d=""/><circle class="fr-thread__node" r="3.5"/><circle class="fr-thread__node" r="3.5"/></svg>`,
     `  <section class="fr-hero fr-wrap" aria-labelledby="fr-title">`,
     `    <p class="fr-kicker">${esc(P.kicker.fr)}</p>`,
     `    <h1 id="fr-title" class="fr-hero__title">${title(data.accroche.fr)}</h1>`,
@@ -382,6 +457,8 @@ function filRougePage() {
     ...["coeur", "actualite"].flatMap((key) => familyBlock(key).map((l) => `      ${l}`)),
     `    </div>`,
     `  </section>`,
+    ``,
+    ...matrixSection(ordered).map((l) => `  ${l}`),
     ``,
     `  <section class="fr-section fr-colophon fr-wrap" aria-labelledby="fr-colophon-title">`,
     `    <p class="fr-kicker">${esc(C.kicker.fr)}</p>`,
@@ -485,6 +562,14 @@ function filRougePage() {
       textPair(data.familles[key].titre),
       textPair(data.familles[key].texte),
     ]),
+    textPair(data.matrice.kicker),
+    titlePair(data.matrice.titre),
+    textPair(data.matrice.intro),
+    textPair(data.matrice.coin),
+    textPair(data.matrice.principale),
+    textPair(data.matrice.transversale),
+    textPair(data.matrice.aide),
+    ...data.matrice.poles.flatMap((pole) => [textPair(pole.label), ...Object.values(pole.cellules).map((cell) => textPair(cell.preuve))]),
     textPair(C.kicker),
     titlePair(C.titre),
     textPair(C.note),

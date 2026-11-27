@@ -109,6 +109,79 @@
     }
   },
 
+  "matrice": {
+    "_note": "Matrice de traçabilité UE × projets de /fil-rouge. Chaque case marquée porte un type (principale ou transversale) et une preuve tirée de la fiche du projet.",
+    "kicker": { "fr": "Matrice de traçabilité", "en": "Traceability matrix" },
+    "titre": { "fr": "UE du Master CCA × projets", "en": "Master CCA units × projects" },
+    "intro": {
+      "fr": "Six pôles d’enseignement en lignes, six projets en colonnes. Chaque marqueur renvoie à une preuve concrète dans le projet.",
+      "en": "Six teaching areas in rows, six projects in columns. Each marker points to concrete evidence in the project."
+    },
+    "coin": { "fr": "Pôle d’UE", "en": "Teaching area" },
+    "principale": { "fr": "Compétence principale", "en": "Core skill" },
+    "transversale": { "fr": "Compétence transversale", "en": "Cross-cutting skill" },
+    "aide": {
+      "fr": "Survolez ou sélectionnez une ligne, une colonne ou un marqueur pour afficher la preuve. Un clic sur un projet ouvre sa fiche.",
+      "en": "Hover over or select a row, a column or a marker to display the evidence. Clicking a project opens its entry."
+    },
+    "poles": [
+      {
+        "id": "audit",
+        "label": { "fr": "Audit financier & IFRS", "en": "Financial audit & IFRS" },
+        "ue": [4],
+        "cellules": {
+          "probant": { "type": "principale", "preuve": { "fr": "Chaque écriture contrôlée ; dossier de preuve scellé et horodaté (NEP 500).", "en": "Every journal entry checked; evidence file sealed and time-stamped (NEP 500)." } },
+          "carbon-co": { "type": "transversale", "preuve": { "fr": "Rapport CSRD (ESRS 2, E1, G1) livré avec sa piste d’audit.", "en": "CSRD report (ESRS 2, E1, G1) delivered with its audit trail." } },
+          "kyb-graph": { "type": "transversale", "preuve": { "fr": "Chaque lien qualifié : confirmé, déclaré, inféré ou simulé ; journal chaîné SHA-256.", "en": "Every link graded: confirmed, declared, inferred or simulated; SHA-256 hash-chained log." } }
+        }
+      },
+      {
+        "id": "evaluation",
+        "label": { "fr": "Évaluation & Ingénierie financière", "en": "Valuation & financial engineering" },
+        "ue": [2],
+        "cellules": {
+          "finvalstudio": { "type": "principale", "preuve": { "fr": "DCF, multiples des pairs et Monte Carlo sur 5 000 tirages ; LBO.", "en": "DCF, peer multiples and Monte Carlo over 5,000 draws; LBO." } },
+          "panoplie": { "type": "transversale", "preuve": { "fr": "Coûts et financement des programmes : chaque montant avec son périmètre, son année et son incertitude.", "en": "Programme costs and funding: every amount with its scope, year and uncertainty." } }
+        }
+      },
+      {
+        "id": "durable",
+        "label": { "fr": "Reporting durable & CSRD", "en": "Sustainability reporting & CSRD" },
+        "ue": [4, 6],
+        "cellules": {
+          "carbon-co": { "type": "principale", "preuve": { "fr": "Scopes 1, 2 et 3 en tCO₂e ; double matérialité des thèmes ESRS.", "en": "Scopes 1, 2 and 3 in tCO₂e; double materiality of ESRS topics." } }
+        }
+      },
+      {
+        "id": "droit",
+        "label": { "fr": "Droit sociétaire & Conformité", "en": "Company law & compliance" },
+        "ue": [1],
+        "cellules": {
+          "probant": { "type": "transversale", "preuve": { "fr": "FEC conforme au format légal (LPF, art. A47 A-1).", "en": "FEC compliant with the statutory format (LPF, art. A47 A-1)." } },
+          "kyb-graph": { "type": "principale", "preuve": { "fr": "Liens entre sociétés, dirigeants, adresses et sanctions ; vigilance LCB-FT.", "en": "Links between companies, directors, addresses and sanctions; AML/CFT due diligence." } }
+        }
+      },
+      {
+        "id": "gestion",
+        "label": { "fr": "Contrôle de gestion & Stratégie", "en": "Management control & strategy" },
+        "ue": [3],
+        "cellules": {
+          "carbon-co": { "type": "transversale", "preuve": { "fr": "Cockpit, alertes et trajectoire projetée.", "en": "Dashboard, alerts and projected trajectory." } },
+          "panoplie": { "type": "principale", "preuve": { "fr": "Registre des coûts publics ; six paliers notés de A à E, chacun argumenté.", "en": "Register of public costs; six grades from A to E, each one argued." } }
+        }
+      },
+      {
+        "id": "memoire",
+        "label": { "fr": "Mémoire & Méthodologie", "en": "Dissertation & methodology" },
+        "ue": [7],
+        "cellules": {
+          "panoplie": { "type": "transversale", "preuve": { "fr": "Sources ouvertes et datées ; Evidence Pack exporté par système.", "en": "Dated open sources; Evidence Pack exported per system." } },
+          "publications": { "type": "principale", "preuve": { "fr": "Vingt-trois notes et trois dossiers : sources datées et recoupées, source unique signalée.", "en": "Twenty-three notes and three dossiers: dated, cross-checked sources; single sources flagged." } }
+        }
+      }
+    ]
+  },
+
   "colophon": {
     "kicker": { "fr": "Colophon de méthode", "en": "Method colophon" },
     "titre": { "fr": "Les référentiels mobilisés", "en": "The standards applied" },

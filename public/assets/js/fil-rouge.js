@@ -10,12 +10,191 @@
  * Changement de fiche : fondu léger (opacité et 6 px), 220 ms, coupé si « réduire les animations ».
  * Schémas : la classe is-inview, posée à l'entrée à l'écran, déclenche le tracé (fil-rouge.css).
  *
+ * Trois autres comportements, indépendants des fiches :
+ * - le fil rouge : un tracé ocre dans la marge gauche (≥ 1024 px), dessiné au rythme du défilement ;
+ * - les filets de section : tracés une fois, à l'entrée de la section à l'écran ;
+ * - la matrice UE × projets : la ligne, la colonne ou la case survolée ou sélectionnée reste nette,
+ *   le reste s'estompe, et les preuves correspondantes s'affichent sous le tableau.
+ * Avec « réduire les animations », fil et filets sont affichés d'emblée dans leur état final.
+ *
  * Vérification des types : npm run typecheck (TypeScript en mode checkJs, sans compilation).
  */
 (() => {
   "use strict";
 
   const SPLIT_QUERY = "(min-width: 1024px)";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------- Le fil rouge : tracé au défilement ---------- */
+
+  (() => {
+    const mainEl = document.querySelector(".fr-main");
+    const svgEl = document.querySelector(".fr-thread");
+    const lineEl = svgEl?.querySelector(".fr-thread__line");
+    // Le fil part de l'accroche et passe par les sections des fiches et des familles jusqu'au colophon.
+    const marks = [".fr-hero", ".fr-fiches", ".fr-families", ".fr-colophon"].map((section) => document.querySelector(`${section} .fr-kicker`));
+    if (!(mainEl instanceof HTMLElement) || !(svgEl instanceof SVGSVGElement) || !(lineEl instanceof SVGPathElement)) return;
+    if (!marks.every((mark) => mark instanceof HTMLElement)) return;
+    /** @type {HTMLElement} */
+    const main = mainEl;
+    /** @type {SVGSVGElement} */
+    const svg = svgEl;
+    /** @type {SVGPathElement} */
+    const line = lineEl;
+    const [start, ...stops] = /** @type {HTMLElement[]} */ (marks);
+    const end = stops[stops.length - 1];
+    /** @type {SVGCircleElement[]} */
+    const nodes = Array.from(svg.querySelectorAll(".fr-thread__node"));
+    const desktop = window.matchMedia(SPLIT_QUERY);
+
+    /** @type {{ top: number, y0: number, yEnd: number, hook: number, total: number, nodeY: number[] } | null} */
+    let geometry = null;
+    let drawn = -1;
+    let frame = 0;
+
+    /** Dessine la longueur du fil qui correspond au défilement (une écriture de style, au plus, par image). */
+    function update() {
+      if (!geometry) return;
+      const g = geometry;
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      // Pointe du fil : à 60 % de la hauteur de l'écran.
+      const tip = reducedMotion.matches || atBottom ? Number.POSITIVE_INFINITY : window.scrollY + window.innerHeight * 0.6 - g.top;
+      const length = tip >= g.yEnd ? g.total : Math.round(Math.max(0, Math.min(g.hook + tip - g.y0, g.hook + g.yEnd - g.y0)));
+      if (length === drawn) return;
+      drawn = length;
+      line.style.strokeDashoffset = String(g.total - length);
+      nodes.forEach((node, i) => node.classList.toggle("is-reached", tip >= g.nodeY[i]));
+    }
+
+    /** Recalcule le tracé d'après la position des repères (au chargement et quand la page change de taille). */
+    function measure() {
+      if (!desktop.matches) {
+        svg.classList.remove("is-ready");
+        geometry = null;
+        return;
+      }
+      const box = main.getBoundingClientRect();
+      /** @param {HTMLElement} el */
+      const middle = (el) => {
+        const r = el.getBoundingClientRect();
+        return Math.round(r.top + r.height / 2 - box.top);
+      };
+      const left = start.getBoundingClientRect().left - box.left;
+      const x = Math.round(left - 26) + 0.5;
+      const hookX = Math.round(left - 8);
+      const y0 = middle(start);
+      const yEnd = middle(end);
+      const nodeY = stops.slice(0, -1).map(middle);
+      line.setAttribute("d", `M${hookX} ${y0}H${x}V${yEnd}H${hookX}`);
+      nodes.forEach((node, i) => {
+        node.setAttribute("cx", String(x));
+        node.setAttribute("cy", String(nodeY[i] ?? y0));
+      });
+      const hook = hookX - x;
+      const total = 2 * hook + (yEnd - y0);
+      geometry = { top: box.top + window.scrollY, y0, yEnd, hook, total, nodeY };
+      line.style.strokeDasharray = String(total);
+      svg.classList.add("is-ready");
+      drawn = -1;
+      update();
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(() => {
+          frame = 0;
+          update();
+        });
+      },
+      { passive: true },
+    );
+    desktop.addEventListener("change", measure);
+    reducedMotion.addEventListener("change", measure);
+    window.addEventListener("resize", measure);
+    if (typeof ResizeObserver === "function") new ResizeObserver(measure).observe(main);
+    measure();
+  })();
+
+  /* ---------- Filets de section : tracés à l'entrée à l'écran ---------- */
+
+  (() => {
+    const main = document.querySelector(".fr-main");
+    /** @type {HTMLElement[]} */
+    const sections = Array.from(document.querySelectorAll(".fr-section"));
+    if (!main || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (records) => {
+        for (const record of records) {
+          if (!record.isIntersecting) continue;
+          record.target.classList.add("is-ruled");
+          observer.unobserve(record.target);
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    main.classList.add("has-rules");
+    for (const section of sections) observer.observe(section);
+  })();
+
+  /* ---------- Matrice UE × projets ---------- */
+
+  (() => {
+    const matrixEl = document.querySelector("[data-matrix]");
+    const tableEl = matrixEl?.querySelector("table");
+    const hintEl = matrixEl?.querySelector(".fr-mx__hint");
+    if (!(matrixEl instanceof HTMLElement) || !(tableEl instanceof HTMLTableElement) || !(hintEl instanceof HTMLElement)) return;
+    /** @type {HTMLElement} */
+    const matrix = matrixEl;
+    /** @type {HTMLTableElement} */
+    const table = tableEl;
+    /** @type {HTMLElement} */
+    const hint = hintEl;
+    /** @type {HTMLElement[]} */
+    const cells = Array.from(table.querySelectorAll("[data-row], [data-col]"));
+    /** @type {HTMLElement[]} */
+    const proofs = Array.from(matrix.querySelectorAll(".fr-mx__proof"));
+
+    /**
+     * Met en avant une ligne, une colonne ou une case ; sans argument, tout redevient net.
+     * @param {string} [row]
+     * @param {string} [col]
+     */
+    function show(row, col) {
+      const any = Boolean(row || col);
+      for (const cell of cells) {
+        const inRow = Boolean(row) && cell.dataset.row === row;
+        const inCol = Boolean(col) && cell.dataset.col === col;
+        cell.classList.toggle("is-dim", any && !inRow && !inCol);
+        cell.classList.toggle("is-current", inRow && inCol);
+      }
+      let shown = 0;
+      for (const proof of proofs) {
+        const match = any && (!row || proof.dataset.row === row) && (!col || proof.dataset.col === col);
+        proof.hidden = !match;
+        if (match) shown += 1;
+      }
+      hint.hidden = shown > 0;
+    }
+
+    /** @param {EventTarget | null} target */
+    function showFor(target) {
+      const cell = target instanceof Element ? target.closest("th, td") : null;
+      if (cell instanceof HTMLElement && table.contains(cell)) show(cell.dataset.row, cell.dataset.col);
+      else show();
+    }
+
+    matrix.classList.add("is-enhanced");
+    show();
+    table.addEventListener("pointerover", (event) => showFor(event.target));
+    table.addEventListener("pointerleave", () => showFor(table.contains(document.activeElement) ? document.activeElement : null));
+    table.addEventListener("focusin", (event) => showFor(event.target));
+    table.addEventListener("focusout", (event) => {
+      if (!(event.relatedTarget instanceof Node) || !table.contains(event.relatedTarget)) show();
+    });
+  })();
+
 
   const dossierEl = document.querySelector("[data-dossier]");
   const navEl = dossierEl?.querySelector(".fr-dossier__nav");
@@ -59,7 +238,7 @@
   }
 
   const split = window.matchMedia(SPLIT_QUERY);
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reduceMotion = reducedMotion;
 
   /** Fiche active de la vue partagée. */
   let active = entries[0];
