@@ -56,6 +56,7 @@ public/                    site statique servi par Vercel
   assets/js/fil-rouge.js   vue partagée et accordéon des six fiches (vanilla, vérifié par npm run typecheck)
 scripts/site.mjs             domaine de production (liens hreflang des pages, en adresses complètes)
 scripts/build-fil-rouge.mjs  écrit les textes du fil rouge dans les pages (npm run fil-rouge)
+scripts/blueprints.mjs       schémas SVG des six projets de /fil-rouge (libellés : clé « schemas » du JSON)
 scripts/test-fil-rouge.mjs   tests du fil rouge, fichiers et navigateur (npm test)
 scripts/import-photos.mjs    import des photos (liste libre de droits + Dropbox)
 scripts/photos-libres.json   photos Unsplash / DVIDS avec auteur et licence

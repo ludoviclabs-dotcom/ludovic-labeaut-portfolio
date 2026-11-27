@@ -38,7 +38,6 @@
     "filtre_label": { "fr": "Filtrer par famille de projets", "en": "Filter by project family" },
     "filtre_tous": { "fr": "Tous", "en": "All" },
     "liste_label": { "fr": "Les six questions", "en": "The six questions" },
-    "blueprint": { "fr": "Schéma du pipeline en préparation", "en": "Pipeline diagram in preparation" },
     "familles_kicker": { "fr": "Deux façons de le prouver", "en": "Two ways to prove it" },
     "projets_mot": { "fr": "projets", "en": "projects" },
     "mention": {
@@ -154,6 +153,86 @@
         "projets": ["kyb-graph", "panoplie"]
       }
     ]
+  },
+
+  "schemas": {
+    "_note": "Libellés des schémas SVG de /fil-rouge (scripts/blueprints.mjs). Une chaîne seule vaut pour les deux langues. Le schéma Publications tire ses dates de public/publications/index.html.",
+    "probant": {
+      "titre": { "fr": "Schéma de Probant : du FEC au dossier de preuve, par trois contrôles parallèles", "en": "Probant diagram: from the FEC to the evidence file, through three parallel checks" },
+      "entree": { "fr": "Entrée", "en": "Input" },
+      "controles": { "fr": "Contrôles parallèles", "en": "Parallel checks" },
+      "sortie": { "fr": "Sortie", "en": "Output" },
+      "fec": "FEC (.txt)",
+      "c1": { "fr": "Équilibre", "en": "Balance" },
+      "c2": "Benford",
+      "c3": "Cut-off",
+      "dossier": { "fr": "Dossier de preuve", "en": "Evidence file" },
+      "anomalie": { "fr": "Anomalie", "en": "Anomaly" },
+      "regle": [
+        { "fr": "Loi de Benford : fréquence des premiers", "en": "Benford’s law: frequency of leading" },
+        { "fr": "chiffres comparée à la distribution attendue", "en": "digits compared with the expected distribution" }
+      ],
+      "regle_aria": {
+        "fr": "Anomalie sur la branche Benford. Règle de contrôle : fréquence des premiers chiffres comparée à la distribution attendue",
+        "en": "Anomaly on the Benford branch. Control rule: frequency of leading digits compared with the expected distribution"
+      }
+    },
+    "finvalstudio": {
+      "titre": { "fr": "Schéma de FinValStudio : fourchettes de valorisation et distribution Monte Carlo", "en": "FinValStudio diagram: valuation ranges and Monte Carlo distribution" },
+      "mc1": "Monte Carlo",
+      "mc2": { "fr": "5 000 tirages", "en": "5,000 draws" },
+      "dispersion": { "fr": "Dispersion", "en": "Spread" },
+      "dcf": "DCF",
+      "multiples": { "fr": "Multiples EV/EBITDA", "en": "EV/EBITDA multiples" },
+      "axe": { "fr": "Valeur implicite par action", "en": "Implied value per share" },
+      "p10": "P10",
+      "mediane": { "fr": "Médiane", "en": "Median" },
+      "p90": "P90",
+      "tip_p10": { "fr": "P10 : 10 % des tirages en dessous", "en": "P10: 10% of draws fall below" },
+      "tip_mediane": { "fr": "Médiane : 50 % des tirages en dessous", "en": "Median: 50% of draws fall below" },
+      "tip_p90": { "fr": "P90 : 90 % des tirages en dessous", "en": "P90: 90% of draws fall below" }
+    },
+    "carbon-co": {
+      "titre": { "fr": "Schéma de Carbon&Co : les trois scopes convergent vers ESRS E1 et VSME, avec piste d’audit", "en": "Carbon&Co diagram: the three scopes converge on ESRS E1 and VSME, with an audit trail" },
+      "s1": "Scope 1",
+      "s2": "Scope 2",
+      "s3": "Scope 3",
+      "total": "tCO₂e",
+      "e1": "ESRS E1",
+      "vsme": "VSME",
+      "audit": { "fr": "Piste d’audit", "en": "Audit trail" }
+    },
+    "kyb-graph": {
+      "titre": { "fr": "Schéma de KYB Graph : cinq nœuds et le niveau de preuve de chaque lien", "en": "KYB Graph diagram: five nodes and the level of evidence of each link" },
+      "societe": { "fr": "Société", "en": "Company" },
+      "holding": "Holding",
+      "ubo": "UBO",
+      "juridiction": { "fr": "Juridiction", "en": "Jurisdiction" },
+      "sanctions": "Sanctions",
+      "officiel": { "fr": "Registre officiel", "en": "Official register" },
+      "declaratif": { "fr": "Déclaratif", "en": "Self-declared" },
+      "confirme": { "fr": "Confirmé · registre officiel", "en": "Confirmed · official register" },
+      "declare": { "fr": "Déclaré · déclaratif", "en": "Declared · self-declared" }
+    },
+    "panoplie": {
+      "titre": { "fr": "Schéma de Panoplie : décomposition du coût complet d’un programme, proportions illustratives", "en": "Panoplie diagram: breakdown of a programme’s full cost, illustrative proportions" },
+      "total": { "fr": "Coût complet du programme", "en": "Full programme cost" },
+      "rd": "R&D",
+      "acquisition": "Acquisition",
+      "mco": { "fr": "MCO", "en": "Sustainment" },
+      "critiques": { "fr": "Dépendances critiques", "en": "Critical dependencies" },
+      "parts": [20, 30, 35, 15],
+      "note_montant": { "fr": "Chaque montant : périmètre, année, incertitude, sources", "en": "Each amount: scope, year, uncertainty, sources" },
+      "note_proportions": { "fr": "Proportions illustratives", "en": "Illustrative proportions" }
+    },
+    "publications": {
+      "titre": { "fr": "Schéma des Publications : notes et dossiers datés, par bloc thématique", "en": "Publications diagram: dated notes and dossiers, by thematic section" },
+      "note": "Note",
+      "notes": "Notes",
+      "dossier": "Dossier",
+      "total_notes": "notes",
+      "total_dossiers": "dossiers"
+    }
   },
 
   "projets": [

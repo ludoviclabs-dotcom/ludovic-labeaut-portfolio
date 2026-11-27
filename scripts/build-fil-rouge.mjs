@@ -22,6 +22,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE_URL } from "./site.mjs";
+import { createBlueprints } from "./blueprints.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = path.join(ROOT, "public", "data", "fil-rouge.json");
@@ -185,6 +186,9 @@ function title(text) {
 const titlePair = (o) => [normalize(title(o.fr)), title(o.en)];
 const pad2 = (n) => String(n).padStart(2, "0");
 
+/** Schémas SVG des six projets (un par fiche). */
+const blueprints = await createBlueprints({ data, root: ROOT });
+
 /** « Voir le projet » suivi du nom du projet pour les lecteurs d'écran. */
 function voirProjet(project) {
   const html = (lang) => `${esc(P.voir_projet[lang])} <span class="visually-hidden">${esc(project.nom)}</span>`;
@@ -206,7 +210,7 @@ function ueLabel(n) {
 function fiche(project, i) {
   const famille = data.familles[project.famille].label;
   const o = project.outil;
-  // Une fiche = un panneau « dossier de preuve » : en-tête, zone du schéma (étape 3), champs, lien.
+  // Une fiche = un panneau « dossier de preuve » : en-tête, schéma du projet (scripts/blueprints.mjs), champs, lien.
   // Élément <div> (et non <li>) : il peut recevoir role="tabpanel" dans la vue partagée.
   // Sans JavaScript, les six fiches sont ouvertes ; fil-rouge.js en fait une vue partagée (≥ 1024 px)
   // ou un accordéon (en dessous), le bouton de la question servant alors à replier la fiche.
@@ -217,9 +221,7 @@ function fiche(project, i) {
     `    <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-${project.id}-q" aria-expanded="true" aria-controls="fiche-${project.id}-body">${esc(project.question.fr)}</button></h3>`,
     `  </div>`,
     `  <div class="fr-fiche__body" id="fiche-${project.id}-body">`,
-    `  <div class="fr-blueprint" data-blueprint="${project.id}">`,
-    `    <p class="fr-blueprint__label">${esc(P.blueprint.fr)}</p>`,
-    `  </div>`,
+    ...blueprints.render(project.id).map((l) => `  ${l}`),
     `  <dl class="fr-fiche__fields">`,
     `    <div class="fr-field">`,
     `      <dt>${esc(P.label_outil.fr)}</dt>`,
@@ -460,7 +462,7 @@ function filRougePage() {
     textPair(P.label_sorties),
     textPair(P.label_exigence),
     textPair(P.label_ue),
-    textPair(P.blueprint),
+    ...blueprints.pairs,
     attrPair(P.filtre_label),
     attrPair(P.liste_label),
     textPair(P.filtre_tous),

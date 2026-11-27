@@ -249,6 +249,29 @@ if (!playwright) {
         await p.locator('.fr-family__projects a[href="#fiche-kyb-graph"]').click();
         await p.waitForTimeout(400);
         check((await state()).selected.join() === "kyb-graph", `${L} : un lien #fiche-… de la page ouvre la fiche dans le panneau`);
+        // Schémas : tracé à l'affichage et infobulles au survol
+        await p.locator('[role="tab"][data-project="kyb-graph"]').click();
+        await p.waitForTimeout(250);
+        const anim = await p.evaluate(() => {
+          const bp = document.querySelector(".fr-fiche:not([hidden]) .fr-blueprint");
+          const cs = getComputedStyle(bp.querySelector(".bp-draw"));
+          return { inview: bp.classList.contains("is-inview"), name: cs.animationName, duration: cs.animationDuration, easing: cs.animationTimingFunction };
+        });
+        check(anim.inview && anim.name === "bp-draw" && anim.duration === "0.45s" && anim.easing === "cubic-bezier(0.22, 1, 0.36, 1)", `${L} : tracé progressif des schémas (450 ms, courbe demandée)`, JSON.stringify(anim));
+        await p.waitForTimeout(1100);
+        const visibleTip = (k) => p.evaluate((k) => getComputedStyle(document.querySelector(`.fr-fiche:not([hidden]) .bp-tip.k${k}`)).opacity, k);
+        await p.locator(".fr-fiche:not([hidden]) .bp-hot.k2").hover();
+        await p.waitForTimeout(350);
+        const kyb = await p.evaluate(() => {
+          const hot = document.querySelector(".fr-fiche:not([hidden]) .bp-hot.k2");
+          return { width: getComputedStyle(hot.querySelector(".bp-l")).strokeWidth, dash: getComputedStyle(hot.querySelector(".bp-l")).strokeDasharray, tip: document.querySelector(".fr-fiche:not([hidden]) .bp-tip.k2").textContent };
+        });
+        check((await visibleTip(2)) === "1" && (await visibleTip(1)) === "0" && kyb.width === "2.5px" && kyb.dash === "none", `${L} : KYB Graph, le survol d'un lien l'épaissit et affiche son niveau de preuve`, JSON.stringify(kyb));
+        await p.locator('[role="tab"][data-project="probant"]').click();
+        await p.waitForTimeout(900);
+        await p.locator(".fr-fiche:not([hidden]) .bp-hot.k1").focus();
+        await p.waitForTimeout(350);
+        check((await visibleTip(1)) === "1", `${L} : Probant, la règle de contrôle s'affiche au focus clavier sur l'anomalie`);
         check(!(await overflowX(p)), `${L} : pas de débordement horizontal (1440 px)`);
         check(p.errors.length === 0, `${L} : aucune erreur dans la console`, p.errors.join(" | "));
         await p.context().close();
@@ -283,6 +306,46 @@ if (!playwright) {
           fiches: [...document.querySelectorAll(".fr-fiche")].filter((f) => f.getBoundingClientRect().height > 100).length,
         }));
         check(r.nav === 0 && r.fiches === data.projets.length, `${L} : sans JavaScript, les ${data.projets.length} fiches sont ouvertes`, JSON.stringify(r));
+        await p.evaluate(() => document.fonts.ready);
+        const bp = await p.evaluate(() => {
+          const PALETTE = ["rgb(203, 213, 225)", "rgb(17, 20, 24)", "rgb(74, 85, 104)", "rgb(22, 50, 79)", "rgb(168, 75, 32)", "rgb(255, 255, 255)", "rgb(246, 247, 249)", "none"];
+          const issues = [];
+          const svgs = [...document.querySelectorAll(".fr-blueprint svg")];
+          for (const svg of svgs) {
+            const id = svg.parentElement.dataset.blueprint;
+            if (svg.getAttribute("viewBox") !== "0 0 520 220") issues.push(`${id} : viewBox`);
+            if (svg.querySelector("linearGradient, radialGradient, filter, image")) issues.push(`${id} : dégradé, filtre ou image`);
+            if (!/Source Sans 3/.test(getComputedStyle(svg).fontFamily) || getComputedStyle(svg).fontVariantNumeric !== "tabular-nums") issues.push(`${id} : police`);
+            for (const el of svg.querySelectorAll("line, path, rect, circle, text")) {
+              const cs = getComputedStyle(el);
+              if (!PALETTE.includes(cs.stroke) || !PALETTE.includes(cs.fill)) issues.push(`${id} : couleur hors palette (${cs.stroke} / ${cs.fill})`);
+              if (el.classList.contains("bp-l") && !el.classList.contains("bp-band") && cs.strokeWidth !== "1.25px") issues.push(`${id} : trait de ${cs.strokeWidth}`);
+            }
+            const texts = [...svg.querySelectorAll("text")].map((t) => ({ b: t.getBBox(), tip: !!t.closest(".bp-tip"), s: t.textContent }));
+            for (const { b, s } of texts) if (b.x < 4 || b.y < 2 || b.x + b.width > 516 || b.y + b.height > 218) issues.push(`${id} : texte hors cadre « ${s} »`);
+            for (const g of svg.querySelectorAll(".bp-box")) {
+              const r = g.querySelector("rect").getBBox();
+              const t = g.querySelector("text").getBBox();
+              if (t.x < r.x + 4 || t.x + t.width > r.x + r.width - 4) issues.push(`${id} : « ${g.textContent} » déborde de sa boîte`);
+            }
+            for (const g of svg.querySelectorAll(".bp-tip")) {
+              const r = g.querySelector("rect").getBBox();
+              if (r.x < 4 || r.x + r.width > 516 || r.y < 2 || r.y + r.height > 218) issues.push(`${id} : infobulle hors cadre`);
+              for (const t of g.querySelectorAll("text")) if (t.getBBox().x + t.getBBox().width > r.x + r.width - 5) issues.push(`${id} : « ${t.textContent} » déborde de son infobulle`);
+            }
+            const fixed = texts.filter((x) => !x.tip);
+            for (let i = 0; i < fixed.length; i += 1) {
+              for (let j = i + 1; j < fixed.length; j += 1) {
+                const a = fixed[i].b;
+                const c = fixed[j].b;
+                // 2 px de tolérance : les boîtes de texte incluent l'interligne.
+                if (a.x < c.x + c.width && c.x < a.x + a.width && a.y + 2 < c.y + c.height - 2 && c.y + 2 < a.y + a.height - 2) issues.push(`${id} : « ${fixed[i].s} » chevauche « ${fixed[j].s} »`);
+              }
+            }
+          }
+          return { count: svgs.length, issues};
+        });
+        check(bp.count === data.projets.length && bp.issues.length === 0, `${L} : ${data.projets.length} schémas SVG sans débordement de texte, palette et traits conformes`, bp.issues.slice(0, 4).join(" ; "));
         await p.context().close();
       }
       {
@@ -294,7 +357,11 @@ if (!playwright) {
           const f = document.querySelector(".fr-fiche:not([hidden])");
           return { duration: getComputedStyle(f).transitionDuration, opacity: getComputedStyle(f).opacity };
         });
-        check(/^0s/.test(r.duration) && r.opacity === "1", `${L} : « réduire les animations » coupe le fondu`, JSON.stringify(r));
+        const draw = await p.evaluate(() => {
+          const cs = getComputedStyle(document.querySelector(".fr-fiche:not([hidden]) .bp-draw"));
+          return { name: cs.animationName, dash: cs.strokeDasharray };
+        });
+        check(/^0s/.test(r.duration) && r.opacity === "1" && draw.name === "none" && draw.dash === "none", `${L} : « réduire les animations » coupe le fondu et le tracé des schémas`, JSON.stringify({ ...r, ...draw }));
         await p.context().close();
       }
       {

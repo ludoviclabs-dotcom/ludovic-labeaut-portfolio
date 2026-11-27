@@ -110,8 +110,30 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-probant-q" aria-expanded="true" aria-controls="fiche-probant-body">Peut-on prouver qu’une comptabilité est fiable ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-probant-body">
-            <div class="fr-blueprint" data-blueprint="probant">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="probant" role="group" aria-label="Schéma de Probant : du FEC au dossier de preuve, par trois contrôles parallèles" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <text class="bp-k bp-in" style="--s: 0" x="56" y="16" text-anchor="middle">Entrée</text>
+                <text class="bp-k bp-in" style="--s: 2" x="236" y="16" text-anchor="middle">Contrôles parallèles</text>
+                <text class="bp-k bp-in" style="--s: 4" x="449" y="16" text-anchor="middle">Sortie</text>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M100 110H138V43H176"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M138 110H176"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M138 110V177H176"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 3" d="M296 43H368V110H390"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 3" d="M296 110H368"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 3" d="M296 177H368V110"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M171 39.5L176 43L171 46.5"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M171 106.5L176 110L171 113.5"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" d="M171 173.5L176 177L171 180.5"/>
+                <path class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 3" d="M385 106.5L390 110L385 113.5"/>
+                <g class="bp-box"><rect class="bp-l bp-l--s bp-draw bp-fill" pathLength="1" style="--s: 0" x="12" y="92" width="88" height="36"/><text class="bp-t bp-in" style="--s: 0" x="56" y="114" text-anchor="middle">FEC (.txt)</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--s bp-draw bp-fill" pathLength="1" style="--s: 2" x="176" y="28" width="120" height="30"/><text class="bp-t bp-in" style="--s: 2" x="236" y="47" text-anchor="middle">Équilibre</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--s bp-draw bp-fill" pathLength="1" style="--s: 2" x="176" y="95" width="120" height="30"/><text class="bp-t bp-in" style="--s: 2" x="236" y="114" text-anchor="middle">Benford</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--s bp-draw bp-fill" pathLength="1" style="--s: 2" x="176" y="162" width="120" height="30"/><text class="bp-t bp-in" style="--s: 2" x="236" y="181" text-anchor="middle">Cut-off</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 4" x="390" y="92" width="118" height="36"/><text class="bp-t bp-in" style="--s: 4" x="449" y="114" text-anchor="middle">Dossier de preuve</text></g>
+                <text class="bp-m bp-o bp-in" style="--s: 3" x="332" y="100" text-anchor="middle">Anomalie</text>
+                <g class="bp-hot k1" tabindex="0" role="img" aria-label="Anomalie sur la branche Benford. Règle de contrôle : fréquence des premiers chiffres comparée à la distribution attendue"><rect class="bp-hit" x="320" y="98" width="24" height="24"/><circle class="bp-l bp-l--o bp-draw bp-fill" pathLength="1" style="--s: 3" cx="332" cy="110" r="6.5"/><circle class="bp-dot bp-dot--o bp-in" style="--s: 3" cx="332" cy="110" r="3"/></g>
+                <g class="bp-tips"><g class="bp-tip k1" aria-hidden="true"><rect x="176" y="125.5" width="270" height="36"/><text class="bp-m" x="184" y="140.5">Loi de Benford : fréquence des premiers</text><text class="bp-m" x="184" y="154.5">chiffres comparée à la distribution attendue</text></g></g>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">
@@ -147,8 +169,25 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-finvalstudio-q" aria-expanded="true" aria-controls="fiche-finvalstudio-body">Combien vaut une entreprise, et avec quelle marge d’erreur ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-finvalstudio-body">
-            <div class="fr-blueprint" data-blueprint="finvalstudio">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="finvalstudio" role="group" aria-label="Schéma de FinValStudio : fourchettes de valorisation et distribution Monte Carlo" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <text class="bp-t bp-in" style="--s: 0" x="12" y="64">Monte Carlo</text>
+                <text class="bp-m bp-in" style="--s: 0" x="12" y="82">5 000 tirages</text>
+                <text class="bp-m bp-o bp-in" style="--s: 3" x="12" y="129">Dispersion</text>
+                <text class="bp-t bp-in" style="--s: 2" x="12" y="153">DCF</text>
+                <text class="bp-t bp-in" style="--s: 2" x="12" y="183">Multiples EV/EBITDA</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="128" y1="118" x2="508" y2="118"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="128" y1="198" x2="508" y2="198"/>
+                <path class="bp-l bp-l--a bp-draw" pathLength="1" style="--s: 1" d="M128 118C196 118 236 30 300 30C362 30 420 118 508 118"/>
+                <rect class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 2" x="206" y="142" width="196" height="13"/>
+                <rect class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 2" x="176" y="172" width="176" height="13"/>
+                <path class="bp-l bp-l--o bp-draw" pathLength="1" style="--s: 3" d="M228 121V127H404V121"/>
+                <text class="bp-m bp-in" style="--s: 2" x="508" y="213" text-anchor="end">Valeur implicite par action</text>
+                <g class="bp-hot k1" tabindex="0" role="img" aria-label="P10 : 10 % des tirages en dessous"><rect class="bp-hit" x="219" y="22" width="18" height="178"/><line class="bp-l bp-l--a bp-draw" pathLength="1" style="--s: 3" x1="228" y1="22" x2="228" y2="198"/><text class="bp-m bp-in" style="--s: 3" x="228" y="15" text-anchor="middle">P10</text></g>
+                <g class="bp-hot k2" tabindex="0" role="img" aria-label="Médiane : 50 % des tirages en dessous"><rect class="bp-hit" x="297" y="22" width="18" height="178"/><line class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 3" x1="306" y1="22" x2="306" y2="198"/><text class="bp-m bp-in" style="--s: 3" x="306" y="15" text-anchor="middle">Médiane</text></g>
+                <g class="bp-hot k3" tabindex="0" role="img" aria-label="P90 : 90 % des tirages en dessous"><rect class="bp-hit" x="395" y="22" width="18" height="178"/><line class="bp-l bp-l--a bp-draw" pathLength="1" style="--s: 3" x1="404" y1="22" x2="404" y2="198"/><text class="bp-m bp-in" style="--s: 3" x="404" y="15" text-anchor="middle">P90</text></g>
+                <g class="bp-tips"><g class="bp-tip k1" aria-hidden="true"><rect x="236" y="36" width="214" height="22"/><text class="bp-m" x="244" y="51">P10 : 10 % des tirages en dessous</text></g><g class="bp-tip k2" aria-hidden="true"><rect x="202" y="36" width="214" height="22"/><text class="bp-m" x="210" y="51">Médiane : 50 % des tirages en dessous</text></g><g class="bp-tip k3" aria-hidden="true"><rect x="182" y="36" width="214" height="22"/><text class="bp-m" x="190" y="51">P90 : 90 % des tirages en dessous</text></g></g>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">
@@ -183,8 +222,23 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-carbon-co-q" aria-expanded="true" aria-controls="fiche-carbon-co-body">Comment rendre compte de ce qui ne se compte pas en euros ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-carbon-co-body">
-            <div class="fr-blueprint" data-blueprint="carbon-co">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="carbon-co" role="group" aria-label="Schéma de Carbon&amp;Co : les trois scopes convergent vers ESRS E1 et VSME, avec piste d’audit" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <text class="bp-t bp-in" style="--s: 0" x="12" y="54">Scope 1</text>
+                <text class="bp-t bp-in" style="--s: 0" x="12" y="114">Scope 2</text>
+                <text class="bp-t bp-in" style="--s: 0" x="12" y="174">Scope 3</text>
+                <path class="bp-l bp-l--s bp-draw bp-band" pathLength="1" style="--s: 1" d="M74 50C190 50 214 110 300 110"/>
+                <path class="bp-l bp-l--s bp-draw bp-band" pathLength="1" style="--s: 1" d="M74 110H300"/>
+                <path class="bp-l bp-l--s bp-draw bp-band" pathLength="1" style="--s: 1" d="M74 170C190 170 214 110 300 110"/>
+                <path class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 3" d="M300 110C350 110 352 73 396 73"/>
+                <path class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 3" d="M300 110C350 110 352 147 396 147"/>
+                <line class="bp-l bp-l--o bp-draw" pathLength="1" style="--s: 3" x1="300" y1="116" x2="300" y2="178"/>
+                <circle class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 2" cx="300" cy="110" r="5.5"/>
+                <text class="bp-m bp-in" style="--s: 2" x="300" y="94" text-anchor="middle">tCO₂e</text>
+                <g class="bp-box"><rect class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 4" x="396" y="58" width="112" height="30"/><text class="bp-t bp-in" style="--s: 4" x="452" y="77" text-anchor="middle">ESRS E1</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--p bp-draw bp-fill" pathLength="1" style="--s: 4" x="396" y="132" width="112" height="30"/><text class="bp-t bp-in" style="--s: 4" x="452" y="151" text-anchor="middle">VSME</text></g>
+                <g class="bp-box"><rect class="bp-l bp-l--o bp-draw bp-fill" pathLength="1" style="--s: 4" x="244" y="178" width="112" height="28"/><text class="bp-t bp-in" style="--s: 4" x="300" y="196" text-anchor="middle">Piste d’audit</text></g>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">
@@ -220,8 +274,28 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-kyb-graph-q" aria-expanded="true" aria-controls="fiche-kyb-graph-body">Qui se trouve vraiment derrière une société ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-kyb-graph-body">
-            <div class="fr-blueprint" data-blueprint="kyb-graph">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="kyb-graph" role="group" aria-label="Schéma de KYB Graph : cinq nœuds et le niveau de preuve de chaque lien" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <g class="bp-hot k1" tabindex="0" role="img" aria-label="Société → Holding : Confirmé · registre officiel"><rect class="bp-hit" x="93" y="102" width="150" height="20"/><line class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 1" x1="93" y1="112" x2="243" y2="112"/><path class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 1" d="M238 108.5L243 112L238 115.5"/></g>
+                <g class="bp-hot k2" tabindex="0" role="img" aria-label="Holding → UBO : Déclaré · déclaratif"><rect class="bp-hit" x="257" y="102" width="150" height="20"/><line class="bp-l bp-l--o bp-draw" pathLength="1" style="--s: 2" x1="257" y1="112" x2="407" y2="112"/><path class="bp-l bp-l--o bp-draw" pathLength="1" style="--s: 2" d="M402 108.5L407 112L402 115.5"/></g>
+                <g class="bp-hot k3" tabindex="0" role="img" aria-label="Holding → Juridiction : Confirmé · registre officiel"><rect class="bp-hit" x="240" y="47" width="20" height="58"/><line class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 2" x1="250" y1="105" x2="250" y2="47"/></g>
+                <g class="bp-hot k4" tabindex="0" role="img" aria-label="UBO → Sanctions : Confirmé · registre officiel"><rect class="bp-hit" x="404" y="119" width="20" height="58"/><line class="bp-l bp-l--p bp-draw" pathLength="1" style="--s: 3" x1="414" y1="119" x2="414" y2="177"/></g>
+                <circle class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 0" cx="86" cy="112" r="7"/>
+                <circle class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 0" cx="250" cy="112" r="7"/>
+                <circle class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 0" cx="414" cy="112" r="7"/>
+                <circle class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 0" cx="250" cy="40" r="7"/>
+                <circle class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 0" cx="414" cy="184" r="7"/>
+                <text class="bp-t bp-in" style="--s: 0" x="86" y="136" text-anchor="middle">Société</text>
+                <text class="bp-t bp-in" style="--s: 0" x="250" y="136" text-anchor="middle">Holding</text>
+                <text class="bp-t bp-in" style="--s: 0" x="428" y="116">UBO</text>
+                <text class="bp-t bp-in" style="--s: 0" x="264" y="44">Juridiction</text>
+                <text class="bp-t bp-in" style="--s: 0" x="428" y="188">Sanctions</text>
+                <line class="bp-l bp-l--p" x1="14" y1="204" x2="34" y2="204"/>
+                <text class="bp-m bp-in" style="--s: 0" x="40" y="208">Registre officiel</text>
+                <line class="bp-l bp-l--o" x1="150" y1="204" x2="170" y2="204"/>
+                <text class="bp-m bp-in" style="--s: 0" x="176" y="208">Déclaratif</text>
+                <g class="bp-tips"><g class="bp-tip k1" aria-hidden="true"><rect x="82" y="76" width="176" height="22"/><text class="bp-m" x="90" y="91">Confirmé · registre officiel</text></g><g class="bp-tip k2" aria-hidden="true"><rect x="254" y="76" width="156" height="22"/><text class="bp-m" x="262" y="91">Déclaré · déclaratif</text></g><g class="bp-tip k3" aria-hidden="true"><rect x="262" y="62" width="176" height="22"/><text class="bp-m" x="270" y="77">Confirmé · registre officiel</text></g><g class="bp-tip k4" aria-hidden="true"><rect x="230" y="152" width="176" height="22"/><text class="bp-m" x="238" y="167">Confirmé · registre officiel</text></g></g>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">
@@ -257,8 +331,33 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-panoplie-q" aria-expanded="true" aria-controls="fiche-panoplie-body">Que coûte réellement un système de défense ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-panoplie-body">
-            <div class="fr-blueprint" data-blueprint="panoplie">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="panoplie" role="group" aria-label="Schéma de Panoplie : décomposition du coût complet d’un programme, proportions illustratives" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <text class="bp-t bp-in" style="--s: 0" x="260" y="50" text-anchor="middle">Coût complet du programme</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="14" y1="62" x2="506" y2="62"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="14" y1="56" x2="14" y2="68"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="506" y1="56" x2="506" y2="68"/>
+                <rect class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 1" x="14" y="88" width="98.4" height="34"/>
+                <text class="bp-t bp-in" style="--s: 1" x="63.2" y="109" text-anchor="middle">R&amp;D</text>
+                <rect class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 2" x="112.4" y="88" width="147.6" height="34"/>
+                <text class="bp-t bp-in" style="--s: 2" x="186.2" y="109" text-anchor="middle">Acquisition</text>
+                <rect class="bp-l bp-l--a bp-draw bp-fill" pathLength="1" style="--s: 3" x="260" y="88" width="172.2" height="34"/>
+                <text class="bp-t bp-in" style="--s: 3" x="346.1" y="109" text-anchor="middle">MCO</text>
+                <rect class="bp-l bp-l--o bp-draw bp-fill" pathLength="1" style="--s: 4" x="432.2" y="88" width="73.8" height="34"/>
+                <path class="bp-l bp-l--o bp-draw" pathLength="1" style="--s: 4" d="M469.1 122V150"/>
+                <text class="bp-t bp-o bp-in" style="--s: 4" x="506" y="165" text-anchor="end">Dépendances critiques</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="14" y1="122" x2="14" y2="129"/>
+                <text class="bp-m bp-in" style="--s: 2" x="14" y="142">0 %</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="137" y1="122" x2="137" y2="129"/>
+                <text class="bp-m bp-in" style="--s: 2" x="137" y="142" text-anchor="middle">25 %</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="260" y1="122" x2="260" y2="129"/>
+                <text class="bp-m bp-in" style="--s: 2" x="260" y="142" text-anchor="middle">50 %</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="383" y1="122" x2="383" y2="129"/>
+                <text class="bp-m bp-in" style="--s: 2" x="383" y="142" text-anchor="middle">75 %</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="506" y1="122" x2="506" y2="129"/>
+                <text class="bp-m bp-in" style="--s: 4" x="14" y="207">Chaque montant : périmètre, année, incertitude, sources</text>
+                <text class="bp-m bp-in" style="--s: 4" x="506" y="207" text-anchor="end">Proportions illustratives</text>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">
@@ -294,8 +393,45 @@
               <h3 class="fr-fiche__question"><button class="fr-fiche__toggle" type="button" id="fiche-publications-q" aria-expanded="true" aria-controls="fiche-publications-body">Dans quel monde ces entreprises évoluent-elles ?</button></h3>
             </div>
             <div class="fr-fiche__body" id="fiche-publications-body">
-            <div class="fr-blueprint" data-blueprint="publications">
-              <p class="fr-blueprint__label">Schéma du pipeline en préparation</p>
+            <div class="fr-blueprint" data-blueprint="publications" role="group" aria-label="Schéma des Publications : notes et dossiers datés, par bloc thématique" tabindex="0">
+              <svg class="bp" viewBox="0 0 520 220" focusable="false">
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 0" x1="12" y1="30" x2="508" y2="30"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" x1="12" y1="49" x2="508" y2="49"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 2" x1="12" y1="68" x2="508" y2="68"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 3" x1="12" y1="87" x2="508" y2="87"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 4" x1="12" y1="106" x2="508" y2="106"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 4" x1="12" y1="125" x2="508" y2="125"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 4" x1="12" y1="144" x2="508" y2="144"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 4" x1="12" y1="163" x2="508" y2="163"/>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 4" x1="12" y1="182" x2="508" y2="182"/>
+                <text class="bp-k bp-in" style="--s: 1" x="180" y="22">sept. 2026</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" x1="253.1" y1="18" x2="253.1" y2="182"/>
+                <text class="bp-k bp-in" style="--s: 1" x="257.1" y="22">oct.</text>
+                <line class="bp-l bp-l--s bp-draw" pathLength="1" style="--s: 1" x1="412.6" y1="18" x2="412.6" y2="182"/>
+                <text class="bp-k bp-in" style="--s: 1" x="416.6" y="22">nov.</text>
+                <text class="bp-m bp-in" style="--s: 1" x="12" y="43.5">Géopolitique</text>
+                <text class="bp-m bp-in" style="--s: 2" x="12" y="62.5">Géoéconomie</text>
+                <text class="bp-m bp-in" style="--s: 3" x="12" y="81.5">Banques centrales &amp; taux</text>
+                <text class="bp-m bp-in" style="--s: 4" x="12" y="100.5">Defense-Tech</text>
+                <text class="bp-m bp-in" style="--s: 4" x="12" y="119.5">IA &amp; science</text>
+                <text class="bp-m bp-in" style="--s: 4" x="12" y="138.5">Robotique &amp; marchés</text>
+                <text class="bp-m bp-in" style="--s: 4" x="12" y="157.5">Quantique &amp; industrie</text>
+                <text class="bp-m bp-in" style="--s: 4" x="12" y="176.5">Nutraceutique &amp; santé</text>
+                <circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="16" cy="203" r="2.6"/>
+                <text class="bp-m bp-in" style="--s: 4" x="25" y="207">Note</text>
+                <rect class="bp-dot bp-dot--o bp-in" style="--s: 4" x="70" y="199" width="8" height="8"/>
+                <text class="bp-m bp-in" style="--s: 4" x="84" y="207">Dossier</text>
+                <text class="bp-m bp-in" style="--s: 4" x="508" y="207" text-anchor="end">23 notes · 3 dossiers</text>
+                <g class="bp-hot k1" tabindex="0" role="img" aria-label="Notes 01–03 · 26 septembre 2026"><rect class="bp-hit" x="221.4" y="31" width="62" height="17"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 1" cx="227.4" cy="39.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 1" cx="234.4" cy="39.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 1" cx="241.4" cy="39.5" r="2.6"/><text class="bp-m bp-in" style="--s: 1" x="250.4" y="43.5">26/09</text></g>
+                <g class="bp-hot k2" tabindex="0" role="img" aria-label="Notes 04–06 · 26 septembre 2026"><rect class="bp-hit" x="221.4" y="50" width="62" height="17"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 2" cx="227.4" cy="58.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 2" cx="234.4" cy="58.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 2" cx="241.4" cy="58.5" r="2.6"/><text class="bp-m bp-in" style="--s: 2" x="250.4" y="62.5">26/09</text></g>
+                <g class="bp-hot k3" tabindex="0" role="img" aria-label="Notes 18–23 · 31 octobre 2026"><rect class="bp-hit" x="401.4" y="69" width="83" height="17"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="407.4" cy="77.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="414.4" cy="77.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="421.4" cy="77.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="428.4" cy="77.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="435.4" cy="77.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 3" cx="442.4" cy="77.5" r="2.6"/><text class="bp-m bp-in" style="--s: 3" x="451.4" y="81.5">31/10</text></g>
+                <g class="bp-hot k4" tabindex="0" role="img" aria-label="Notes 07–09 · 26 septembre 2026"><rect class="bp-hit" x="221.4" y="88" width="62" height="17"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="227.4" cy="96.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="234.4" cy="96.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="241.4" cy="96.5" r="2.6"/><text class="bp-m bp-in" style="--s: 4" x="250.4" y="100.5">26/09</text></g>
+                <g class="bp-hot k5" tabindex="0" role="img" aria-label="Notes 10–17 · 8 octobre 2026"><rect class="bp-hit" x="283.1" y="107" width="97" height="17"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="289.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="296.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="303.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="310.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="317.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="324.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="331.1" cy="115.5" r="2.6"/><circle class="bp-dot bp-dot--p bp-in" style="--s: 4" cx="338.1" cy="115.5" r="2.6"/><text class="bp-m bp-in" style="--s: 4" x="347.1" y="119.5">08/10</text></g>
+                <g class="bp-hot k6" tabindex="0" role="img" aria-label="Dossier · 14 octobre 2026"><rect class="bp-hit" x="314" y="126" width="52" height="17"/><rect class="bp-dot bp-dot--o bp-in" style="--s: 4" x="316" y="130.5" width="8" height="8"/><text class="bp-m bp-in" style="--s: 4" x="333" y="138.5">14/10</text></g>
+                <g class="bp-hot k7" tabindex="0" role="img" aria-label="Dossier · 10 novembre 2026"><rect class="bp-hit" x="452.9" y="145" width="52" height="17"/><rect class="bp-dot bp-dot--o bp-in" style="--s: 4" x="454.9" y="149.5" width="8" height="8"/><text class="bp-m bp-in" style="--s: 4" x="471.9" y="157.5">10/11</text></g>
+                <g class="bp-hot k8" tabindex="0" role="img" aria-label="Dossier · 9 novembre 2026"><rect class="bp-hit" x="447.7" y="164" width="52" height="17"/><rect class="bp-dot bp-dot--o bp-in" style="--s: 4" x="449.7" y="168.5" width="8" height="8"/><text class="bp-m bp-in" style="--s: 4" x="466.7" y="176.5">09/11</text></g>
+                <g class="bp-tips"><g class="bp-tip k1" aria-hidden="true"><rect x="207.4" y="51" width="190" height="22"/><text class="bp-m" x="215.4" y="66">Notes 01–03 · 26 septembre 2026</text></g><g class="bp-tip k2" aria-hidden="true"><rect x="207.4" y="26" width="190" height="22"/><text class="bp-m" x="215.4" y="41">Notes 04–06 · 26 septembre 2026</text></g><g class="bp-tip k3" aria-hidden="true"><rect x="322" y="45" width="190" height="22"/><text class="bp-m" x="330" y="60">Notes 18–23 · 31 octobre 2026</text></g><g class="bp-tip k4" aria-hidden="true"><rect x="207.4" y="64" width="190" height="22"/><text class="bp-m" x="215.4" y="79">Notes 07–09 · 26 septembre 2026</text></g><g class="bp-tip k5" aria-hidden="true"><rect x="269.1" y="83" width="190" height="22"/><text class="bp-m" x="277.1" y="98">Notes 10–17 · 8 octobre 2026</text></g><g class="bp-tip k6" aria-hidden="true"><rect x="300" y="102" width="190" height="22"/><text class="bp-m" x="308" y="117">Dossier · 14 octobre 2026</text></g><g class="bp-tip k7" aria-hidden="true"><rect x="322" y="121" width="190" height="22"/><text class="bp-m" x="330" y="136">Dossier · 10 novembre 2026</text></g><g class="bp-tip k8" aria-hidden="true"><rect x="322" y="140" width="190" height="22"/><text class="bp-m" x="330" y="155">Dossier · 9 novembre 2026</text></g></g>
+              </svg>
             </div>
             <dl class="fr-fiche__fields">
               <div class="fr-field">

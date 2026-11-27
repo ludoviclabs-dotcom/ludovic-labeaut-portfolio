@@ -214,6 +214,35 @@ Objectif : retirer tout effet « IA générative » et atteindre une rigueur éd
   87 contrôles ; Lighthouse ordinateur 99 et mobile 92 à 100 selon les mesures, accessibilité, bonnes
   pratiques et SEO 100, CLS 0,001.
 
-## Étape 3 — Schémas des projets (à venir)
+## Étape 3 — Schémas des projets ✅
 
-- Remplir chaque zone `data-blueprint` avec le schéma du pipeline du projet.
+- **Composant** : `scripts/blueprints.mjs` (l'équivalent statique de `ProjectBlueprint`). Une fonction par
+  projet, sur des briques communes (trait, tracé, boîte, texte, zone sensible, infobulle). Le générateur
+  insère chaque SVG dans la zone `data-blueprint` de sa fiche ; les libellés FR et EN sont sous la clé
+  `schemas` de `public/data/fil-rouge.json` et passent par `build-en` comme le reste de la page.
+- **Règles** : viewBox `0 0 520 220`, traits de 1,25 (bandes de flux de Carbon&Co : 3), Source Sans 3 en
+  chiffres tabulaires, palette `#CBD5E1` / `#111418` / `#4A5568` / `#16324F` / `#A84B20`, ni dégradé ni ombre.
+- **Six schémas** :
+  1. Probant : FEC (.txt) → Équilibre, Benford, Cut-off → Dossier de preuve ; anomalie ocre sur la branche
+     Benford, règle de contrôle au survol ou au focus.
+  2. FinValStudio : fourchettes DCF et multiples EV/EBITDA sous une distribution Monte Carlo ; repères P10,
+     médiane, P90 expliqués au survol ; dispersion P10–P90 en ocre. Aucun montant.
+  3. Carbon&Co : Scopes 1, 2, 3 → tCO₂e → ESRS E1 et VSME ; piste d'audit en ocre.
+  4. KYB Graph : Société → Holding → UBO, liens Juridiction et Sanctions ; le survol d'un lien l'épaissit et
+     affiche son niveau de preuve (« Confirmé · registre officiel » ou « Déclaré · déclaratif »).
+  5. Panoplie : coût complet en quatre segments (R&D, Acquisition, MCO, Dépendances critiques en ocre),
+     échelle 0 à 75 %. Parts 20 / 30 / 35 / 15 **illustratives**, signalées sur le schéma.
+  6. Publications : grille des huit blocs par date, **calculée à partir de `public/publications/index.html`**
+     (23 notes les 26/09, 08/10 et 31/10/2026 ; 3 dossiers les 14/10, 09/11 et 10/11/2026).
+- **Animation** : tracé progressif (`stroke-dashoffset`, `pathLength="1"`), 450 ms par trait, courbe
+  `cubic-bezier(0.22, 1, 0.36, 1)`, décalage de 90 ms par rang ; déclenché à l'entrée à l'écran puis à chaque
+  réaffichage de la fiche ; coupé avec « réduire les animations » et absent sans JavaScript.
+- **Accessibilité** : chaque schéma est un groupe nommé ; les zones sensibles sont atteignables au clavier
+  et portent leur texte en `aria-label`. Sous 480 px de large, le schéma garde sa taille et son cadre
+  défile horizontalement.
+- **À relire (contenu)** : Équilibre et Benford ne figurent pas sur la page de Probant (qui cite doublons,
+  hors période, séquence rompue) ; VSME ne figure pas sur celle de Carbon&Co ; EV/EBITDA ne figure pas sur
+  celle de FinValStudio ; l'attribution des niveaux de preuve aux liens de KYB Graph est un exemple.
+- **Vérifications** : `npm test` 95 contrôles (dont, en FR et en EN : aucun texte hors cadre, hors de sa boîte
+  ou de son infobulle, aucun chevauchement, palette et épaisseurs conformes, animation, survols) ;
+  `npm run typecheck` 0 erreur ; Lighthouse ordinateur 99, mobile 90, accessibilité 100, CLS 0,001.

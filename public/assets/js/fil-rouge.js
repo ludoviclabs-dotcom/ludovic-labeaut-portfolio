@@ -8,6 +8,7 @@
  * - En dessous : accordéon manuel, première fiche ouverte, sans défilement automatique.
  * - Sans JavaScript : les six fiches restent ouvertes, l'une sous l'autre.
  * Changement de fiche : fondu léger (opacité et 6 px), 220 ms, coupé si « réduire les animations ».
+ * Schémas : la classe is-inview, posée à l'entrée à l'écran, déclenche le tracé (fil-rouge.css).
  *
  * Vérification des types : npm run typecheck (TypeScript en mode checkJs, sans compilation).
  */
@@ -212,6 +213,26 @@
       history.replaceState(null, "", link.hash);
     }
   });
+
+  /* ---------- Schémas : tracé à l'entrée à l'écran ---------- */
+
+  /** @type {HTMLElement[]} */
+  const blueprints = Array.from(dossier.querySelectorAll(".fr-blueprint"));
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (records) => {
+        for (const record of records) {
+          if (!record.isIntersecting) continue;
+          record.target.classList.add("is-inview");
+          observer.unobserve(record.target);
+        }
+      },
+      { threshold: 0.35 },
+    );
+    for (const blueprint of blueprints) observer.observe(blueprint);
+  } else {
+    for (const blueprint of blueprints) blueprint.classList.add("is-inview");
+  }
 
   split.addEventListener("change", applyMode);
   applyMode();
